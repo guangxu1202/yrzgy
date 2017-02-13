@@ -89,7 +89,7 @@
                             },
                             threshold :  2 , //有2字符以上才发送ajax请求，
                             remote: {
-                                url: '__MODULE__/Cate/checkArticle',//验证地址
+                                url: '__MODULE__/Cate/checkArticle/pa/{$vo.pk}',//验证地址
                                 message: '分类已存在',//提示消息
                                 delay :  2000,//2秒发送一次ajax
                                 type: 'POST'//请求方式

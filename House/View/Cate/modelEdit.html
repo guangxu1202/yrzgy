@@ -105,7 +105,7 @@
                             },
                             threshold :  2 , //有2字符以上才发送ajax请求，
                             remote: {
-                                url: '__MODULE__/Cate/checkModel',//验证地址
+                                url: '__MODULE__/Cate/checkModel/pa/{$vo.pk}',//验证地址
                                 message: '模块已存在',//提示消息
                                 delay :  2000,//2秒发送一次ajax
                                 type: 'POST'//请求方式

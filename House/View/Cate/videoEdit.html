@@ -46,7 +46,7 @@
                                 <!-- ckeditor -->
                                 <script src="{$Think.const.PUBLIC_URL}/ckeditor/ckeditor.js"></script>
                                 <textarea name="description">{$vo.description}</textarea>
-                                <script type="text/javascript">CKEDITOR.replace('description',{ toolbar : 'Full'});</script>z`
+                                <script type="text/javascript">CKEDITOR.replace('description',{ filebrowserImageUploadUrl  :  '__MODULE__/Files/ck_upload',height : 500});</script>
                             </div>
                         </div>
 
@@ -116,7 +116,7 @@
                             },
                             threshold :  2 , //有2字符以上才发送ajax请求，
                             remote: {
-                                url: '__MODULE__/Cate/checkVideo',//验证地址
+                                url: '__MODULE__/Cate/checkVideo/pa/{$vo.pk}',//验证地址
                                 message: '分类已存在',//提示消息
                                 delay :  2000,//2秒发送一次ajax
                                 type: 'POST'//请求方式

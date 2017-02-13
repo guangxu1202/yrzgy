@@ -96,7 +96,11 @@ class CateController extends CommonController {
         $model = M("model"); // 实例化User对象
         $info = $model->where('name="'.$_POST["name"].'"')->find();
         if (!empty($info)){
-            $data['valid'] = false;
+            if ($info["pk"] !== I("get.pa")){
+                $data['valid'] = false;
+            }else{
+                $data['valid'] = true;
+            }
         }else{
             $data['valid'] = true;
         }
@@ -145,13 +149,19 @@ class CateController extends CommonController {
     }
     //video name是否重名
     function checkVideo(){
+
         $model = M("video_category"); // 实例化User对象
         $info = $model->where('name="'.$_POST["name"].'"')->find();
         if (!empty($info)){
-            $data['valid'] = false;
+            if ($info["pk"] !== I("get.pa")){
+                $data['valid'] = false;
+            }else{
+                $data['valid'] = true;
+            }
         }else{
             $data['valid'] = true;
         }
+
         $this->ajaxReturn($data);
     }
     //添加视频分类
@@ -262,7 +272,11 @@ class CateController extends CommonController {
         $model = M("category"); // 实例化User对象
         $info = $model->where('name="'.$_POST["name"].'"')->find();
         if (!empty($info)){
-            $data['valid'] = false;
+            if ($info["pk"] !== I("get.pa")){
+                $data['valid'] = false;
+            }else{
+                $data['valid'] = true;
+            }
         }else{
             $data['valid'] = true;
         }

@@ -10,3 +10,10 @@
 .Edit tbody td em {margin-left: 20px; width: 250px;}
 .Edit tbody th {background-color: #fafaf1; text-align: right;}
 .Edit tfoot td {height: 30px; background-color: #eef4ea; border: 1px solid #e5e5c6; padding-left: 20%;}
+
+.option-transfer-select-button {width: 50px; border:none; background-color: #4f99c6; color: #fff; font-family: Simsun;}
+.option-transfer-select-td table tbody tr td {vertical-align: middle;}
+.tr-highlight {background-color: #F1F8B4;}
+.select-table{}
+.select-table select{ height: 230px;}
+.select-table .select-op{padding: 0 10px;}
