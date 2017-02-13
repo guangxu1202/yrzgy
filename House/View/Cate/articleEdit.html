@@ -1,0 +1,121 @@
+<extend name="./base" />
+<block name="title"><title>修改 - 文章分类管理 - 分类管理 - 元认知干预网站管理后台系统</title></block>
+<block name="content">
+    <div class="breadcrumbs" id="breadcrumbs">
+        <script type="text/javascript">
+            try{ace.settings.check('breadcrumbs' , 'fixed')}catch(e){}
+        </script>
+
+        <ul class="breadcrumb">
+            <li>
+                <i class="icon-home home-icon"></i>
+                <a href="#">首页</a>
+            </li>
+            <li class="active">分类管理</li>
+        </ul><!-- .breadcrumb -->
+
+    </div>
+
+    <div class="page-content">
+        <div class="page-header">
+            <h1>
+                文章分类管理
+                <small>
+                    <i class="icon-double-angle-right"></i>
+                    修改
+                </small>
+            </h1>
+        </div><!-- /.page-header -->
+        <div class="row">
+            <div class="col-xs-12" >
+                <form class="form-horizontal" id="myForm" method="post" action="__SELF__">
+                    <foreach name="info" item="vo" >
+                        <div class="space-4"></div>
+                        <input type="hidden" name="pk" value="{$vo.pk}">
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label no-padding-right">分类名称： </label>
+                            <div class="col-sm-5">
+                                <input placeholder="请输入分类名称" class="form-control" type="text" name="name" value="{$vo.name}" >
+                            </div>
+                        </div>
+
+
+                        <div class="space-4"></div>
+                    </foreach>
+                    <div class="clearfix form-actions">
+                        <div class="col-md-offset-3 col-md-9">
+                            <div class="row">
+                                <button class="btn btn-info" type="submit">
+                                    <i class="icon-ok bigger-110"></i>
+                                    提交
+                                </button>
+                                <button class="btn" type="button" onclick="javascript:history.back()">返回</button>
+                            </div>
+                        </div>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+
+    </div>
+</block>
+
+<block name="public">
+    <!-- page specific plugin scripts -->
+    <script src="{$Think.const.ADMIN_URL}/js/jquery.dataTables.min.js"></script>
+    <script src="{$Think.const.ADMIN_URL}/js/jquery.dataTables.bootstrap.js"></script>
+    <!-- inline scripts related to this page -->
+    <script src="{$Think.const.ADMIN_URL}/js/admin.js"></script>
+    <script type="text/javascript">
+        $(function(){
+            $('#myForm').bootstrapValidator({
+                message: 'This value is not valid',
+                feedbackIcons: {
+                    valid: 'glyphicon glyphicon-ok',
+                    invalid: 'glyphicon glyphicon-remove',
+                    validating: 'glyphicon glyphicon-refresh'
+                },
+                fields: {
+                    name: {
+                        validators: {
+                            notEmpty: {
+                                message: '分类名称不能为空'
+                            },
+                            stringLength: {
+                                min: 2,
+                                max: 40,
+                                message: '分类名称长度必须在2到40之间'
+                            },
+                            threshold :  2 , //有2字符以上才发送ajax请求，
+                            remote: {
+                                url: '__MODULE__/Cate/checkArticle',//验证地址
+                                message: '分类已存在',//提示消息
+                                delay :  2000,//2秒发送一次ajax
+                                type: 'POST'//请求方式
+                            },
+                            regexp: {
+                                regexp: /^[0-9a-zA-Z\u4e00-\u9fa5]+$/,
+                                message: '分类由中英文和数字组成'
+                            }
+                        }
+                    }
+                },
+                submitHandler: function(validator, form, submitButton) {
+                    // a)
+                    // Use Ajax to submit form data
+                    //$.post(form.attr('action'), form.serialize(), function(result) {
+                    // ... process the result ...
+                    //}, 'json');
+
+                    //b)
+                    // Do your task
+                    // ...
+                    // Submit the form
+                    validator.defaultSubmit();
+                }
+
+            });
+        })
+    </script>
+</block>

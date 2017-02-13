@@ -1,0 +1,178 @@
+<extend name="./base" />
+<block name="title"><title>修改 - 视频分类管理 - 分类管理 - 元认知干预网站管理后台系统</title></block>
+<block name="content">
+    <div class="breadcrumbs" id="breadcrumbs">
+        <script type="text/javascript">
+            try{ace.settings.check('breadcrumbs' , 'fixed')}catch(e){}
+        </script>
+
+        <ul class="breadcrumb">
+            <li>
+                <i class="icon-home home-icon"></i>
+                <a href="#">首页</a>
+            </li>
+            <li class="active">分类管理</li>
+        </ul><!-- .breadcrumb -->
+
+    </div>
+
+    <div class="page-content">
+        <div class="page-header">
+            <h1>
+                视频分类管理
+                <small>
+                    <i class="icon-double-angle-right"></i>
+                    修改
+                </small>
+            </h1>
+        </div><!-- /.page-header -->
+        <div class="row">
+            <div class="col-xs-12">
+                <form class="form-horizontal" id="myForm" method="post" action="__SELF__">
+                    <foreach name="info" item="vo" >
+                        <div class="space-4"></div>
+                        <input type="hidden" name="pk" value="{$vo.pk}">
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label no-padding-right"> <span class="red">*</span>分类名称： </label>
+                            <div class="col-sm-5">
+                                <input placeholder="请输入分类名称" class="form-control" type="text" name="name"  value="{$vo.name}">
+                            </div>
+                        </div>
+
+                        <div class="space-4"></div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label no-padding-right">分类介绍： </label>
+                            <div class="col-sm-9">
+                                <!-- ckeditor -->
+                                <script src="{$Think.const.PUBLIC_URL}/ckeditor/ckeditor.js"></script>
+                                <textarea name="description">{$vo.description}</textarea>
+                                <script type="text/javascript">CKEDITOR.replace('description',{ toolbar : 'Full'});</script>z`
+                            </div>
+                        </div>
+
+                        <div class="space-4"></div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label no-padding-right"> <span class="red">*</span>价格： </label>
+                            <div class="col-sm-5">
+                                <input placeholder="请输入价格，如88.88" class="form-control" type="text" name="price"  value="{$vo.price}">
+                            </div>
+                        </div>
+
+                        <div class="space-4"></div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label no-padding-right"> <span class="red">*</span>自定义排序： </label>
+                            <div class="col-sm-5">
+                                <input placeholder="请输入自定义排序, 数字大的在前面." class="form-control" type="text" name="custom_sort" value="{$vo.custom_sort}">
+                                <span class="grey">请输入自定义排序,数字大的在前面</span>
+                            </div>
+                        </div>
+
+
+                        <div class="space-4"></div>
+                    </foreach>
+                    <div class="clearfix form-actions">
+                        <div class="col-md-offset-3 col-md-9">
+                            <div class="row">
+                                <button class="btn btn-info" type="submit">
+                                    <i class="icon-ok bigger-110"></i>
+                                    提交
+                                </button>
+                                <button class="btn" type="button" onclick="javascript:history.back()">返回</button>
+                            </div>
+
+                        </div>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+
+    </div>
+</block>
+
+<block name="public">
+
+    <!-- inline scripts related to this page -->
+    <script src="{$Think.const.ADMIN_URL}/js/admin.js"></script>
+    <script type="text/javascript">
+        $(function(){
+            $('#myForm').bootstrapValidator({
+                message: 'This value is not valid',
+                feedbackIcons: {
+                    valid: 'glyphicon glyphicon-ok',
+                    invalid: 'glyphicon glyphicon-remove',
+                    validating: 'glyphicon glyphicon-refresh'
+                },
+                fields: {
+                    name: {
+                        validators: {
+                            notEmpty: {
+                                message: '分类名称不能为空'
+                            },
+                            stringLength: {
+                                min: 2,
+                                max: 40,
+                                message: '模块名称长度必须在2到40之间'
+                            },
+                            threshold :  2 , //有2字符以上才发送ajax请求，
+                            remote: {
+                                url: '__MODULE__/Cate/checkVideo',//验证地址
+                                message: '分类已存在',//提示消息
+                                delay :  2000,//2秒发送一次ajax
+                                type: 'POST'//请求方式
+                            },
+                            regexp: {
+                                regexp: /^[0-9a-zA-Z\u4e00-\u9fa5]+$/,
+                                message: '用户名由中英文和数字组成'
+                            }
+                        }
+                    },
+                    price: {
+                        validators: {
+                            notEmpty: {
+                                message: '价格不能为空'
+                            },
+                            numeric :  {
+                                message: '请输入合法数字'
+                            },
+                            regexp: {
+                                regexp: /^([1-9]\d*|0)(\.\d{1,2})?$/,
+                                message: '请输入正确的价格，小数后最多两位'
+                            }
+                        }
+                    },
+                    custom_sort: {
+                        validators: {
+                            notEmpty: {
+                                message: '自定义排序不能为空'
+                            },
+                            stringLength: {
+                                min: 1,
+                                max: 10,
+                                message: '自定义排序长度必须在1到10之间'
+                            },
+                            digits :  {
+                                message: '只能输入整数'
+                            }
+                        }
+                    }
+
+                },
+                submitHandler: function(validator, form, submitButton) {
+                    // a)
+                    // Use Ajax to submit form data
+                    //$.post(form.attr('action'), form.serialize(), function(result) {
+                    // ... process the result ...
+                    //}, 'json');
+
+                    //b)
+                    // Do your task
+                    // ...
+                    // Submit the form
+                    validator.defaultSubmit();
+                }
+
+            });
+        })
+    </script>
+</block>

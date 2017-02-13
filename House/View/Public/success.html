@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>跳转提示</title>
+    <style>
+        html{background-color: #f2f2f2; text-align: center;}
+        .system-message h1{font-size: 14px; font-weight: 100; padding-top: 20px;}
+        .system-message{max-width: 1000px; margin: 50px auto 0; padding: 50px 0;background-color: #fff; color:#666;}
+        .success{color: deepskyblue; font-size: 24px;}
+        .system-message a{color: #333;}
+        .system-message a:link,.system-message a:visited{text-decoration: underline;}
+        .system-message a:hover{text-decoration: underline; color: #000;}
+        .jump{ font-size:12px;}
+    </style>
+</head>
+<body>
+<div class="system-message">
+    <img src="{$Think.const.ADMIN_URL}/images/success.png">
+    <h1>恭喜您，成功了！</h1>
+    <p class="success"><?php echo($message); ?></p>
+    <p class="detail"></p>
+    <p class="jump">
+        <b id="wait"><?php echo($waitSecond); ?></b> 秒后页面将自动跳转...<a id="href" href="<?php echo($jumpUrl); ?>">立即跳转</a>
+    </p>
+
+</div>
+<script type="text/javascript">
+    (function(){
+        var wait = document.getElementById('wait'),href = document.getElementById('href').href;
+        var interval = setInterval(function(){
+            var time = --wait.innerHTML;
+            if(time <= 0) {
+                location.href = href;
+                clearInterval(interval);
+            }
+        }, 1000);
+        window.stop = function (){
+            console.log(111);
+            clearInterval(interval);
+        }
+    })();
+</script>
+</body>
+</html>

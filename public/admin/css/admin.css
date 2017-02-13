@@ -1,0 +1,12 @@
+.nav-list>li.special>a{background-color: #fff;}
+.form-info{padding-top: 5px;}
+.lab{ display:inline-block; margin-right: 10px;}
+    .lab input{vertical-align: middle; margin-top: -3px; margin-right: 3px;}
+
+/*edit page*/
+.Edit {width: 100%; margin-bottom: 8px;}
+.Edit thead td {background-color: #d6dead; line-height: 30px; padding-left: 10px; font-weight: bold; color: #4e5c05; height: 30px; border: 1px solid #b6c569;}
+.Edit tbody th,.Edit tbody td {border: 1px solid #e5e5c6; padding: 5px; vertical-align: top;}
+.Edit tbody td em {margin-left: 20px; width: 250px;}
+.Edit tbody th {background-color: #fafaf1; text-align: right;}
+.Edit tfoot td {height: 30px; background-color: #eef4ea; border: 1px solid #e5e5c6; padding-left: 20%;}
