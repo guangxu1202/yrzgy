@@ -182,3 +182,14 @@ function swapOptions(objTargetElement, first, second) {
 	opt[first] = temp2;
 	opt[second] = temp;
 }
+
+function setOptval() {
+    // $("#smodule").val()
+    var opt = $("#right").find("option");
+    var str = new Array();
+    // alert($("#right").find("option").size())
+    for (var i = 1; i < opt.length; i++){
+        str[i-1] = opt.eq(i).val();
+    }
+    $("#smodule").val(str);
+}

@@ -21,8 +21,11 @@ class ArticleModel extends Model{
         array('custom_sort','1,10','自定义排序长度必须在1到10之间！',3,'length'),
         array('custom_sort', '/^[1-9][0-9]*$/' , '自定义排序必须是正整数' , 3, 'regex'),
 
+        //所属模块
+        array("smodule","require","所属模块至少选择一个"),
+
         //所属分类
-        array("selected","require","所属分类至少选择一个"),
+        array("category_id","require","所属分类至少选择一个"),
 
         //关键词
         array('keywords','0,200','关键词长度必须在0到200之间！',3,'length'),
