@@ -1,0 +1,144 @@
+<extend name="./base" />
+<block name="title"><title>查看 - 文章管理 - 内容管理 - 元认知干预网站管理后台系统</title></block>
+<block name="content">
+    <div class="breadcrumbs" id="breadcrumbs">
+
+
+        <ul class="breadcrumb">
+            <li>
+                <i class="icon-home home-icon"></i>
+                <a href="#">首页</a>
+            </li>
+            <li class="active">内容管理</li>
+        </ul><!-- .breadcrumb -->
+
+    </div>
+
+    <div class="page-content">
+        <div class="page-header">
+            <h1>
+                文章管理
+                <small>
+                    <i class="icon-double-angle-right"></i>
+                    查看
+                </small>
+            </h1>
+        </div><!-- /.page-header -->
+        <div class="row">
+            <div class="col-xs-12">
+                <form class="form-horizontal" id="myForm" method="post" action="__SELF__">
+                    <foreach name="info" item="vo" >
+                        <table class="Edit">
+                            <colgroup width="130px"></colgroup>
+                            <tbody>
+                                <tr>
+                                    <th>标题： </th>
+                                    <td>{$vo.title}</td>
+                                </tr>
+                                <tr>
+                                    <th>标题颜色： </th>
+                                    <td>
+                                        <span style="display:inline-block; width: 20px; height:20px;background-color:{$vo.title_color};"></span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>标题粗体： </th>
+                                    <td>
+                                        <if condition="$vo.is_title_bold eq 1">
+                                            粗体
+                                            <else />
+                                            正常
+                                        </if>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>文章摘要： </th>
+                                    <td>{$vo.summary}</td>
+                                </tr>
+                                <tr>
+                                    <th>文章内容： </th>
+                                    <td>{$vo.content|htmlspecialchars_decode}</td>
+                                </tr>
+                                <tr>
+                                    <th>作者： </th>
+                                    <td>{$vo.author}</td>
+                                </tr>
+                                <tr>
+                                    <th>自定义排序： </th>
+                                    <td>{$vo.custom_sort}</td>
+                                </tr>
+                                <tr>
+                                    <th>选择分类： </th>
+                                    <td>{$category_name}</td>
+                                </tr>
+                                <tr>
+                                    <th>所属模块： </th>
+                                    <td>
+                                        <volist name="info2" id="v">
+                                            <span style="display: inline-block;margin-right: 18px;">{$v.name}</span>
+                                        </volist>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>启用评论： </th>
+                                    <td>
+                                        <if condition="$vo.is_enable_comment eq 1">
+                                            启用
+                                            <else />
+                                            禁用
+                                        </if>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>允许复制： </th>
+                                    <td>
+                                        <if condition="$vo.allow_copy eq 1">
+                                            允许
+                                            <else />
+                                            拒绝
+                                        </if>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>关键字： </th>
+                                    <td>{$vo.keywords}</td>
+                                </tr>
+                                <tr>
+                                    <th>文章来源： </th>
+                                    <td>{$vo.article_from}</td>
+                                </tr>
+                                <tr>
+                                    <th>状态： </th>
+                                    <td>
+                                        <if condition="$vo.is_show eq 1">
+                                            正常
+                                            <else />
+                                            过时
+                                        </if>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <div class="space-4"></div>
+                    </foreach>
+                    <div class="clearfix form-actions">
+                        <div class="col-md-offset-3 col-md-9">
+                            <div class="row">
+                                <button class="btn" type="button" onclick="javascript:history.back()">返回</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+    </div>
+</block>
+
+<block name="public">
+
+    <!-- inline scripts related to this page -->
+    <script src="{$Think.const.ADMIN_URL}/js/admin.js"></script>
+
+</block>

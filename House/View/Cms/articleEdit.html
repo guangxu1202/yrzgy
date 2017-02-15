@@ -173,7 +173,7 @@
                             <label class="col-sm-3 control-label no-padding-right"> 启用评论： </label>
                             <div class="col-sm-5">
                                 <div class="form-info">
-                                    <if condition="$vo.is_title_bold eq 1">
+                                    <if condition="$vo.is_enable_comment eq 1">
                                         <label class="lab"><input value="true" name="is_enable_comment" checked="checked" type="radio">启用</label>
                                         <label class="lab"><input value="false" name="is_enable_comment" type="radio">禁用</label>
                                         <else />
@@ -189,7 +189,7 @@
                             <label class="col-sm-3 control-label no-padding-right"> 允许复制： </label>
                             <div class="col-sm-5">
                                 <div class="form-info">
-                                    <if condition="$vo.is_title_bold eq 1">
+                                    <if condition="$vo.allow_copy eq 1">
                                         <label class="lab"><input value="false" name="allow_copy" type="radio">拒绝</label>
                                         <label class="lab"><input value="true" name="allow_copy" checked="checked" type="radio">允许</label>
                                         <else />
@@ -222,7 +222,7 @@
                             <label class="col-sm-3 control-label no-padding-right">状态： </label>
                             <div class="col-sm-5">
                                 <div class="form-info">
-                                    <if condition="$vo.is_title_bold eq 1">
+                                    <if condition="$vo.is_show eq 1">
                                         <label class="lab"><input value="true" name="is_show" checked="checked" type="radio">正常</label>
                                         <label class="lab"><input value="false" name="is_show" type="radio">过时</label>
                                         <else />

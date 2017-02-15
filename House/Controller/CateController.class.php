@@ -26,7 +26,7 @@ class CateController extends CommonController {
             }
 
             //判定文章属性
-            if ($_POST["article"]=="1"){
+            if (I("post.article")=="1"){
                 $article = true;
             }else{
                 $article = false;
@@ -35,7 +35,7 @@ class CateController extends CommonController {
             //数据录入
             $log["create_time"] = date("Y-m-d H:i:s");
             $log["creator"] = session("a_username");
-            $log["name"] = $_POST["name"];
+            $log["name"] = I("post.name");
             $log["article"] = $article;
             $log["is_show"] = 1;
             $model->data($log)->add();
@@ -67,14 +67,14 @@ class CateController extends CommonController {
             if($pk > 0){
 
                 //判定文章属性
-                if ($_POST["article"]=="1"){
+                if (I("post.article")=="1"){
                     $article = true;
                 }else{
                     $article = false;
                 }
 
                 //数据修改
-                $data = array('name'=>$_POST["name"],'article'=>$article,'regenerator'=>session("a_username"),'update_time'=>date("Y-m-d H:i:s"));
+                $data = array('name'=>I("post.name"),'article'=>$article,'regenerator'=>session("a_username"),'update_time'=>date("Y-m-d H:i:s"));
                 $model-> where('pk='.I('get.pa'))->setField($data);
 
                 //录入成功
@@ -94,7 +94,7 @@ class CateController extends CommonController {
     //查找model name是否重名
     function checkModel(){
         $model = M("model"); // 实例化User对象
-        $info = $model->where('name="'.$_POST["name"].'"')->find();
+        $info = $model->where('name="'.I("post.name").'"')->find();
         if (!empty($info)){
             if ($info["pk"] !== I("get.pa")){
                 $data['valid'] = false;
@@ -151,7 +151,7 @@ class CateController extends CommonController {
     function checkVideo(){
 
         $model = M("video_category"); // 实例化User对象
-        $info = $model->where('name="'.$_POST["name"].'"')->find();
+        $info = $model->where('name="'.I("post.name").'"')->find();
         if (!empty($info)){
             if ($info["pk"] !== I("get.pa")){
                 $data['valid'] = false;
@@ -183,10 +183,10 @@ class CateController extends CommonController {
             $log["creator"] = session("a_username");
             $log["update_time"] = date("Y-m-d H:i:s");
             $log["regenerator"] = session("a_username");
-            $log["name"] = $_POST["name"];
-            $log["custom_sort"] = $_POST["custom_sort"];
-            $log["description"] = $_POST["description"];
-            $log["price"] = $_POST["price"];
+            $log["name"] = I("post.name");
+            $log["custom_sort"] = I("post.custom_sort");
+            $log["description"] = I("post.description");
+            $log["price"] = I("post.price");
 
             $log["is_show"] = 1;
             $model->data($log)->add();
@@ -216,7 +216,7 @@ class CateController extends CommonController {
 
             if($pk > 0){
                 //数据修改
-                $data = array('name'=>$_POST["name"],'price'=>$_POST["price"],'custom_sort'=>$_POST["custom_sort"],'description'=>$_POST["description"],'regenerator'=>session("a_username"),'update_time'=>date("Y-m-d H:i:s"));
+                $data = array('name'=>I("post.name"),'price'=>I("post.price"),'custom_sort'=>I("post.custom_sort"),'description'=>I("post.description"),'regenerator'=>session("a_username"),'update_time'=>date("Y-m-d H:i:s"));
                 $model-> where('pk='.I('get.pa'))->setField($data);
 
                 //录入成功
@@ -270,7 +270,7 @@ class CateController extends CommonController {
     //article name是否重名
     function checkArticle(){
         $model = M("category"); // 实例化User对象
-        $info = $model->where('name="'.$_POST["name"].'"')->find();
+        $info = $model->where('name="'.I("post.name").'"')->find();
         if (!empty($info)){
             if ($info["pk"] !== I("get.pa")){
                 $data['valid'] = false;
@@ -299,7 +299,7 @@ class CateController extends CommonController {
             //数据录入
             $log["create_time"] = date("Y-m-d H:i:s");
             $log["creator"] = session("a_username");
-            $log["name"] = $_POST["name"];
+            $log["name"] = I("post.name");
             $log["update_time"] = date("Y-m-d H:i:s");
             $log["regenerator"] = session("a_username");
             $log["is_show"] = 1;
@@ -331,7 +331,7 @@ class CateController extends CommonController {
 
             if($pk > 0){
                 //数据修改
-                $data = array('name'=>$_POST["name"],'regenerator'=>session("a_username"),'update_time'=>date("Y-m-d H:i:s"));
+                $data = array('name'=>I("post.name"),'regenerator'=>session("a_username"),'update_time'=>date("Y-m-d H:i:s"));
                 $model-> where('pk='.I('get.pa'))->setField($data);
 
                 //录入成功

@@ -21,7 +21,7 @@ class AdminController extends CommonController {
     //查找username是否重名
     function checkuser(){
         $user = M("user"); // 实例化User对象
-        $info = $user->where('username="'.$_POST["username"].'"')->find();
+        $info = $user->where('username="'.I("post.username").'"')->find();
         if (!empty($info)){
             $data['valid'] = false;
         }else{
@@ -44,7 +44,7 @@ class AdminController extends CommonController {
             }
 
             //判定锁定状态
-            if ($_POST["locked"] == "on"){
+            if (I("post.locked") == "on"){
                 $locked = false;
             }else{
                 $locked = true;
@@ -54,9 +54,9 @@ class AdminController extends CommonController {
             $log["create_time"] = date("Y-m-d H:i:s");
             $log["creator"] = session("a_username");
             $log["locked"] =   $locked;
-            $log["password"] = sha1($_POST["password"]);
-            $log["real_name"] = $_POST["real_name"];
-            $log["username"] = $_POST["username"];
+            $log["password"] = sha1(I("post.password"));
+            $log["real_name"] = I("post.real_name");
+            $log["username"] = I("post.username");
             $user->data($log)->add();
 
             //录入成功
@@ -98,12 +98,12 @@ class AdminController extends CommonController {
 
             //判断初始密码是否正确
             $myUser = M("user"); // 实例化User对象
-            $oPassword = $myUser->where('pk='.$_POST["id"])->getField('password');
+            $oPassword = $myUser->where('pk='.I("post.id"))->getField('password');
 
-            if(sha1($_POST["opassword"])==$oPassword){
+            if(sha1(I("post.opassword"))==$oPassword){
                 //数据修改
-                $data = array('password'=>sha1($_POST["password"]),'real_name'=>$_POST["real_name"]);
-                $user-> where('pk='.$_POST["id"])->setField($data);
+                $data = array('password'=>sha1(I("post.opassword")),'real_name'=>I("post.real_name"));
+                $user-> where('pk='.I("post.id"))->setField($data);
 
                 //录入成功
                 $this->success("恭喜您，操作成功！",__MODULE__."/Admin/myself");

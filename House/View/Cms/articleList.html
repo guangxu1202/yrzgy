@@ -22,7 +22,7 @@
                 文章管理
                 <small>
                     <i class="icon-double-angle-right"></i>
-                    查看
+                    列表
                 </small>
                 <button class="btn btn-sm btn-primary pull-right" onclick="javascript:location.href='__MODULE__/Cms/articleAdd'">添加新文章</button>
             </h1>
@@ -62,9 +62,7 @@
                                 <td>
                                     <div style="max-width: 300px; overflow: hidden;"><a href="__MODULE__/Cms/articleShow/pa/{$vo.pk}" data-id="{$vo.pk}">{$vo.title}</a></div>
                                 </td>
-                                <td>
-                                    {$vo.name}
-                                </td>
+                                <td> {$vo.name} </td>
                                 <td><div style="max-width: 60px; overflow: hidden;">{$vo.author}</div></td>
                                 <td>{$vo.custom_sort}</td>
                                 <td>
@@ -82,9 +80,9 @@
                                     </if>
                                 </td>
                                 <td>{$vo.creator}</td>
-                                <td><div style="max-width: 70px; overflow: hidden;">{$vo.create_time}</div></td>
+                                <td>{$vo.create_time|substr=0,10}</td>
                                 <td>{$vo.regenerator}</td>
-                                <td><div style="max-width: 70px; overflow: hidden;">{$vo.update_time}</div></td>
+                                <td>{$vo.update_time|substr=0,10}</td>
                                 <td>
                                     <div class="visible-md visible-lg hidden-sm hidden-xs action-buttons">
                                         <a href="__MODULE__/Cms/articleShow/pa/{$vo.pk}" data-id="{$vo.pk}">详细</a>

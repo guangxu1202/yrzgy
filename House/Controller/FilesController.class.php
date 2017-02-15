@@ -9,7 +9,7 @@ class FilesController extends CommonController {
         $upload->rootPath  =     './'; // 设置附件上传根目录
         $upload->savePath  =     '/CDN/uploaded/'; // 设置附件上传（子）目录
         // 上传文件
-        $fn = intval($_GET['CKEditorFuncNum']);
+        $fn = intval(I("get.CKEditorFuncNum"));
 
         $info   =   $upload->upload();
         if(!$info) {// 上传错误提示错误信息   `

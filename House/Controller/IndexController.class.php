@@ -8,18 +8,18 @@ class IndexController extends Controller {
             //验证码校验
 
             $verify = new \Think\Verify();
-            if (!$verify->check($_POST["verify"])){
+            if (!$verify->check(I("post.verify"))){
                 $verinfo = "验证码错误！";
                 $this->assign('verinfo',$verinfo);
             }else{
                 //通过验证码验证
-                if($_POST["username"]!="" && $_POST["password"]!="")
+                if(I("post.username")!="" && I("post.password")!="")
                 {
                     $user = M("user");
                     //查找匹配帐号
-                    $attr = $user->where("username='".$_POST["username"]."' and locked = 0")->find();
+                    $attr = $user->where("username='".I("post.username")."' and locked = 0")->find();
                     //show_bug($attr);
-                    if(sha1($_POST["password"])==$attr["password"]){
+                    if(sha1(I("post.password"))==$attr["password"]){
 
                         //修改登录时间及IP
                         $data = array('ip'=>get_client_ip(),'last_login_time'=>date("Y-m-d H:i:s"));
@@ -38,7 +38,7 @@ class IndexController extends Controller {
                         session("a_real_name",$attr["real_name"]);
 
                         //登录成功，跳转欢迎页
-                        $this->success("恭喜您，".session("a_real_name")."登录成功！",__MODULE__."/Main/index",5);
+                        $this->success("恭喜您，".session("a_real_name")."登录成功！",__MODULE__."/Main/index");
                         exit();
                     }
                     else

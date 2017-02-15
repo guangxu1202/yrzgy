@@ -1,5 +1,5 @@
 <extend name="./base" />
-<block name="title"><title>会员基本信息 - 会员管理 - 元认知干预网站管理后台系统</title></block>
+<block name="title"><title>技术团队管理 - 内容管理 - 元认知干预网站管理后台系统</title></block>
 <block name="content">
     <div class="breadcrumbs" id="breadcrumbs">
         <script type="text/javascript">
@@ -11,7 +11,7 @@
                 <i class="icon-home home-icon"></i>
                 <a href="#">首页</a>
             </li>
-            <li class="active">会员管理</li>
+            <li class="active">内容管理</li>
         </ul><!-- .breadcrumb -->
 
     </div>
@@ -19,11 +19,12 @@
     <div class="page-content">
         <div class="page-header">
             <h1>
-                会员基本信息
+                技术团队管理
                 <small>
                     <i class="icon-double-angle-right"></i>
-                    查看
+                    列表
                 </small>
+                <button class="btn btn-sm btn-primary pull-right" onclick="javascript:location.href='__MODULE__/Cms/personAdd'">添加技术团队信息</button>
             </h1>
         </div><!-- /.page-header -->
         <div class="row">
@@ -35,28 +36,19 @@
 
                 <div class="table-responsive">
                     <table id="sample-table-2" class="table table-striped table-bordered table-hover">
-                        <colgroup width="60px"></colgroup>
-                        <colgroup width=""></colgroup>
-                        <colgroup width=""></colgroup>
-                        <colgroup width=""></colgroup>
-                        <colgroup width=""></colgroup>
-                        <colgroup width=""></colgroup>
-                        <colgroup width=""></colgroup>
-                        <colgroup width=""></colgroup>
-                        <colgroup width="60px"></colgroup>
                         <thead>
                         <tr>
                             <th class="center">
                                 序号
                             </th>
-                            <th>登录名</th>
-                            <th>昵称</th>
-                            <th>真实姓名</th>
-                            <th>E-mail</th>
-                            <th>上次登录时间</th>
-                            <th>上次登录IP</th>
+                            <th>标题</th>
+                            <th>作者</th>
+                            <th>排序序号</th>
+                            <th>复制</th>
+                            <th>创建人</th>
                             <th>创建时间</th>
-                            <th>状态</th>
+                            <th>修改人</th>
+                            <th>修改时间</th>
                             <th>操作</th>
                         </tr>
                         </thead>
@@ -65,31 +57,30 @@
                         <volist name="info" id="vo">
                             <tr>
                                 <td class="center">{$i}</td>
-                                <td>{$vo.username}</td>
-                                <td> {$vo.nickname}</td>
-                                <td>{$vo.real_name}</td>
-                                <td>{$vo.email}</td>
-                                <td>{$vo.last_login_time}</td>
-                                <td>{$vo.ip}</td>
-                                <td>{$vo.create_time|substr=0,10}</td>
                                 <td>
-                                    <if condition="$vo.state eq 0 ">
-                                        未激活
-                                        <elseif condition="$vo.state eq 2"/>
-                                        已锁定
-                                        <elseif condition="$vo.state eq 3"/>
-                                        已解锁
+                                    <div style="max-width: 300px; overflow: hidden;"><a href="__MODULE__/Cms/personShow/pa/{$vo.pk}" data-id="{$vo.pk}">{$vo.title}</a></div>
+                                </td>
+                                <td><div style="max-width: 60px; overflow: hidden;">{$vo.author}</div></td>
+                                <td>{$vo.custom_sort}</td>
+                                <td>
+                                    <if condition="$vo.allow_copy eq 1 ">
+                                        允许
                                         <else />
+                                        拒绝
                                     </if>
                                 </td>
+                                <td>{$vo.creator}</td>
+                                <td>{$vo.create_time|substr=0,10}</td>
+                                <td>{$vo.regenerator}</td>
+                                <td>{$vo.update_time|substr=0,10}</td>
                                 <td>
                                     <div class="visible-md visible-lg hidden-sm hidden-xs action-buttons">
-                                        <a href="__MODULE__/Member/baseShow/pa/{$vo.pk}" data-id="{$vo.pk}">详情</a>
-                                        <a href="__MODULE__/Member/baseSet/pa/{$vo.pk}" data-id="{$vo.pk}">课程分配</a>
-                                        <if condition="$vo.state eq 2 ">
-                                            <a href="javascript:void(0);" class="lock-btn" data-id="{$vo.pk}" data-statu="unlock">解锁</a>
+                                        <a href="__MODULE__/Cms/personShow/pa/{$vo.pk}" data-id="{$vo.pk}">详细</a>
+                                        <a href="__MODULE__/Cms/personEdit/pa/{$vo.pk}" data-id="{$vo.pk}">编辑</a>
+                                        <if condition="$vo.is_show eq 1 ">
+                                            <a href="javascript:void(0);" class="lock-btn" data-id="{$vo.pk}" data-statu="lock">过时</a>
                                             <else />
-                                            <a href="javascript:void(0);" class="lock-btn" data-id="{$vo.pk}" data-statu="lock">锁定</a>
+                                            <a href="javascript:void(0);" class="lock-btn" data-id="{$vo.pk}" data-statu="unlock">恢复</a>
                                         </if>
                                     </div>
                                 </td>
@@ -116,7 +107,7 @@
             var oTable1 = $('#sample-table-2').dataTable( {
                 "aoColumns": [
                     { "bSortable": false },
-                    null, null,null, null, null,null, null,null,
+                    null, null,null, null, null,null,null, null,
                     { "bSortable": false }
                 ] ,
                 "oLanguage" : {
@@ -156,13 +147,13 @@
         $(".lock-btn").click(function(){
             var that = this;
             if ($(that).attr("data-statu")=="lock"){
-                var str = "确定要锁定这个用户吗？锁定后该用户将不能登录！";
+                var str = "确定要作废这条记录吗？作废后将不在前台显示！";
             }else{
-                var str = "确定要解锁这个用户吗？解锁后该用户将可以登录！";
+                var str = "确定要启用这条记录吗？启用后将在前台显示！";
             }
             bootbox.confirm(str, function(result) {
                 if(result) {
-                    location.href ="__MODULE__/Member/memberLock/pa/"+$(that).attr("data-id")+"/sa/"+$(that).attr("data-statu");
+                    location.href ="__MODULE__/Cms/personLocked/pa/"+$(that).attr("data-id")+"/sa/"+$(that).attr("data-statu");
                 }
             });
         });

@@ -30,7 +30,7 @@ class CmsController extends CommonController
                 'title'=> I('post.title'),
                 'summary_title'=>I('post.summary_title'),
                 'summary'=>I('post.summary'),
-                'content'=>$_POST["content"],
+                'content'=>I('post.content'),
                 'regenerator'=>session("a_username"),
                 'update_time'=>date("Y-m-d H:i:s")
             );
@@ -73,17 +73,17 @@ class CmsController extends CommonController
             $log["creator"] = session("a_username");
             $log["update_time"] = date("Y-m-d H:i:s");
             $log["regenerator"] = session("a_username");
-            $log["allow_copy"] = I("post.allow_copy");
+            $log["allow_copy"] = checkBit(I('post.allow_copy'));
             $log["article_from"] = I("post.article_from");
             $log["author"] = I("post.author");
             $log["content"] = I("post.content");
             $log["custom_sort"] = I("post.custom_sort");
-            $log["is_enable_comment"] = I("post.is_enable_comment");
+            $log["is_enable_comment"] = checkBit(I('post.is_enable_comment'));
             $log["keywords"] = I("post.keywords");
-            $log["is_show"] = I("post.is_show");
+            $log["is_show"] = checkBit(I('post.is_show'));
             $log["summary"] = I("post.summary");
             $log["title"] = I("post.title");
-            $log["is_title_bold"] = I("post.is_title_bold");
+            $log["is_title_bold"] = checkBit(I('post.is_title_bold'));
             $log["title_color"] = I("post.title_color");
             $log["category_id"] = I("post.category_id");
             $log["like_count"] = 0;
@@ -213,5 +213,48 @@ class CmsController extends CommonController
             $this->assign('arr',$nb);
             $this -> display();
         }
+    }
+    //文章过时与恢复
+    function articleLocked(){
+        if (I('get.sa')=="lock"){
+            $str = "恭喜您，模块过时成功！";
+            $sa = false;
+        }else{
+            $str = "恭喜您，模块恢复成功！";
+            $sa = true;
+        }
+        $model = M("article");
+        $data = array('is_show'=> $sa,'regenerator'=>session("a_username"),'update_time'=>date("Y-m-d H:i:s"));
+        $model-> where('pk='.I('get.pa'))->setField($data);
+
+        //操作成功
+        $this->success($str,__MODULE__."/Cms/articleList");
+    }
+
+    //查看
+    function articleShow(){
+        $user = M("article");
+        $info = $user-> where('pk='.I('get.pa'))->select();
+
+        $m = M("category");
+        $info1 = $m ->where("pk = ".$info[0]["category_id"]) -> field("name") -> select();
+
+        $n = M("model");
+        $info2 = $n -> join("left join article_model on model.pk = article_model.model_id") -> where("article_id=".I('get.pa'))->field("model.name") -> select();
+
+        $this->assign("info", $info);
+        $this->assign("category_name",$info1[0]["name"]);
+        $this->assign("info2",$info2);
+        $this->display();
+    }
+
+
+//**********技术团队管理************
+    //列表
+    function personList(){
+        $user = M("person_intro");
+        $info = $user ->order("is_show desc,custom_sort desc,update_time desc") -> select();
+        $this -> assign("info",$info);
+        $this -> display();
     }
 }

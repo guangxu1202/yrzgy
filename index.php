@@ -1,7 +1,7 @@
 ﻿<?php
 
 //定义公共路径常量
-define("SITE_URL","http://127.0.0.1:8081"); // 域名
+define("SITE_URL","http://127.0.0.1"); // 域名
 define("WEB_URL",SITE_URL."/Public/web");  //前台资源路径
 define("ADMIN_URL",SITE_URL."/Public/admin");  //后台资源路径
 define("PUBLIC_URL",SITE_URL."/Public");  //公共资源路径
@@ -21,7 +21,7 @@ function show_bug($msg){
 }
 
 function checkBit($d){
-    if ($d =="1"){
+    if ($d =="true"){
         return true;
     }else{
         return false;
