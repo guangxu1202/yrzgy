@@ -2,6 +2,7 @@
 .form-info{padding-top: 5px;}
 .lab{ display:inline-block; margin-right: 10px;}
     .lab input{vertical-align: middle; margin-top: -3px; margin-right: 3px;}
+img{max-width: 100%;}
 
 /*edit page*/
 .Edit {width: 100%; margin-bottom: 8px;}

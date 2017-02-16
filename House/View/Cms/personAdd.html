@@ -1,5 +1,5 @@
 <extend name="./base" />
-<block name="title"><title>新增 - 文章管理 - 内容管理 - 元认知干预网站管理后台系统</title></block>
+<block name="title"><title>新增 - 技术团队管理 - 内容管理 - 元认知干预网站管理后台系统</title></block>
 <block name="content">
     <div class="breadcrumbs" id="breadcrumbs">
         <script type="text/javascript">
@@ -19,7 +19,7 @@
     <div class="page-content">
         <div class="page-header">
             <h1>
-                文章管理
+                技术团队管理
                 <small>
                     <i class="icon-double-angle-right"></i>
                     新增
@@ -28,44 +28,19 @@
         </div><!-- /.page-header -->
         <div class="row">
             <div class="col-xs-12">
-                <form class="form-horizontal" id="myForm" method="post" action="__SELF__">
+                <form class="form-horizontal" id="myForm" method="post"  enctype="multipart/form-data" action="__SELF__">
                     <div class="space-4"></div>
                     <div class="form-group">
                         <label class="col-sm-3 control-label no-padding-right"> <span class="red">*</span>标题： </label>
                         <div class="col-sm-5">
-                            <input placeholder="请输入文章标题" class="form-control" type="text" name="title" >
+                            <input placeholder="请输入标题" class="form-control" type="text" name="title" >
                         </div>
                     </div>
 
-                    <div class="space-4"></div>
-                    <div class="form-group">
-                        <label class="col-sm-3 control-label no-padding-right">标题颜色： </label>
-                        <div class="col-sm-5">
-                            <select id="title_color" name="title_color" style="width: 50px; background-color: #2e2e2e;" onchange="this.style.backgroundColor = this.value;">
-                                <option value="#2e2e2e" style="background-color: #2e2e2e;"></option>
-                                <option value="#014c4c" style="background-color: #014c4c;"></option>
-                                <option value="#008080" style="background-color: #008080;"></option>
-                                <option value="#10acac" style="background-color: #10acac;"></option>
-                                <option value="#1ec5c5" style="background-color: #1ec5c5;"></option>
-                                <option value="#cc0000" style="background-color: #cc0000;"></option>
-                            </select>
-                        </div>
-                    </div>
 
                     <div class="space-4"></div>
                     <div class="form-group">
-                        <label class="col-sm-3 control-label no-padding-right">标题粗体： </label>
-                        <div class="col-sm-5">
-                            <div class="form-info">
-                                <label class="lab"><input value="false" name="is_title_bold" checked="" type="radio">正常</label>
-                                <label class="lab"><input value="true" name="is_title_bold" type="radio">粗体</label>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="space-4"></div>
-                    <div class="form-group">
-                        <label class="col-sm-3 control-label no-padding-right"> 文章摘要： </label>
+                        <label class="col-sm-3 control-label no-padding-right"> 摘要： </label>
                         <div class="col-sm-5">
                             <textarea class="autosize-transition form-control" style="height: 120px;" name="summary"></textarea>
                         </div>
@@ -73,7 +48,7 @@
 
                     <div class="space-4"></div>
                     <div class="form-group">
-                        <label class="col-sm-3 control-label no-padding-right">文章内容： </label>
+                        <label class="col-sm-3 control-label no-padding-right">内容： </label>
                         <div class="col-sm-9">
                             <!-- ckeditor -->
                             <script src="{$Think.const.PUBLIC_URL}/ckeditor/ckeditor.js"></script>
@@ -86,9 +61,10 @@
                     <div class="form-group">
                         <label class="col-sm-3 control-label no-padding-right"> 作者： </label>
                         <div class="col-sm-5">
-                            <input placeholder="请输入文章作者" class="form-control" type="text" name="author" >
+                            <input placeholder="请输入作者" class="form-control" type="text" name="author" >
                         </div>
                     </div>
+
 
                     <div class="space-4"></div>
                     <div class="form-group">
@@ -101,43 +77,21 @@
 
                     <div class="space-4"></div>
                     <div class="form-group">
-                        <label class="col-sm-3 control-label no-padding-right"> <span class="red">*</span>选择分类： </label>
+                        <label class="col-sm-3 control-label no-padding-right"><span class="red">*</span> 成员照片： </label>
                         <div class="col-sm-5">
-
-                            <select name="category_id">
-                                <volist name="info2" id="v">
-                                    <option value="{$v.pk}">{$v.name}</option>
-                                </volist>
-                            </select>
+                            <input type="file" id="id-input-file-2" name="photo" />
+                            <span class="grey">最佳图片显示效果比例：600*490</span>
                         </div>
                     </div>
 
                     <div class="space-4"></div>
                     <div class="form-group">
-                        <label class="col-sm-3 control-label no-padding-right"> <span class="red">*</span>所属模块： </label>
+                        <label class="col-sm-3 control-label no-padding-right"><span class="red">*</span> 照片描述： </label>
                         <div class="col-sm-5">
-
-                            <select name="smodule1"  id="example-getting-started" multiple="multiple">
-                                <volist name="info" id="vo">
-                                    <option value="{$vo.pk}">{$vo.name}</option>
-                                </volist>
-                            </select>
-                            <input type="hidden" name="smodule" id="mymodule">
-
+                            <input placeholder="请输入照片描述, 将在首页显示." class="form-control" type="text" name="photo_describe" >
                         </div>
                     </div>
 
-
-                    <div class="space-4"></div>
-                    <div class="form-group">
-                        <label class="col-sm-3 control-label no-padding-right"> 启用评论： </label>
-                        <div class="col-sm-5">
-                            <div class="form-info">
-                                <label class="lab"><input value="true" name="is_enable_comment" checked="" type="radio">启用</label>
-                                <label class="lab"><input value="false" name="is_enable_comment" type="radio">禁用</label>
-                            </div>
-                        </div>
-                    </div>
 
                     <div class="space-4"></div>
                     <div class="form-group">
@@ -155,25 +109,6 @@
                         <label class="col-sm-3 control-label no-padding-right">关键字： </label>
                         <div class="col-sm-5">
                             <input placeholder="请输入关键字" class="form-control" type="text" name="keywords" >
-                        </div>
-                    </div>
-
-                    <div class="space-4"></div>
-                    <div class="form-group">
-                        <label class="col-sm-3 control-label no-padding-right"> 文章来源： </label>
-                        <div class="col-sm-5">
-                            <input placeholder="请输入文章来源" class="form-control" type="text" name="article_from" >
-                        </div>
-                    </div>
-
-                    <div class="space-4"></div>
-                    <div class="form-group">
-                        <label class="col-sm-3 control-label no-padding-right">状态： </label>
-                        <div class="col-sm-5">
-                            <div class="form-info">
-                                <label class="lab"><input value="true" name="is_show" checked="" type="radio">正常</label>
-                                <label class="lab"><input value="false" name="is_show" type="radio">过时</label>
-                            </div>
                         </div>
                     </div>
 
@@ -206,31 +141,11 @@
     <script src="{$Think.const.ADMIN_URL}/js/bootstrap-multiselect.js"></script>
     <script src="{$Think.const.ADMIN_URL}/js/admin.js"></script>
     <script type="text/javascript">
-        $(function(){
-            $('#example-getting-started').multiselect({
-                onChange: function(option, checked, select) {
-                    var myval = $("#mymodule").val();
-                    var mymodule = myval.split(",");
-                    var v = $(option).val();
-                    var index = mymodule.indexOf(v);
-                    if (mymodule.length>0 && mymodule[0] == ''){
-                        mymodule.splice(0,1);
-                    }
-                    if (index<0 && checked){
-                        mymodule.push(v);
-                    }
-                    if (index>=0 && !checked){
-                        mymodule.splice(index,1);
-                    }
-                    $("#mymodule").val(mymodule.sort(sortNumber));
-                }
-            });
-            function sortNumber(a,b){
-                return a - b
-            }
 
-            $('#myForm')
-            .bootstrapValidator({
+        $(function(){
+
+
+            $('#myForm').bootstrapValidator({
                 message: 'This value is not valid',
                 feedbackIcons: {
                     valid: 'glyphicon glyphicon-ok',
@@ -241,16 +156,16 @@
                     title: {
                         validators: {
                             notEmpty: {
-                                message: '文章标题不能为空'
+                                message: '标题不能为空'
                             },
                             stringLength: {
                                 min: 2,
                                 max: 90,
-                                message: '文章标题长度必须在2到90之间'
+                                message: '标题长度必须在2到90之间'
                             },
                             regexp: {
                                 regexp: /^[0-9a-zA-Z\u4e00-\u9fa5]+$/,
-                                message: '文章标题由中英文和数字组成'
+                                message: '标题由中英文和数字组成'
                             }
                         }
                     },
@@ -259,7 +174,7 @@
                             stringLength: {
                                 min: 0,
                                 max: 200,
-                                message: '文章简介长度必须在0到200之间'
+                                message: '简介长度必须在0到200之间'
                             }
                         }
                     },
@@ -272,26 +187,22 @@
                             }
                         }
                     },
-                    article_from: {
+                    photo: {
                         validators: {
+                            notEmpty: {
+                                message: '成员照片不能为空'
+                            }
+                        }
+                    },
+                    photo_describe: {
+                        validators: {
+                            notEmpty: {
+                                message: '照片描述不能为空'
+                            },
                             stringLength: {
-                                min: 0,
-                                max: 50,
-                                message: '文章来源长度必须在0到50之间'
-                            }
-                        }
-                    },
-                    smodule1: {
-                        validators: {
-                            notEmpty: {
-                                message: '请至少选择一个所属模块'
-                            }
-                        }
-                    },
-                    category_id: {
-                        validators: {
-                            notEmpty: {
-                                message: '请至少选择一个所属分类'
+                                min: 1,
+                                max: 20,
+                                message: '照片描述长度必须在1到20之间'
                             }
                         }
                     },
