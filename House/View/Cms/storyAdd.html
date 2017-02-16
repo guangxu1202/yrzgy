@@ -37,10 +37,13 @@
                         </div>
                     </div>
 
+                    <link rel="stylesheet" type="text/css" href="{$Think.const.ADMIN_URL}/uploadify/uploadify.css" />
                     <div class="form-group">
                         <label class="col-sm-3 control-label no-padding-right"> <span class="red">*</span>封面图片： </label>
                         <div class="col-sm-5">
-                            <button>上传图片</button>
+
+                            <div id="queue"></div>
+                            <input id="file_upload" name="file_upload" type="file" multiple="false">
                         </div>
                     </div>
 
@@ -126,11 +129,28 @@
     <!-- inline scripts related to this page -->
 
     <script src="{$Think.const.ADMIN_URL}/js/bootstrap-multiselect.js"></script>
+    <script src="{$Think.const.ADMIN_URL}/uploadify/jquery.uploadify.js"></script>
     <script src="{$Think.const.ADMIN_URL}/js/admin.js"></script>
     <script type="text/javascript">
-
+        <?php $timestamp = time();?>
         $(function(){
+            $('#file_upload').uploadify({
+            'swf'      : '{$Think.const.ADMIN_URL}/uploadify/uploadify.swf',    //指定上传控件的主体文件
+                'formData'     : {
+                    'timestamp' : '<?php echo $timestamp;?>',
+                    'token'     : '<?php echo md5('unique_salt' . $timestamp);?>'
+                },
+            'buttonText' : '上传图片',
+            'debug' : true,
+            'width' : "120",
+            'height' : "30",
+            'multi' : "false",
+            'fileTypeExts' : "*.jpg;*.bmp;*.png;*.gif",
 
+            'uploader' : '__MODULE__/Files/storyCover'    //指定服务器端上传处理文件
+
+            //其他配置项-
+        });
 
             $('#myForm').bootstrapValidator({
                 message: 'This value is not valid',

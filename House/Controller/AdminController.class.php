@@ -98,20 +98,27 @@ class AdminController extends CommonController {
 
             //判断初始密码是否正确
             $myUser = M("user"); // 实例化User对象
-            $oPassword = $myUser->where('pk='.I("post.id"))->getField('password');
-
-            if(sha1(I("post.opassword"))==$oPassword){
-                //数据修改
-                $data = array('password'=>sha1(I("post.opassword")),'real_name'=>I("post.real_name"));
-                $user-> where('pk='.I("post.id"))->setField($data);
-
-                //录入成功
-                $this->success("恭喜您，操作成功！",__MODULE__."/Admin/myself");
+            $cc = $myUser -> find(I("post.id"));
+            if ($cc == null){
+                //错误ID
+                $this->error("页面无法访问！");
             }else{
-                //初始密码匹配失败
-                $this->error("您输入的原始密码错误!");
-                exit();
+                //继续修改流程
+
+                if(sha1(I("post.opassword"))==$cc["password"]){
+                    //数据修改
+                    $data = array('password'=>sha1(I("post.password")),'real_name'=>I("post.real_name"));
+                    $myUser-> where('pk='.I("post.id"))->setField($data);
+
+                    //录入成功
+                    $this->success("恭喜您，操作成功！",__MODULE__."/Admin/myself");
+                }else{
+                    //初始密码匹配失败
+                    $this->error("您输入的原始密码错误!");
+                    exit();
+                }
             }
+
         }else{
             $user = M("user");
             $info = $user-> where("pk=".session("a_id")) -> select();
