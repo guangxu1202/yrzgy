@@ -18,3 +18,5 @@ img{max-width: 100%;}
 .select-table{}
 .select-table select{ height: 230px;}
 .select-table .select-op{padding: 0 10px;}
+
+.coverImg {_width: 217px; _height: 127px; max-height: 127px; max-width: 217px; margin-bottom: 10px;}

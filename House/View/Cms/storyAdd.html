@@ -41,9 +41,12 @@
                     <div class="form-group">
                         <label class="col-sm-3 control-label no-padding-right"> <span class="red">*</span>封面图片： </label>
                         <div class="col-sm-5">
+                            <input type="hidden" name="cover" value="" id="cover"/>
+                            <input type="hidden" name="thumbnail" value="" id="thumbnail"/>
+                            <div id="showCover" style="display: none;"><img id="_coverImg" src="" class="coverImg"/></div>
 
-                            <div id="queue"></div>
-                            <input id="file_upload" name="file_upload" type="file" multiple="false">
+                            <input id="file_upload" name="file_upload" type="file">
+                            <span class="red">只能上传1张图片</span>
                         </div>
                     </div>
 
@@ -132,25 +135,67 @@
     <script src="{$Think.const.ADMIN_URL}/uploadify/jquery.uploadify.js"></script>
     <script src="{$Think.const.ADMIN_URL}/js/admin.js"></script>
     <script type="text/javascript">
-        <?php $timestamp = time();?>
         $(function(){
             $('#file_upload').uploadify({
-            'swf'      : '{$Think.const.ADMIN_URL}/uploadify/uploadify.swf',    //指定上传控件的主体文件
-                'formData'     : {
-                    'timestamp' : '<?php echo $timestamp;?>',
-                    'token'     : '<?php echo md5('unique_salt' . $timestamp);?>'
+                'swf'      : '{$Think.const.ADMIN_URL}/uploadify/uploadify.swf',    //指定上传控件的主体文件
+                'uploader' : '__MODULE__/Files/storyCover',   //指定服务器端上传处理文件
+                'buttonText' : '上传图片',
+                'width' : "120",
+                'height' : "30",
+                'auto' : "false",
+                'fileTypeExts' : "*.jpg;*.jpeg;*.gif;*.png;*.bmp;",
+                "fileDesc" : "Image Files",
+                'fileSizeLimit':'3MB', //上传文件的大小限制
+                'uploadLimit': '1',  //最大上传文件数量
+                'onSelectError':function(file, errorCode, errorMsg){
+                    switch(errorCode) {
+                        case -100:
+                            alert("上传的文件数量已经超出系统限制的"+$('#file_upload').uploadify('settings','uploadLimit')+"个文件！");
+                            break;
+                        case -110:
+                            alert("文件 ["+file.name+"] 大小超出系统限制的"+$('#file_upload').uploadify('settings','fileSizeLimit')+"大小！");
+                            break;
+                        case -120:
+                            alert("文件 ["+file.name+"] 大小异常！");
+                            break;
+                        case -130:
+                            alert("文件 ["+file.name+"] 类型不正确！");
+                            break;
+                    }
                 },
-            'buttonText' : '上传图片',
-            'debug' : true,
-            'width' : "120",
-            'height' : "30",
-            'multi' : "false",
-            'fileTypeExts' : "*.jpg;*.bmp;*.png;*.gif",
-
-            'uploader' : '__MODULE__/Files/storyCover'    //指定服务器端上传处理文件
+                //上传到服务器，服务器返回相应信息到data里
+                'onUploadSuccess':function(file, data, response){
+                    console.log(data);
+                }
 
             //其他配置项-
         });
+
+            showCover = function(fileName, thumbnail) {
+                $("#cover").val(fileName);
+                $("#thumbnail").val(thumbnail);
+                $("#_coverImg").attr("src", cdn + "/uploaded/story/" + fileName);
+                $("#showCover").show();
+            };
+
+            generatePicture = function(fileServerName, thumbnail, fileName) {
+
+                var picture = '<li><div class="DisImg"><img src="CDN/uploaded/story/' + fileServerName + '" style="max-width:300px;"/></div>'
+                        + '<div class="DisMain"><table><tbody><tr><th>图片名称：</th>'
+                        + '<td>' + fileName + '<input type="hidden" name="items[' + i + '].picture" value="' + fileServerName + '"/></td></tr><tr><th>图片描述：</th>'
+                        + '<td><input type="hidden" name="items[' + i + '].thumbnail" value="' + thumbnail + '"/><textarea name="items[' + i + '].description" cols="50" rows="5"></textarea></td>'
+                        + '</tr><tr><th>自定义排序：</th><td><input type="text" name="items[' + i + '].customSort" value="1000" maxlength="8"/></td>'
+                        + '</tr><tr><th>操作：</th><td><a href="###" onclick="removePicture(this);">删除</a></td>'
+                        + '</tr></tbody></table></div><div class="clear"></div></li>';
+                $("#picture").append(picture);
+                i++;
+            };
+
+            removePicture = function(obj) {
+                if (confirm("你确定要删除这张图片吗?")) {
+                    $(obj).parent().parent().parent().parent().parent().parent().remove();
+                }
+            };
 
             $('#myForm').bootstrapValidator({
                 message: 'This value is not valid',
