@@ -1,7 +1,7 @@
 <?php
 namespace House\Controller;
 use Think\Controller;
-class FilesController extends CommonController {
+class FilesController extends Controller {
     function ck_upload(){
         $upload = new \Think\Upload();// 实例化上传类
         $upload->maxSize   =     3145728 ;// 设置附件上传大小
@@ -27,31 +27,42 @@ class FilesController extends CommonController {
 
     }
     function  storyCover(){
-        $upload = new \Think\Upload();// 实例化上传类
-        $info   =   $upload->upload();
-        echo "123333";
-        // Define a destination
-//        $targetFolder = '/CDN/up/'; // Relative to the root
-//
-//        $verifyToken = md5('unique_salt' . $_POST['timestamp']);
 
+        $verifyToken = md5('unique_salt' . $_POST['timestamp']);
 
-//        if (!empty($_FILES) && $_POST['token'] == $verifyToken) {
-//            $tempFile = $_FILES['Filedata']['tmp_name'];
-//            $targetPath = $_SERVER['DOCUMENT_ROOT'] . $targetFolder;
-//            $targetFile = rtrim($targetPath,'/') . '/' . $_FILES['Filedata']['name'];
-//
-//            // Validate the file type
-//            $fileTypes = array('jpg','jpeg','gif','png'); // File extensions
-//            $fileParts = pathinfo($_FILES['Filedata']['name']);
-//
-//            if (in_array($fileParts['extension'],$fileTypes)) {
-//                move_uploaded_file($tempFile,$targetFile);
-//                echo '1';
-//            } else {
-//                echo 'Invalid file type.';
-//            }
-//        }
+        if (!empty($_FILES) && $_POST['token'] == $verifyToken) {
+
+            $upload = new \Think\Upload();// 实例化上传类
+            $upload->maxSize   =     3145728 ;// 设置附件上传大小
+            $upload->exts      =     array('jpg', 'gif', 'png', 'jpeg','bmp');// 设置附件上传类型
+            $upload->rootPath  =     'CDN/uploaded/story/'; // 设置附件上传根目录
+            $upload->autoSub  =      true;
+
+            // 上传文件
+            $info   =   $upload->upload();
+            if(!$info) {// 上传错误提示错误信息
+                $back = array('status' =>0, 'msg'=> 'upload failed');
+                $this->ajaxReturn($back,'JSON');
+            }else{// 上传成功
+                $image = new \Think\Image();
+                foreach($info as $file) {
+
+                    $photo =  $file['savepath'].$file['savename'];
+                    $thumb = $file['savepath'].'thumb_'.$file['savename'];
+
+                    $image->open('CDN/uploaded/story/'.$photo);
+                    // 生成缩略图
+                    $image->thumb(100, 75)->save('CDN/uploaded/story/'.$thumb);
+                    $data["status"] = 1;
+                    $data["savepath"] = $file['savepath'];
+                    $data["savename"] = $file['savename'];
+                    $data["pic_path"] = $file['savepath'] . $file['savename'];
+                    $data["thumb_path"] = $thumb;
+                }
+                //返回值
+                $this->ajaxReturn(json_encode($data) ,'JSON');
+            }
+        }
     }
 
 }

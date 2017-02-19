@@ -11,7 +11,7 @@ class ArticleModel extends Model{
         //验证标题
         array("title","require","文章标题必须填写"),
         array('title','2,90','文章标题长度必须在2到90之间！',3,'length'),
-        array('title', '/^[0-9a-zA-Z\x{4e00}-\x{9fa5}]+$/u' , '文章标题由中英文和数字组成' , 3, 'regex'),
+        //array('title', '/^[0-9a-zA-Z\x{4e00}-\x{9fa5}]+$/u' , '文章标题由中英文和数字组成' , 3, 'regex'),
 
         //验证摘要简介
         array('summary','0,200','摘要简介长度必须在0到200之间！',3,'length'),

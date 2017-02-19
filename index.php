@@ -5,6 +5,7 @@ define("SITE_URL","http://127.0.0.1"); // 域名
 define("WEB_URL",SITE_URL."/Public/web");  //前台资源路径
 define("ADMIN_URL",SITE_URL."/Public/admin");  //后台资源路径
 define("PUBLIC_URL",SITE_URL."/Public");  //公共资源路径
+define("UPLOAD_URL",SITE_URL."/CDN/uploaded");  //下载文件路径
 
 
 

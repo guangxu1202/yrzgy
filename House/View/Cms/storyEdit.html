@@ -1,0 +1,302 @@
+<extend name="./base" />
+<block name="title"><title>修改 - 图片故事管理 - 内容管理 - 元认知干预网站管理后台系统</title></block>
+<block name="content">
+    <div class="breadcrumbs" id="breadcrumbs">
+        <script type="text/javascript">
+            try{ace.settings.check('breadcrumbs' , 'fixed')}catch(e){}
+        </script>
+
+        <ul class="breadcrumb">
+            <li>
+                <i class="icon-home home-icon"></i>
+                <a href="#">首页</a>
+            </li>
+            <li class="active">内容管理</li>
+        </ul><!-- .breadcrumb -->
+
+    </div>
+
+    <div class="page-content">
+        <div class="page-header">
+            <h1>
+                图片故事管理
+                <small>
+                    <i class="icon-double-angle-right"></i>
+                    修改
+                </small>
+            </h1>
+        </div><!-- /.page-header -->
+        <div class="row">
+            <div class="col-xs-12">
+                <form class="form-horizontal" id="myForm" method="post"  enctype="multipart/form-data" action="__SELF__">
+                    <foreach name="info" item="vo" >
+                        <div class="space-4"></div>
+                        <input type="hidden" name="pk" value="{$vo.pk}">
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label no-padding-right"> <span class="red">*</span>图片故事标题： </label>
+                            <div class="col-sm-5">
+                                <input placeholder="请输入标题" class="form-control" type="text" name="title" value="{$vo.title}">
+                            </div>
+                        </div>
+
+                        <link rel="stylesheet" type="text/css" href="{$Think.const.ADMIN_URL}/uploadify/uploadify.css" />
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label no-padding-right"> <span class="red">*</span>封面图片： </label>
+                            <div class="col-sm-5">
+                                <div>
+                                    <img src="__ROOT__/CDN/uploaded/story/{$vo.thumbnail}">
+                                </div>
+                                <input type="file"  name="cover" />
+                                <span class="red">最佳效果尺寸： 940*585px.</span>
+                            </div>
+                        </div>
+
+
+                        <div class="space-4"></div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label no-padding-right"> 故事简述： </label>
+                            <div class="col-sm-5">
+                                <textarea class="autosize-transition form-control" style="height: 120px;" name="story_descirbe">{$vo.story_descirbe}</textarea>
+                            </div>
+                        </div>
+
+
+                        <div class="space-4"></div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label no-padding-right"> 作者： </label>
+                            <div class="col-sm-5">
+                                <input placeholder="请输入作者" class="form-control" type="text" name="author" value="{$vo.author}">
+                            </div>
+                        </div>
+
+
+                        <div class="space-4"></div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label no-padding-right"> <span class="red">*</span>自定义排序： </label>
+                            <div class="col-sm-5">
+                                <input placeholder="请输入自定义排序, 数字大的在前面." class="form-control" type="text" name="custom_sort" value="{$vo.custom_sort}" >
+                                <span class="grey">请输入自定义排序,数字大的在前面</span>
+                            </div>
+                        </div>
+
+
+                        <div class="space-4"></div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label no-padding-right"> 允许复制： </label>
+                            <div class="col-sm-5">
+                                <div class="form-info">
+                                    <if condition="$vo.allow_copy eq 1">
+                                        <label class="lab"><input value="false" name="allow_copy" type="radio">拒绝</label>
+                                        <label class="lab"><input value="true" name="allow_copy" checked="checked" type="radio">允许</label>
+                                        <else />
+                                        <label class="lab"><input value="false" name="allow_copy" checked="checked" type="radio">拒绝</label>
+                                        <label class="lab"><input value="true" name="allow_copy" type="radio">允许</label>
+                                    </if>
+
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="space-4"></div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label no-padding-right">图片列表： </label>
+                            <div class="col-sm-8">
+                                <ul id="photo-list" class="DisStory">
+                                    <volist name="info1" id="vo1">
+                                        <li class="clearfix">
+                                            <div class="DisImg"><img src="{$Think.const.UPLOAD_URL}/story/{$vo1.picture}" style="max-width:300px;"/></div>
+                                            <div class="DisMain">
+                                                <table>
+                                                    <tbody>
+                                                    <tr>
+                                                        <th>图片描述：</th>
+                                                        <td>
+                                                            <input type="hidden" name="thumbnail[{$i}]" value="{$vo1.thumbnail}"/>
+                                                            <input type="hidden" name="picture[{$i}]" value="{$vo1.picture}"/>
+                                                            <textarea name="description[{$i}]" cols="50" rows="5">{$vo1.description}</textarea>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th>自定义排序：</th>
+                                                        <td><input type="text" name="customSorts[{$i}]" value="{$vo1.custom_sort}" maxlength="8"/></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th>操作：</th>
+                                                        <td><a href="###" onclick="removePicture(this);">删除</a>
+                                                        </td>
+                                                    </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </li>
+                                    </volist>
+
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="space-4"></div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label no-padding-right">图片操作： </label>
+                            <div class="col-sm-8">
+                                <div id="showCover" style="display: none;"><img id="_coverImg" src="" class="coverImg"/></div>
+                                <input id="file_upload" name="file_upload" type="file" multiple="false">
+                                <span class="red">最佳效果尺寸： 940*585px.</span>
+                            </div>
+                        </div>
+
+
+                        <div class="space-4"></div>
+                        <div class="clearfix form-actions">
+                            <div class="col-md-offset-3 col-md-9">
+                                <div class="row">
+                                    <button class="btn btn-info b-submit" type="submit">
+                                        <i class="icon-ok bigger-110"></i>
+                                        提交
+                                    </button>
+                                    <button class="btn" type="button" onclick="javascript:history.back()">返回</button>
+                                </div>
+                            </div>
+                        </div>
+                    </foreach>
+                </form>
+            </div>
+        </div>
+
+    </div>
+</block>
+
+<block name="public">
+
+    <!-- inline scripts related to this page -->
+
+    <script src="{$Think.const.ADMIN_URL}/js/bootstrap-multiselect.js"></script>
+    <script src="{$Think.const.ADMIN_URL}/uploadify/jquery.uploadify.js"></script>
+    <script src="{$Think.const.ADMIN_URL}/js/admin.js"></script>
+    <script type="text/javascript">
+        <?php $timestamp = time();?>
+        $(function(){
+            var i =$("#photo-list li").size()+1;
+            $('#file_upload').uploadify({
+                'swf'      : '{$Think.const.ADMIN_URL}/uploadify/uploadify.swf',    //指定上传控件的主体文件
+                'uploader' : '__MODULE__/Files/storyCover',   //指定服务器端上传处理文件
+                'buttonText' : '上传图片',
+                'formData'     : {
+                    'timestamp' : '<?php echo $timestamp;?>',
+                    'token'     : '<?php echo md5('unique_salt' . $timestamp);?>'
+                },
+                'width' : "120",
+                'height' : "30",
+                'auto' : "false",
+                'multi' : "false",
+                'fileTypeExts' : "*.jpg;*.jpeg;*.gif;*.png;*.bmp;",
+                "fileDesc" : "Image Files",
+                'fileSizeLimit':'30MB', //上传文件的大小限制
+                'onSelectError':function(file, errorCode, errorMsg){
+                    switch(errorCode) {
+                        case -100:
+                            alert("上传的文件数量已经超出系统限制的"+$('#file_upload').uploadify('settings','uploadLimit')+"个文件！");
+                            break;
+                        case -110:
+                            alert("文件 ["+file.name+"] 大小超出系统限制的"+$('#file_upload').uploadify('settings','fileSizeLimit')+"大小！");
+                            break;
+                        case -120:
+                            alert("文件 ["+file.name+"] 大小异常！");
+                            break;
+                        case -130:
+                            alert("文件 ["+file.name+"] 类型不正确！");
+                            break;
+                    }
+                },
+                //上传到服务器，服务器返回相应信息到data里
+                'onUploadSuccess':function(file, data, response){
+                    eval('var data=' + data);
+                    var data = JSON.parse(data); //由JSON字符串转换为JSON对象，json转成object
+                    if(data.status){
+                        var picture = '<li class="clearfix"><div class="DisImg"><img src="{$Think.const.UPLOAD_URL}/story/' + data.pic_path + '" style="max-width:300px;"/></div>'
+                                + '<div class="DisMain"><table><tbody>'
+                                + '<tr><th>图片描述：</th>'
+                                + '<td><input type="hidden" name="thumbnail[' + i + ']" value="' + data.thumb_path + '"/><input type="hidden" name="picture[' + i + ']" value="' + data.pic_path + '"/><textarea name="description[' + i + ']" cols="50" rows="5"></textarea></td>'
+                                + '</tr><tr><th>自定义排序：</th><td><input type="text" name="customSorts[' + i + ']" value="1000" maxlength="8"/></td>'
+                                + '</tr><tr><th>操作：</th><td><a href="###" onclick="removePicture(this);">删除</a></td>'
+                                + '</tr></tbody></table></div></li>';
+                        $("#photo-list").append(picture);
+                        i++;
+                    }else {
+                        return false;
+                    }
+                }
+
+            });
+
+            removePicture = function(obj) {
+                if (confirm("你确定要删除这张图片吗?")) {
+                    $(obj).parent().parent().parent().parent().parent().parent().remove();
+                }
+            };
+
+
+            $('#myForm').bootstrapValidator({
+                message: 'This value is not valid',
+                feedbackIcons: {
+                    valid: 'glyphicon glyphicon-ok',
+                    invalid: 'glyphicon glyphicon-remove',
+                    validating: 'glyphicon glyphicon-refresh'
+                },
+                fields: {
+                    title: {
+                        validators: {
+                            notEmpty: {
+                                message: '标题不能为空'
+                            },
+                            stringLength: {
+                                min: 2,
+                                max: 90,
+                                message: '标题长度必须在2到90之间'
+                            }
+                        }
+                    },
+                    story_descirbe: {
+                        validators: {
+                            stringLength: {
+                                min: 0,
+                                max: 200,
+                                message: '故事简述长度必须在0到200之间'
+                            }
+                        }
+                    },
+                    custom_sort: {
+                        validators: {
+                            notEmpty: {
+                                message: '自定义排序不能为空'
+                            },
+                            stringLength: {
+                                min: 1,
+                                max: 10,
+                                message: '自定义排序长度必须在1到10之间'
+                            },
+                            digits :  {
+                                message: '只能输入整数'
+                            }
+                        }
+                    }
+
+                },
+                submitHandler: function(validator, form, submitButton) {
+                    // a)
+                    // Use Ajax to submit form data
+                    //$.post(form.attr('action'), form.serialize(), function(result) {
+                    // ... process the result ...
+                    //}, 'json');
+
+                    //b)
+                    // Do your task
+                    // ...
+                    // Submit the form
+                    validator.defaultSubmit();
+                }
+
+            });
+        })
+    </script>
+</block>

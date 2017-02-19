@@ -20,3 +20,11 @@ img{max-width: 100%;}
 .select-table .select-op{padding: 0 10px;}
 
 .coverImg {_width: 217px; _height: 127px; max-height: 127px; max-width: 217px; margin-bottom: 10px;}
+.DisStory { margin: 0; padding: 0; list-style: none;}
+.DisStory li {padding: 10px 0px; border-bottom: 1px dotted #ccc;}
+.DisStory .DisImg {width: 320px; float: left;}
+.DisStory .DisMain {}
+.DisStory .DisMain textarea {width: 100%;}
+.DisStory .DisMain table tr th {width: 90px; padding-right: 5px;}
+.DisStory .DisMain table tr th,.DisStory .DisMain table tr td{padding-top: 5px; padding-bottom: 5px;}
+.DisStory .DisMain a:link,.DisStory .DisMain a:visited {color: #cc0000;}

@@ -11,7 +11,7 @@ class Video_categoryModel extends Model{
         //验证视频分类名称
         array("name","require","视频分类名称必须填写"),
         array('name','2,40','视频分类名称长度必须在2到40之间！',3,'length'),
-        array('name', '/^[0-9a-zA-Z\x{4e00}-\x{9fa5}]+$/u' , '模块名称由中英文和数字组成' , 3, 'regex'),
+        //array('name', '/^[0-9a-zA-Z\x{4e00}-\x{9fa5}]+$/u' , '模块名称由中英文和数字组成' , 3, 'regex'),
         array('name','','视频分类名称已经存在！',0,'unique',1),
 
         //验证价格

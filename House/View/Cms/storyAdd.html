@@ -41,12 +41,8 @@
                     <div class="form-group">
                         <label class="col-sm-3 control-label no-padding-right"> <span class="red">*</span>封面图片： </label>
                         <div class="col-sm-5">
-                            <input type="hidden" name="cover" value="" id="cover"/>
-                            <input type="hidden" name="thumbnail" value="" id="thumbnail"/>
-                            <div id="showCover" style="display: none;"><img id="_coverImg" src="" class="coverImg"/></div>
-
-                            <input id="file_upload" name="file_upload" type="file">
-                            <span class="red">只能上传1张图片</span>
+                            <input type="file"  name="cover" />
+                            <span class="red">最佳效果尺寸： 940*585px.</span>
                         </div>
                     </div>
 
@@ -93,16 +89,20 @@
                     <div class="space-4"></div>
                     <div class="form-group">
                         <label class="col-sm-3 control-label no-padding-right">图片列表： </label>
-                        <div class="col-sm-5">
+                        <div class="col-sm-8">
+                            <ul id="photo-list" class="DisStory">
 
+                            </ul>
                         </div>
                     </div>
 
                     <div class="space-4"></div>
                     <div class="form-group">
                         <label class="col-sm-3 control-label no-padding-right">图片操作： </label>
-                        <div class="col-sm-5">
-                            <button>上传图片</button>
+                        <div class="col-sm-8">
+                            <div id="showCover" style="display: none;"><img id="_coverImg" src="" class="coverImg"/></div>
+                            <input id="file_upload" name="file_upload" type="file" multiple="false">
+                            <span class="red">最佳效果尺寸： 940*585px.</span>
                         </div>
                     </div>
 
@@ -135,18 +135,24 @@
     <script src="{$Think.const.ADMIN_URL}/uploadify/jquery.uploadify.js"></script>
     <script src="{$Think.const.ADMIN_URL}/js/admin.js"></script>
     <script type="text/javascript">
+        <?php $timestamp = time();?>
         $(function(){
+            var i = 0;
             $('#file_upload').uploadify({
                 'swf'      : '{$Think.const.ADMIN_URL}/uploadify/uploadify.swf',    //指定上传控件的主体文件
                 'uploader' : '__MODULE__/Files/storyCover',   //指定服务器端上传处理文件
                 'buttonText' : '上传图片',
+                'formData'     : {
+                    'timestamp' : '<?php echo $timestamp;?>',
+                    'token'     : '<?php echo md5('unique_salt' . $timestamp);?>'
+                },
                 'width' : "120",
                 'height' : "30",
                 'auto' : "false",
+                'multi' : "false",
                 'fileTypeExts' : "*.jpg;*.jpeg;*.gif;*.png;*.bmp;",
                 "fileDesc" : "Image Files",
-                'fileSizeLimit':'3MB', //上传文件的大小限制
-                'uploadLimit': '1',  //最大上传文件数量
+                'fileSizeLimit':'30MB', //上传文件的大小限制
                 'onSelectError':function(file, errorCode, errorMsg){
                     switch(errorCode) {
                         case -100:
@@ -165,37 +171,31 @@
                 },
                 //上传到服务器，服务器返回相应信息到data里
                 'onUploadSuccess':function(file, data, response){
-                    console.log(data);
+                    eval('var data=' + data);
+                    var data = JSON.parse(data); //由JSON字符串转换为JSON对象，json转成object
+                    if(data.status){
+                        var picture = '<li class="clearfix"><div class="DisImg"><img src="{$Think.const.UPLOAD_URL}/story/' + data.pic_path + '" style="max-width:300px;"/></div>'
+                                + '<div class="DisMain"><table><tbody>'
+                                + '<tr><th>图片描述：</th>'
+                                + '<td><input type="hidden" name="thumbnail[' + i + ']" value="' + data.thumb_path + '"/><input type="hidden" name="picture[' + i + ']" value="' + data.pic_path + '"/><textarea name="description[' + i + ']" cols="50" rows="5"></textarea></td>'
+                                + '</tr><tr><th>自定义排序：</th><td><input type="text" name="customSorts[' + i + ']" value="1000" maxlength="8"/></td>'
+                                + '</tr><tr><th>操作：</th><td><a href="###" onclick="removePicture(this);">删除</a></td>'
+                                + '</tr></tbody></table></div></li>';
+                        $("#photo-list").append(picture);
+                        i++;
+                    }else {
+                        return false;
+                    }
                 }
 
-            //其他配置项-
-        });
-
-            showCover = function(fileName, thumbnail) {
-                $("#cover").val(fileName);
-                $("#thumbnail").val(thumbnail);
-                $("#_coverImg").attr("src", cdn + "/uploaded/story/" + fileName);
-                $("#showCover").show();
-            };
-
-            generatePicture = function(fileServerName, thumbnail, fileName) {
-
-                var picture = '<li><div class="DisImg"><img src="CDN/uploaded/story/' + fileServerName + '" style="max-width:300px;"/></div>'
-                        + '<div class="DisMain"><table><tbody><tr><th>图片名称：</th>'
-                        + '<td>' + fileName + '<input type="hidden" name="items[' + i + '].picture" value="' + fileServerName + '"/></td></tr><tr><th>图片描述：</th>'
-                        + '<td><input type="hidden" name="items[' + i + '].thumbnail" value="' + thumbnail + '"/><textarea name="items[' + i + '].description" cols="50" rows="5"></textarea></td>'
-                        + '</tr><tr><th>自定义排序：</th><td><input type="text" name="items[' + i + '].customSort" value="1000" maxlength="8"/></td>'
-                        + '</tr><tr><th>操作：</th><td><a href="###" onclick="removePicture(this);">删除</a></td>'
-                        + '</tr></tbody></table></div><div class="clear"></div></li>';
-                $("#picture").append(picture);
-                i++;
-            };
+            });
 
             removePicture = function(obj) {
                 if (confirm("你确定要删除这张图片吗?")) {
                     $(obj).parent().parent().parent().parent().parent().parent().remove();
                 }
             };
+
 
             $('#myForm').bootstrapValidator({
                 message: 'This value is not valid',
@@ -214,47 +214,22 @@
                                 min: 2,
                                 max: 90,
                                 message: '标题长度必须在2到90之间'
-                            },
-                            regexp: {
-                                regexp: /^[0-9a-zA-Z\u4e00-\u9fa5]+$/,
-                                message: '标题由中英文和数字组成'
                             }
                         }
                     },
-                    summary: {
+                    cover: {
+                        validators: {
+                            notEmpty: {
+                                message: '封面图片不能为空'
+                            }
+                        }
+                    },
+                    story_descirbe: {
                         validators: {
                             stringLength: {
                                 min: 0,
                                 max: 200,
-                                message: '简介长度必须在0到200之间'
-                            }
-                        }
-                    },
-                    keywords: {
-                        validators: {
-                            stringLength: {
-                                min: 0,
-                                max: 200,
-                                message: '关键词长度必须在0到200之间'
-                            }
-                        }
-                    },
-                    photo: {
-                        validators: {
-                            notEmpty: {
-                                message: '成员照片不能为空'
-                            }
-                        }
-                    },
-                    photo_describe: {
-                        validators: {
-                            notEmpty: {
-                                message: '照片描述不能为空'
-                            },
-                            stringLength: {
-                                min: 1,
-                                max: 20,
-                                message: '照片描述长度必须在1到20之间'
+                                message: '故事简述长度必须在0到200之间'
                             }
                         }
                     },

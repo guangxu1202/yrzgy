@@ -73,29 +73,25 @@
                     validating: 'glyphicon glyphicon-refresh'
                 },
                 fields: {
-//                    name: {
-//                        validators: {
-//                            notEmpty: {
-//                                message: '分类名称不能为空'
-//                            },
-//                            stringLength: {
-//                                min: 2,
-//                                max: 40,
-//                                message: '分类名称长度必须在2到40之间'
-//                            },
-//                            threshold :  2 , //有2字符以上才发送ajax请求，
-//                            remote: {
-//                                url: '__MODULE__/Cate/checkArticle',//验证地址
-//                                message: '分类已存在',//提示消息
-//                                delay :  2000,//2秒发送一次ajax
-//                                type: 'POST'//请求方式
-//                            },
-//                            regexp: {
-//                                regexp: /^[0-9a-zA-Z\u4e00-\u9fa5]+$/,
-//                                message: '分类名称由中英文和数字组成'
-//                            }
-//                        }
-//                    }
+                    name: {
+                        validators: {
+                            notEmpty: {
+                                message: '分类名称不能为空'
+                            },
+                            stringLength: {
+                                min: 2,
+                                max: 40,
+                                message: '分类名称长度必须在2到40之间'
+                            },
+                            threshold :  2 , //有2字符以上才发送ajax请求，
+                            remote: {
+                                url: '__MODULE__/Cate/checkArticle',//验证地址
+                                message: '分类已存在',//提示消息
+                                delay :  2000,//2秒发送一次ajax
+                                type: 'POST'//请求方式
+                            }
+                        }
+                    }
 
                 },
                 submitHandler: function(validator, form, submitButton) {

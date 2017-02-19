@@ -473,14 +473,15 @@ class CmsController extends CommonController
             }
 
 
+
             //上传照片处理
             $upload = new \Think\Upload();// 实例化上传类
             $upload->maxSize   =     3145728 ;// 设置附件上传大小
-            $upload->exts      =     array('jpg', 'gif', 'png', 'jpeg');// 设置附件上传类型
-            $upload->rootPath  =      'CDN/uploaded/person/'; // 设置附件上传根目录
+            $upload->exts      =     array('jpg', 'gif', 'png', 'jpeg','bmp');// 设置附件上传类型
+            $upload->rootPath  =      'CDN/uploaded/story/'; // 设置附件上传根目录
             $upload->autoSub  =      true;
             // 上传单个文件
-            $info   =   $upload->uploadOne($_FILES['photo']);
+            $info   =   $upload->uploadOne($_FILES['cover']);
             if(!$info) {// 上传错误提示错误信息
                 $this->error($upload->getError());
             }else{// 上传成功 获取上传文件信息
@@ -489,9 +490,9 @@ class CmsController extends CommonController
 
                 //缩略图处理
                 $image = new \Think\Image();
-                $image->open('CDN/uploaded/person/'.$photo);
+                $image->open('CDN/uploaded/story/'.$photo);
                 // 生成缩略图
-                $image->thumb(110, 90)->save('CDN/uploaded/person/'.$thumb);
+                $image->thumb(217, 127,\Think\Image::IMAGE_THUMB_CENTER)->save('CDN/uploaded/story/'.$thumb);
             }
 
             //数据录入
@@ -501,25 +502,172 @@ class CmsController extends CommonController
             $log["regenerator"] = session("a_username");
             $log["allow_copy"] = checkBit(I('post.allow_copy'));
             $log["author"] = I("post.author");
-            $log["content"] = I("post.content");
             $log["custom_sort"] = I("post.custom_sort");
             $log["keywords"] = I("post.keywords");
-            $log["photo_describe"] = I("post.photo_describe");
             $log["is_show"] = true;
-            $log["summary"] = I("post.summary");
+            $log["story_descirbe"] = I("post.story_descirbe");
             $log["title"] = I("post.title");
             $log["browse_count"] = 0;
-            $log["photo"] = $photo;
+            $log["cover"] = $photo;
             $log["thumbnail"] = $thumb;
-            $model->data($log)->add();
+            $result = $model->data($log)->add();
 
-            //录入成功
-            $this->success("恭喜您，操作成功！",__MODULE__."/Cms/storyList");
+            if ($model){
+                $id = $result; // 获取数据库写入数据的主键
+                //插入关联表数据
+
+
+                $arr = array_keys(I('picture'));
+                for($x=0;$x<count($arr);$x++) {
+                    $index = $arr[$x]; //下标ID
+                    $table_model = M("picture_story_item"); // 实例化picture_story_item对象
+                    $data['custom_sort'] = I("customSorts")[$index];
+                    $data['description'] = I("description")[$index];
+                    $data['picture'] = I("picture")[$index];
+                    $data['is_show'] = true;
+                    $data['thumbnail'] = I("thumbnail")[$index];
+                    $data['picture_story_id'] = $id;
+                    $table_model->add($data);
+
+                }
+
+
+                //录入成功
+                $this->success("恭喜您，操作成功！",__MODULE__."/Cms/storyList");
+            }else{
+                $this->error("数据录入失败！");
+                exit();
+            }
 
         }else{
             $this -> display();
         }
     }
 
+    //修改
+    function storyEdit(){
+        if (!empty($_POST)){
+            $model = new \Model\Picture_storyModel();
+            //验证数据 Picture_storyModel
+            $z = $model -> create();
+            if (!$z){
+                //show_bug($model -> getError());
+                $this->error("您录入的数据格式错误！");
+                exit();
+            }
 
+            if ($model->find(I("post.pk")) == null){
+                //错误ID
+                $this->error("页面无法访问！");
+            }else{
+                //处理信息
+                if ($_FILES['cover']['name']==''){
+                    //文件未上传
+                }else{
+                    //有修改文件上传
+
+                    //上传照片处理
+                    $upload = new \Think\Upload();// 实例化上传类
+                    $upload->maxSize   =     3145728 ;// 设置附件上传大小
+                    $upload->exts      =     array('jpg', 'gif', 'png', 'jpeg','bmp');// 设置附件上传类型
+                    $upload->rootPath  =      'CDN/uploaded/story/'; // 设置附件上传根目录
+                    $upload->autoSub  =      true;
+                    // 上传单个文件
+                    $info   =   $upload->uploadOne($_FILES['cover']);
+                    if(!$info) {// 上传错误提示错误信息
+                        $this->error($upload->getError());
+                    }else{// 上传成功 获取上传文件信息
+                        $photo =  $info['savepath'].$info['savename'];
+                        $thumb = $info['savepath'].'thumb_'.$info['savename'];
+
+                        //缩略图处理
+                        $image = new \Think\Image();
+                        $image->open('CDN/uploaded/story/'.$photo);
+                        // 生成缩略图
+                        $image->thumb(217, 127,\Think\Image::IMAGE_THUMB_CENTER)->save('CDN/uploaded/story/'.$thumb);
+
+                        $data["cover"] = $photo;
+                        $data["thumbnail"] = $thumb;
+                    }
+                }
+
+                //数据修改
+
+                $data["update_time"] = date("Y-m-d H:i:s");
+                $data["regenerator"] = session("a_username");
+                $data["allow_copy"] = checkBit(I('post.allow_copy'));
+                $data["author"] = I("post.author");
+                $data["custom_sort"] = I("post.custom_sort");
+                $data["keywords"] = I("post.keywords");
+                $data["story_descirbe"] = I("post.story_descirbe");
+                $data["title"] = I("post.title");
+
+                $model->  where("pk=".I('post.pk'))  ->setField($data);
+
+                //删除原有关联ID记录
+                $table_model = M("picture_story_item"); // 实例化picture_story_item对象
+                $table_model->where('picture_story_id = '.I('post.pk'))->delete();
+
+                //添加新关联ID记录
+                $arr = array_keys(I('picture'));
+                for($x=0;$x<count($arr);$x++) {
+                    $index = $arr[$x]; //下标ID
+                    $data['custom_sort'] = I("customSorts")[$index];
+                    $data['description'] = I("description")[$index];
+                    $data['picture'] = I("picture")[$index];
+                    $data['is_show'] = true;
+                    $data['thumbnail'] = I("thumbnail")[$index];
+                    $data['picture_story_id'] = I('post.pk');
+                    $table_model->add($data);
+                }
+
+                //录入成功
+                $this->success("恭喜您，操作成功！",__MODULE__."/Cms/storyList");
+            }
+
+        }else{
+            $a = M("picture_story");
+            $b = M("picture_story_item");
+            if ($a->find(I("get.pa")) == null){
+                //错误ID
+                $this->error("页面无法访问！");
+            }else{
+                //修改界面展示
+                $info = $a -> where("pk=".I("get.pa")) -> select();
+                $info1 = $b -> where("picture_story_id=".I("get.pa")) -> select();
+                $this -> assign("info",$info);
+                $this -> assign("info1",$info1);
+                $this -> display();
+            }
+        }
+    }
+
+    //查看
+    function storyShow(){
+        $user = M("person_intro");
+
+        if ($user->find(I("get.pa")) == null){
+            //错误ID
+            $this->error("页面无法访问！");
+        }else{
+            //界面展示
+            $a = M("picture_story");
+            $b = M("picture_story_item");
+            $info = $a -> where("pk=".I("get.pa")) -> select();
+            $info1 = $b -> where("picture_story_id=".I("get.pa")) -> select();
+            $this -> assign("info",$info);
+            $this -> assign("info1",$info1);
+            $this -> display();
+        }
+
+    }
+
+//**********资料管理************
+    //列表
+    function filesList(){
+        $user = M("file_download");
+        $info = $user ->order("expired desc,custom_sort desc,update_time desc") -> select();
+        $this -> assign("info",$info);
+        $this -> display();
+    }
 }

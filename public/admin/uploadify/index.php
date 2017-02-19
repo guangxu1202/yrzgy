@@ -3,7 +3,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <title>UploadiFive Test</title>
-<script src="../public/admin/js/jquery-2.0.3.min.js" type="text/javascript"></script>
+<script src="../js/jquery-2.0.3.min.js" type="text/javascript"></script>
 <script src="jquery.uploadify.min.js" type="text/javascript"></script>
 <link rel="stylesheet" type="text/css" href="uploadify.css">
 <style type="text/css">
