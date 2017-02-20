@@ -1,0 +1,244 @@
+<extend name="./base" />
+<block name="title"><title>新增 - 投票管理 - 内容管理 - 元认知干预网站管理后台系统</title></block>
+<block name="content">
+    <div class="breadcrumbs" id="breadcrumbs">
+        <script type="text/javascript">
+            try{ace.settings.check('breadcrumbs' , 'fixed')}catch(e){}
+        </script>
+
+        <ul class="breadcrumb">
+            <li>
+                <i class="icon-home home-icon"></i>
+                <a href="#">首页</a>
+            </li>
+            <li class="active">内容管理</li>
+        </ul><!-- .breadcrumb -->
+
+    </div>
+
+    <div class="page-content">
+        <div class="page-header">
+            <h1>
+                投票管理
+                <small>
+                    <i class="icon-double-angle-right"></i>
+                    新增
+                </small>
+            </h1>
+        </div><!-- /.page-header -->
+        <div class="row">
+            <div class="col-xs-12">
+                <form class="form-horizontal" id="myForm" method="post" action="__SELF__">
+                    <div class="space-4"></div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label no-padding-right"> <span class="red">*</span>标题： </label>
+                        <div class="col-sm-5">
+                            <input placeholder="请输入标题" class="form-control" type="text" name="title" >
+                        </div>
+                    </div>
+
+
+                    <div class="space-4"></div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label no-padding-right"> 描述： </label>
+                        <div class="col-sm-5">
+                            <textarea class="autosize-transition form-control" style="height: 120px;" name="description"></textarea>
+                        </div>
+                    </div>
+
+                    <div class="space-4"></div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label no-padding-right">  <span class="red">*</span>投票选项： </label>
+                        <div class="col-sm-5">
+                            <ul class="items">
+                                <li>
+                                    <input type="text" name="content[0]" class="form-control" maxlength="100" value="">
+                                </li>
+                                <li>
+                                    <input type="text" name="content[1]" class="form-control" maxlength="100" value="">
+                                </li>
+                            </ul>
+                            <button class="btn btn-success" type="button" onclick="itemAdd(1)">增加一项</button>
+                            <button class="btn btn-success" type="button" onclick="itemAdd(3)">增加三项</button>
+                        </div>
+                    </div>
+
+
+                    <div class="space-4"></div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label no-padding-right"> 投票方式： </label>
+                        <div class="col-sm-5">
+                            <div class="form-info voteWay">
+                                <label class="lab"><input value="true" class="voteRadio" name="is_radio" checked="" type="radio" onclick="hideOption()">单选</label>
+                                <label class="lab"><input value="false" class="voteRadio" name="is_radio" type="radio" onclick="showOption()">多选</label>
+                                <span class="voteOption"></span>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+
+                    <div class="space-4"></div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label no-padding-right"> <span class="red">*</span>自定义排序： </label>
+                        <div class="col-sm-5">
+                            <input placeholder="请输入自定义排序, 数字大的在前面." class="form-control" type="text" name="custom_sort" value="1000" >
+                            <span class="grey">请输入自定义排序,数字大的在前面</span>
+                        </div>
+                    </div>
+
+
+
+                    <div class="space-4"></div>
+                    <div class="clearfix form-actions">
+                        <div class="col-md-offset-3 col-md-9">
+                            <div class="row">
+                                <button class="btn btn-info b-submit" type="submit">
+                                    <i class="icon-ok bigger-110"></i>
+                                    提交
+                                </button>
+                                <button class="btn" type="button" onclick="javascript:history.back()">返回</button>
+                            </div>
+                        </div>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+
+    </div>
+</block>
+
+<block name="public">
+
+    <!-- inline scripts related to this page -->
+
+    <script src="{$Think.const.ADMIN_URL}/js/admin.js"></script>
+    <script type="text/javascript">
+        $(function(){
+            $('.date-picker').datepicker({autoclose:true}).next().on(ace.click_event, function(){
+                $(this).prev().focus();
+            });
+            var k = 1;
+
+            itemAdd = function (n) {
+                var n = n || 1;
+                for (var i = 0; i < n; i++){
+                    $(".items").append('<li><input type="text" name="content['+k+']" class="form-control" maxlength="100" value=""><a href="javascript:void(0);" onclick="itemDel(this)"><i class="icon-trash"></i></a></li>');
+                    k++;
+                }
+                if (calc) {
+                    calcOption();
+                }
+            };
+
+            itemDel = function(obj) {
+                $(obj).parent().remove();
+                if (calc) {
+                    calcOption();
+                }
+            };
+
+            showOption = function() {
+                calc = true;
+                if ($(".voteOption").find("select").length <= 0) {
+                    $(".voteOption").append('<select id="maximum" name="maximum"></select>');
+                    calcOption();
+                }
+            };
+
+            hideOption = function() {
+                calc = false;
+                $(".voteOption").children().remove();
+            };
+
+            calcOption = function() {
+                var len = $(".items").find("li").length;
+                $("#maximum").empty();
+                for (var j = 2; j <= len; j++) {
+                    $("#maximum").append('<option value="' + j + '">最多选 ' + j + ' 项</option>');
+                }
+                $("#maximum").find("option:last").attr("selected", true);
+            };
+
+
+
+            $('#myForm').bootstrapValidator({
+                message: 'This value is not valid',
+                feedbackIcons: {
+                    valid: 'glyphicon glyphicon-ok',
+                    invalid: 'glyphicon glyphicon-remove',
+                    validating: 'glyphicon glyphicon-refresh'
+                },
+                fields: {
+                    title: {
+                        validators: {
+                            notEmpty: {
+                                message: '文章标题不能为空'
+                            },
+                            stringLength: {
+                                min: 2,
+                                max: 90,
+                                message: '文章标题长度必须在2到90之间'
+                            }
+                        }
+                    },
+                    description: {
+                        validators: {
+                            stringLength: {
+                                min: 0,
+                                max: 200,
+                                message: '描述长度必须在0到200之间'
+                            }
+                        }
+                    },
+                    'content[0]': {
+                        validators: {
+                            notEmpty: {
+                                message: '请输入问题一'
+                            }
+                        }
+                    },
+                    'content[1]': {
+                        validators: {
+                            notEmpty: {
+                                message: '请输入问题二'
+                            }
+                        }
+                    },
+                    custom_sort: {
+                        validators: {
+                            notEmpty: {
+                                message: '自定义排序不能为空'
+                            },
+                            stringLength: {
+                                min: 1,
+                                max: 10,
+                                message: '自定义排序长度必须在1到10之间'
+                            },
+                            digits :  {
+                                message: '只能输入整数'
+                            }
+                        }
+                    }
+
+                },
+                submitHandler: function(validator, form, submitButton) {
+                    // a)
+                    // Use Ajax to submit form data
+                    //$.post(form.attr('action'), form.serialize(), function(result) {
+                    // ... process the result ...
+                    //}, 'json');
+
+                    //b)
+                    // Do your task
+                    // ...
+                    // Submit the form
+                    validator.defaultSubmit();
+                }
+
+            });
+        })
+    </script>
+</block>

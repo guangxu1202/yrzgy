@@ -1,5 +1,5 @@
 <extend name="./base" />
-<block name="title"><title>新增 - 技术团队管理 - 内容管理 - 元认知干预网站管理后台系统</title></block>
+<block name="title"><title>新增 - 资料管理 - 内容管理 - 元认知干预网站管理后台系统</title></block>
 <block name="content">
     <div class="breadcrumbs" id="breadcrumbs">
         <script type="text/javascript">
@@ -19,7 +19,7 @@
     <div class="page-content">
         <div class="page-header">
             <h1>
-                技术团队管理
+                资料管理
                 <small>
                     <i class="icon-double-angle-right"></i>
                     新增
@@ -31,37 +31,18 @@
                 <form class="form-horizontal" id="myForm" method="post"  enctype="multipart/form-data" action="__SELF__">
                     <div class="space-4"></div>
                     <div class="form-group">
-                        <label class="col-sm-3 control-label no-padding-right"> <span class="red">*</span>标题： </label>
+                        <label class="col-sm-3 control-label no-padding-right"> <span class="red">*</span>文件名称： </label>
                         <div class="col-sm-5">
-                            <input placeholder="请输入标题" class="form-control" type="text" name="title" >
-                        </div>
-                    </div>
-
-
-                    <div class="space-4"></div>
-                    <div class="form-group">
-                        <label class="col-sm-3 control-label no-padding-right"> 摘要： </label>
-                        <div class="col-sm-5">
-                            <textarea class="autosize-transition form-control" style="height: 120px;" name="summary"></textarea>
+                            <input placeholder="请输入文件名称" class="form-control" type="text" name="file_name" >
                         </div>
                     </div>
 
                     <div class="space-4"></div>
                     <div class="form-group">
-                        <label class="col-sm-3 control-label no-padding-right">内容： </label>
-                        <div class="col-sm-9">
-                            <!-- ckeditor -->
-                            <script src="{$Think.const.PUBLIC_URL}/ckeditor/ckeditor.js"></script>
-                            <textarea name="content"></textarea>
-                            <script type="text/javascript">CKEDITOR.replace('content',{ filebrowserImageUploadUrl  :  '__MODULE__/Files/ck_upload',height : 500});</script>
-                        </div>
-                    </div>
-
-                    <div class="space-4"></div>
-                    <div class="form-group">
-                        <label class="col-sm-3 control-label no-padding-right"> 作者： </label>
+                        <label class="col-sm-3 control-label no-padding-right"><span class="red">*</span> 选择文件： </label>
                         <div class="col-sm-5">
-                            <input placeholder="请输入作者" class="form-control" type="text" name="author" >
+                            <input type="file" id="id-input-file-2" name="file_path" />
+                            <span class="grey">允许的上传类型：'jpg', 'gif', 'png', 'jpeg','ppt','pptx','doc','docx','pdf','rar','zip','xls','xlsx'</span>
                         </div>
                     </div>
 
@@ -71,46 +52,21 @@
                         <label class="col-sm-3 control-label no-padding-right"> <span class="red">*</span>自定义排序： </label>
                         <div class="col-sm-5">
                             <input placeholder="请输入自定义排序, 数字大的在前面." class="form-control" type="text" name="custom_sort" value="1000" >
-                            <span class="grey">请输入自定义排序,数字大的在前面</span>
-                        </div>
-                    </div>
-
-                    <div class="space-4"></div>
-                    <div class="form-group">
-                        <label class="col-sm-3 control-label no-padding-right"><span class="red">*</span> 成员照片： </label>
-                        <div class="col-sm-5">
-                            <input type="file" id="id-input-file-2" name="photo" />
-                            <span class="grey">最佳图片显示效果比例：600*490</span>
-                        </div>
-                    </div>
-
-                    <div class="space-4"></div>
-                    <div class="form-group">
-                        <label class="col-sm-3 control-label no-padding-right"><span class="red">*</span> 照片描述： </label>
-                        <div class="col-sm-5">
-                            <input placeholder="请输入照片描述, 将在首页显示." class="form-control" type="text" name="photo_describe" >
                         </div>
                     </div>
 
 
                     <div class="space-4"></div>
                     <div class="form-group">
-                        <label class="col-sm-3 control-label no-padding-right"> 允许复制： </label>
+                        <label class="col-sm-3 control-label no-padding-right"> 状态： </label>
                         <div class="col-sm-5">
                             <div class="form-info">
-                                <label class="lab"><input value="false" name="allow_copy" checked="" type="radio">拒绝</label>
-                                <label class="lab"><input value="true" name="allow_copy" type="radio">允许</label>
+                                <label class="lab"><input value="true" name="expired" checked="" type="radio">正常</label>
+                                <label class="lab"><input value="false" name="expired" type="radio">过期</label>
                             </div>
                         </div>
                     </div>
 
-                    <div class="space-4"></div>
-                    <div class="form-group">
-                        <label class="col-sm-3 control-label no-padding-right">关键字： </label>
-                        <div class="col-sm-5">
-                            <input placeholder="请输入关键字" class="form-control" type="text" name="keywords" >
-                        </div>
-                    </div>
 
 
                     <div class="space-4"></div>
@@ -153,52 +109,22 @@
                     validating: 'glyphicon glyphicon-refresh'
                 },
                 fields: {
-                    title: {
+                    file_name: {
                         validators: {
                             notEmpty: {
-                                message: '标题不能为空'
+                                message: '文件名称不能为空'
                             },
                             stringLength: {
                                 min: 2,
                                 max: 90,
-                                message: '标题长度必须在2到90之间'
+                                message: '文件名称长度必须在2到50之间'
                             }
                         }
                     },
-                    summary: {
-                        validators: {
-                            stringLength: {
-                                min: 0,
-                                max: 200,
-                                message: '简介长度必须在0到200之间'
-                            }
-                        }
-                    },
-                    keywords: {
-                        validators: {
-                            stringLength: {
-                                min: 0,
-                                max: 200,
-                                message: '关键词长度必须在0到200之间'
-                            }
-                        }
-                    },
-                    photo: {
+                    file_path: {
                         validators: {
                             notEmpty: {
-                                message: '成员照片不能为空'
-                            }
-                        }
-                    },
-                    photo_describe: {
-                        validators: {
-                            notEmpty: {
-                                message: '照片描述不能为空'
-                            },
-                            stringLength: {
-                                min: 1,
-                                max: 20,
-                                message: '照片描述长度必须在1到20之间'
+                                message: '请选择资料文件'
                             }
                         }
                     },

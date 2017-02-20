@@ -1,5 +1,5 @@
 <extend name="./base" />
-<block name="title"><title>资料管理 - 内容管理 - 元认知干预网站管理后台系统</title></block>
+<block name="title"><title>投票管理 - 内容管理 - 元认知干预网站管理后台系统</title></block>
 <block name="content">
     <div class="breadcrumbs" id="breadcrumbs">
         <script type="text/javascript">
@@ -19,12 +19,12 @@
     <div class="page-content">
         <div class="page-header">
             <h1>
-                资料管理
+                投票管理
                 <small>
                     <i class="icon-double-angle-right"></i>
                     列表
                 </small>
-                <button class="btn btn-sm btn-primary pull-right" onclick="javascript:location.href='__MODULE__/Cms/filesAdd'">上传资料</button>
+                <button class="btn btn-sm btn-primary pull-right" onclick="javascript:location.href='__MODULE__/Cms/voteAdd'">发起新投票</button>
             </h1>
         </div><!-- /.page-header -->
         <div class="row">
@@ -41,10 +41,13 @@
                             <th class="center">
                                 序号
                             </th>
-                            <th>资料名称</th>
+                            <th>投票主题</th>
+                            <th>描述</th>
+                            <th>投票方式</th>
                             <th>排序序号</th>
-                            <th>创建人</th>
-                            <th>创建时间</th>
+                            <th>状态</th>
+                            <!--<th>创建人</th>-->
+                            <!--<th>创建时间</th>-->
                             <th>修改人</th>
                             <th>修改时间</th>
                             <th>操作</th>
@@ -55,24 +58,41 @@
                         <volist name="info" id="vo">
                             <tr>
                                 <td class="center">{$i}</td>
+                                <td style="max-width: 300px; overflow: hidden;">
+                                    <div><a href="__MODULE__/Cms/voteShow/pa/{$vo.pk}" data-id="{$vo.pk}">{$vo.title}</a></div>
+                                </td>
+                                <td style="max-width: 290px; overflow: hidden;">
+                                    <div><a href="__MODULE__/Cms/voteShow/pa/{$vo.pk}" data-id="{$vo.pk}">{$vo.description}</a></div>
+                                 </td>
                                 <td>
-                                    <div style="max-width: 300px; overflow: hidden;">{$vo.file_name}</div>
+                                    <if condition="$vo.is_radio eq 1 ">
+                                        单选
+                                        <else />
+                                        最多选{$vo.maximum}项
+                                    </if>
                                 </td>
                                 <td>{$vo.custom_sort}</td>
-                                <td>{$vo.creator}</td>
-                                <td>{$vo.create_time|substr=0,10}</td>
+
+                                <td>
+                                    <if condition="$vo.is_show eq 1 ">
+                                        正常
+                                        <else />
+                                        已过期
+                                    </if>
+                                </td>
+                                <!--<td>{$vo.creator}</td>-->
+                                <!--<td>{$vo.create_time|substr=0,10}</td>-->
                                 <td>{$vo.regenerator}</td>
                                 <td>{$vo.update_time|substr=0,10}</td>
                                 <td>
                                     <div class="visible-md visible-lg hidden-sm hidden-xs action-buttons">
-
-                                        <a href="__MODULE__/Cms/filesEdit/pa/{$vo.pk}" data-id="{$vo.pk}">编辑</a>
-                                        <if condition="$vo.expired eq 1 ">
-                                            <a href="javascript:void(0);" class="lock-btn" data-id="{$vo.pk}" data-statu="lock">过时</a>
+                                        <a href="__MODULE__/Cms/voteShow/pa/{$vo.pk}" data-id="{$vo.pk}">详细</a>
+                                        <a href="__MODULE__/Cms/voteEdit/pa/{$vo.pk}" data-id="{$vo.pk}">编辑</a>
+                                        <if condition="$vo.is_show eq 1 ">
+                                            <a href="javascript:void(0);" class="lock-btn" data-id="{$vo.pk}" data-statu="lock">过期</a>
                                             <else />
                                             <a href="javascript:void(0);" class="lock-btn" data-id="{$vo.pk}" data-statu="unlock">恢复</a>
                                         </if>
-                                        <a href="javascript:void(0);" class="del-btn" data-id="{$vo.pk}">删除</a>
                                     </div>
                                 </td>
                             </tr>
@@ -98,7 +118,7 @@
             var oTable1 = $('#sample-table-2').dataTable( {
                 "aoColumns": [
                     { "bSortable": false },
-                    null, null,null, null, null,null,
+                    null, null,null, null, null,null,null,
                     { "bSortable": false }
                 ] ,
                 "oLanguage" : {
@@ -138,24 +158,13 @@
         $(".lock-btn").click(function(){
             var that = this;
             if ($(that).attr("data-statu")=="lock"){
-                var str = "确定要作废这条记录吗？作废后将不在前台显示！";
+                var str = "确定要作废这个文章分类吗？作废后将不在前台显示！";
             }else{
-                var str = "确定要启用这条记录吗？启用后将在前台显示！";
+                var str = "确定要启用这个文章分类吗？启用后该分类将在前台显示！";
             }
             bootbox.confirm(str, function(result) {
                 if(result) {
-                    location.href ="__MODULE__/Cms/filesLocked/pa/"+$(that).attr("data-id")+"/sa/"+$(that).attr("data-statu");
-                }
-            });
-        });
-
-        //删除记录
-        $(".del-btn").click(function(){
-            var that = this;
-            var str = "警告！确定要删除这条记录吗？删除后不再显示！";
-            bootbox.confirm(str, function(result) {
-                if(result) {
-                    location.href ="__MODULE__/Cms/filesDel/pa/"+$(that).attr("data-id");
+                    location.href ="__MODULE__/Cms/voteLocked/pa/"+$(that).attr("data-id")+"/sa/"+$(that).attr("data-statu");
                 }
             });
         });

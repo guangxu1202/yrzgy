@@ -433,7 +433,7 @@ class CmsController extends CommonController
 
     }
 
-//**********技术团队管理************
+//**********图片故事管理************
     //列表
     function storyList(){
         $user = M("picture_story");
@@ -670,4 +670,317 @@ class CmsController extends CommonController
         $this -> assign("info",$info);
         $this -> display();
     }
+
+    //新增
+    function filesAdd(){
+        if (!empty($_POST)){
+            //实例化
+            $model = new \Model\File_downloadModel();
+            //验证数据 File_downloadModel
+            $z = $model -> create();
+            if (!$z){
+                //show_bug($model -> getError());
+                $this->error("您录入的数据格式错误！");
+                exit();
+            }
+
+
+            //上传照片处理
+            $upload = new \Think\Upload();// 实例化上传类
+            $upload->maxSize   =     21457280 ;// 设置附件上传大小
+            $upload->exts      =     array('jpg', 'gif', 'png', 'jpeg','ppt','pptx','doc','docx','pdf','rar','zip','xls','xlsx');// 设置附件上传类型
+            $upload->rootPath  =      'CDN/uploaded/files/'; // 设置附件上传根目录
+            $upload->autoSub  =      true;
+            // 上传单个文件
+            $info   =   $upload->uploadOne($_FILES['file_path']);
+            if(!$info) {// 上传错误提示错误信息
+                $this->error($upload->getError());
+            }else{// 上传成功 获取上传文件信息
+                $photo =  $info['savepath'].$info['savename'];
+            }
+
+            //数据录入
+            $log["create_time"] = date("Y-m-d H:i:s");
+            $log["creator"] = session("a_username");
+            $log["update_time"] = date("Y-m-d H:i:s");
+            $log["regenerator"] = session("a_username");
+            $log["custom_sort"] = I("post.custom_sort");
+            $log["expired"] = checkBit(I('post.expired'));
+            $log["file_name"] = I("post.file_name");
+            $log["download_count"] = 0;
+            $log["file_path"] = $photo;
+            $model->data($log)->add();
+
+            //录入成功
+            $this->success("恭喜您，操作成功！",__MODULE__."/Cms/filesList");
+
+        }else{
+            $this -> display();
+        }
+    }
+
+    //修改
+    function filesEdit(){
+        if (!empty($_POST)){
+            $model = new \Model\File_downloadModel();
+            //验证数据 File_downloadModel
+            $z = $model -> create();
+            if (!$z){
+                //show_bug($model -> getError());
+                $this->error("您录入的数据格式错误！");
+                exit();
+            }
+
+            if ($model->find(I("post.pk")) == null){
+                //错误ID
+                $this->error("页面无法访问！");
+            }else{
+                //处理信息
+                if ($_FILES['file_path']['name']==''){
+                    //文件未上传
+                }else{
+                    //有修改文件上传
+
+                    //上传照片处理
+                    $upload = new \Think\Upload();// 实例化上传类
+                    $upload->maxSize   =     21457280 ;// 设置附件上传大小
+                    $upload->exts      =     array('jpg', 'gif', 'png', 'jpeg','ppt','pptx','doc','docx','pdf','rar','zip','xls','xlsx');// 设置附件上传类型
+                    $upload->rootPath  =      'CDN/uploaded/files/'; // 设置附件上传根目录
+                    $upload->autoSub  =      true;
+                    // 上传单个文件
+                    $info   =   $upload->uploadOne($_FILES['file_path']);
+                    if(!$info) {// 上传错误提示错误信息
+                        $this->error($upload->getError());
+                    }else{// 上传成功 获取上传文件信息
+                        $photo =  $info['savepath'].$info['savename'];
+                        $data["file_path"] = $photo;
+                    }
+                }
+
+                //数据修改
+
+                $data["update_time"] = date("Y-m-d H:i:s");
+                $data["regenerator"] = session("a_username");
+                $data["custom_sort"] = I("post.custom_sort");
+                $data["expired"] = checkBit(I('post.expired'));
+                $data["file_name"] = I("post.file_name");
+                $model->  where("pk=".I('post.pk'))  ->setField($data);
+                //录入成功
+                $this->success("恭喜您，操作成功！",__MODULE__."/Cms/filesList");
+            }
+
+
+        }else{
+            $a = M("file_download");
+            if ($a->find(I("get.pa")) == null){
+                //错误ID
+                $this->error("页面无法访问！");
+            }else{
+                //修改界面展示
+                $info = $a -> where("pk=".I("get.pa")) -> select();
+                $this -> assign("info",$info);
+                $this -> display();
+            }
+        }
+    }
+
+    //过时与恢复
+    function filesLocked(){
+        if (I('get.sa')=="lock"){
+            $str = "恭喜您，记录过时成功！";
+            $sa = false;
+        }else{
+            $str = "恭喜您，记录恢复成功！";
+            $sa = true;
+        }
+        $model = M("file_download");
+        $data = array('expired'=> $sa,'regenerator'=>session("a_username"),'update_time'=>date("Y-m-d H:i:s"));
+        $model-> where('pk='.I('get.pa'))->setField($data);
+
+        //操作成功
+        $this->success($str,__MODULE__."/Cms/filesList");
+    }
+
+    //删除
+    function filesDel(){
+        //删除记录
+        $model = M("file_download");
+
+
+        if ($model->find(I("get.pa")) == null){
+            $this -> error("操作失败");
+            exit();
+        }else{
+            $model->where('pk = '.I('get.pa'))->delete();
+            //操作成功
+            $this->success("记录删除成功！",__MODULE__."/Cms/filesList");
+        }
+
+
+    }
+
+//**********投票管理************
+    //列表
+    function voteList(){
+        $user = M("vote");
+        $info = $user -> order("is_show desc,custom_sort desc,update_time desc") -> select();
+        $this -> assign("info",$info);
+        $this -> display();
+    }
+
+    //新增
+    function voteAdd(){
+        if (!empty($_POST)){
+            //实例化
+            $model = new \Model\VoteModel();
+            //验证数据 VoteModel
+            $z = $model -> create();
+            if (!$z){
+//                show_bug($model -> getError());
+                $this->error("您录入的数据格式错误！");
+                exit();
+            }
+
+            //数据录入
+            $log["create_time"] = date("Y-m-d H:i:s");
+            $log["creator"] = session("a_username");
+            $log["update_time"] = date("Y-m-d H:i:s");
+            $log["regenerator"] = session("a_username");
+            $log["is_radio"] = checkBit(I('post.is_radio'));
+            if (checkBit(I('post.is_radio')) == true){
+                $log["maximum"] = 1;
+            }else{
+                $log["maximum"] =I("post.maximum");
+            }
+            $log["title"] = I("post.title");
+            $log["custom_sort"] = I("post.custom_sort");
+            $log["deadline"] = I("post.deadline");
+            $log["description"] = I("post.description");
+            $log["is_show"] = true;
+            $result = $model->data($log)->add();
+
+            if ($model){
+                $id = $result; // 获取数据库写入数据的主键
+
+                //插入关联表数据
+                $table_model = M("vote_item"); // 实例化picture_story_item对象
+                $arr = array_keys(I('content'));
+                for($x=0;$x<count($arr);$x++) {
+                    $data['content'] = I("content")[$arr[$x]];
+                    $data['vote_number'] = 0;
+                    $data['vote_id'] = $id;
+                    $table_model->add($data);
+                }
+
+                //录入成功
+                $this->success("恭喜您，操作成功！",__MODULE__."/Cms/voteList");
+            }else{
+                $this->error("数据录入失败！");
+                exit();
+            }
+
+        }else{
+            $this -> display();
+        }
+    }
+
+    //修改
+    function voteEdit(){
+        if (!empty($_POST)){
+            $model = new \Model\VoteModel();
+            //验证数据 VoteModel
+            $z = $model -> create();
+            if (!$z){
+                //show_bug($model -> getError());
+                $this->error("您录入的数据格式错误！");
+                exit();
+            }
+
+            if ($model->find(I("post.pk")) == null){
+                //错误ID
+                $this->error("页面无法访问！");
+            }else{
+                //处理信息
+                if ($_FILES['cover']['name']==''){
+                    //文件未上传
+                }else{
+                    //有修改文件上传
+
+                    //上传照片处理
+                    $upload = new \Think\Upload();// 实例化上传类
+                    $upload->maxSize   =     3145728 ;// 设置附件上传大小
+                    $upload->exts      =     array('jpg', 'gif', 'png', 'jpeg','bmp');// 设置附件上传类型
+                    $upload->rootPath  =      'CDN/uploaded/story/'; // 设置附件上传根目录
+                    $upload->autoSub  =      true;
+                    // 上传单个文件
+                    $info   =   $upload->uploadOne($_FILES['cover']);
+                    if(!$info) {// 上传错误提示错误信息
+                        $this->error($upload->getError());
+                    }else{// 上传成功 获取上传文件信息
+                        $photo =  $info['savepath'].$info['savename'];
+                        $thumb = $info['savepath'].'thumb_'.$info['savename'];
+
+                        //缩略图处理
+                        $image = new \Think\Image();
+                        $image->open('CDN/uploaded/story/'.$photo);
+                        // 生成缩略图
+                        $image->thumb(217, 127,\Think\Image::IMAGE_THUMB_CENTER)->save('CDN/uploaded/story/'.$thumb);
+
+                        $data["cover"] = $photo;
+                        $data["thumbnail"] = $thumb;
+                    }
+                }
+
+                //数据修改
+
+                $data["update_time"] = date("Y-m-d H:i:s");
+                $data["regenerator"] = session("a_username");
+                $data["allow_copy"] = checkBit(I('post.allow_copy'));
+                $data["author"] = I("post.author");
+                $data["custom_sort"] = I("post.custom_sort");
+                $data["keywords"] = I("post.keywords");
+                $data["story_descirbe"] = I("post.story_descirbe");
+                $data["title"] = I("post.title");
+
+                $model->  where("pk=".I('post.pk'))  ->setField($data);
+
+                //删除原有关联ID记录
+                $table_model = M("picture_story_item"); // 实例化picture_story_item对象
+                $table_model->where('picture_story_id = '.I('post.pk'))->delete();
+
+                //添加新关联ID记录
+                $arr = array_keys(I('picture'));
+                for($x=0;$x<count($arr);$x++) {
+                    $index = $arr[$x]; //下标ID
+                    $data['custom_sort'] = I("customSorts")[$index];
+                    $data['description'] = I("description")[$index];
+                    $data['picture'] = I("picture")[$index];
+                    $data['is_show'] = true;
+                    $data['thumbnail'] = I("thumbnail")[$index];
+                    $data['picture_story_id'] = I('post.pk');
+                    $table_model->add($data);
+                }
+
+                //录入成功
+                $this->success("恭喜您，操作成功！",__MODULE__."/Cms/storyList");
+            }
+
+        }else{
+            $a = M("vote");
+            $b = M("vote_item");
+            if ($a->find(I("get.pa")) == null){
+                //错误ID
+                $this->error("页面无法访问！");
+            }else{
+                //修改界面展示
+                $info = $a -> where("pk=".I("get.pa")) -> select();
+                $info1 = $b -> where("vote_id=".I("get.pa")) -> select();
+                $this -> assign("info",$info);
+                $this -> assign("info1",$info1);
+                $this -> display();
+            }
+        }
+    }
+
+
 }
