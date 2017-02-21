@@ -612,13 +612,13 @@ class CmsController extends CommonController
                 $arr = array_keys(I('picture'));
                 for($x=0;$x<count($arr);$x++) {
                     $index = $arr[$x]; //下标ID
-                    $data['custom_sort'] = I("customSorts")[$index];
-                    $data['description'] = I("description")[$index];
-                    $data['picture'] = I("picture")[$index];
-                    $data['is_show'] = true;
-                    $data['thumbnail'] = I("thumbnail")[$index];
-                    $data['picture_story_id'] = I('post.pk');
-                    $table_model->add($data);
+                    $log['custom_sort'] = I("customSorts")[$index];
+                    $log['description'] = I("description")[$index];
+                    $log['picture'] = I("picture")[$index];
+                    $log['is_show'] = true;
+                    $log['thumbnail'] = I("thumbnail")[$index];
+                    $log['picture_story_id'] = I('post.pk');
+                    $table_model->add($log);
                 }
 
                 //录入成功
@@ -644,14 +644,13 @@ class CmsController extends CommonController
 
     //查看
     function storyShow(){
-        $user = M("person_intro");
 
-        if ($user->find(I("get.pa")) == null){
+        $a = M("picture_story");
+        if ($a->find(I("get.pa")) == null){
             //错误ID
             $this->error("页面无法访问！");
         }else{
             //界面展示
-            $a = M("picture_story");
             $b = M("picture_story_item");
             $info = $a -> where("pk=".I("get.pa")) -> select();
             $info1 = $b -> where("picture_story_id=".I("get.pa")) -> select();
@@ -854,7 +853,7 @@ class CmsController extends CommonController
             }
             $log["title"] = I("post.title");
             $log["custom_sort"] = I("post.custom_sort");
-            $log["deadline"] = I("post.deadline");
+            //$log["deadline"] = I("post.deadline");
             $log["description"] = I("post.description");
             $log["is_show"] = true;
             $result = $model->data($log)->add();
@@ -900,69 +899,40 @@ class CmsController extends CommonController
                 //错误ID
                 $this->error("页面无法访问！");
             }else{
-                //处理信息
-                if ($_FILES['cover']['name']==''){
-                    //文件未上传
-                }else{
-                    //有修改文件上传
-
-                    //上传照片处理
-                    $upload = new \Think\Upload();// 实例化上传类
-                    $upload->maxSize   =     3145728 ;// 设置附件上传大小
-                    $upload->exts      =     array('jpg', 'gif', 'png', 'jpeg','bmp');// 设置附件上传类型
-                    $upload->rootPath  =      'CDN/uploaded/story/'; // 设置附件上传根目录
-                    $upload->autoSub  =      true;
-                    // 上传单个文件
-                    $info   =   $upload->uploadOne($_FILES['cover']);
-                    if(!$info) {// 上传错误提示错误信息
-                        $this->error($upload->getError());
-                    }else{// 上传成功 获取上传文件信息
-                        $photo =  $info['savepath'].$info['savename'];
-                        $thumb = $info['savepath'].'thumb_'.$info['savename'];
-
-                        //缩略图处理
-                        $image = new \Think\Image();
-                        $image->open('CDN/uploaded/story/'.$photo);
-                        // 生成缩略图
-                        $image->thumb(217, 127,\Think\Image::IMAGE_THUMB_CENTER)->save('CDN/uploaded/story/'.$thumb);
-
-                        $data["cover"] = $photo;
-                        $data["thumbnail"] = $thumb;
-                    }
-                }
 
                 //数据修改
 
+
                 $data["update_time"] = date("Y-m-d H:i:s");
                 $data["regenerator"] = session("a_username");
-                $data["allow_copy"] = checkBit(I('post.allow_copy'));
-                $data["author"] = I("post.author");
-                $data["custom_sort"] = I("post.custom_sort");
-                $data["keywords"] = I("post.keywords");
-                $data["story_descirbe"] = I("post.story_descirbe");
+                $data["is_radio"] = checkBit(I('post.is_radio'));
+                if (checkBit(I('post.is_radio')) == true){
+                    $data["maximum"] = 1;
+                }else{
+                    $data["maximum"] =I("post.maximum");
+                }
                 $data["title"] = I("post.title");
+                $data["custom_sort"] = I("post.custom_sort");
+                $data["description"] = I("post.description");
 
                 $model->  where("pk=".I('post.pk'))  ->setField($data);
 
                 //删除原有关联ID记录
-                $table_model = M("picture_story_item"); // 实例化picture_story_item对象
-                $table_model->where('picture_story_id = '.I('post.pk'))->delete();
+                $table_model = M("vote_item"); // 实例化vote_item对象
+                $table_model->where('vote_id = '.I('post.pk'))->delete();
+
 
                 //添加新关联ID记录
-                $arr = array_keys(I('picture'));
+                $arr = array_keys(I('content'));
                 for($x=0;$x<count($arr);$x++) {
-                    $index = $arr[$x]; //下标ID
-                    $data['custom_sort'] = I("customSorts")[$index];
-                    $data['description'] = I("description")[$index];
-                    $data['picture'] = I("picture")[$index];
-                    $data['is_show'] = true;
-                    $data['thumbnail'] = I("thumbnail")[$index];
-                    $data['picture_story_id'] = I('post.pk');
-                    $table_model->add($data);
+                    $log['content'] = I("content")[$arr[$x]];
+                    $log['vote_number'] = I('post.vote_number')[$arr[$x]];
+                    $log['vote_id'] = I('post.pk');
+                    $table_model->add($log);
                 }
 
                 //录入成功
-                $this->success("恭喜您，操作成功！",__MODULE__."/Cms/storyList");
+                $this->success("恭喜您，操作成功！",__MODULE__."/Cms/voteList");
             }
 
         }else{
@@ -982,5 +952,53 @@ class CmsController extends CommonController
         }
     }
 
+    //过时与恢复
+    function voteLocked(){
+        if (I('get.sa')=="lock"){
+            $str = "恭喜您，过时成功！";
+            $sa = false;
+        }else{
+            $str = "恭喜您，恢复成功！";
+            $sa = true;
+        }
+        $model = M("vote");
+        $data = array('is_show'=> $sa,'regenerator'=>session("a_username"),'update_time'=>date("Y-m-d H:i:s"));
+        $model-> where('pk='.I('get.pa'))->setField($data);
+        //操作成功
+        $this->success($str,__MODULE__."/Cms/voteList");
+    }
+
+    //查看
+    function voteShow(){
+
+        $a = M("vote");
+        if ($a->find(I("get.pa")) == null){
+            //错误ID
+            $this->error("页面无法访问！");
+        }else{
+            //界面展示
+            $b = M("vote_item");
+            $info = $a -> where("pk=".I("get.pa")) -> select();
+            $info1 = $b -> where("vote_id=".I("get.pa")) -> select();
+            $time = $b-> where("vote_id=".I("get.pa")) ->sum("vote_number");
+
+            $info2 = array();
+            $c = 0;
+            foreach ($info1 as $v){
+                $info2[$c]["content"] = $v["content"];
+                $info2[$c]["num"] = $v["vote_number"];
+                $info2[$c]["per"] = round($v["vote_number"]/$time*100,2);
+                $c++;
+            }
+
+            //show_bug($info2);
+
+            $this -> assign("info",$info);
+            $this -> assign("info1",$info2);
+            $this -> assign("times",$time);
+            $this -> display();
+        }
+
+    }
 
 }

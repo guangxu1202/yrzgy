@@ -1,5 +1,5 @@
 <extend name="./base" />
-<block name="title"><title>新增 - 投票管理 - 内容管理 - 元认知干预网站管理后台系统</title></block>
+<block name="title"><title>新增 - banner图片管理 - 网站系统配置 - 元认知干预网站管理后台系统</title></block>
 <block name="content">
     <div class="breadcrumbs" id="breadcrumbs">
         <script type="text/javascript">
@@ -11,7 +11,7 @@
                 <i class="icon-home home-icon"></i>
                 <a href="#">首页</a>
             </li>
-            <li class="active">内容管理</li>
+            <li class="active">网站系统配置</li>
         </ul><!-- .breadcrumb -->
 
     </div>
@@ -19,7 +19,7 @@
     <div class="page-content">
         <div class="page-header">
             <h1>
-                投票管理
+                banner图片管理
                 <small>
                     <i class="icon-double-angle-right"></i>
                     新增
@@ -28,55 +28,40 @@
         </div><!-- /.page-header -->
         <div class="row">
             <div class="col-xs-12">
-                <form class="form-horizontal" id="myForm" method="post" action="__SELF__">
+                <form class="form-horizontal" id="myForm" method="post"  enctype="multipart/form-data" action="__SELF__">
                     <div class="space-4"></div>
                     <div class="form-group">
-                        <label class="col-sm-3 control-label no-padding-right"> <span class="red">*</span>标题： </label>
+                        <label class="col-sm-3 control-label no-padding-right"> <span class="red">*</span>描述标题： </label>
                         <div class="col-sm-5">
-                            <input placeholder="请输入标题" class="form-control" type="text" name="title" >
+                            <input placeholder="请输入标题" class="form-control" type="text" name="description_heading" >
                         </div>
                     </div>
 
 
                     <div class="space-4"></div>
                     <div class="form-group">
-                        <label class="col-sm-3 control-label no-padding-right"> 描述： </label>
+                        <label class="col-sm-3 control-label no-padding-right"> 描述内容： </label>
                         <div class="col-sm-5">
-                            <textarea class="autosize-transition form-control" style="height: 120px;" name="description"></textarea>
+                            <textarea class="autosize-transition form-control" style="height: 120px;" name="description_paragraph"></textarea>
                         </div>
                     </div>
 
                     <div class="space-4"></div>
                     <div class="form-group">
-                        <label class="col-sm-3 control-label no-padding-right">  <span class="red">*</span>投票选项： </label>
+                        <label class="col-sm-3 control-label no-padding-right"><span class="red">*</span> banner图片： </label>
                         <div class="col-sm-5">
-                            <ul class="items">
-                                <li>
-                                    <input type="text" name="content[0]" class="form-control" maxlength="100" value="">
-                                </li>
-                                <li>
-                                    <input type="text" name="content[1]" class="form-control" maxlength="100" value="">
-                                </li>
-                            </ul>
-                            <button class="btn btn-success" type="button" onclick="itemAdd(1)">增加一项</button>
-                            <button class="btn btn-success" type="button" onclick="itemAdd(3)">增加三项</button>
+                            <input type="file" id="id-input-file-2" name="url" />
+                            <span class="grey">最佳图片显示效果比例：1140*317</span>
                         </div>
                     </div>
-
 
                     <div class="space-4"></div>
                     <div class="form-group">
-                        <label class="col-sm-3 control-label no-padding-right"> 投票方式： </label>
+                        <label class="col-sm-3 control-label no-padding-right"> banner图片链接： </label>
                         <div class="col-sm-5">
-                            <div class="form-info voteWay">
-                                <label class="lab"><input value="true" class="voteRadio" name="is_radio" checked="" type="radio" onclick="hideOption()">单选</label>
-                                <label class="lab"><input value="false" class="voteRadio" name="is_radio" type="radio" onclick="showOption()">多选</label>
-                                <span class="voteOption"></span>
-                            </div>
+                            <input placeholder="请输入banenr超链接" class="form-control" type="text" name="link" value="http://" >
                         </div>
                     </div>
-
-
 
 
                     <div class="space-4"></div>
@@ -89,8 +74,23 @@
                     </div>
 
 
+                    <div class="space-4"></div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label no-padding-right"> 状态： </label>
+                        <div class="col-sm-5">
+                            <div class="form-info">
+                                <label class="lab"><input value="true" name="is_show" checked="" type="radio">正常</label>
+                                <label class="lab"><input value="false" name="is_show" type="radio">作废</label>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+
 
                     <div class="space-4"></div>
+
                     <div class="clearfix form-actions">
                         <div class="col-md-offset-3 col-md-9">
                             <div class="row">
@@ -116,48 +116,8 @@
 
     <script src="{$Think.const.ADMIN_URL}/js/admin.js"></script>
     <script type="text/javascript">
+
         $(function(){
-            var k = 2;
-            itemAdd = function (n) {
-                var n = n || 1;
-                for (var i = 0; i < n; i++){
-                    $(".items").append('<li><input type="text" name="content['+k+']" class="form-control" maxlength="100" value=""><a href="javascript:void(0);" onclick="itemDel(this)"><i class="icon-trash"></i></a></li>');
-                    k++;
-                }
-                if (calc) {
-                    calcOption();
-                }
-            };
-
-            itemDel = function(obj) {
-                $(obj).parent().remove();
-                if (calc) {
-                    calcOption();
-                }
-            };
-
-            showOption = function() {
-                calc = true;
-                if ($(".voteOption").find("select").length <= 0) {
-                    $(".voteOption").append('<select id="maximum" name="maximum"></select>');
-                    calcOption();
-                }
-            };
-
-            hideOption = function() {
-                calc = false;
-                $(".voteOption").children().remove();
-            };
-
-            calcOption = function() {
-                var len = $(".items").find("li").length;
-                $("#maximum").empty();
-                for (var j = 2; j <= len; j++) {
-                    $("#maximum").append('<option value="' + j + '">最多选 ' + j + ' 项</option>');
-                }
-                $("#maximum").find("option:last").attr("selected", true);
-            };
-
 
 
             $('#myForm').bootstrapValidator({
@@ -168,41 +128,45 @@
                     validating: 'glyphicon glyphicon-refresh'
                 },
                 fields: {
-                    title: {
+                    description_heading: {
                         validators: {
                             notEmpty: {
-                                message: '文章标题不能为空'
+                                message: '标题不能为空'
                             },
                             stringLength: {
                                 min: 2,
                                 max: 90,
-                                message: '文章标题长度必须在2到90之间'
+                                message: '标题长度必须在2到90之间'
                             }
                         }
                     },
-                    description: {
+                    description_paragraph: {
                         validators: {
                             stringLength: {
                                 min: 0,
                                 max: 200,
-                                message: '描述长度必须在0到200之间'
+                                message: '描述内容长度必须在0到200之间'
                             }
                         }
                     },
-                    'content[0]': {
+                    link: {
+                        validators: {
+                            stringLength: {
+                                min: 0,
+                                max: 100,
+                                message: 'banner图片链接长度必须在0到100之间'
+                            }
+                        }
+                    },
+
+                    url: {
                         validators: {
                             notEmpty: {
-                                message: '请输入问题一'
+                                message: 'banner图片不能为空'
                             }
                         }
                     },
-                    'content[1]': {
-                        validators: {
-                            notEmpty: {
-                                message: '请输入问题二'
-                            }
-                        }
-                    },
+
                     custom_sort: {
                         validators: {
                             notEmpty: {

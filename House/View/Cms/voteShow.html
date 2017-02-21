@@ -1,0 +1,112 @@
+<extend name="./base" />
+<block name="title"><title>查看 - 投票管理 - 内容管理 - 元认知干预网站管理后台系统</title></block>
+<block name="content">
+    <div class="breadcrumbs" id="breadcrumbs">
+
+
+        <ul class="breadcrumb">
+            <li>
+                <i class="icon-home home-icon"></i>
+                <a href="#">首页</a>
+            </li>
+            <li class="active">内容管理</li>
+        </ul><!-- .breadcrumb -->
+
+    </div>
+
+    <div class="page-content">
+        <div class="page-header">
+            <h1>
+                投票管理
+                <small>
+                    <i class="icon-double-angle-right"></i>
+                    查看
+                </small>
+            </h1>
+        </div><!-- /.page-header -->
+        <div class="row">
+            <div class="col-xs-12">
+                <form class="form-horizontal" id="myForm" method="post" action="__SELF__">
+                    <foreach name="info" item="vo" >
+                        <table class="Edit">
+                            <colgroup width="130px"></colgroup>
+                            <tbody>
+                                <tr>
+                                    <th>标题： </th>
+                                    <td>{$vo.title}</td>
+                                </tr>
+                                <tr>
+                                    <th>描述： </th>
+                                    <td>{$vo.description|htmlspecialchars_decode}</td>
+                                </tr>
+                                <tr>
+                                    <th>投票选项： </th>
+                                    <td>
+                                        <table>
+
+                                            <volist name="info1" id="vo1">
+                                                <tr>
+                                                    <th style="min-width: 200px;">
+                                                        {$vo1.content}
+                                                    </th>
+                                                    <td style="width: 400px">
+                                                        <div class="progress progress-striped active mb0">
+                                                            <div class="progress-bar progress-bar-{$i}" style="width: {$vo1[per]}%"></div>
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        <span style="display: inline-block; min-width: 50px; text-align: right">{$vo1.num}票</span>
+                                                        ({$vo1[per]}%)
+                                                    </td>
+                                                </tr>
+                                            </volist>
+
+                                        </table>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>投票方式： </th>
+                                    <td>
+                                        <if condition="$vo.is_radio eq 1">
+                                            单选
+                                            <else />
+                                            多选，最多选{$vo.maximum}项
+                                        </if>
+
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>已投票次数： </th>
+                                    <td>{$times}</td>
+                                </tr>
+                                <tr>
+                                    <th>自定义排序： </th>
+                                    <td>{$vo.custom_sort}</td>
+                                </tr>
+
+
+                            </tbody>
+                        </table>
+
+                        <div class="space-4"></div>
+                    </foreach>
+                    <div class="clearfix form-actions">
+                        <div class="col-md-offset-3 col-md-9">
+                            <div class="row">
+                                <button class="btn" type="button" onclick="javascript:history.back()">返回</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+    </div>
+</block>
+
+<block name="public">
+
+    <!-- inline scripts related to this page -->
+    <script src="{$Think.const.ADMIN_URL}/js/admin.js"></script>
+
+</block>

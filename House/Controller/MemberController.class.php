@@ -6,7 +6,7 @@ class MemberController extends CommonController{
 //**********会员基本信息************
     //会员列表
     function baseList(){
-        $user = D("member");
+        $user = M("member");
         $info = $user ->order("last_login_time desc,pk desc") -> select();
         $this -> assign("info",$info);
         $this -> display();

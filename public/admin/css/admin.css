@@ -34,3 +34,21 @@ img{max-width: 100%;}
 .items li a{ display: inline-block; width: 40px; height: 34px;position: absolute; top: 0; right: 0; text-align: center; line-height: 34px; background-color: #00a4ac; color: #fff;}
 .items li a:hover{text-decoration: none; background-color: #cc0000;}
 .items li a i{vertical-align: middle; font-size: 20px; margin-top: -3px; display: inline-block;}
+
+.vote-wrap{ max-width: 500px; padding: 20px 0 0 20px;}
+.mb0{    margin-bottom:0px;}
+.progress-bar-1,.progress-bar-16{ background-color: #00ccff;}
+.progress-bar-2,.progress-bar-17{ background-color: #ffcc00;}
+.progress-bar-3,.progress-bar-18{ background-color: #ff7200;}
+.progress-bar-4,.progress-bar-19{ background-color: #9c00ff;}
+.progress-bar-5,.progress-bar-20{ background-color: #007eff;}
+.progress-bar-6,.progress-bar-21{ background-color: #e400ff;}
+.progress-bar-7,.progress-bar-22{ background-color: #00ff6c;}
+.progress-bar-8,.progress-bar-23{ background-color: #ff3000;}
+.progress-bar-9,.progress-bar-24{ background-color: #66ff00;}
+.progress-bar-10,.progress-bar-25{ background-color: #9a01e9;}
+.progress-bar-11,.progress-bar-26{ background-color: #0179e9;}
+.progress-bar-12,.progress-bar-27{ background-color: #9ae901;}
+.progress-bar-13,.progress-bar-28{ background-color: #5b8a01;}
+.progress-bar-14,.progress-bar-29{ background-color: #009ee0;}
+.progress-bar-15,.progress-bar-30{ background-color: #3000e5;}

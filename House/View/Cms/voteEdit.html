@@ -57,11 +57,13 @@
                                     <volist  name="info1" id="v" offset="0" length="2">
                                         <li>
                                             <input type="text" name="content[{$i}]" class="form-control" maxlength="100" value="{$v.content}">
+                                            <input type="hidden" name="vote_number[{$i}]" value="{$v.vote_number}">
                                         </li>
                                     </volist>
                                     <volist  name="info1" id="v" offset="2" length="">
                                         <li>
                                             <input type="text" name="content[{$i+2}]" class="form-control" maxlength="100" value="{$v.content}">
+                                            <input type="hidden" name="vote_number[{$i+2}]" value="{$v.vote_number}">
                                             <a href="javascript:void(0);" onclick="itemDel(this)"><i class="icon-trash"></i></a>
                                         </li>
                                     </volist>
@@ -82,14 +84,22 @@
                                         <label class="lab"><input value="true" class="voteRadio" name="is_radio" checked="checked" type="radio" onclick="hideOption()">单选</label>
                                         <label class="lab"><input value="false" class="voteRadio" name="is_radio" type="radio" onclick="showOption()">多选</label>
                                         <span class="voteOption"></span>
+                                        <script>calc = false; his = {$vo.maximum};</script>
                                         <else />
                                         <label class="lab"><input value="true" class="voteRadio" name="is_radio" type="radio" onclick="hideOption()">单选</label>
                                         <label class="lab"><input value="false" class="voteRadio" name="is_radio" checked="checked" type="radio" onclick="showOption()">多选</label>
                                         <span class="voteOption">
-                                            <select>
-
+                                            <select id="maximum" name="maximum">
+                                                <volist name="info1" id="v" offset="1" length="">
+                                                    <if condition="$vo.maximum eq $i+1">
+                                                        <option value="{$i+1}" selected="selected">最多选{$i+1}项</option>
+                                                    <else />
+                                                        <option value="{$i+1}">最多选{$i+1}项</option>
+                                                    </if>
+                                                </volist>
                                             </select>
                                         </span>
+                                        <script>calc = true; his = {$vo.maximum};</script>
                                     </if>
 
 
@@ -139,9 +149,10 @@
             var k =$(".items li").size()+1;
 
             itemAdd = function (n) {
+
                 var n = n || 1;
                 for (var i = 0; i < n; i++){
-                    $(".items").append('<li><input type="text" name="content['+k+']" class="form-control" maxlength="100" value=""><a href="javascript:void(0);" onclick="itemDel(this)"><i class="icon-trash"></i></a></li>');
+                    $(".items").append('<li><input type="text" name="content['+k+']" class="form-control" maxlength="100" value=""><input type="hidden" name="vote_number['+k+']" value="0"><a href="javascript:void(0);" onclick="itemDel(this)"><i class="icon-trash"></i></a></li>');
                     k++;
                 }
                 if (calc) {
@@ -173,9 +184,9 @@
                 var len = $(".items").find("li").length;
                 $("#maximum").empty();
                 for (var j = 2; j <= len; j++) {
-                    $("#maximum").append('<option value="' + j + '">最多选 ' + j + ' 项</option>');
+                    j == his ? str = ' selected="selected"' : str='';
+                    $("#maximum").append('<option value="' + j + '"'+ str +'>最多选 ' + j + ' 项</option>');
                 }
-                $("#maximum").find("option:last").attr("selected", true);
             };
 
 
