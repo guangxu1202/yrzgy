@@ -1,0 +1,219 @@
+<extend name="./base" />
+<block name="title"><title>新增 - 首页广告图片管理 - 网站系统配置 - 元认知干预网站管理后台系统</title></block>
+<block name="content">
+    <div class="breadcrumbs" id="breadcrumbs">
+        <script type="text/javascript">
+            try{ace.settings.check('breadcrumbs' , 'fixed')}catch(e){}
+        </script>
+
+        <ul class="breadcrumb">
+            <li>
+                <i class="icon-home home-icon"></i>
+                <a href="#">首页</a>
+            </li>
+            <li class="active">网站系统配置</li>
+        </ul><!-- .breadcrumb -->
+
+    </div>
+
+    <div class="page-content">
+        <div class="page-header">
+            <h1>
+                首页广告图片管理
+                <small>
+                    <i class="icon-double-angle-right"></i>
+                    新增
+                </small>
+            </h1>
+        </div><!-- /.page-header -->
+        <div class="row">
+            <div class="col-xs-12">
+                <form class="form-horizontal" id="myForm" method="post"  enctype="multipart/form-data" action="__SELF__">
+                    <div class="space-4"></div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label no-padding-right"> <span class="red">*</span>广告名称： </label>
+                        <div class="col-sm-5">
+                            <input placeholder="请输入广告名称" class="form-control" type="text" name="ad_name" >
+                        </div>
+                    </div>
+
+
+                    <div class="space-4"></div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label no-padding-right"> 广告描述： </label>
+                        <div class="col-sm-5">
+                            <textarea class="autosize-transition form-control" style="height: 120px;" name="ad_describe"></textarea>
+                        </div>
+                    </div>
+
+
+                    <div class="space-4"></div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label no-padding-right"> 链接地址： </label>
+                        <div class="col-sm-5">
+                            <input placeholder="请输入超链接地址" class="form-control" type="text" name="link" value="http://" >
+                        </div>
+                    </div>
+
+
+                    <div class="space-4"></div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label no-padding-right"> <span class="red">*</span>自定义排序： </label>
+                        <div class="col-sm-5">
+                            <input placeholder="请输入自定义排序, 数字大的在前面." class="form-control" type="text" name="custom_sort" value="1000" >
+                            <span class="grey">请输入自定义排序,数字大的在前面</span>
+                        </div>
+                    </div>
+
+
+                    <div class="space-4"></div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label no-padding-right"> 状态： </label>
+                        <div class="col-sm-5">
+                            <div class="form-info">
+                                <label class="lab"><input value="false" name="expired" checked="checked" type="radio">正常</label>
+                                <label class="lab"><input value="true" name="expired" type="radio">过期</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="space-4"></div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label no-padding-right"> 位置： </label>
+                        <div class="col-sm-5">
+                            <div class="form-info">
+                                <label class="lab"><input value="0" name="position" checked="checked" onclick="changeTip('articleSpan')" type="radio">文章首页</label>
+                                <label class="lab"><input value="1" name="position" onclick="changeTip('videoSpan')" type="radio">视频首页</label>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+                    <div class="space-4"></div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label no-padding-right"><span class="red">*</span> 广告图片： </label>
+                        <div class="col-sm-5">
+                            <input type="file" id="id-input-file-2" name="ad_path" />
+                            <span class="red articleSpan">请选择1140*110的图片</span>
+                            <span class="red videoSpan" style="display: none">请选择700*200的图片</span>
+                        </div>
+                    </div>
+
+
+
+
+                    <div class="space-4"></div>
+                    <div class="clearfix form-actions">
+                        <div class="col-md-offset-3 col-md-9">
+                            <div class="row">
+                                <button class="btn btn-info b-submit" type="submit">
+                                    <i class="icon-ok bigger-110"></i>
+                                    提交
+                                </button>
+                                <button class="btn" type="button" onclick="javascript:history.back()">返回</button>
+                            </div>
+                        </div>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+
+    </div>
+</block>
+
+<block name="public">
+
+    <!-- inline scripts related to this page -->
+
+    <script src="{$Think.const.ADMIN_URL}/js/admin.js"></script>
+    <script type="text/javascript">
+
+        $(function(){
+
+            changeTip = function (id) {
+                $(".articleSpan,.videoSpan").hide();
+                $("."+id).show();
+            };
+
+            $('#myForm').bootstrapValidator({
+                message: 'This value is not valid',
+                feedbackIcons: {
+                    valid: 'glyphicon glyphicon-ok',
+                    invalid: 'glyphicon glyphicon-remove',
+                    validating: 'glyphicon glyphicon-refresh'
+                },
+                fields: {
+                    ad_name: {
+                        validators: {
+                            notEmpty: {
+                                message: '广告名称不能为空'
+                            },
+                            stringLength: {
+                                min: 2,
+                                max: 50,
+                                message: '广告名称长度必须在2到50之间'
+                            }
+                        }
+                    },
+                    ad_describe: {
+                        validators: {
+                            stringLength: {
+                                min: 0,
+                                max: 200,
+                                message: '广告描述内容长度必须在0到200之间'
+                            }
+                        }
+                    },
+                    link: {
+                        validators: {
+                            stringLength: {
+                                min: 0,
+                                max: 100,
+                                message: '广告链接长度必须在0到100之间'
+                            }
+                        }
+                    },
+                    ad_path: {
+                        validators: {
+                            notEmpty: {
+                                message: '广告图片不能为空'
+                            }
+                        }
+                    },
+                    custom_sort: {
+                        validators: {
+                            notEmpty: {
+                                message: '自定义排序不能为空'
+                            },
+                            stringLength: {
+                                min: 1,
+                                max: 10,
+                                message: '自定义排序长度必须在1到10之间'
+                            },
+                            digits :  {
+                                message: '只能输入整数'
+                            }
+                        }
+                    }
+
+                },
+                submitHandler: function(validator, form, submitButton) {
+                    // a)
+                    // Use Ajax to submit form data
+                    //$.post(form.attr('action'), form.serialize(), function(result) {
+                    // ... process the result ...
+                    //}, 'json');
+
+                    //b)
+                    // Do your task
+                    // ...
+                    // Submit the form
+                    validator.defaultSubmit();
+                }
+
+            });
+        })
+    </script>
+</block>
