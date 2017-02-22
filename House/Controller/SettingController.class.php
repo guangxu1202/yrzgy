@@ -323,4 +323,238 @@ class SettingController extends CommonController{
 
     }
 
+//**********首页模块图片管理************
+
+    //查看
+    function modelImgShow(){
+        $user = M("model_image");
+        $info = $user -> select();
+        $this -> assign("info",$info);
+        $this -> display();
+    }
+
+    //修改
+    function modelImgEdit(){
+        if (!empty($_POST)){
+            $model = new \Model\Model_imageModel();
+            //验证数据 Model_imageModel
+            $z = $model -> create();
+            if (!$z){
+                //show_bug($model -> getError());
+                $this->error("您录入的数据格式错误！");
+                exit();
+            }
+
+
+            if ($model->find(I("post.pk")) == null){
+                //错误ID
+                $this->error("页面无法访问！");
+            }else{
+                //处理信息
+                if ($_FILES['img_path']['name']==''){
+                    //文件未上传
+                }else{
+                    //有修改文件上传
+
+                    //上传照片处理
+                    $upload = new \Think\Upload();// 实例化上传类
+                    $upload->maxSize   =     3145728 ;// 设置附件上传大小
+                    $upload->exts      =     array('jpg', 'gif', 'png', 'jpeg');// 设置附件上传类型
+                    $upload->rootPath  =      'CDN/uploaded/ads/'; // 设置附件上传根目录
+                    $upload->autoSub  =      true;
+                    // 上传单个文件
+                    $info   =   $upload->uploadOne($_FILES['img_path']);
+                    if(!$info) {// 上传错误提示错误信息
+                        $this->error($upload->getError());
+                    }else{// 上传成功 获取上传文件信息
+                        $photo =  $info['savepath'].$info['savename'];
+                        $data["img_path"] = $photo;
+                    }
+                }
+
+                //数据修改
+                $data["update_time"] = date("Y-m-d H:i:s");
+                $data["regenerator"] = session("a_username");
+                $data["img_describe"] = I("post.img_describe");
+                $data["link"] = I("post.link");
+
+
+                $model->  where("pk=".I('post.pk'))  ->setField($data);
+                //录入成功
+                $this->success("恭喜您，操作成功！",__MODULE__."/Setting/modelImgShow");
+            }
+
+
+        }else{
+            $a = M("model_image");
+            if ($a->find(I("get.pa")) == null){
+                //错误ID
+                $this->error("页面无法访问！");
+            }else{
+                //修改界面展示
+                $info = $a -> where("pk=".I("get.pa")) -> select();
+                $this -> assign("info",$info);
+                $this -> display();
+            }
+        }
+    }
+
+//**********联系我们************
+
+    //查看
+    function contactShow(){
+        $user = M("contact_us");
+        $info = $user -> select();
+        $this -> assign("info",$info);
+        $this -> display();
+    }
+
+    //修改
+    function contactEdit(){
+        if (!empty($_POST)){
+            $model = new \Model\Contact_usModel();
+            //验证数据 Contact_usModel
+            $z = $model -> create();
+            if (!$z){
+                //show_bug($model -> getError());
+                $this->error("您录入的数据格式错误！");
+                exit();
+            }
+
+            if ($model->find(I("post.pk")) == null){
+                //错误ID
+                $this->error("页面无法访问！");
+            }else{
+
+                //数据修改
+                $data["address"] = I("post.address");
+                $data["bus"] = I("post.bus");
+                $data["email"] = I("post.email");
+                $data["fax"] = I("post.fax");
+                $data["mobile"] = I("post.mobile");
+                $data["organization"] = I("post.organization");
+                $data["qq_group"] = I("post.qq_group");
+                $data["telephone"] = I("post.telephone");
+                $data["zip"] = I("post.zip");
+                $model->  where("pk=".I('post.pk'))  ->setField($data);
+                //录入成功
+                $this->success("恭喜您，操作成功！",__MODULE__."/Setting/contactShow");
+            }
+
+
+        }else{
+            $a = M("contact_us");
+            if ($a->find(I("get.pa")) == null){
+                //错误ID
+                $this->error("页面无法访问！");
+            }else{
+                //修改界面展示
+                $info = $a -> where("pk=".I("get.pa")) -> select();
+                $this -> assign("info",$info);
+                $this -> display();
+            }
+        }
+    }
+
+//**********客服信息************
+    //列表
+    function serviceList(){
+        $user = M("customer_service");
+        $info = $user ->order("pk desc") -> select();
+        $this -> assign("info",$info);
+        $this -> display();
+    }
+
+    //过时与恢复
+    function serviceDel(){
+        //删除记录
+        $model = M("customer_service");
+        if ($model->find(I("get.pa")) == null){
+            $this -> error("操作失败");
+            exit();
+        }else{
+            $model->where('pk = '.I('get.pa'))->delete();
+            //操作成功
+            $this->success("记录删除成功！",__MODULE__."/Setting/serviceList");
+        }
+
+    }
+
+    //新增
+    function serviceAdd(){
+        if (!empty($_POST)){
+            //实例化
+            $model = new \Model\Customer_serviceModel();
+            //验证数据 customer_serviceModel
+            $z = $model -> create();
+            if (!$z){
+                //show_bug($model -> getError());
+                $this->error("您录入的数据格式错误！");
+                exit();
+            }
+
+            //数据录入
+            $log["email"] = I("post.email");
+            $log["msn"] = I("post.msn");
+            $log["name"] = I("post.name");
+            $log["qq"] = I("post.qq");
+            $log["telephone"] = I("post.telephone");
+
+            $model->data($log)->add();
+
+            //录入成功
+            $this->success("恭喜您，操作成功！",__MODULE__."/Setting/serviceList");
+
+        }else{
+            $this -> display();
+        }
+    }
+
+    //修改
+    function serviceEdit(){
+        if (!empty($_POST)){
+            $model = new \Model\Customer_serviceModel();
+            //验证数据 customer_serviceModel
+            $z = $model -> create();
+            if (!$z){
+                //show_bug($model -> getError());
+                $this->error("您录入的数据格式错误！");
+                exit();
+            }
+
+            if ($model->find(I("post.pk")) == null){
+                //错误ID
+                $this->error("页面无法访问！");
+            }else{
+
+                //数据修改
+                $data["email"] = I("post.email");
+                $data["msn"] = I("post.msn");
+                $data["name"] = I("post.name");
+                $data["qq"] = I("post.qq");
+                $data["telephone"] = I("post.telephone");
+
+
+                $model->  where("pk=".I('post.pk'))  ->setField($data);
+                //录入成功
+                $this->success("恭喜您，操作成功！",__MODULE__."/Setting/serviceList");
+            }
+
+
+        }else{
+            $a = M("customer_service");
+            if ($a->find(I("get.pa")) == null){
+                //错误ID
+                $this->error("页面无法访问！");
+            }else{
+                //修改界面展示
+                $info = $a -> where("pk=".I("get.pa")) -> select();
+                $this -> assign("info",$info);
+                $this -> display();
+            }
+        }
+    }
+
+
+
 }

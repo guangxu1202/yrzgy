@@ -1,0 +1,104 @@
+<extend name="./base" />
+<block name="title"><title>查看 - 联系我们 - 网站系统配置 - 元认知干预网站管理后台系统</title></block>
+<block name="content">
+    <div class="breadcrumbs" id="breadcrumbs">
+
+
+        <ul class="breadcrumb">
+            <li>
+                <i class="icon-home home-icon"></i>
+                <a href="#">首页</a>
+            </li>
+            <li class="active">网站系统配置</li>
+        </ul><!-- .breadcrumb -->
+
+    </div>
+
+    <div class="page-content">
+        <div class="page-header">
+            <h1>
+                联系我们
+                <small>
+                    <i class="icon-double-angle-right"></i>
+                    查看
+                </small>
+            </h1>
+        </div><!-- /.page-header -->
+        <div class="row">
+            <div class="col-xs-12">
+                <form class="form-horizontal" id="myForm" method="post" action="__SELF__">
+                    <foreach name="info" item="vo" >
+                        <table class="Edit">
+                            <colgroup width="130px"></colgroup>
+                            <thead>
+                                <tr>
+                                    <td colspan="2">联系我们</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <th>机构名称： </th>
+                                    <td>{$vo.organization}</td>
+                                </tr>
+                                <tr>
+                                    <th>地址： </th>
+                                    <td>
+                                        {$vo.address}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>固定电话： </th>
+                                    <td>{$vo.telephone}</td>
+                                </tr>
+                                <tr>
+                                    <th>手机： </th>
+                                    <td>{$vo.mobile}</td>
+                                </tr>
+                                <tr>
+                                    <th>传真： </th>
+                                    <td>{$vo.fax}</td>
+                                </tr>
+                                <tr>
+                                    <th>QQ群： </th>
+                                    <td>{$vo.qq_group}</td>
+                                </tr>
+                                <tr>
+                                    <th>邮箱： </th>
+                                    <td>{$vo.email}</td>
+                                </tr>
+                                <tr>
+                                    <th>邮编： </th>
+                                    <td>{$vo.zip}</td>
+                                </tr>
+                                <tr>
+                                    <th>公交线路： </th>
+                                    <td>{$vo.bus}</td>
+                                </tr>
+
+                            </tbody>
+                        </table>
+                        <div class="space-4"></div>
+                        <div class="clearfix form-actions">
+                            <div class="col-md-offset-3 col-md-9">
+                                <div class="row">
+                                    <button class="btn btn-info b-submit" type="button" onclick="javascript:location.href='__MODULE__/Setting/contactEdit/pa/{$vo.pk}'">
+                                        <i class="icon-ok bigger-110"></i>
+                                        编辑
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </foreach>
+                </form>
+            </div>
+        </div>
+
+    </div>
+</block>
+
+<block name="public">
+
+    <!-- inline scripts related to this page -->
+    <script src="{$Think.const.ADMIN_URL}/js/admin.js"></script>
+
+</block>

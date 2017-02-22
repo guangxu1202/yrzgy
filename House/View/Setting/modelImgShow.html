@@ -1,0 +1,94 @@
+<extend name="./base" />
+<block name="title"><title>查看 - 首页模块图片管理 - 网站系统配置 - 元认知干预网站管理后台系统</title></block>
+<block name="content">
+    <div class="breadcrumbs" id="breadcrumbs">
+
+
+        <ul class="breadcrumb">
+            <li>
+                <i class="icon-home home-icon"></i>
+                <a href="#">首页</a>
+            </li>
+            <li class="active">网站系统配置</li>
+        </ul><!-- .breadcrumb -->
+
+    </div>
+
+    <div class="page-content">
+        <div class="page-header">
+            <h1>
+                首页模块图片管理
+                <small>
+                    <i class="icon-double-angle-right"></i>
+                    查看
+                </small>
+            </h1>
+        </div><!-- /.page-header -->
+        <div class="row">
+            <div class="col-xs-12">
+                <form class="form-horizontal" id="myForm" method="post" action="__SELF__">
+                    <foreach name="info" item="vo" >
+                        <table class="Edit">
+                            <colgroup width="130px"></colgroup>
+                            <thead>
+                                <tr>
+                                    <td colspan="2">{$vo.code}</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <th>图片： </th>
+                                    <td>
+                                        <div>
+                                            <img src="__ROOT__/CDN/uploaded/ads/{$vo.img_path}">
+                                        </div>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <th>链接： </th>
+                                    <td>{$vo.link}</td>
+                                </tr>
+                                <tr>
+                                    <th>描述： </th>
+                                    <td>
+                                        {$vo.img_describe}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>创建人： </th>
+                                    <td>{$vo.creator}</td>
+                                </tr>
+                                <tr>
+                                    <th>创建时间： </th>
+                                    <td>{$vo.create_time}</td>
+                                </tr>
+                                <tr>
+                                    <th>修改人： </th>
+                                    <td>{$vo.regenerator}</td>
+                                </tr>
+                                <tr>
+                                    <th>修改时间： </th>
+                                    <td>{$vo.update_time}</td>
+                                </tr>
+                                <tr>
+                                    <th>操作： </th>
+                                    <td><a href="__MODULE__/Setting/modelImgEdit/pa/{$vo.pk}">编辑</a> </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </foreach>
+
+                </form>
+            </div>
+        </div>
+
+    </div>
+</block>
+
+<block name="public">
+
+    <!-- inline scripts related to this page -->
+    <script src="{$Think.const.ADMIN_URL}/js/admin.js"></script>
+
+</block>
