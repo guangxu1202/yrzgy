@@ -74,22 +74,10 @@
             </div>
             <div id="navbar" class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li class="active"><a href="#">技术之窗</a></li>
-                    <li><a href="#">服务指南</a></li>
-                    <li><a href="#">研修生园地</a></li>
-                    <li><a href="#">专业委员会</a></li>
-                    <li><a href="#">抑郁症神经症</a></li>
-                    <li><a href="#">心身疾病治疗</a></li>
-                    <li><a href="#">学生学习</a></li>
-                    <li><a href="#">考生心理</a></li>
-                    <li><a href="#">家庭教育</a></li>
-                    <li><a href="#">学校教育</a></li>
-                    <li><a href="#">技术背景</a></li>
-                    <li><a href="#">科研园地</a></li>
-                    <li><a href="#">技术档案</a></li>
-                    <li><a href="#">留言咨询</a></li>
-                    <li><a href="#">专家答疑</a></li>
-                    <li><a href="#">图书资料</a></li>
+                    <volist name="nav" id="vo">
+                        <li><a href="#">{$vo.name}</a></li>
+                    </volist>
+
                     <li><a href="#" class="yellow">网络教学</a></li>
 
                 </ul>
@@ -104,30 +92,16 @@
 <div class="container  i-container">
     <div class="sliderContainer fullWidth clearfix">
         <div id="full-width-slider" class="royalSlider heroSlider rsMinW">
-            <div class="rsContent"> <img class="rsImg" src="{$Think.const.SITE_URL}/CDN/uploaded/flash-images/20110916.145036.019.17229.jpg" alt="" />
-                <div class="infoBlock rsABlock infoBlockLeftBlack" data-fade-effect="" data-move-offset="10" data-move-effect="bottom" data-speed="200">
-                    <h4>聚合分享</h4>
-                    <p>www.juheweb.com</p>
+            <volist name="banner" id="vo">
+                <div class="rsContent">
+                    <a href="{$vo.link}"><img class="rsImg" src="{$Think.const.SITE_URL}/CDN/uploaded/flash-images/{$vo.url}" alt="" /></a>
+                    <div class="infoBlock rsABlock infoBlockLeftBlack" data-fade-effect="" data-move-offset="10" data-move-effect="bottom" data-speed="200">
+                        <h4>{$vo.title}</h4>
+                        <p>{$vo.str}</p>
+                    </div>
                 </div>
-            </div>
-            <div class="rsContent"> <img class="rsImg" src="{$Think.const.SITE_URL}/CDN/uploaded/flash-images/20110723.203134.506.45640.jpg" alt="" />
-                <div class="infoBlock rsABlock infoBlockLeftBlack" data-fade-effect="" data-move-offset="10" data-move-effect="bottom" data-speed="200">
-                    <h4>聚合分享</h4>
-                    <p>www.juheweb.com</p>
-                </div>
-            </div>
-            <div class="rsContent"> <img class="rsImg" src="{$Think.const.SITE_URL}/CDN/uploaded/flash-images/20110723.203211.923.31428.jpg" alt="" />
-                <div class="infoBlock rsABlock infoBlockLeftBlack" data-fade-effect="" data-move-offset="10" data-move-effect="bottom" data-speed="200">
-                    <h4>聚合分享</h4>
-                    <p>www.juheweb.com</p>
-                </div>
-            </div>
-            <div class="rsContent"> <img class="rsImg" src="{$Think.const.SITE_URL}/CDN/uploaded/flash-images/20110723.202944.638.54793.jpg" alt="" />
-                <div class="infoBlock rsABlock infoBlockLeftBlack" data-fade-effect="" data-move-offset="10" data-move-effect="bottom" data-speed="200">
-                    <h4>聚合分享</h4>
-                    <p>www.juheweb.com</p>
-                </div>
-            </div>
+            </volist>
+
         </div>
     </div>
 </div>
@@ -138,13 +112,16 @@
             <div class="box">
                 <div class="Mtop">
                     <span><a href="#">更多&gt;&gt;</a></span>
-                    <h2><img src="{$Think.const.WEB_URL}/images/ico_01.gif" class="ico" style="left:10px;"/> 图片故事</h2>
+                    <h2><img src="{$Think.const.WEB_URL}/images/ico_01.gif" class="ico"/> 图片故事</h2>
                 </div>
                 <div class="Mbody">
                     <div class="photoStory">
                         <div>
-                            <img src="{$Think.const.WEB_URL}/images/temp/photoStory.jpg" />
-                            <span>特辑：我们的地球怎么了</span>
+                            <foreach name="story" item="vo">
+                                <a href="__MODULE__/article/picture-story/p/{$vo.pk}"><img src="{$Think.const.SITE_URL}/CDN/uploaded/story/{$vo.thumbnail}" /></a>
+                                <span>{$vo.title}</span>
+                            </foreach>
+
                         </div>
                     </div>
                 </div>

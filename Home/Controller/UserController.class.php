@@ -8,7 +8,5 @@ class UserController extends Controller {
     public function register(){
     	$this -> display();
     }
-    function number(){
-        return "目前网站注册会员200万。";
-    }
+
 }
