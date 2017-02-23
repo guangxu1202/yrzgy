@@ -1,5 +1,5 @@
 <extend name="./base" />
-<block name="title"><title>新增 - 友情链接管理 - 网站系统配置 - 元认知干预网站管理后台系统</title></block>
+<block name="title"><title>新增 - SMTP设置 - 网站系统配置 - 元认知干预网站管理后台系统</title></block>
 <block name="content">
     <div class="breadcrumbs" id="breadcrumbs">
         <script type="text/javascript">
@@ -19,7 +19,7 @@
     <div class="page-content">
         <div class="page-header">
             <h1>
-                友情链接管理
+                SMTP设置
                 <small>
                     <i class="icon-double-angle-right"></i>
                     新增
@@ -29,30 +29,40 @@
         <div class="row">
             <div class="col-xs-12">
                 <form class="form-horizontal" id="myForm" method="post" action="__SELF__">
-
                     <div class="space-4"></div>
+
                     <div class="form-group">
-                        <label class="col-sm-3 control-label no-padding-right"><span class="red">*</span>链接名称： </label>
+                        <label class="col-sm-3 control-label no-padding-right"><span class="red">*</span>主机名称： </label>
                         <div class="col-sm-5">
-                            <input placeholder="请输入链接名称" class="form-control" type="text" name="name" >
+                            <input placeholder="请输入主机名称" class="form-control" type="text" name="host_name" >
                         </div>
                     </div>
 
 
                     <div class="form-group">
-                        <label class="col-sm-3 control-label no-padding-right"><span class="red">*</span>链接地址： </label>
+                        <label class="col-sm-3 control-label no-padding-right"><span class="red">*</span>E-mail： </label>
                         <div class="col-sm-5">
-                            <input placeholder="请输入链接地址" class="form-control" type="text" name="url" >
+                            <input placeholder="请输入E-mail" class="form-control" type="text" name="email" >
                         </div>
                     </div>
 
 
                     <div class="form-group">
-                        <label class="col-sm-3 control-label no-padding-right">链接描述： </label>
+                        <label class="col-sm-3 control-label no-padding-right"><span class="red">*</span>E-mail 密码： </label>
                         <div class="col-sm-5">
-                            <input placeholder="请输入链接描述" class="form-control" type="text" name="description" >
+                            <input placeholder="请输入E-mail 密码" class="form-control" type="text" name="password" >
                         </div>
                     </div>
+
+
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label no-padding-right"><span class="red">*</span>发送人名字： </label>
+                        <div class="col-sm-5">
+                            <input placeholder="请输入发送人名字" class="form-control" type="text" name="sender" >
+                        </div>
+                    </div>
+
+
 
                     <div class="space-4"></div>
                     <div class="form-group">
@@ -63,41 +73,18 @@
                         </div>
                     </div>
 
-                    <div class="form-group">
-                        <label class="col-sm-3 control-label no-padding-right">显示位置： </label>
-                        <div class="col-sm-5">
-                            <div class="form-info">
-                                <label class="lab"><input value="0" name="position" checked="checked" type="radio">底部</label>
-                                <label class="lab"><input value="1" name="position" type="radio">上部</label>
-                            </div>
-                        </div>
-                    </div>
-
 
                     <div class="space-4"></div>
                     <div class="form-group">
-                        <label class="col-sm-3 control-label no-padding-right">链接颜色： </label>
-                        <div class="col-sm-5">
-                            <select id="title_color" name="title_color" style="width: 50px; background-color: #2e2e2e;" onchange="this.style.backgroundColor = this.value;">
-                                <option value="#2e2e2e" style="background-color: #2e2e2e;"></option>
-                                <option value="#014c4c" style="background-color: #014c4c;"></option>
-                                <option value="#008080" style="background-color: #008080;"></option>
-                                <option value="#10acac" style="background-color: #10acac;"></option>
-                                <option value="#1ec5c5" style="background-color: #1ec5c5;"></option>
-                                <option value="#cc0000" style="background-color: #cc0000;"></option>
-                            </select>
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label class="col-sm-3 control-label no-padding-right">文章状态： </label>
+                        <label class="col-sm-3 control-label no-padding-right"> 状态： </label>
                         <div class="col-sm-5">
                             <div class="form-info">
-                                <label class="lab"><input value="false" name="title_bold" checked="checked" type="radio">正常</label>
-                                <label class="lab"><input value="true" name="title_bold" type="radio">粗体</label>
+                                <label class="lab"><input value="true" name="is_used" checked="" type="radio">正常</label>
+                                <label class="lab"><input value="false" name="is_used" type="radio">作废</label>
                             </div>
                         </div>
                     </div>
+
 
 
 
@@ -141,36 +128,51 @@
                     validating: 'glyphicon glyphicon-refresh'
                 },
                 fields: {
-                    name: {
+                    sender: {
                         validators: {
                             notEmpty: {
-                                message: '链接名称不能为空'
+                                message: '发送人名字不能为空'
                             },
                             stringLength: {
                                 min: 0,
                                 max: 50,
-                                message: '链接名称长度必须在0到50之间'
+                                message: '发送人名字长度必须在0到50之间'
                             }
                         }
                     },
-                    url: {
+                    email: {
                         validators: {
                             notEmpty: {
-                                message: '链接地址不能为空'
+                                message: 'E-mail不能为空'
                             },
                             stringLength: {
                                 min: 0,
-                                max: 200,
-                                message: '链接名称长度必须在0到200之间'
+                                max: 80,
+                                message: 'E-mail长度必须在0到80之间'
                             }
                         }
                     },
-                    description: {
+                    host_name: {
                         validators: {
+                            notEmpty: {
+                                message: '主机名称不能为空'
+                            },
                             stringLength: {
                                 min: 0,
-                                max: 50,
-                                message: '链接描述长度必须在0到50之间'
+                                max: 80,
+                                message: '主机名称长度必须在0到80之间'
+                            }
+                        }
+                    },
+                    password: {
+                        validators: {
+                            notEmpty: {
+                                message: 'E-mail 密码不能为空'
+                            },
+                            stringLength: {
+                                min: 0,
+                                max: 30,
+                                message: 'E-mail 密码长度必须在0到30之间'
                             }
                         }
                     },

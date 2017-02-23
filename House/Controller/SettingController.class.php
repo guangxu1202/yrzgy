@@ -458,34 +458,34 @@ class SettingController extends CommonController{
 
 //**********客服信息************
     //列表
-    function serviceList(){
-        $user = M("customer_service");
-        $info = $user ->order("pk desc") -> select();
+    function friendList(){
+        $user = M("friendship_links");
+        $info = $user ->order("position desc,custom_sort desc") -> select();
         $this -> assign("info",$info);
         $this -> display();
     }
 
-    //过时与恢复
-    function serviceDel(){
+    //删除
+    function friendDel(){
         //删除记录
-        $model = M("customer_service");
+        $model = M("friendship_links");
         if ($model->find(I("get.pa")) == null){
             $this -> error("操作失败");
             exit();
         }else{
             $model->where('pk = '.I('get.pa'))->delete();
             //操作成功
-            $this->success("记录删除成功！",__MODULE__."/Setting/serviceList");
+            $this->success("记录删除成功！",__MODULE__."/Setting/friendList");
         }
 
     }
 
     //新增
-    function serviceAdd(){
+    function friendAdd(){
         if (!empty($_POST)){
             //实例化
-            $model = new \Model\Customer_serviceModel();
-            //验证数据 customer_serviceModel
+            $model = new \Model\Friendship_linksModel();
+            //验证数据 Friendship_linksModel
             $z = $model -> create();
             if (!$z){
                 //show_bug($model -> getError());
@@ -494,16 +494,18 @@ class SettingController extends CommonController{
             }
 
             //数据录入
-            $log["email"] = I("post.email");
-            $log["msn"] = I("post.msn");
+            $log["custom_sort"] = I("post.custom_sort");
+            $log["description"] = I("post.description");
             $log["name"] = I("post.name");
-            $log["qq"] = I("post.qq");
-            $log["telephone"] = I("post.telephone");
+            $log["url"] = I("post.url");
+            $log["position"] = I("post.position");
+            $log["title_color"] = I("post.title_color");
+            $log["title_bold"] =checkBit(I('post.title_bold'));
 
             $model->data($log)->add();
 
             //录入成功
-            $this->success("恭喜您，操作成功！",__MODULE__."/Setting/serviceList");
+            $this->success("恭喜您，操作成功！",__MODULE__."/Setting/friendList");
 
         }else{
             $this -> display();
@@ -511,10 +513,10 @@ class SettingController extends CommonController{
     }
 
     //修改
-    function serviceEdit(){
+    function friendEdit(){
         if (!empty($_POST)){
-            $model = new \Model\Customer_serviceModel();
-            //验证数据 customer_serviceModel
+            $model = new \Model\Friendship_linksModel();
+            //验证数据 Friendship_linksModel
             $z = $model -> create();
             if (!$z){
                 //show_bug($model -> getError());
@@ -528,21 +530,23 @@ class SettingController extends CommonController{
             }else{
 
                 //数据修改
-                $data["email"] = I("post.email");
-                $data["msn"] = I("post.msn");
+                $data["custom_sort"] = I("post.custom_sort");
+                $data["description"] = I("post.description");
                 $data["name"] = I("post.name");
-                $data["qq"] = I("post.qq");
-                $data["telephone"] = I("post.telephone");
+                $data["url"] = I("post.url");
+                $data["position"] = I("post.position");
+                $data["title_color"] = I("post.title_color");
+                $data["title_bold"] =checkBit(I('post.title_bold'));
 
 
                 $model->  where("pk=".I('post.pk'))  ->setField($data);
                 //录入成功
-                $this->success("恭喜您，操作成功！",__MODULE__."/Setting/serviceList");
+                $this->success("恭喜您，操作成功！",__MODULE__."/Setting/friendList");
             }
 
 
         }else{
-            $a = M("customer_service");
+            $a = M("friendship_links");
             if ($a->find(I("get.pa")) == null){
                 //错误ID
                 $this->error("页面无法访问！");
@@ -555,6 +559,69 @@ class SettingController extends CommonController{
         }
     }
 
+//**********杂项列表************
 
+    //列表
+    function misList(){
+        $user = M("miscellaneous");
+        $info = $user -> select();
+        $this -> assign("info",$info);
+        $this -> display();
+    }
+
+    //修改
+    function misEdit(){
+        if (!empty($_POST)){
+            $model = new \Model\MiscellaneousModel();
+            //验证数据 Friendship_linksModel
+            $z = $model -> create();
+            if (!$z){
+                //show_bug($model -> getError());
+                $this->error("您录入的数据格式错误！");
+                exit();
+            }
+
+            if ($model->find(I("post.pk")) == null){
+                //错误ID
+                $this->error("页面无法访问！");
+            }else{
+
+                //数据修改
+                $data["title"] = I("post.title");
+                $data["content"] = I("post.content");
+
+                $model->  where("pk=".I('post.pk'))  ->setField($data);
+                //录入成功
+                $this->success("恭喜您，操作成功！",__MODULE__."/Setting/misList");
+            }
+
+
+        }else{
+            $a = M("miscellaneous");
+            if ($a->find(I("get.pa")) == null){
+                //错误ID
+                $this->error("页面无法访问！");
+            }else{
+                //修改界面展示
+                $info = $a -> where("pk=".I("get.pa")) -> select();
+                $this -> assign("info",$info);
+                $this -> display();
+            }
+        }
+    }
+
+    //查看
+    function misShow(){
+        $user = M("miscellaneous");
+        if ($user->find(I("get.pa")) == null){
+            //错误ID
+            $this->error("页面无法访问！");
+        }else{
+            //界面展示
+            $info = $user -> where("pk=".I("get.pa")) -> select();
+            $this -> assign("info",$info);
+            $this -> display();
+        }
+    }
 
 }

@@ -1,0 +1,74 @@
+<extend name="./base" />
+<block name="title"><title>查看 - 杂项列表 - 网站系统配置 - 元认知干预网站管理后台系统</title></block>
+<block name="content">
+    <div class="breadcrumbs" id="breadcrumbs">
+
+
+        <ul class="breadcrumb">
+            <li>
+                <i class="icon-home home-icon"></i>
+                <a href="#">首页</a>
+            </li>
+            <li class="active">网站系统配置</li>
+        </ul><!-- .breadcrumb -->
+
+    </div>
+
+    <div class="page-content">
+        <div class="page-header">
+            <h1>
+                杂项列表
+                <small>
+                    <i class="icon-double-angle-right"></i>
+                    查看
+                </small>
+            </h1>
+        </div><!-- /.page-header -->
+        <div class="row">
+            <div class="col-xs-12">
+                <form class="form-horizontal" id="myForm" method="post" action="__SELF__">
+                    <foreach name="info" item="vo" >
+                        <table class="Edit">
+                            <colgroup width="130px"></colgroup>
+                            <tbody>
+                                <tr>
+                                    <th>位置： </th>
+                                    <td>{$vo.position}</td>
+                                </tr>
+
+                                <tr>
+                                    <th>标题： </th>
+                                    <td>{$vo.title}</td>
+                                </tr>
+                                <tr>
+                                    <th>内容： </th>
+                                    <td>
+                                        {$vo.content|htmlspecialchars_decode}
+                                    </td>
+                                </tr>
+
+                            </tbody>
+                        </table>
+
+                        <div class="space-4"></div>
+                    </foreach>
+                    <div class="clearfix form-actions">
+                        <div class="col-md-offset-3 col-md-9">
+                            <div class="row">
+                                <button class="btn" type="button" onclick="javascript:history.back()">返回</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+    </div>
+</block>
+
+<block name="public">
+
+    <!-- inline scripts related to this page -->
+    <script src="{$Think.const.ADMIN_URL}/js/admin.js"></script>
+
+</block>

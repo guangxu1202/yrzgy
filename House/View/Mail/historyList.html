@@ -1,9 +1,9 @@
 <extend name="./base" />
-<block name="title"><title>友情链接管理 - 网站系统配置 - 元认知干预网站管理后台系统</title></block>
+<block name="title"><title>已发邮件列表 - 邮件管理 - 元认知干预网站管理后台系统</title></block>
 <block name="content">
     <div class="breadcrumbs" id="breadcrumbs">
         <script type="text/javascript">
-            try{ace.settings.check('breadcrumbs' , 'fixed')}catch(e){}
+            try{ace.Mails.check('breadcrumbs' , 'fixed')}catch(e){}
         </script>
 
         <ul class="breadcrumb">
@@ -11,7 +11,7 @@
                 <i class="icon-home home-icon"></i>
                 <a href="#">首页</a>
             </li>
-            <li class="active">网站系统配置</li>
+            <li class="active">邮件管理</li>
         </ul><!-- .breadcrumb -->
 
     </div>
@@ -19,12 +19,11 @@
     <div class="page-content">
         <div class="page-header">
             <h1>
-                友情链接管理
+                已发邮件列表
                 <small>
                     <i class="icon-double-angle-right"></i>
                     列表
                 </small>
-                <button class="btn btn-sm btn-primary pull-right" onclick="javascript:location.href='__MODULE__/Setting/friendAdd'">添加友情链接</button>
             </h1>
         </div><!-- /.page-header -->
         <div class="row">
@@ -41,11 +40,13 @@
                             <th class="center">
                                 序号
                             </th>
-                            <th>链接名称</th>
-                            <th>链接地址</th>
-                            <th>链接描述</th>
-                            <th>排序序号</th>
-                            <th>显示位置</th>
+                            <th>收件人昵称</th>
+                            <th>收件人邮箱</th>
+                            <th>发送邮箱</th>
+                            <th>邮件标题</th>
+                            <th>发送人</th>
+                            <th>操作人</th>
+                            <th>发送时间</th>
                             <th>操作</th>
                         </tr>
                         </thead>
@@ -54,28 +55,22 @@
                         <volist name="info" id="vo">
                             <tr>
                                 <td class="center">{$i}</td>
-                                <td style="max-width: 300px; overflow: hidden;">
-                                    <div><a href="__MODULE__/Setting/friendShow/pa/{$vo.pk}" data-id="{$vo.pk}">{$vo.name}</a></div>
-                                </td>
+                                <td style="max-width: 150px;">{$vo.nickname}</td>
+                                <td>{$vo.email}</td>
+                                <td>{$vo.send_mail}</td>
+                                <td style="max-width: 230px;">{$vo.title}</td>
+                                <td>{$vo.sender}</td>
                                 <td>
-                                    <div style="max-width: 200px;">{$vo.url}</div>
-                                </td>
-                                <td>
-                                    <div style="max-width: 200px;">{$vo.description}</div>
-                                </td>
-                                <td>{$vo.custom_sort}</td>
-                                <td>
-                                    <if condition="$vo.position eq 1 ">
-                                        上部
+                                    <if condition="$vo.real_name eq '' ">
+                                        系统发送
                                         <else />
-                                        底部
+                                        {$vo.real_name}
                                     </if>
-
                                 </td>
+                                <td>{$vo.sent_time|substr=0,10}</td>
                                 <td>
                                     <div class="visible-md visible-lg hidden-sm hidden-xs action-buttons">
-                                        <a href="__MODULE__/Setting/friendEdit/pa/{$vo.pk}" data-id="{$vo.pk}">编辑</a>
-                                        <a href="javascript:void(0);" class="lock-btn" data-id="{$vo.pk}">删除</a>
+                                        <a href="__MODULE__/Mail/historyShow/pa/{$vo.pk}" data-id="{$vo.pk}">详细</a>
                                     </div>
                                 </td>
                             </tr>
@@ -101,7 +96,7 @@
             var oTable1 = $('#sample-table-2').dataTable( {
                 "aoColumns": [
                     { "bSortable": false },
-                    null, null,null, null, null,
+                    null, null,null, null, null, null, null,
                     { "bSortable": false }
                 ] ,
                 "oLanguage" : {
@@ -137,15 +132,6 @@
             }
 
         })
-        //锁定与解锁
-        $(".lock-btn").click(function(){
-            var that = this;
-            var str = "确定要删除这条记录吗!";
-            bootbox.confirm(str, function(result) {
-                if(result) {
-                    location.href ="__MODULE__/Setting/friendDel/pa/"+$(that).attr("data-id");
-                }
-            });
-        });
+
     </script>
 </block>
