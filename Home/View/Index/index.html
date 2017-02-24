@@ -1,479 +1,376 @@
-<!DOCTYPE html>
-<html lang="zh-CN">
-<head>
-    <meta charset="UTF-8">
-    <title>元认知心理干预技术网 - 首页</title>
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="renderer" content="webkit">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-    <!-- 新 Bootstrap 核心 CSS 文件 -->
-    <link rel="stylesheet" href="{$Think.const.WEB_URL}/css/bootstrap.min.css">
-    <link rel="stylesheet" href="{$Think.const.WEB_URL}/css/royalslider.css">
-    <link rel="stylesheet" href="{$Think.const.WEB_URL}/css/skin-white.css">
-    <link rel="stylesheet" href="{$Think.const.WEB_URL}/css/style.css">
+<extend name="./base" />
+<block name="title">
+    <title>首页 - 元认知心理干预技术网</title>
+    <meta name="keywords" content=""/>
+    <meta name="description" content=""/>
+</block>
+<block name="content">
+    <div class="container  i-container">
+        <div class="sliderContainer fullWidth clearfix">
+            <div id="full-width-slider" class="royalSlider heroSlider rsMinW">
+                <!--<volist name="banner" id="vo">-->
+                    <!--<div class="rsContent">-->
+                        <!--<a href="{$vo.link}"><img class="rsImg" src="{$Think.const.SITE_URL}/CDN/uploaded/flash-images/{$vo.url}" alt="" /></a>-->
+                        <!--<div class="infoBlock rsABlock infoBlockLeftBlack" data-fade-effect="" data-move-offset="10" data-move-effect="bottom" data-speed="200">-->
+                            <!--<h4>{$vo.title}</h4>-->
+                            <!--<p>{$vo.str}</p>-->
+                        <!--</div>-->
+                    <!--</div>-->
+                <!--</volist>-->
 
-
-</head>
-<body>
-
-<div class="header">
-    <div class="container">
-        <div class=" header-wrap">
-            <div class="header-box clearfix">
-                <div class="row">
-                    <div class="col-sm-6"><a href="#" class="logo"><img src="{$Think.const.WEB_URL}/images/logo.gif"></a> </div>
-                    <div class="col-sm-6 text-right">
-                    <ul class="header-list">
-                        <li>
-                            <img src="{$Think.const.WEB_URL}/images/tip.gif">
-                            <a href="#" onclick="addFav();">加入收藏</a>
-                        </li>
-                        <li>
-                            <img src="{$Think.const.WEB_URL}/images/reg.gif">
-                            <a href="#">免费注册</a>
-                        </li>
-                        <li>
-                            <img src="{$Think.const.WEB_URL}/images/login.gif">
-                            <a href="#">会员登录</a>
-                        </li>
-                        <li>
-                            <img src="{$Think.const.WEB_URL}/images/contact.gif">
-                            <a href="#" target="_blank">联系我们</a>
-                        </li>
-                    </ul>
-                    <div class="header-search  hidden-xs">
-                        <div class="search">
-                            <form method="get" action="#" target="_blank">
-                                <span>站内搜索:</span>
-                                <input type="text" class="s" name="q">
-                                <input type="submit" class="st" value="">
-                            </form>
-                        </div>
-                    </div>
-                </div>
-                </div>
             </div>
         </div>
     </div>
-</div>
 
-<div class="container i-container">
-
-
-    <!-- Static navbar -->
-    <nav class="navbar navbar-default nav-green" role="navigation">
-        <div class="container-fluid">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand" href="#">首页</a>
-            </div>
-            <div id="navbar" class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <volist name="nav" id="vo">
-                        <li><a href="#">{$vo.name}</a></li>
-                    </volist>
-
-                    <li><a href="#" class="yellow">网络教学</a></li>
-
-                </ul>
-
-            </div><!--/.nav-collapse -->
-        </div><!--/.container-fluid -->
-    </nav>
-
-
-</div> <!-- /container -->
-
-<div class="container  i-container">
-    <div class="sliderContainer fullWidth clearfix">
-        <div id="full-width-slider" class="royalSlider heroSlider rsMinW">
-            <volist name="banner" id="vo">
-                <div class="rsContent">
-                    <a href="{$vo.link}"><img class="rsImg" src="{$Think.const.SITE_URL}/CDN/uploaded/flash-images/{$vo.url}" alt="" /></a>
-                    <div class="infoBlock rsABlock infoBlockLeftBlack" data-fade-effect="" data-move-offset="10" data-move-effect="bottom" data-speed="200">
-                        <h4>{$vo.title}</h4>
-                        <p>{$vo.str}</p>
-                    </div>
-                </div>
-            </volist>
-
-        </div>
-    </div>
-</div>
-
-<div class="container i-container">
-    <div class="row">
-        <div class="col-sm-3">
-            <div class="box">
-                <div class="Mtop">
-                    <span><a href="#">更多&gt;&gt;</a></span>
-                    <h2><img src="{$Think.const.WEB_URL}/images/ico_01.gif" class="ico"/> 图片故事</h2>
-                </div>
-                <div class="Mbody">
-                    <div class="photoStory">
-                        <div>
-                            <foreach name="story" item="vo">
-                                <a href="__MODULE__/article/picture-story/p/{$vo.pk}"><img src="{$Think.const.SITE_URL}/CDN/uploaded/story/{$vo.thumbnail}" /></a>
-                                <span>{$vo.title}</span>
-                            </foreach>
-
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-sm-5">
-            <div class="box">
-                <div class="Mtop">
-                    <span><a href="#">更多&gt;&gt;</a></span>
-                    <h2><img src="{$Think.const.WEB_URL}/images/ico_01.gif" class="ico" style="left:10px;"/> 知名媒体专题</h2>
-                    <p></p>
-                </div>
-                <div class="Mbody">
-                    <ul class="list">
-                        <li><a href="#"><nobr>护身符真的有用护身符真的有用：积极的心理暗示</nobr></a></li>
-                        <li><a href="#"><nobr>人们对于心理咨询的三大误区</nobr></a></li>
-                        <li><a href="#"><nobr>护身符真的有用护身符真的有用护身符真的有用：积理暗示</nobr></a></li>
-                        <li><a href="#"><nobr>人们对于心理咨询的三大误区</nobr></a></li>
-                        <li><a href="#"><nobr>护身符真的有用：积极的心理暗示</nobr></a></li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-        <div class="col-sm-4">
-            <div class="box">
-                <div class="Mtop">
-                    <span><a href="#">更多&gt;&gt;</a></span>
-                    <h2><img src="{$Think.const.WEB_URL}/images/ico_01.gif" class="ico" style="left:10px;"/> 服务指南</h2>
-                </div>
-                <div class="Mbody">
-                    <ul class="list">
-                        <li><a href="#"><nobr>护身符真的有用护身符真的有用：积极的心理暗示</nobr></a></li>
-                        <li><a href="#"><nobr>人们对于心理咨询的三大误区</nobr></a></li>
-                        <li><a href="#"><nobr>护身符真的有用护身符真的有用护身符真的有用：积理暗示</nobr></a></li>
-                        <li><a href="#"><nobr>人们对于心理咨询的三大误区</nobr></a></li>
-                        <li><a href="#"><nobr>护身符真的有用：积极的心理暗示</nobr></a></li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-<div class="container i-container">
-    <div class="row">
-        <div class="col-sm-3">
-            <div class="box">
-                <div class="Mtop">
-                    <span><a href="#">更多&gt;&gt;</a></span>
-                    <h2><img src="{$Think.const.WEB_URL}/images/ico_01.gif" class="ico" style="left:10px;"/> 技术背景</h2>
-                </div>
-                <div class="Mbody">
-
-                    <ul class="list">
-                        <li><a href="#"><nobr>护身符真的有用护身符真的有用：积极的心理暗示</nobr></a></li>
-                        <li><a href="#"><nobr>人们对于心理咨询的三大误区</nobr></a></li>
-                        <li><a href="#"><nobr>护身符真的有用护身符真的有用护身符真的有用：积理暗示</nobr></a></li>
-                        <li><a href="#"><nobr>人们对于心理咨询的三大误区</nobr></a></li>
-                        <li><a href="#"><nobr>护身符真的有用：积极的心理暗示</nobr></a></li>
-                    </ul>
-
-                </div>
-            </div>
-        </div>
-        <div class="col-sm-5">
-            <div class="box">
-                <div class="Mtop">
-                    <span><a href="#">更多&gt;&gt;</a></span>
-                    <h2><img src="{$Think.const.WEB_URL}/images/ico_01.gif" class="ico" style="left:10px;"/> 技术团队</h2>
-                    <p></p>
-                </div>
-                <div class="Mbody">
-                    <div class="team" id="demo">
-                        <div id="indemo">
-                            <div id="demo1">
-                                <ul>
-                                    <li>
-                                        <a href="#"><img src="{$Think.const.WEB_URL}/images/temp/team01.jpg" /></a>
-                                        <a href="#">金洪源-技术研发者</a>
-                                    </li>
-                                    <li>
-                                        <a href="#"><img src="{$Think.const.WEB_URL}/images/temp/team02.jpg" /></a>
-                                        <a href="#">2222-2222222</a>
-                                    </li>
-                                    <li>
-                                        <a href="#"><img src="{$Think.const.WEB_URL}/images/temp/team03.jpg" /></a>
-                                        <a href="#">33333-33333</a>
-                                    </li>
-                                    <li>
-                                        <a href="#"><img src="{$Think.const.WEB_URL}/images/temp/team02.jpg" /></a>
-                                        <a href="#">444-4444444</a>
-                                    </li>
-                                    <li>
-                                        <a href="#"><img src="{$Think.const.WEB_URL}/images/temp/team03.jpg" /></a>
-                                        <a href="#">555-55555555</a>
-                                    </li>
-                                </ul>
-                            </div>
-                            <div id="demo2"></div>
-                        </div>
-                    </div>
-                    <script type="text/javascript" language="javascript" src="{$Think.const.WEB_URL}/js/scroll.js"></script>
-                </div>
-            </div>
-        </div>
-        <div class="col-sm-4">
-            <div class="box">
-                <div class="Mtop">
-                    <span><a href="#">更多&gt;&gt;</a></span>
-                    <h2><img src="{$Think.const.WEB_URL}/images/ico_01.gif" class="ico" style="left:10px;"/> 技术应用</h2>
-                </div>
-                <div class="Mbody">
-                    <ul class="list">
-                        <li><a href="#"><nobr>护身符真的有用护身符真的有用：积极的心理暗示</nobr></a></li>
-                        <li><a href="#"><nobr>人们对于心理咨询的三大误区</nobr></a></li>
-                        <li><a href="#"><nobr>护身符真的有用护身符真的有用护身符真的有用：积理暗示</nobr></a></li>
-                        <li><a href="#"><nobr>人们对于心理咨询的三大误区</nobr></a></li>
-                        <li><a href="#"><nobr>护身符真的有用：积极的心理暗示</nobr></a></li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-<div class="container i-container">
-    <div class="home-ad">
-        <a href="#"><img src="{$Think.const.WEB_URL}/images/temp/Ad.jpg" style=" margin-bottom:8px;" /></a>
-    </div>
-</div>
-
-<div class="container i-container">
-    <div class="row">
-        <div class="col-sm-3">
-            <div class="box qzone">
-                <div class="Mtop">
-                    <span><a href="#">更多&gt;&gt;</a></span>
-                    <h2><img src="{$Think.const.WEB_URL}/images/ico_01.gif" class="ico" style="left:10px;"/> 专业委员会</h2>
-                </div>
-                <div class="Mbody">
-                    <ul class="list">
-                        <li><a href="#"><nobr>护身符真的有用护身符真的有用：积极的心理暗示</nobr></a></li>
-                        <li><a href="#"><nobr>人们对于心理咨询的三大误区</nobr></a></li>
-                        <li><a href="#"><nobr>护身符真的有用护身符真的有用护身符真的有用：积理暗示</nobr></a></li>
-                        <li><a href="#"><nobr>人们对于心理咨询的三大误区</nobr></a></li>
-                        <li><a href="#"><nobr>护身符真的有用：积极的心理暗示</nobr></a></li>
-                        <li><a href="#"><nobr>护身符真的有用：积极的心理暗示</nobr></a></li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-        <div class="col-sm-9">
-            <div class="groupWarp">
-                <div class="groupBox" >
-                    <div class="Gbody">
-                        <div class="Gmenu">
-                            <ol>
-                                <li class="checked">学生问题</li>
-                                <li>学生学习</li>
-                                <li>考生心理</li>
-                            </ol>
-                        </div>
-                        <ul>
-                            <li><a href="#"><nobr>人们对于心理咨询的三大误区</nobr></a></li>
-                            <li><a href="#"><nobr>人们对于心理咨询的三大误区</nobr></a></li>
-                            <li><a href="#"><nobr>人们对于心理咨询的三大误区</nobr></a></li>
-                            <li><a href="#"><nobr>人们对于心理咨询的三大误区</nobr></a></li>
-                            <li><a href="#"><nobr>人们对于心理咨询的三大误区人们对于心理咨询的三大误区人们对于心理咨询的三大误区</nobr></a></li>
-                            <li><a href="#"><nobr>人们对于心理咨询的三大误区</nobr></a></li>
-                            <li><a href="#"><nobr>人们对于心理咨询的三大误区</nobr></a></li>
-                            <li><a href="#"><nobr>人们对于心理咨询的三大误区</nobr></a></li>
-                            <li><a href="#"><nobr>人们对于心理咨询的三大误区</nobr></a></li>
-                            <li><a href="#"><nobr>人们对于心理咨询的三大误区</nobr></a></li>
-                        </ul>
-                        <em><a href="#">更多>></a></em>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-    </div>
-</div>
-
-
-<div class="container i-container">
-    <div class="treewarp">
+    <div class="container i-container">
         <div class="row">
+            <div class="col-sm-3">
+                <div class="box">
+                    <div class="Mtop">
+                        <span><a href="#">更多&gt;&gt;</a></span>
+                        <h2><img src="{$Think.const.WEB_URL}/images/ico_01.gif" class="ico"/> 图片故事</h2>
+                    </div>
+                    <div class="Mbody">
+                        <div class="photoStory">
+                            <div>
+                                <!--<foreach name="story" item="vo">-->
+                                    <!--<a href="__MODULE__/article/picture-story/p/{$vo.pk}"><img src="{$Think.const.SITE_URL}/CDN/uploaded/story/{$vo.thumbnail}" /></a>-->
+                                    <!--<span>{$vo.title}</span>-->
+                                <!--</foreach>-->
 
-            <div class="col-sm-4">
-                <div class="TreeList">
-                    <h5><em><a href="#">更多>></a></em>心身疾病治疗</h5>
-                    <dl>
-                        <dt><img src="{$Think.const.WEB_URL}/images/temp/tree.gif" /></dt>
-                        <dd><a href="#"><nobr>摆脱“心理罢工”</nobr></a> </dd>
-                        <dd><a href="#"><nobr>患糖尿病后 四种异常心态四种异常心态四种异常心态四种异常心态</nobr></a></dd>
-                        <dd><a href="#"><nobr>摆脱“心理罢工”</nobr></a> </dd>
-                        <dd><a href="#"><nobr>患糖尿病后 四种异常心态</nobr></a></dd>
-                        <dd><a href="#"><nobr>摆脱“心理罢工”</nobr></a> </dd>
-                    </dl>
-                </div>
-            </div>
-            <div class="line wp33"></div>
-            <div class="col-sm-4">
-                <div class="TreeList">
-                    <h5><em><a href="#">更多>></a></em>家庭教育</h5>
-                    <dl>
-                        <dt><img src="{$Think.const.WEB_URL}/images/temp/tree.gif" /></dt>
-                        <dd><a href="#"><nobr>摆脱“心理罢工”</nobr></a> </dd>
-                        <dd><a href="#"><nobr>患糖尿病后 四种异常心态四种异常心态四种异常心态四种异常心态</nobr></a></dd>
-                        <dd><a href="#"><nobr>摆脱“心理罢工”</nobr></a> </dd>
-                        <dd><a href="#"><nobr>患糖尿病后 四种异常心态</nobr></a></dd>
-                        <dd><a href="#"><nobr>摆脱“心理罢工”</nobr></a> </dd>
-                    </dl>
-                </div>
-            </div>
-            <div class="line wp66"></div>
-            <div class="col-sm-4">
-                <div class="TreeList">
-                    <h5><em><a href="#">更多>></a></em>专家答疑</h5>
-                    <dl>
-                        <dt><img src="{$Think.const.WEB_URL}/images/temp/tree.gif" /></dt>
-                        <dd><a href="#"><nobr>摆脱“心理罢工”</nobr></a> </dd>
-                        <dd><a href="#"><nobr>患糖尿病后 四种异常心态四种异常心态四种异常心态四种异常心态</nobr></a></dd>
-                        <dd><a href="#"><nobr>摆脱“心理罢工”</nobr></a> </dd>
-                        <dd><a href="#"><nobr>患糖尿病后 四种异常心态</nobr></a></dd>
-                        <dd><a href="#"><nobr>摆脱“心理罢工”</nobr></a> </dd>
-                    </dl>
-                </div>
-            </div>
-
-        </div>
-    </div>
-</div>
-
-
-<div class="container i-container">
-    <div class="row">
-        <div class="col-sm-3">
-            <div class="box qzone">
-                <div class="Mtop">
-                    <span><a href="#">更多&gt;&gt;</a></span>
-                    <h2><img src="{$Think.const.WEB_URL}/images/ico_01.gif" class="ico" style="left:10px;"/> 学校教育</h2>
-                </div>
-                <div class="Mbody">
-                    <ul class="list">
-                        <li><a href="#"><nobr>护身符真的有用护身符真的有用：积极的心理暗示</nobr></a></li>
-                        <li><a href="#"><nobr>人们对于心理咨询的三大误区</nobr></a></li>
-                        <li><a href="#"><nobr>护身符真的有用护身符真的有用护身符真的有用：积理暗示</nobr></a></li>
-                        <li><a href="#"><nobr>人们对于心理咨询的三大误区</nobr></a></li>
-                        <li><a href="#"><nobr>护身符真的有用：积极的心理暗示</nobr></a></li>
-                        <li><a href="#"><nobr>护身符真的有用：积极的心理暗示</nobr></a></li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-        <div class="col-sm-9">
-            <div class="groupWarp">
-                <div class="groupBox" >
-                    <div class="Gbody">
-                        <div class="Gmenu">
-                            <ol>
-                                <li class="checked">技术背景</li>
-                                <li>科研园地</li>
-                                <li>技术档案</li>
-                            </ol>
+                            </div>
                         </div>
-                        <ul>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-5">
+                <div class="box">
+                    <div class="Mtop">
+                        <span><a href="#">更多&gt;&gt;</a></span>
+                        <h2><img src="{$Think.const.WEB_URL}/images/ico_01.gif" class="ico" style="left:10px;"/> 知名媒体专题</h2>
+                        <p></p>
+                    </div>
+                    <div class="Mbody">
+                        <ul class="list">
+                            <li><a href="#"><nobr>护身符真的有用护身符真的有用：积极的心理暗示</nobr></a></li>
                             <li><a href="#"><nobr>人们对于心理咨询的三大误区</nobr></a></li>
+                            <li><a href="#"><nobr>护身符真的有用护身符真的有用护身符真的有用：积理暗示</nobr></a></li>
                             <li><a href="#"><nobr>人们对于心理咨询的三大误区</nobr></a></li>
-                            <li><a href="#"><nobr>人们对于心理咨询的三大误区</nobr></a></li>
-                            <li><a href="#"><nobr>人们对于心理咨询的三大误区</nobr></a></li>
-                            <li><a href="#"><nobr>人们对于心理咨询的三大误区人们对于心理咨询的三大误区人们对于心理咨询的三大误区</nobr></a></li>
-                            <li><a href="#"><nobr>人们对于心理咨询的三大误区</nobr></a></li>
-                            <li><a href="#"><nobr>人们对于心理咨询的三大误区</nobr></a></li>
-                            <li><a href="#"><nobr>人们对于心理咨询的三大误区</nobr></a></li>
-                            <li><a href="#"><nobr>人们对于心理咨询的三大误区</nobr></a></li>
-                            <li><a href="#"><nobr>人们对于心理咨询的三大误区</nobr></a></li>
+                            <li><a href="#"><nobr>护身符真的有用：积极的心理暗示</nobr></a></li>
                         </ul>
-                        <em><a href="#">更多>></a></em>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="box">
+                    <div class="Mtop">
+                        <span><a href="#">更多&gt;&gt;</a></span>
+                        <h2><img src="{$Think.const.WEB_URL}/images/ico_01.gif" class="ico" style="left:10px;"/> 服务指南</h2>
+                    </div>
+                    <div class="Mbody">
+                        <ul class="list">
+                            <li><a href="#"><nobr>护身符真的有用护身符真的有用：积极的心理暗示</nobr></a></li>
+                            <li><a href="#"><nobr>人们对于心理咨询的三大误区</nobr></a></li>
+                            <li><a href="#"><nobr>护身符真的有用护身符真的有用护身符真的有用：积理暗示</nobr></a></li>
+                            <li><a href="#"><nobr>人们对于心理咨询的三大误区</nobr></a></li>
+                            <li><a href="#"><nobr>护身符真的有用：积极的心理暗示</nobr></a></li>
+                        </ul>
                     </div>
                 </div>
             </div>
         </div>
-
     </div>
-</div>
 
+    <div class="container i-container">
+        <div class="row">
+            <div class="col-sm-3">
+                <div class="box">
+                    <div class="Mtop">
+                        <span><a href="#">更多&gt;&gt;</a></span>
+                        <h2><img src="{$Think.const.WEB_URL}/images/ico_01.gif" class="ico" style="left:10px;"/> 技术背景</h2>
+                    </div>
+                    <div class="Mbody">
 
-<div class="container i-container">
-    <div class="link">
-        <ul class="clearfix">
-            <li><a href="#">中国心理学网</a></li>
-            <li><a href="#">华夏心理</a></li>
-            <li><a href="#">无忧心理网络</a></li>
-            <li><a href="#">爱心理联盟</a></li>
-            <li><a href="#">中国心理学网</a></li>
-            <li><a href="#">华夏心理</a></li>
-            <li><a href="#">无忧心理网络</a></li>
-            <li><a href="#">爱心理联盟</a></li>
+                        <ul class="list">
+                            <li><a href="#"><nobr>护身符真的有用护身符真的有用：积极的心理暗示</nobr></a></li>
+                            <li><a href="#"><nobr>人们对于心理咨询的三大误区</nobr></a></li>
+                            <li><a href="#"><nobr>护身符真的有用护身符真的有用护身符真的有用：积理暗示</nobr></a></li>
+                            <li><a href="#"><nobr>人们对于心理咨询的三大误区</nobr></a></li>
+                            <li><a href="#"><nobr>护身符真的有用：积极的心理暗示</nobr></a></li>
+                        </ul>
 
-        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-5">
+                <div class="box">
+                    <div class="Mtop">
+                        <span><a href="#">更多&gt;&gt;</a></span>
+                        <h2><img src="{$Think.const.WEB_URL}/images/ico_01.gif" class="ico" style="left:10px;"/> 技术团队</h2>
+                        <p></p>
+                    </div>
+                    <div class="Mbody">
+                        <div class="team" id="demo">
+                            <div id="indemo">
+                                <div id="demo1">
+                                    <ul>
+                                        <li>
+                                            <a href="#"><img src="{$Think.const.WEB_URL}/images/temp/team01.jpg" /></a>
+                                            <a href="#">金洪源-技术研发者</a>
+                                        </li>
+                                        <li>
+                                            <a href="#"><img src="{$Think.const.WEB_URL}/images/temp/team02.jpg" /></a>
+                                            <a href="#">2222-2222222</a>
+                                        </li>
+                                        <li>
+                                            <a href="#"><img src="{$Think.const.WEB_URL}/images/temp/team03.jpg" /></a>
+                                            <a href="#">33333-33333</a>
+                                        </li>
+                                        <li>
+                                            <a href="#"><img src="{$Think.const.WEB_URL}/images/temp/team02.jpg" /></a>
+                                            <a href="#">444-4444444</a>
+                                        </li>
+                                        <li>
+                                            <a href="#"><img src="{$Think.const.WEB_URL}/images/temp/team03.jpg" /></a>
+                                            <a href="#">555-55555555</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div id="demo2"></div>
+                            </div>
+                        </div>
+                        <script type="text/javascript" language="javascript" src="{$Think.const.WEB_URL}/js/scroll.js"></script>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="box">
+                    <div class="Mtop">
+                        <span><a href="#">更多&gt;&gt;</a></span>
+                        <h2><img src="{$Think.const.WEB_URL}/images/ico_01.gif" class="ico" style="left:10px;"/> 技术应用</h2>
+                    </div>
+                    <div class="Mbody">
+                        <ul class="list">
+                            <li><a href="#"><nobr>护身符真的有用护身符真的有用：积极的心理暗示</nobr></a></li>
+                            <li><a href="#"><nobr>人们对于心理咨询的三大误区</nobr></a></li>
+                            <li><a href="#"><nobr>护身符真的有用护身符真的有用护身符真的有用：积理暗示</nobr></a></li>
+                            <li><a href="#"><nobr>人们对于心理咨询的三大误区</nobr></a></li>
+                            <li><a href="#"><nobr>护身符真的有用：积极的心理暗示</nobr></a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-</div>
+
+    <div class="container i-container">
+        <div class="home-ad">
+            <a href="#"><img src="{$Think.const.WEB_URL}/images/temp/Ad.jpg" style=" margin-bottom:8px;" /></a>
+        </div>
+    </div>
+
+    <div class="container i-container">
+        <div class="row">
+            <div class="col-sm-3">
+                <div class="box qzone">
+                    <div class="Mtop">
+                        <span><a href="#">更多&gt;&gt;</a></span>
+                        <h2><img src="{$Think.const.WEB_URL}/images/ico_01.gif" class="ico" style="left:10px;"/> 专业委员会</h2>
+                    </div>
+                    <div class="Mbody">
+                        <ul class="list">
+                            <li><a href="#"><nobr>护身符真的有用护身符真的有用：积极的心理暗示</nobr></a></li>
+                            <li><a href="#"><nobr>人们对于心理咨询的三大误区</nobr></a></li>
+                            <li><a href="#"><nobr>护身符真的有用护身符真的有用护身符真的有用：积理暗示</nobr></a></li>
+                            <li><a href="#"><nobr>人们对于心理咨询的三大误区</nobr></a></li>
+                            <li><a href="#"><nobr>护身符真的有用：积极的心理暗示</nobr></a></li>
+                            <li><a href="#"><nobr>护身符真的有用：积极的心理暗示</nobr></a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-9">
+                <div class="groupWarp">
+                    <div class="groupBox" >
+                        <div class="Gbody">
+                            <div class="Gmenu">
+                                <ol>
+                                    <li class="checked">学生问题</li>
+                                    <li>学生学习</li>
+                                    <li>考生心理</li>
+                                </ol>
+                            </div>
+                            <ul>
+                                <li><a href="#"><nobr>人们对于心理咨询的三大误区</nobr></a></li>
+                                <li><a href="#"><nobr>人们对于心理咨询的三大误区</nobr></a></li>
+                                <li><a href="#"><nobr>人们对于心理咨询的三大误区</nobr></a></li>
+                                <li><a href="#"><nobr>人们对于心理咨询的三大误区</nobr></a></li>
+                                <li><a href="#"><nobr>人们对于心理咨询的三大误区人们对于心理咨询的三大误区人们对于心理咨询的三大误区</nobr></a></li>
+                                <li><a href="#"><nobr>人们对于心理咨询的三大误区</nobr></a></li>
+                                <li><a href="#"><nobr>人们对于心理咨询的三大误区</nobr></a></li>
+                                <li><a href="#"><nobr>人们对于心理咨询的三大误区</nobr></a></li>
+                                <li><a href="#"><nobr>人们对于心理咨询的三大误区</nobr></a></li>
+                                <li><a href="#"><nobr>人们对于心理咨询的三大误区</nobr></a></li>
+                            </ul>
+                            <em><a href="#">更多>></a></em>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
 
 
-<div class="footer">
-    <p>
-        <span>元认知心理干预技术</span>
-        <span> Copyright © 2010, www.yrzgy.com, All rights reserved</span>
-    </p>
-    <p>
-        <span>地址：大连市西岗区长江路570号金宸国际大厦321</span>
-        <span>|</span>
-        <span>联系电话：0411-83608340 13390021338 15998660373</span>
-        <span>|</span>
-        <span>邮编：116011</span>
-    </p>
-</div>
+    <div class="container i-container">
+        <div class="treewarp">
+            <div class="row">
+
+                <div class="col-sm-4">
+                    <div class="TreeList">
+                        <h5><em><a href="#">更多>></a></em>心身疾病治疗</h5>
+                        <dl>
+                            <dt><img src="{$Think.const.WEB_URL}/images/temp/tree.gif" /></dt>
+                            <dd><a href="#"><nobr>摆脱“心理罢工”</nobr></a> </dd>
+                            <dd><a href="#"><nobr>患糖尿病后 四种异常心态四种异常心态四种异常心态四种异常心态</nobr></a></dd>
+                            <dd><a href="#"><nobr>摆脱“心理罢工”</nobr></a> </dd>
+                            <dd><a href="#"><nobr>患糖尿病后 四种异常心态</nobr></a></dd>
+                            <dd><a href="#"><nobr>摆脱“心理罢工”</nobr></a> </dd>
+                        </dl>
+                    </div>
+                </div>
+                <div class="line wp33"></div>
+                <div class="col-sm-4">
+                    <div class="TreeList">
+                        <h5><em><a href="#">更多>></a></em>家庭教育</h5>
+                        <dl>
+                            <dt><img src="{$Think.const.WEB_URL}/images/temp/tree.gif" /></dt>
+                            <dd><a href="#"><nobr>摆脱“心理罢工”</nobr></a> </dd>
+                            <dd><a href="#"><nobr>患糖尿病后 四种异常心态四种异常心态四种异常心态四种异常心态</nobr></a></dd>
+                            <dd><a href="#"><nobr>摆脱“心理罢工”</nobr></a> </dd>
+                            <dd><a href="#"><nobr>患糖尿病后 四种异常心态</nobr></a></dd>
+                            <dd><a href="#"><nobr>摆脱“心理罢工”</nobr></a> </dd>
+                        </dl>
+                    </div>
+                </div>
+                <div class="line wp66"></div>
+                <div class="col-sm-4">
+                    <div class="TreeList">
+                        <h5><em><a href="#">更多>></a></em>专家答疑</h5>
+                        <dl>
+                            <dt><img src="{$Think.const.WEB_URL}/images/temp/tree.gif" /></dt>
+                            <dd><a href="#"><nobr>摆脱“心理罢工”</nobr></a> </dd>
+                            <dd><a href="#"><nobr>患糖尿病后 四种异常心态四种异常心态四种异常心态四种异常心态</nobr></a></dd>
+                            <dd><a href="#"><nobr>摆脱“心理罢工”</nobr></a> </dd>
+                            <dd><a href="#"><nobr>患糖尿病后 四种异常心态</nobr></a></dd>
+                            <dd><a href="#"><nobr>摆脱“心理罢工”</nobr></a> </dd>
+                        </dl>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
 
 
-<!-- core js -->
-<script src="{$Think.const.WEB_URL}/js/jquery.min.js"></script>
-<script src="{$Think.const.WEB_URL}/js/jquery.royalslider.min.js"></script>
-<script src="{$Think.const.WEB_URL}/js/bootstrap.min.js"></script>
-<script src="{$Think.const.WEB_URL}/js/common.js"></script>
+    <div class="container i-container">
+        <div class="row">
+            <div class="col-sm-3">
+                <div class="box qzone">
+                    <div class="Mtop">
+                        <span><a href="#">更多&gt;&gt;</a></span>
+                        <h2><img src="{$Think.const.WEB_URL}/images/ico_01.gif" class="ico" style="left:10px;"/> 学校教育</h2>
+                    </div>
+                    <div class="Mbody">
+                        <ul class="list">
+                            <li><a href="#"><nobr>护身符真的有用护身符真的有用：积极的心理暗示</nobr></a></li>
+                            <li><a href="#"><nobr>人们对于心理咨询的三大误区</nobr></a></li>
+                            <li><a href="#"><nobr>护身符真的有用护身符真的有用护身符真的有用：积理暗示</nobr></a></li>
+                            <li><a href="#"><nobr>人们对于心理咨询的三大误区</nobr></a></li>
+                            <li><a href="#"><nobr>护身符真的有用：积极的心理暗示</nobr></a></li>
+                            <li><a href="#"><nobr>护身符真的有用：积极的心理暗示</nobr></a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-9">
+                <div class="groupWarp">
+                    <div class="groupBox" >
+                        <div class="Gbody">
+                            <div class="Gmenu">
+                                <ol>
+                                    <li class="checked">技术背景</li>
+                                    <li>科研园地</li>
+                                    <li>技术档案</li>
+                                </ol>
+                            </div>
+                            <ul>
+                                <li><a href="#"><nobr>人们对于心理咨询的三大误区</nobr></a></li>
+                                <li><a href="#"><nobr>人们对于心理咨询的三大误区</nobr></a></li>
+                                <li><a href="#"><nobr>人们对于心理咨询的三大误区</nobr></a></li>
+                                <li><a href="#"><nobr>人们对于心理咨询的三大误区</nobr></a></li>
+                                <li><a href="#"><nobr>人们对于心理咨询的三大误区人们对于心理咨询的三大误区人们对于心理咨询的三大误区</nobr></a></li>
+                                <li><a href="#"><nobr>人们对于心理咨询的三大误区</nobr></a></li>
+                                <li><a href="#"><nobr>人们对于心理咨询的三大误区</nobr></a></li>
+                                <li><a href="#"><nobr>人们对于心理咨询的三大误区</nobr></a></li>
+                                <li><a href="#"><nobr>人们对于心理咨询的三大误区</nobr></a></li>
+                                <li><a href="#"><nobr>人们对于心理咨询的三大误区</nobr></a></li>
+                            </ul>
+                            <em><a href="#">更多>></a></em>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
-<script>
-    jQuery(document).ready(function($) {
-        $('#full-width-slider').royalSlider({
-            arrowsNav: true,
-            arrowsNavHideOnTouch: true,
-            loop: true,
-            controlsInside: false,
-            imageScaleMode: 'fill',
-            arrowsNavAutoHide: false,
-            autoScaleSlider: true,
-            controlNavigation: 'bullets',
-            thumbsFitInViewport: false,
-            navigateByClick: true,
-            startSlideId: 0,
-            autoPlay: {
-                // autoplay options go gere
-                enabled: true,
-                pauseOnHover: true,
-                delay: 4000
-            },
+        </div>
+    </div>
 
-            transitionType:'move',
+
+    <div class="container i-container">
+        <div class="link">
+            <ul class="clearfix">
+                <li><a href="#">中国心理学网</a></li>
+                <li><a href="#">华夏心理</a></li>
+                <li><a href="#">无忧心理网络</a></li>
+                <li><a href="#">爱心理联盟</a></li>
+                <li><a href="#">中国心理学网</a></li>
+                <li><a href="#">华夏心理</a></li>
+                <li><a href="#">无忧心理网络</a></li>
+                <li><a href="#">爱心理联盟</a></li>
+
+            </ul>
+        </div>
+    </div>
+</block>
+
+<block name="public">
+
+    <!-- inline scripts related to this page -->
+    <script>
+        jQuery(document).ready(function($) {
+            $('#full-width-slider').royalSlider({
+                arrowsNav: true,
+                arrowsNavHideOnTouch: true,
+                loop: true,
+                controlsInside: false,
+                imageScaleMode: 'fill',
+                arrowsNavAutoHide: false,
+                autoScaleSlider: true,
+                controlNavigation: 'bullets',
+                thumbsFitInViewport: false,
+                navigateByClick: true,
+                startSlideId: 0,
+                autoPlay: {
+                    // autoplay options go gere
+                    enabled: true,
+                    pauseOnHover: true,
+                    delay: 4000
+                },
+
+                transitionType:'move',
 //            globalCaption: true,
-            transitionSpeed:1000
+                transitionSpeed:1000
+            });
         });
-    });
-</script>
-</body>
-</html>
+    </script>
+</block>
