@@ -1,22 +1,22 @@
 <extend name="./base" />
 <block name="title">
     <title>首页 - 元认知心理干预技术网</title>
-    <meta name="keywords" content=""/>
+    <meta name="keywords" content="元认知,元认知干预，元认知心理，元认知心理干预，元认知心理干预技术，金洪源"/>
     <meta name="description" content=""/>
 </block>
 <block name="content">
     <div class="container  i-container">
         <div class="sliderContainer fullWidth clearfix">
             <div id="full-width-slider" class="royalSlider heroSlider rsMinW">
-                <!--<volist name="banner" id="vo">-->
-                    <!--<div class="rsContent">-->
-                        <!--<a href="{$vo.link}"><img class="rsImg" src="{$Think.const.SITE_URL}/CDN/uploaded/flash-images/{$vo.url}" alt="" /></a>-->
-                        <!--<div class="infoBlock rsABlock infoBlockLeftBlack" data-fade-effect="" data-move-offset="10" data-move-effect="bottom" data-speed="200">-->
-                            <!--<h4>{$vo.title}</h4>-->
-                            <!--<p>{$vo.str}</p>-->
-                        <!--</div>-->
-                    <!--</div>-->
-                <!--</volist>-->
+                <volist name="banner" id="vo">
+                    <div class="rsContent">
+                        <a href="{$vo.link}"><img class="rsImg" src="{$Think.const.SITE_URL}/CDN/uploaded/flash-images/{$vo.url}" alt="" /></a>
+                        <div class="infoBlock rsABlock infoBlockLeftBlack" data-fade-effect="" data-move-offset="10" data-move-effect="bottom" data-speed="200">
+                            <h4>{$vo.title}</h4>
+                            <p>{$vo.str}</p>
+                        </div>
+                    </div>
+                </volist>
 
             </div>
         </div>
@@ -33,10 +33,10 @@
                     <div class="Mbody">
                         <div class="photoStory">
                             <div>
-                                <!--<foreach name="story" item="vo">-->
-                                    <!--<a href="__MODULE__/article/picture-story/p/{$vo.pk}"><img src="{$Think.const.SITE_URL}/CDN/uploaded/story/{$vo.thumbnail}" /></a>-->
-                                    <!--<span>{$vo.title}</span>-->
-                                <!--</foreach>-->
+                                <foreach name="story" item="vo">
+                                    <a href="__MODULE__/article/picture-story/p/{$vo.pk}"><img src="{$Think.const.SITE_URL}/CDN/uploaded/story/{$vo.thumbnail}" /></a>
+                                    <span>{$vo.title}</span>
+                                </foreach>
 
                             </div>
                         </div>
@@ -326,21 +326,6 @@
     </div>
 
 
-    <div class="container i-container">
-        <div class="link">
-            <ul class="clearfix">
-                <li><a href="#">中国心理学网</a></li>
-                <li><a href="#">华夏心理</a></li>
-                <li><a href="#">无忧心理网络</a></li>
-                <li><a href="#">爱心理联盟</a></li>
-                <li><a href="#">中国心理学网</a></li>
-                <li><a href="#">华夏心理</a></li>
-                <li><a href="#">无忧心理网络</a></li>
-                <li><a href="#">爱心理联盟</a></li>
-
-            </ul>
-        </div>
-    </div>
 </block>
 
 <block name="public">

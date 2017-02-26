@@ -1,8 +1,18 @@
+<div class="container i-container">
+    <div class="link">
+        <ul class="clearfix">
+            <volist name="friend" id="vo">
+                <li><a href="{$vo.url}" target="_blank">{$vo.name}</a></li>
+            </volist>
+
+        </ul>
+    </div>
+</div>
 
 <div class="footer">
     <p>
         <span>元认知心理干预技术</span>
-        <span> Copyright © 2010, www.yrzgy.com, All rights reserved</span>
+        <span> Copyright © 2010-{$Think.now|substr=0,4}, www.yrzgy.com, All rights reserved</span>
     </p>
     <p>
         <span>地址：大连市西岗区长江路570号金宸国际大厦321</span>
@@ -19,3 +29,21 @@
 <script src="{$Think.const.WEB_URL}/js/jquery.royalslider.min.js"></script>
 <script src="{$Think.const.WEB_URL}/js/bootstrap.min.js"></script>
 <script src="{$Think.const.WEB_URL}/js/common.js"></script>
+<script>
+    $(function(){
+        $(".addFav").click(function(e) {
+            var href = this.href || document.location,
+                    title = this.title || document.title;
+            try{
+                if(window.sidebar){
+                    sidebar.addPanel(title, href, "");
+                }else{
+                    external.addFavorite(href, title);
+                }
+            }catch(e){
+                alert("浏览器不支持，请按Ctrl+D进行添加");
+            }
+            return false;
+        });
+    })
+</script>
