@@ -17,7 +17,6 @@
                         </div>
                     </div>
                 </volist>
-
             </div>
         </div>
     </div>
@@ -27,14 +26,14 @@
             <div class="col-sm-3">
                 <div class="box">
                     <div class="Mtop">
-                        <span><a href="#">更多&gt;&gt;</a></span>
+                        <span><a href="__MODULE__/Pic/list">更多&gt;&gt;</a></span>
                         <h2><img src="{$Think.const.WEB_URL}/images/ico_01.gif" class="ico"/> 图片故事</h2>
                     </div>
                     <div class="Mbody">
                         <div class="photoStory">
                             <div>
                                 <foreach name="story" item="vo">
-                                    <a href="__MODULE__/article/picture-story/p/{$vo.pk}"><img src="{$Think.const.SITE_URL}/CDN/uploaded/story/{$vo.thumbnail}" /></a>
+                                    <a href="__MODULE__/Pic/show/u/{$vo.pk}"><img src="{$Think.const.SITE_URL}/CDN/uploaded/story/{$vo.thumbnail}" /></a>
                                     <span>{$vo.title}</span>
                                 </foreach>
 
@@ -52,11 +51,9 @@
                     </div>
                     <div class="Mbody">
                         <ul class="list">
-                            <li><a href="#"><nobr>护身符真的有用护身符真的有用：积极的心理暗示</nobr></a></li>
-                            <li><a href="#"><nobr>人们对于心理咨询的三大误区</nobr></a></li>
-                            <li><a href="#"><nobr>护身符真的有用护身符真的有用护身符真的有用：积理暗示</nobr></a></li>
-                            <li><a href="#"><nobr>人们对于心理咨询的三大误区</nobr></a></li>
-                            <li><a href="#"><nobr>护身符真的有用：积极的心理暗示</nobr></a></li>
+                            <volist name="media" id="vo">
+                                <li><a href="{$vo.url}"><nobr>{$vo.name}</nobr></a></li>
+                            </volist>
                         </ul>
                     </div>
                 </div>

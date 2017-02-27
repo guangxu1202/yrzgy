@@ -1,0 +1,107 @@
+<extend name="./base" />
+<block name="title">
+    <title>{$model_name.name} - 元认知心理干预技术网</title>
+    <meta name="keywords" content="元认知,元认知干预，元认知心理，元认知心理干预，元认知心理干预技术，金洪源,{$model_name.name}"/>
+    <meta name="description" content=""/>
+</block>
+
+<block name="content">
+
+<div class="container i-container">
+    <div class="Statu">您的位置：<a href="{$Think.const.SITE_URL}">首页</a> &gt;&gt; {$model_name.name}</div>
+</div>
+
+<div class="container i-container">
+    <div class="row">
+        <div class="col-sm-3">
+            <div class="box">
+                <div class="Mtop">
+                    <span><a href="__MODULE__/Pic/list">更多&gt;&gt;</a></span>
+                    <h2><img src="{$Think.const.WEB_URL}/images/ico_01.gif" class="ico"/> 图片故事</h2>
+                </div>
+                <div class="Mbody">
+                    <div class="photoStory">
+                        <div>
+                            <foreach name="story" item="vo">
+                                <a href="__MODULE__/Pic/show/u/{$vo.pk}" target="_blank"><img src="{$Think.const.SITE_URL}/CDN/uploaded/story/{$vo.thumbnail}" /></a>
+                                <span>{$vo.title}</span>
+                            </foreach>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="box">
+                <div class="Mtop">
+                    <span><a href="__MODULE__/Article/article/cate/12">更多&gt;&gt;</a></span>
+                    <h2><img src="{$Think.const.WEB_URL}/images/ico_02.gif" class="ico" /> 研修生园地</h2>
+                </div>
+                <div class="Mbody">
+                    <ul class="list">
+                        <volist name="researcher" id="vo">
+                            <li><a href="__MODULE__/Article/show/u/{$vo.pk}" target="_blank"><nobr>{$vo.title}</nobr></a></li>
+                        </volist>
+                    </ul>
+                </div>
+            </div>
+            <div class="box">
+                <div class="Mtop">
+                    <span><a href="__MODULE__/Article/article/cate/14">更多&gt;&gt;</a></span>
+                    <h2><img src="{$Think.const.WEB_URL}/images/ico_03.gif" class="ico" /> 专业委员会</h2>
+                </div>
+                <div class="Mbody">
+                    <ul class="list">
+                        <volist name="Committee" id="vo">
+                            <li><a href="__MODULE__/Article/show/u/{$vo.pk}" target="_blank"><nobr>{$vo.title}</nobr></a></li>
+                        </volist>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="box">
+                <div class="Mtop">
+                    <span><a href="__MODULE__/Vote/list">更多&gt;&gt;</a></span>
+                    <h2><img src="{$Think.const.WEB_URL}/images/ico_05.gif" class="ico" /> 投票</h2>
+                </div>
+                <div class="Mbody">
+                    <ul class="list">
+                        <volist name="vote_arr" id="vo">
+                            <li><a href="__MODULE__/Vote/show/u/{$vo.pk}" target="_blank"><nobr>{$vo.title}</nobr></a></li>
+                        </volist>
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+        <div class="col-sm-9">
+            <div class="box">
+                <div class="Mtop">
+                    <h2><img src="{$Think.const.WEB_URL}/images/ico_04.gif" class="ico" /> {$model_name.name}</h2>
+                </div>
+                <div class="Mbody">
+                    <ul class="list newlist">
+                        <!--列表标准:20行/页-->
+                        <volist name="list" id="vo">
+                            <li>
+                                <span>{$vo.update_time|substr=0,10}</span>
+                                <a href="__MODULE__/Article/show/u/{$vo.pk}" target="_blank">{$vo.title}</a>
+                            </li>
+                        </volist>
+                    </ul>
+                    <div class="pagenation">{$page}</div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+</block>
+
+
+<block name="public">
+
+
+</block>

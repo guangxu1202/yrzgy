@@ -13,7 +13,6 @@ class CommonController extends Controller {
         $friendship_links = M("friendship_links");
         $friend = $friendship_links->where("position = 0")->field("name,url") ->order("custom_sort desc") ->select();
         $this -> assign("friend",$friend);
-        
 
     }
 }

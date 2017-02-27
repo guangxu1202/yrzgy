@@ -58,7 +58,7 @@
             <div id="navbar" class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                     <volist name="nav" id="vo">
-                        <li><a href="#">{$vo.name}</a></li>
+                        <li><a href="__MODULE__/Article/article/cate/{$vo.pk}" data-id="{$vo.pk}">{$vo.name}</a></li>
                     </volist>
 
                     <li><a href="#" class="yellow">网络教学</a></li>

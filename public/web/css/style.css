@@ -76,7 +76,7 @@ a:hover{color: #fe336b;}
 .box .Mbody .list li{ padding-left:12px; background:url(img/ui_list_ico.gif) left center no-repeat; text-overflow:ellipsis; overflow:hidden;}
 .box .Mbody .list li span{ float:right; color:#6e6e6e; margin-right:10px;}
 .box .Mbody .img{ float:left; width:181px; height:122px; padding:5px 0px 0px 5px; }
-.box .Mbody .newlist{ margin:12px 15px 0px 15px; *margin-top:15px; height:480px;}
+.box .Mbody .newlist{ margin:12px 15px 0px 15px; *margin-top:15px; min-height:613px;}
 .box .Mbody .newlist li{ background:none;}
 .box .Mbody .newlist li.gray{ background-color:#efefef;}
 .box .Mbody .newlist li a{background:url(img/ui_list_ico.gif) left center no-repeat; padding-left:12px;}
@@ -191,6 +191,27 @@ a:hover{color: #fe336b;}
 .box .Mbody .newlist li a.newlist-download{ padding-left: 0; background: url("img/download.gif") no-repeat right center; padding-right: 15px; margin-right: 10px;}
 .box .Mbody .newlist li:nth-child(even){background-color: #f6f6f6;}
 .box .Mbody .newlist li{padding: 5px 15px;}
+
+
+/*page*/
+.pagenation {padding: 8px 15px 15px; overflow: hidden; zoom: 1; text-align: right; margin-bottom: 10px;}
+    .pagenation .num { }
+    .pagenation a,.pagenation span {text-decoration: none; color: #444; margin:0px 3px; line-height: 20px; border: 1px solid #818181; color: #444;display: inline-block; min-width: 25px; height: 22px; text-align: center;vertical-align: middle; margin-top: -3px; }
+    .pagenation .current{background: #656565; color: #fff;}
+    .pagenation .current { color: #fff;}
+    .pagenation a.prev,.pagenation a.next{display: inline-block; width: 25px; height: 22px; overflow: hidden;  text-indent: -999rem; border:1px solid #fff;}
+    .pagenation a.prev{background: url("img/Page_First.gif") no-repeat center;}
+    .pagenation a.next{background: url("img/Page_Last.gif") no-repeat center;}
+
+/*news*/
+.news h1 {height: 40px; line-height: 40px; color: #6e6e6e; font-size: 14px; font-weight: bold; text-align: center;}
+.news .newstatu {height: 25px; line-height: 25px; background-color: #efefef; color: #6e6e6e; text-align: center; margin: 0px 30px;}
+.news .newstatu span {width: 220px; float: left;}
+.news .newsCon {margin: 0px 30px; color: #6e6e6e; line-height: 24px;}
+.news .newsCon .pic {margin: 15px 0px; text-align: center}
+.news .newsCon p {text-indent: 2em; margin: 12px 0px;}
+
+
 /* mobile */
 @media screen and (max-width:768px){
 .header-list{text-align: center; margin-bottom: 0;}
