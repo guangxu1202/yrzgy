@@ -1,6 +1,4 @@
-/**
- * Created by Administrator on 2016/12/12.
- */
+
 if (navigator.userAgent.match(/IEMobile\/10\.0/)) {
     var msViewportStyle = document.createElement('style')
     msViewportStyle.appendChild(
@@ -11,7 +9,7 @@ if (navigator.userAgent.match(/IEMobile\/10\.0/)) {
     document.querySelector('head').appendChild(msViewportStyle)
 }
 
-//加入收藏
+
 addFav = function() {
     if(document.all) {
         window.external.addFavorite('http://www.yrzgy.com/', '元认知心理干预技术网 - 首页');
@@ -31,7 +29,6 @@ $(function(){
 });
 navBrand();
 function navBrand(){
-    console.log();
     var h = $(".nav-green .container-fluid").height();
     $(".nav-green .navbar-brand").css("height",h+"px");
     $(".nav-green .navbar-brand").css("line-height",h+"px");

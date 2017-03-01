@@ -1,0 +1,143 @@
+<extend name="./base" />
+<block name="title">
+    <foreach name="info" item="vo" >
+    <title>{$vo.title} - 图片故事 - 元认知心理干预技术网</title>
+    <meta name="keywords" content="{$vo.keywords}"/>
+    <meta name="description" content="{$vo.story_descirbe}"/>
+    </foreach>
+    <link href="{$Think.const.WEB_URL}/css/nph_gallery_2.7.css" rel="stylesheet" type="text/css" />
+</block>
+
+<block name="content">
+
+<div class="container i-container">
+    <div class="Statu">您的位置：<a href="{$Think.const.SITE_URL}">首页</a> &gt;&gt; <a href="__MODULE__/Pic/lists">图片故事</a> &gt;&gt; 详情 </div>
+</div>
+
+<div class="container i-container">
+    <foreach name="info" item="vo" >
+    <div class="nph_area">
+        <div class="nph_gallery clearfix" id="gallery">
+            <div class="nph_bg">
+                <div class="nph_cnt clearfix">
+                    <div class="nph_set_info">
+                        <div id="setInfo">
+                            <div class="nph_set_title">
+                                <h1>{$vo.title}</h1>
+                                <span class="nph_set_cur hidden" id="photoType">
+                                    （<span id="photoIndex" class="nph_c_lh"></span>/{$sum}）
+                                </span>
+                                <span class="nph_set_size" id="streamType">
+                                    （共<span class="nph_c_lh">{$sum}</span>张）
+                                </span>
+                                <span>{$vo.update_time|substr=0,10}</span></div>
+                            <p>
+                            <p>
+                                {$vo.story_descirbe}
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <span class="nph_hr_solid"></span>
+                <div id="modePhoto" class="nph_photo">
+                    <div class="nph_photo_view">
+                        <div class="nph_cnt" id="photoView"><i></i><img src="{$Think.const.WEB_URL}/css/img/bg06.png" id="photo" /></div>
+                        <div class="nph_photo_prev"><a href="#" hidefocus="true" target="_self" class="nph_btn_pphoto" id="photoPrev"></a></div>
+                        <div class="nph_photo_next"><a href="#" hidefocus="true" target="_self" class="nph_btn_nphoto" id="photoNext"></a></div>
+                        <div class="nph_photo_loading" id="photoLoading"></div>
+                    </div>
+                    <div class="nph_cnt">
+                        <div class="nph_photo_ctrl">
+                            <ul>
+                                <li><a href="" class="nph_icon_orig" id="viewOrig">查看原图</a></li>
+                            </ul>
+                        </div>
+                        <div class="nph_photo_desc" id="photoDesc"></div>
+                    </div>
+                    <span class="nph_hr_solid"></span>
+                    <div class="nph_cnt">
+                        <div class="clearfix">
+                            <div class="nph_set">
+                                <div class="nph_set_thumb">
+                                    <div class="nph_photo_thumb clearfix" id="scrl">
+                                        <div class="clearfix">
+                                            <div class="nph_scrl">
+                                                <div class="nph_scrl_thumb">
+                                                    <div class="nph_scrl_main">
+                                                        <ul class="nph_list_thumb clearfix" id="thumb">
+                                                        </ul>
+                                                    </div>
+                                                    <div class="nph_scrl_bar clearfix"> <span class="nph_scrl_lt"></span> <span class="nph_scrl_rt"></span>
+                                                        <div class="nph_scrl_bd">
+                                                            <div class="nph_scrl_ct"> <a href="" hidefocus="true" class="nph_btn_scrl" id="bar"> <b class="nph_btn_lt"></b> <b class="nph_btn_rt"></b> <span class="nph_btn_bd"><span><b class="nph_btn_ct"></b></span></span> </a> </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <span class="nph_scrl_prev"><a href="" hidefocus="true" class="nph_btn_pscrl" id="scrlPrev"></a></span> <span class="nph_scrl_next"><a href="" hidefocus="true" class="nph_btn_nscrl" id="scrlNext"></a></span> </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <present name="prev">
+                                <span class="nph_set_prev"><a href="__MODULE__/Pic/show/u/{$prev.pk}" target="_self" class="nph_btn_pset" id="prevSet" title="{$prev.title}"><img src="{$Think.const.SITE_URL}/CDN/uploaded/story/{$prev.thumbnail}" alt=""><span>上一图集</span></a></span>
+                            </present>
+                            <present name="next">
+                                <span class="nph_set_next"><a href="__MODULE__/Pic/show/u/{$next.pk}" target="_self" class="nph_btn_pset" id="nextSet" title="{$next.title}"><img src="{$Think.const.SITE_URL}/CDN/uploaded/story/{$next.thumbnail}" alt=""><span>下一图集</span></a></span>
+                            </present>
+                        </div>
+                    </div>
+                </div>
+                <div id="modeStream" class="nph_stream hidden">
+                    <div class="nph_cnt">
+                        <div class="nph_stream_view" id="stream"></div>
+                    </div>
+                </div>
+                <div id="modeSearch" class="nph_search hidden">
+                    <div class="nph_cnt">
+                        <div class="nph_search_view" id="search"></div>
+                    </div>
+                </div>
+                <textarea class="hidden" id="photoList">
+                    <volist name="list" id="v">
+                        <li id="{$i-1}">
+                            <a href="#p={$i-1}" hidefocus="true"><img src="{$Think.const.SITE_URL}/CDN/uploaded/story/{$v.thumbnail}" alt=""></a><h2></h2>
+                            <p>{$v.description}</p>
+                            <i title="img">{$Think.const.SITE_URL}/CDN/uploaded/story/{$v.picture}</i><i title="timg">{$Think.const.SITE_URL}/CDN/uploaded/story/{$v.thumbnail}</i>
+                        </li>
+                    </volist>
+                </textarea>
+                <div id="galleryTpl" class="hidden">
+                    <div title="stream"> </div>
+                    <div title="search"> </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    </foreach>
+</div>
+
+
+
+</block>
+
+
+<block name="public">
+    <script type="text/javascript" language="javascript" src="{$Think.const.WEB_URL}/js/ntes_jslib_1.x.js" ></script>
+    <script type="text/javascript" language="javascript" src="{$Think.const.WEB_URL}/js/ntes_jslib_ui_0.x.js" ></script>
+    <script type="text/javascript" language="javascript" src="{$Think.const.WEB_URL}/js/ntes_ui_scroll.js" ></script>
+    <script type="text/javascript" language="javascript" src="{$Think.const.WEB_URL}/js/nph_gallery_2.7.js" ></script>
+    <script type="text/javascript">
+
+        //<![CDATA[
+
+        NTES.ready(function(){
+
+            var gallery = new nph.Gallery({ photoViewMode: 0 });
+
+        });
+
+        //]]>
+
+    </script>
+</block>

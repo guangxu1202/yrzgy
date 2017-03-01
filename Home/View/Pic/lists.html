@@ -1,0 +1,51 @@
+<extend name="./base" />
+<block name="title">
+    <title>图片故事 - 元认知心理干预技术网</title>
+    <meta name="keywords" content="元认知,元认知干预，元认知心理，元认知心理干预，元认知心理干预技术，金洪源,{$model_name.name}"/>
+    <meta name="description" content=""/>
+</block>
+
+<block name="content">
+
+<div class="container i-container">
+    <div class="Statu">您的位置：<a href="{$Think.const.SITE_URL}">首页</a> &gt;&gt; 图片故事</div>
+</div>
+
+<div class="container i-container">
+    <div class="row">
+        <div class="col-sm-3">
+            <include file="./left" />
+
+        </div>
+        <div class="col-sm-9">
+            <div class="box">
+                <div class="Mtop">
+                    <h2><img src="{$Think.const.WEB_URL}/images/ico_04.gif" class="ico" /> 列表</h2>
+                </div>
+                <div class="Mbody news">
+
+                    <ul class="PhotoList clearfix">
+                        <volist name="list" id="vo">
+                        <li class="col-sm-4">
+                            <a href="__MODULE__/Pic/show/u/{$vo.pk}" target="_blank"><img src="{$Think.const.SITE_URL}/CDN/uploaded/story/{$vo.thumbnail}" ></a>
+                            <div class="PhotoList-title"><a href="__MODULE__/Pic/show/u/{$vo.pk}" target="_blank"><nobr>{$vo.title}</nobr></a></div>
+                        </li>
+                        </volist>
+                    </ul>
+                     <div class="pagenation">{$page}</div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+</block>
+
+
+<block name="public">
+
+
+</block>

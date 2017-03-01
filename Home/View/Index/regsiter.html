@@ -1,6 +1,6 @@
 <extend name="./base" />
 <block name="title">
-    <title>登录 - 元认知心理干预技术网</title>
+    <title>注册 - 元认知心理干预技术网</title>
     <meta name="keywords" content=""/>
     <meta name="description" content=""/>
 </block>
@@ -12,89 +12,141 @@
     <div class="Statu">您的位置：<a href="#">首页</a> &gt;&gt; <a href="#">用户注册</a></div>
 </div>
 
-<div class="container i-container">
-    <div class="register">
-        <div class="clear"></div>
-        <h5>基本资料</h5>
-        <dl class="clearfix">
-            <dt>用户名:</dt>
-            <dd><input name="" type="text" /><em><span>*</span>请输入您的登录帐号</em></dd>
-        </dl>
-        <dl class="clearfix">
-            <dt>密码:</dt>
-            <dd><input name="" type="text" /><em><span>*</span>请输入您的登录密码</em></dd>
-        </dl>
-        <dl class="clearfix">
-            <dt>重复密码:</dt>
-            <dd><input name="" type="text" /><em><span>*</span>请再次输入您的登录密码</em></dd>
-        </dl>
 
-        <dl class="clearfix">
-            <dt>姓名:</dt>
-            <dd><input name="" type="text" /><em><span>*</span>请输入您的姓名</em></dd>
-        </dl>
-        <dl class="clearfix">
-            <dt>性别:</dt>
-            <dd><input name="" type="radio" value="" />男<input name="" type="radio" value="" />女</dd>
-        </dl>
-        <dl class="clearfix">
-            <dt>手机:</dt>
-            <dd><input name="" type="text" /><em><span>*</span>手机与固定电话可以任选一个</em></dd>
-        </dl>
-        <dl class="clearfix">
-            <dt>固话:</dt>
-            <dd><input name="" type="text" /></dd>
-        </dl>
-        <dl class="clearfix">
-            <dt>邮箱:</dt>
-            <dd><input name="" type="text" /><em><span>*</span>请输入您的常用邮箱</em></dd>
-        </dl>
+    <link type="text/css" rel="stylesheet" href="{$Think.const.WEB_URL}/formValidator3.3/style/validator.css"/>
 
+    <link rel="stylesheet" href="{$Think.const.WEB_URL}/jquery-ui-1.8.13.south-street/development-bundle/themes/south-street/jquery.ui.all.css"/>
 
-        <h5>详细资料</h5>
-        <dl class="clearfix">
-            <dt>地区:</dt>
-            <dd><input name="" type="text" /></dd>
-        </dl>
-        <dl class="clearfix">
-            <dt>单位:</dt>
-            <dd><input name="" type="text" /></dd>
-        </dl>
-        <dl class="clearfix">
-            <dt>QQ:</dt>
-            <dd><input name="" type="text" /></dd>
-        </dl>
-        <dl class="clearfix">
-            <dt>个人简介:</dt>
-            <dd>
-                <textarea name="" cols="" rows=""></textarea><em>请输入个人简介</em></dd>
-            </dd>
-        </dl>
-        <dl class="clearfix">
-            <dt>上传照片:</dt>
-            <dd><input name="photo" type="file" /></dd>
-        </dl>
-        <dl class="clearfix">
-            <dt>上传身份证:</dt>
-            <dd><input name="" type="file" /></dd>
-        </dl>
-        <dl class="clearfix">
-            <dt>资质证明:</dt>
-            <dd><input name="" type="file" /></dd>
-        </dl>
-        <dl class="clearfix">
-            <dt>&nbsp;</dt>
-            <dd><input name="" type="checkbox" value="" />我已阅读并完全同意条款内容</dd>
-        </dl>
+    <style>
+        .ui-datepicker {
+            width: 160px;
+        }
+        .ui-widget {
+            font-size:11px;
+        }
+    </style>
 
-        <dl class="BtnSubmit clearfix">
-            <dt>&nbsp;</dt>
-            <dd><button class="btn-green">注册</button></dd>
-        </dl>
+    <div class="container i-container">
+        <div class="register">
+            <form id="register-form" name="register-form" action="#" method="post" enctype="multipart/form-data">
+                <input type="hidden" name="url" value="http://yrzgy.com/welcome" id="register-form_url"/>
+                <div class="clear"></div>
+                <h5>基本资料</h5>
+                <dl>
+                    <dt><span>*</span>用户名:</dt>
+                    <dd><input id="username" name="username" type="text" maxlength="20"/><em id="usernameTip"></em></dd>
+                </dl>
+                <dl>
+                    <dt><span>*</span>昵称:</dt>
+                    <dd><input id="nickname" name="nickname" type="text" maxlength="50"/><em id="nicknameTip"></em></dd>
+                </dl>
+                <dl>
+                    <dt><span>*</span>密码:</dt>
+                    <dd><input id="password" name="password" type="password" /><em id="passwordTip"></em></dd>
+                </dl>
+                <dl>
+                    <dt><span>*</span>重复密码:</dt>
+                    <dd><input id="repassword" name="repassword" type="password" /><em id="repasswordTip"></em></dd>
+                </dl>
 
+                <dl>
+                    <dt><span>*</span>真实姓名:</dt>
+                    <dd><input id="realName" name="realName" type="text" maxlength="50"/><em id="realNameTip"></em></dd>
+                </dl>
+                <dl>
+                    <dt>性别:</dt>
+                    <dd>
+                        <label><input name="gender" type="radio" value="0" checked="checked"/>男</label>
+                        <label><input name="gender" type="radio" value="1" />女</label>
+                        <label><input name="gender" type="radio" value="2" />保密</label>
+                    </dd>
+                </dl>
+                <dl>
+                    <dt>手机:</dt>
+                    <dd><input id="mobile" name="mobile" type="text" maxlength="15"/><em id="mobileTip"></em></dd>
+                </dl>
+                <dl>
+                    <dt>固定电话:</dt>
+                    <dd><input id="telephone" name="telephone" type="text" maxlength="15"/><em id="telephoneTip"></em></dd>
+                </dl>
+                <dl>
+                    <dt><span>*</span>E-mail:</dt>
+                    <dd><input id="email" name="email" type="text" maxlength="80"/><em id="emailTip"></em></dd>
+                </dl>
+                <div class="clear"></div>
 
+                <h5>详细资料</h5>
+                <dl>
+                    <dt>地址:</dt>
+                    <dd><input id="address" name="address" type="text" maxlength="100"/><em id="addressTip"></em></dd>
+                </dl>
+                <dl>
+                    <dt>单位:</dt>
+                    <dd><input id="organization" name="organization" type="text" maxlength="100"/><em id="organizationTip"></em></dd>
+                </dl>
+                <dl>
+                    <dt>出生日期:</dt>
+                    <dd><input id="birthday" name="birthday" type="text" maxlength="100"/><em id="birthdayTip"></em></dd>
+                </dl>
+                <dl>
+                    <dt>MSN:</dt>
+                    <dd><input id="msn" name="msn" type="text" maxlength="50"/><em id="msnTip"></em></dd>
+                </dl>
+                <dl>
+                    <dt>QQ:</dt>
+                    <dd><input id="qq" name="qq" type="text" maxlength="12"/><em id="qqTip"></em></dd>
+                </dl>
+                <dl>
+                    <dt>个人简介:</dt>
+                    <dd>
+                        <textarea id="summary" name="summary" cols="" rows=""></textarea><em></em></dd>
+                    </dd>
+                </dl>
+                <div class="clear"></div>
+                <dl>
+                    <dt>上传照片:</dt>
+                    <dd>
+                        <input id="avatarFile" name="avatarFile" type="file" />
+                        <input id="avatarName" type="hidden" name="avatarName"/>
+                        <em id="avatarFileTip"></em>
+                    </dd>
+                </dl>
+                <dl>
+                    <dt>上传身份证:</dt>
+                    <dd>
+                        <input id="identityCardFile" name="identityCardFile" type="file" />
+                        <input id="identityCardName" type="hidden" name="identityCardName"/>
+                        <em id="identityCardFileTip"></em>
+                    </dd>
+                </dl>
+                <dl>
+                    <dt>资质证明:</dt>
+                    <dd>
+                        <input id="certificationFile" name="certificationFile" type="file" />
+                        <input id="certificationName" type="hidden" name="certificationName"/>
+                        <em id="certificationFileTip"></em>
+                    </dd>
+                </dl>
+                <dl>
+                    <dt>&nbsp;</dt>
+                    <dd><input id="force" name="" type="checkbox" value="" checked="checked"/><a href="/system/misc?c=LICENSE" target="_blank">我已阅读并完全同意条款内容</a></label></dd>
+                </dl>
+
+                <!--<div class="clear"></div>-->
+                <!--<dl class="BtnSubmit">-->
+                    <!--<dt>&nbsp;</dt>-->
+                    <!--<dd><input type="image" src="/images/Btn_submit_reg.gif" onclick="saveFileName();"/></dd>-->
+                <!--</dl>-->
+                <dl class="BtnSubmit clearfix">
+                    <dt>&nbsp;</dt>
+                    <dd><button class="btn-green" onclick="saveFileName();">注册</button></dd>
+                </dl>
+
+                <div class="clear"></div>
+            </form>
+
+        </div>
     </div>
-</div>
 
 
 
@@ -103,5 +155,265 @@
 
 <block name="public">
 
+    <script type="text/javascript" charset="UTF-8" src="{$Think.const.WEB_URL}/formValidator3.3/formValidator.js"></script>
+    <script type="text/javascript" charset="UTF-8" src="{$Think.const.WEB_URL}/formValidator3.3/formValidatorRegex.js"></script>
+
+
+    <script src="{$Think.const.WEB_URL}/jquery-ui-1.8.13.south-street/development-bundle/ui/jquery.ui.core.js"></script>
+    <script src="{$Think.const.WEB_URL}/jquery-ui-1.8.13.south-street/development-bundle/ui/jquery.ui.widget.js"></script>
+    <script src="{$Think.const.WEB_URL}/jquery-ui-1.8.13.south-street/development-bundle/ui/jquery.ui.datepicker.js"></script>
+    <script src="{$Think.const.WEB_URL}/jquery-ui-1.8.13.south-street/development-bundle/ui/i18n/jquery.ui.datepicker-zh-CN.js"></script>
+
+
+    <script type="text/javascript">
+
+        checkForm = function() {
+            if ($("#summary").val().length > 500) {
+                alert("个人简介最多可输入 500 个字符, 您已经输入 [ " + $("#summary").val().length + " ] 个字符,\n请稍做修改再注册.");
+                return false;
+            }
+            if (!document.getElementById("force").checked) {
+                alert("条款内容必须同意, 否则不能注册.");
+                return false;
+            }
+            saveFileName();
+            return true;
+        };
+
+        saveFileName = function() {
+            $("#avatarName").val($("#avatarFile").val());
+            $("#identityCardName").val($("#identityCardFile").val());
+            $("#certificationName").val($("#certificationFile").val());
+        };
+
+        $(document).ready(function() {
+            $("#birthday").datepicker({ maxDate: 'today', changeYear: true, "showButtonPanel": true});
+            $.formValidator.initConfig({
+                formid : "register-form",
+                onerror : function(msg) {
+                    alert(msg)
+                },
+                onsuccess : function() {
+                    return checkForm();
+                }
+            });
+            $("#username").formValidator({
+                onshow : "请输入用户名, 用户名唯一, 不能重复.",
+                onfocus : "用户名最少 6 个字符.",
+                oncorrect : "用户名输入正确."
+            }).inputValidator({
+                min : 6,
+                empty: {
+                    leftempty: false,
+                    rightempty: false,
+                    emptyerror: "用户名左右两侧不可以有空格."
+                },
+                onerror : "你输入的用户名非法,请确认."
+            }).regexValidator({
+                regexp : "username",
+                datatype : "enum",
+                onerror : "用户名格式不正确"
+            }).functionValidator( {
+                fun: checkUsername,
+                onerror : "该用户名已经存在,请更换."
+            });
+            $("#nickname").formValidator({
+                onshow : "请输入您的昵称.",
+                onfocus : "昵称最少 2 个字符.",
+                oncorrect : "昵称输入正确."
+            }).inputValidator({
+                min : 2,
+                empty: {
+                    leftempty: false,
+                    rightempty: false,
+                    emptyerror: "昵称左右两侧不可以有空格."
+                },
+                onerror : "你输入的昵称非法,请确认."
+            });
+            $("#realName").formValidator({
+                onshow : "请输入您的真实姓名.",
+                onfocus : "真实姓名最少 2 个字符.",
+                oncorrect : "真实姓名输入正确."
+            }).inputValidator({
+                min : 2,
+                empty: {
+                    leftempty: false,
+                    rightempty: false,
+                    emptyerror: "真实姓名左右两侧不可以有空格."
+                },
+                onerror : "你输入的真实姓名非法,请确认."
+            });
+            $("#password").formValidator({
+                onshow : "请输入密码",
+                onfocus : "密码不能为空",
+                oncorrect : "密码输入正确"
+            }).inputValidator({
+                min : 4,
+                onerror : "密码长度最少是 4 个字符, 请确认"
+            });
+            $("#repassword").formValidator({
+                onshow : "请输入重复密码",
+                onfocus : "两次密码必须一致哦",
+                oncorrect : "密码一致"
+            }).compareValidator({
+                desid : "password",
+                operateor : "=",
+                onerror : "2 次密码不一致, 请确认"
+            });
+            $("#email").formValidator({
+                onshow : "请输入E-mail, E-email 唯一, 不能重复.",
+                onfocus : "E-mail 最少 6 个字符.",
+                oncorrect : "E-email 输入正确."
+            }).inputValidator({
+                min : 6,
+                empty: {
+                    leftempty: false,
+                    rightempty: false,
+                    emptyerror: "E-email左右两侧不可以有空格."
+                },
+                onerror : "你输入的 E-email 非法,请确认."
+            }).regexValidator({
+                regexp : "email",
+                datatype : "enum",
+                onerror : "E-email 格式不正确"
+            }).functionValidator( {
+                fun: checkEmail,
+                onerror : "该 E-mail 已经存在,请更换."
+            });
+            $("#msn").formValidator({
+                empty : true,
+                onshow : "请输入MSN, 可以为空",
+                onfocus : "如果输入, MSN 最少 6 个字符.",
+                oncorrect : "MSN 输入正确."
+            }).inputValidator({
+                min : 6,
+                empty: {
+                    leftempty: false,
+                    rightempty: false,
+                    emptyerror: "MSN左右两侧不可以有空格."
+                },
+                onerror : "你输入的 MSN 非法,请确认."
+            }).regexValidator({
+                regexp : "email",
+                datatype : "enum",
+                onerror : "MSN 格式不正确"
+            });
+            $("#mobile").formValidator( {
+                empty : true,
+                onshow : "请输入你的手机号码",
+                onfocus : "格式形如: 13412345678",
+                oncorrect : "谢谢你的合作"
+            }).inputValidator( {
+                min : 11,
+                max : 11,
+                onerror : "手机号码必须是11位的, 请确认"
+            }).regexValidator( {
+                regexp : "mobile",
+                datatype : "enum",
+                onerror : "你输入的手机号码格式不正确"
+            });
+            $("#telephone").formValidator( {
+                empty : true,
+                onshow : "请输入你的固定电话号码",
+                onfocus : "格式形如: 0411-12345678, 12345678",
+                oncorrect : "谢谢你的合作"
+            }).inputValidator( {
+                min : 7,
+                onerror : "固定电话号码最少 7 位, 请确认"
+            }).regexValidator( {
+                regexp : "tel",
+                datatype : "enum",
+                onerror : "你输入的固定电话号码格式不正确"
+            });
+            $("#address").formValidator( {
+                empty : true,
+                onshow : "请输入你的地址",
+                onfocus : "请输入你的地址, 最少 4 个字符",
+                oncorrect : "谢谢你的合作"
+            }).inputValidator( {
+                min : 4,
+                onerror : "地址信息最少 4 个字符."
+            });
+            $("#organization").formValidator( {
+                empty : true,
+                onshow : "请输入你的单位",
+                onfocus : "请输入你的单位, 最少 4 个字符",
+                oncorrect : "谢谢你的合作"
+            }).inputValidator( {
+                min : 4,
+                onerror : "单位信息最少 4 个字符."
+            });
+            $("#birthday").formValidator( {
+                empty : true,
+                onshow : "请选择你的生日",
+                onfocus : "我们会为你保密",
+                oncorrect : "谢谢你的合作"
+            });
+            $("#avatarFile").formValidator({
+                empty : true,
+                onshow : "请选择要上传的头像图片",
+                oncorrect : "谢谢你的合作, 你的头像图片正确"
+            }).regexValidator({
+                regexp : "picture",
+                datatype : "enum",
+                onerror : "图片格式只能是 jpg,bmp,gif,jpeg,png"
+            });
+            $("#identityCardFile").formValidator({
+                empty : true,
+                onshow : "请选择要上传的身份证图片",
+                oncorrect : "谢谢你的合作, 你的身份证图片正确"
+            }).regexValidator({
+                regexp : "picture",
+                datatype : "enum",
+                onerror : "身份证图片格式只能是 jpg,bmp,gif,jpeg,png"
+            });
+            $("#certificationFile").formValidator({
+                empty : true,
+                onshow : "请选择要上传的资质证明图片",
+                oncorrect : "谢谢你的合作, 你的资质证明图片正确"
+            }).regexValidator({
+                regexp : "picture",
+                datatype : "enum",
+                onerror : "资质证明图片格式只能是 jpg,bmp,gif,jpeg,png"
+            });
+            $("#qq").formValidator({
+                empty : true,
+                onshow : "请输入QQ号码",
+                oncorrect : "谢谢你的合作, 你的QQ号码正确"
+            }).inputValidator( {
+                min : 6,
+                max : 11,
+                onerror : "QQ号码最少 6 位, 请确认"
+            }).regexValidator({
+                regexp : "qq",
+                datatype : "enum",
+                onerror : "QQ号码格式不正确"
+            });
+        });
+
+        checkUsername = function(name) {
+
+            if ("" == name) {
+                return true;
+            }
+            var result = true;
+            $.ajax( {
+                async : false,
+                dataType : "html",
+                type : "POST",
+                data : {
+                    username : name
+                },
+                url : "/register!checkUsernameUnique?time=" + new Date().getTime(),
+                success : function(data) {
+                    result = ("true" != data);
+                },
+                error : function() {
+                }
+            });
+            return result;
+        };
+
+    </script>
 
 </block>

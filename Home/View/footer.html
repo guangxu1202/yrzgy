@@ -29,21 +29,3 @@
 <script src="{$Think.const.WEB_URL}/js/jquery.royalslider.min.js"></script>
 <script src="{$Think.const.WEB_URL}/js/bootstrap.min.js"></script>
 <script src="{$Think.const.WEB_URL}/js/common.js"></script>
-<script>
-    $(function(){
-        $(".addFav").click(function(e) {
-            var href = this.href || document.location,
-                    title = this.title || document.title;
-            try{
-                if(window.sidebar){
-                    sidebar.addPanel(title, href, "");
-                }else{
-                    external.addFavorite(href, title);
-                }
-            }catch(e){
-                alert("浏览器不支持，请按Ctrl+D进行添加");
-            }
-            return false;
-        });
-    })
-</script>

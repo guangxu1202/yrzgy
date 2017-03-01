@@ -191,7 +191,7 @@ a:hover{color: #fe336b;}
 .box .Mbody .newlist li a.newlist-download{ padding-left: 0; background: url("img/download.gif") no-repeat right center; padding-right: 15px; margin-right: 10px;}
 .box .Mbody .newlist li:nth-child(even){background-color: #f6f6f6;}
 .box .Mbody .newlist li{padding: 5px 15px;}
-
+.box .news{  min-height:658px;}
 
 /*page*/
 .pagenation {padding: 8px 15px 15px; overflow: hidden; zoom: 1; text-align: right; margin-bottom: 10px;}
@@ -203,13 +203,34 @@ a:hover{color: #fe336b;}
     .pagenation a.prev{background: url("img/Page_First.gif") no-repeat center;}
     .pagenation a.next{background: url("img/Page_Last.gif") no-repeat center;}
 
+
 /*news*/
 .news h1 {height: 40px; line-height: 40px; color: #6e6e6e; font-size: 14px; font-weight: bold; text-align: center;}
 .news .newstatu {height: 25px; line-height: 25px; background-color: #efefef; color: #6e6e6e; text-align: center; margin: 0px 30px;}
 .news .newstatu span {width: 220px; float: left;}
-.news .newsCon {margin: 0px 30px; color: #6e6e6e; line-height: 24px;}
+.news .newsCon {margin: 20px 30px; color: #6e6e6e; line-height: 24px;}
 .news .newsCon .pic {margin: 15px 0px; text-align: center}
 .news .newsCon p {text-indent: 2em; margin: 12px 0px;}
+
+
+/*contact us*/
+.tab {margin: 37px 40px 0px; color: #585858; line-height: 24px;}
+.tab dl {width: 360px; height: 24px; margin-bottom: 5px;}
+.tab dl dt {width: 70px; text-align: right; padding-right: 5px; float: left;}
+.tab dl dd {width: 285px; float: left;}
+.contentList {float: right; width: 200px; padding-right: 20px; margin: 30px; line-height: 24px;}
+.contentList dl {width: 100%;}
+.contentList dl dt {text-align: center; padding-right: 5px; background-color: #F6F6F6; font-weight: bold;}
+.contentList dl dd {}
+.contentList dl dd span {width: 60px; text-align: right; padding-right: 5px; display: block; float: left;}
+.map {margin: 40px 40px;}
+
+.PhotoList { margin: 0 auto; margin-top: 30px; padding:0 20px; list-style: none;}
+.PhotoList li {text-align: center; line-height: 20px; font-weight: bold; margin-bottom: 15px;}
+.PhotoList li img {border: 1px solid #ddd; padding: 3px;}
+.PhotoList li img:hover {border: 1px solid #a4dc73; background-color: #e0ffc5;}
+.PhotoList-title{overflow: hidden;text-overflow: ellipsis;}
+
 
 
 /* mobile */
