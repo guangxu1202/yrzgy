@@ -173,19 +173,6 @@ a:hover{color: #fe336b;}
 .btn-links span{ display: inline-block; margin: 0 6px; color: #999;}
 
 
-/*register*/
-.register{ border: 1px solid #dddddd; margin-bottom:8px; padding:20px 0px;}
-.register h5{ font-size:14px; font-weight:bold; text-align:left; padding-left:20px; background-color:#F5F5F5; border-bottom:1px solid #ddd; width:90%; margin:30px auto; line-height:30px; }
-.register dl{ margin:0 auto; width:90%; height:auto !important; min-height:40px; padding-left: 120px;}
-.register dl dt{ width:120px; float:left; text-align:right; padding-right:10px; line-height:26px; margin-left: -120px;}
-.register dl dd{ width:80%; float:left; text-align:left;}
-.register dl dd input[type=text]{ width:200px; }
-.register dl dd input[type=checkbox]{ margin-right:3px;}
-.register dl dd input{border: 1px solid #ccc; padding: 5px;}
-.register dl dd textarea{ width:350px; height:100px;}
-.register dl dd em{ padding-left:10px;}
-.register dl dd span{ color:#cc0000; padding-right:3px;}
-
 
 /*list*/
 .box .Mbody .newlist li a.newlist-download{ padding-left: 0; background: url("img/download.gif") no-repeat right center; padding-right: 15px; margin-right: 10px;}
@@ -231,7 +218,24 @@ a:hover{color: #fe336b;}
 .PhotoList li img:hover {border: 1px solid #a4dc73; background-color: #e0ffc5;}
 .PhotoList-title{overflow: hidden;text-overflow: ellipsis;}
 
+/*register*/
+.register {border: 1px solid #dddddd; margin-bottom: 8px; padding: 20px 0px;}
+.register h5 {font-size: 14px; font-weight: bold; text-align: left; padding-left: 20px; background-color: #F5F5F5; border-bottom: 1px solid #ddd; width: 90%; margin: 30px auto; line-height: 30px;}
+.register dl {margin: 0 auto;  width: 90%; height: auto !important; min-height: 30px; height: 30px; margin-bottom: 8px;}
+.register dl dt {width: 20%; float: left; text-align: right; padding-right: 15px; line-height: 28px; font-weight: 100;}
+.register dl dd {width: 80%; float: left; text-align: left;}
+.register dl dd input[type=text],.register dl dd input[type=password] {width: 200px;border:1px solid #ccc; padding: 5px;}
+.register dl dd input[type=checkbox] {margin-right: 3px;}
+.register dl dd textarea {min-width: 350px; height: 100px;border:1px solid #ccc; padding: 5px; }
+.register dl dd em {margin-left: 15px; font-style: inherit; color: #999;}
+.register dl dt span {color: #cc0000; padding: 0px 5px 0px 5px;}
+.BtnSubmit {padding: 15px 0; height: 31px;}
+.register input[type=file]{display: inline-block; margin-top: 5px; margin-bottom: 5px;}
+.register dl dd label{margin-bottom: 0; margin-top: 5px; padding-right: 15px;}
+.register dl dd label input{vertical-align: middle; margin-top: -3px; margin-right: 3px;}
 
+.ui-datepicker,.ui-datepicker *{box-sizing: content-box;}
+.ui-datepicker{width: 170px; padding: 10px;}
 
 /* mobile */
 @media screen and (max-width:768px){

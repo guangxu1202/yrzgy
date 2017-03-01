@@ -37,13 +37,36 @@ class IndexController extends CommonController {
         $this -> display();
     }
 
+    //查找username是否重名
+    function checkuser(){
+        $user = M("member"); // 实例化User对象
+        $info = $user->where('username="'.I("post.username").'"')->find();
+        if (!empty($info)){
+            $data['valid'] = false;
+        }else{
+            $data['valid'] = true;
+        }
+        $this->ajaxReturn($data);
+    }
+
+    //查找username是否重名
+    function checkemail(){
+        $user = M("member"); // 实例化User对象
+        $info = $user->where('email="'.I("post.email").'"')->find();
+        if (!empty($info)){
+            $data['valid'] = false;
+        }else{
+            $data['valid'] = true;
+        }
+        $this->ajaxReturn($data);
+    }
+
+    //联系我们
     function contact_us(){
         //获取联系我们
         $contact_us = M("contact_us");
         $info = $contact_us -> select();
         $this -> assign("info",$info);
-
-
 
         //文章类左侧公共显示获取
         $article = M("article");

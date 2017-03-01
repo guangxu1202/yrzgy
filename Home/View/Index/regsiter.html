@@ -17,43 +17,36 @@
 
     <link rel="stylesheet" href="{$Think.const.WEB_URL}/jquery-ui-1.8.13.south-street/development-bundle/themes/south-street/jquery.ui.all.css"/>
 
-    <style>
-        .ui-datepicker {
-            width: 160px;
-        }
-        .ui-widget {
-            font-size:11px;
-        }
-    </style>
+
 
     <div class="container i-container">
         <div class="register">
-            <form id="register-form" name="register-form" action="#" method="post" enctype="multipart/form-data">
+            <form id="register-form" name="register-form" action="__SELF__" method="post" enctype="multipart/form-data">
                 <input type="hidden" name="url" value="http://yrzgy.com/welcome" id="register-form_url"/>
                 <div class="clear"></div>
                 <h5>基本资料</h5>
-                <dl>
+                <dl class="clearfix">
                     <dt><span>*</span>用户名:</dt>
                     <dd><input id="username" name="username" type="text" maxlength="20"/><em id="usernameTip"></em></dd>
                 </dl>
-                <dl>
+                <dl class="clearfix">
                     <dt><span>*</span>昵称:</dt>
                     <dd><input id="nickname" name="nickname" type="text" maxlength="50"/><em id="nicknameTip"></em></dd>
                 </dl>
-                <dl>
+                <dl class="clearfix">
                     <dt><span>*</span>密码:</dt>
                     <dd><input id="password" name="password" type="password" /><em id="passwordTip"></em></dd>
                 </dl>
-                <dl>
+                <dl class="clearfix">
                     <dt><span>*</span>重复密码:</dt>
                     <dd><input id="repassword" name="repassword" type="password" /><em id="repasswordTip"></em></dd>
                 </dl>
 
-                <dl>
+                <dl class="clearfix">
                     <dt><span>*</span>真实姓名:</dt>
                     <dd><input id="realName" name="realName" type="text" maxlength="50"/><em id="realNameTip"></em></dd>
                 </dl>
-                <dl>
+                <dl class="clearfix">
                     <dt>性别:</dt>
                     <dd>
                         <label><input name="gender" type="radio" value="0" checked="checked"/>男</label>
@@ -61,49 +54,48 @@
                         <label><input name="gender" type="radio" value="2" />保密</label>
                     </dd>
                 </dl>
-                <dl>
+                <dl class="clearfix">
                     <dt>手机:</dt>
                     <dd><input id="mobile" name="mobile" type="text" maxlength="15"/><em id="mobileTip"></em></dd>
                 </dl>
-                <dl>
+                <dl class="clearfix">
                     <dt>固定电话:</dt>
                     <dd><input id="telephone" name="telephone" type="text" maxlength="15"/><em id="telephoneTip"></em></dd>
                 </dl>
-                <dl>
+                <dl class="clearfix">
                     <dt><span>*</span>E-mail:</dt>
                     <dd><input id="email" name="email" type="text" maxlength="80"/><em id="emailTip"></em></dd>
                 </dl>
                 <div class="clear"></div>
 
                 <h5>详细资料</h5>
-                <dl>
+                <dl class="clearfix">
                     <dt>地址:</dt>
                     <dd><input id="address" name="address" type="text" maxlength="100"/><em id="addressTip"></em></dd>
                 </dl>
-                <dl>
+                <dl class="clearfix">
                     <dt>单位:</dt>
                     <dd><input id="organization" name="organization" type="text" maxlength="100"/><em id="organizationTip"></em></dd>
                 </dl>
-                <dl>
+                <dl class="clearfix">
                     <dt>出生日期:</dt>
                     <dd><input id="birthday" name="birthday" type="text" maxlength="100"/><em id="birthdayTip"></em></dd>
                 </dl>
-                <dl>
+                <dl class="clearfix">
                     <dt>MSN:</dt>
                     <dd><input id="msn" name="msn" type="text" maxlength="50"/><em id="msnTip"></em></dd>
                 </dl>
-                <dl>
+                <dl class="clearfix">
                     <dt>QQ:</dt>
                     <dd><input id="qq" name="qq" type="text" maxlength="12"/><em id="qqTip"></em></dd>
                 </dl>
-                <dl>
+                <dl class="clearfix">
                     <dt>个人简介:</dt>
                     <dd>
                         <textarea id="summary" name="summary" cols="" rows=""></textarea><em></em></dd>
                     </dd>
                 </dl>
-                <div class="clear"></div>
-                <dl>
+                <dl class="clearfix">
                     <dt>上传照片:</dt>
                     <dd>
                         <input id="avatarFile" name="avatarFile" type="file" />
@@ -111,7 +103,7 @@
                         <em id="avatarFileTip"></em>
                     </dd>
                 </dl>
-                <dl>
+                <dl class="clearfix">
                     <dt>上传身份证:</dt>
                     <dd>
                         <input id="identityCardFile" name="identityCardFile" type="file" />
@@ -119,7 +111,7 @@
                         <em id="identityCardFileTip"></em>
                     </dd>
                 </dl>
-                <dl>
+                <dl class="clearfix">
                     <dt>资质证明:</dt>
                     <dd>
                         <input id="certificationFile" name="certificationFile" type="file" />
@@ -127,7 +119,7 @@
                         <em id="certificationFileTip"></em>
                     </dd>
                 </dl>
-                <dl>
+                <dl class="clearfix">
                     <dt>&nbsp;</dt>
                     <dd><input id="force" name="" type="checkbox" value="" checked="checked"/><a href="/system/misc?c=LICENSE" target="_blank">我已阅读并完全同意条款内容</a></label></dd>
                 </dl>
@@ -162,11 +154,12 @@
     <script src="{$Think.const.WEB_URL}/jquery-ui-1.8.13.south-street/development-bundle/ui/jquery.ui.core.js"></script>
     <script src="{$Think.const.WEB_URL}/jquery-ui-1.8.13.south-street/development-bundle/ui/jquery.ui.widget.js"></script>
     <script src="{$Think.const.WEB_URL}/jquery-ui-1.8.13.south-street/development-bundle/ui/jquery.ui.datepicker.js"></script>
+    <script src="{$Think.const.WEB_URL}/js/jquery-migrate-1.2.1.js"></script>
+    <!--<script src="{$Think.const.WEB_URL}/js/bootstrap-datetimepicker.min.js"></script>-->
     <script src="{$Think.const.WEB_URL}/jquery-ui-1.8.13.south-street/development-bundle/ui/i18n/jquery.ui.datepicker-zh-CN.js"></script>
 
 
     <script type="text/javascript">
-
         checkForm = function() {
             if ($("#summary").val().length > 500) {
                 alert("个人简介最多可输入 500 个字符, 您已经输入 [ " + $("#summary").val().length + " ] 个字符,\n请稍做修改再注册.");
@@ -198,24 +191,24 @@
                 }
             });
             $("#username").formValidator({
-                onshow : "请输入用户名, 用户名唯一, 不能重复.",
-                onfocus : "用户名最少 6 个字符.",
-                oncorrect : "用户名输入正确."
-            }).inputValidator({
-                min : 6,
-                empty: {
-                    leftempty: false,
-                    rightempty: false,
-                    emptyerror: "用户名左右两侧不可以有空格."
-                },
-                onerror : "你输入的用户名非法,请确认."
-            }).regexValidator({
-                regexp : "username",
-                datatype : "enum",
-                onerror : "用户名格式不正确"
-            }).functionValidator( {
-                fun: checkUsername,
-                onerror : "该用户名已经存在,请更换."
+                    onshow : "请输入用户名, 用户名唯一, 不能重复.",
+                    onfocus : "用户名最少 6 个字符.",
+                    oncorrect : "用户名输入正确."
+                }).inputValidator({
+                    min : 6,
+                    empty: {
+                        leftempty: false,
+                        rightempty: false,
+                        emptyerror: "用户名左右两侧不可以有空格."
+                    },
+                    onerror : "你输入的用户名非法,请确认."
+                }).regexValidator({
+                    regexp : "username",
+                    datatype : "enum",
+                    onerror : "用户名格式不正确"
+                }).functionValidator( {
+                    fun: checkUsername,
+                    onerror : "该用户名已经存在,请更换."
             });
             $("#nickname").formValidator({
                 onshow : "请输入您的昵称.",
@@ -392,21 +385,42 @@
         });
 
         checkUsername = function(name) {
-
             if ("" == name) {
                 return true;
             }
             var result = true;
             $.ajax( {
                 async : false,
-                dataType : "html",
+                dataType : "json",
                 type : "POST",
                 data : {
                     username : name
                 },
-                url : "/register!checkUsernameUnique?time=" + new Date().getTime(),
+                url : "__MODULE__/Index/checkuser",
                 success : function(data) {
-                    result = ("true" != data);
+                    result = (data["valid"]);
+                },
+                error : function() {
+                }
+            });
+            return result;
+        };
+
+        checkEmail = function(email) {
+            if ("" == email) {
+                return true;
+            }
+            var result = true;
+            $.ajax( {
+                async : false,
+                dataType : "json",
+                type : "POST",
+                data : {
+                    email : email
+                },
+                url : "__MODULE__/Index/checkemail",
+                success : function(data) {
+                    result = (data["valid"]);
                 },
                 error : function() {
                 }
