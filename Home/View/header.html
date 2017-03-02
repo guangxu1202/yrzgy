@@ -7,18 +7,29 @@
                     <div class="col-sm-6"><a href="{$Think.const.SITE_URL}" class="logo"><img src="{$Think.const.WEB_URL}/images/logo.gif"></a> </div>
                     <div class="col-sm-6 text-right">
                         <ul class="header-list">
+
+                            <present name="id">
+                            <li class="member">
+                                <em>欢迎您:</em>
+                                <span>{$Think.session.c_real_name}</span>
+                                <a href="__MODULE__/Member/main">个人中心</a>
+                                <a href="__MODULE__/Index/logout">退出</a>
+                            </li>
+                            </present>
                             <li>
                                 <img src="{$Think.const.WEB_URL}/images/tip.gif">
                                 <a href="javascript:void(0)" class="addFav">加入收藏</a>
                             </li>
+                            <notpresent name="id">
                             <li>
                                 <img src="{$Think.const.WEB_URL}/images/reg.gif">
-                                <a href="__MODULE__/Index/regsiter" target="_blank">免费注册</a>
+                                <a href="__MODULE__/Index/regsiter" >免费注册</a>
                             </li>
                             <li>
                                 <img src="{$Think.const.WEB_URL}/images/login.gif">
-                                <a href="__MODULE__/Index/login" target="_blank">会员登录</a>
+                                <a href="__MODULE__/Index/login" >会员登录</a>
                             </li>
+                            </notpresent>
                             <li>
                                 <img src="{$Think.const.WEB_URL}/images/contact.gif">
                                 <a href="__MODULE__/Index/contact_us" target="_blank">联系我们</a>
@@ -58,7 +69,14 @@
             <div id="navbar" class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                     <volist name="nav" id="vo">
-                        <li><a href="__MODULE__/Article/article/cate/{$vo.pk}" data-id="{$vo.pk}">{$vo.name}</a></li>
+                        <if condition="$vo.pk eq 20">
+                            <li><a href="__MODULE__/Article/download" data-id="{$vo.pk}">{$vo.name}</a></li>
+                            <elseif condition="$vo.pk eq 19"/>
+                            <li><a href="__MODULE__/Article/message/cate/{$vo.pk}" data-id="{$vo.pk}">{$vo.name}</a></li>
+                            <else />
+                            <li><a href="__MODULE__/Article/article/cate/{$vo.pk}" data-id="{$vo.pk}">{$vo.name}</a></li>
+                        </if>
+
                     </volist>
 
                     <li><a href="#" class="yellow">网络教学</a></li>

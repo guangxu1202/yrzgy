@@ -26,7 +26,7 @@
             <div class="col-sm-3">
                 <div class="box">
                     <div class="Mtop">
-                        <span><a href="__MODULE__/Pic/list">更多&gt;&gt;</a></span>
+                        <span><a href="__MODULE__/Pic/lists">更多&gt;&gt;</a></span>
                         <h2><img src="{$Think.const.WEB_URL}/images/ico_01.gif" class="ico"/> 图片故事</h2>
                     </div>
                     <div class="Mbody">
@@ -45,14 +45,18 @@
             <div class="col-sm-5">
                 <div class="box">
                     <div class="Mtop">
-                        <span><a href="#">更多&gt;&gt;</a></span>
+                        <span><a href="__MODULE__/System/report">更多&gt;&gt;</a></span>
                         <h2><img src="{$Think.const.WEB_URL}/images/ico_01.gif" class="ico" style="left:10px;"/> 知名媒体专题</h2>
                         <p></p>
                     </div>
                     <div class="Mbody">
                         <ul class="list">
                             <volist name="media" id="vo">
-                                <li><a href="{$vo.url}"><nobr>{$vo.name}</nobr></a></li>
+                                <if condition="$vo.title_bold eq 1">
+                                    <li><a href="{$vo.url}" style="color: {$vo.title_color};font-weight: bold;"><nobr>{$vo.name}</nobr></a></li>
+                                    <else />
+                                    <li><a href="{$vo.url}" style="color: {$vo.title_color};"><nobr>{$vo.name}</nobr></a></li>
+                                </if>
                             </volist>
                         </ul>
                     </div>

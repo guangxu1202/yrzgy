@@ -9,6 +9,7 @@ html,body{font-size: 12px; font-family: "Microsoft YaHei",arial;}
 img{max-width: 100%;}
 a:link,a:visited{color: #333;}
 a:hover{color: #fe336b;}
+.red{color: #cc0000;}
 
 .header-wrap{background: url("img/ui_head_side.gif") repeat-x bottom; margin: 0; }
 .header-box{background: url("img/ui_head_bg.gif") repeat-x bottom; margin:0 1px;}
@@ -153,7 +154,7 @@ a:hover{color: #fe336b;}
 /*Login*/
 .Login{ border: 1px solid #dddddd; margin-bottom:8px; padding:20px; height:auto !important; min-height:300px; height:300px; background:url(img/ui_login_bg.gif) no-repeat right bottom;}
 .Login h5{ font-size:14px; font-weight:bold; line-height:30px; margin-top: 20px;}
-.Lobody{ border:1px solid #ddd; background-color:#FCFCFC; padding:40px 20px; width:50%; margin-top:10px; margin-bottom: 40px;}
+.Lobody{ border:1px solid #ddd; background-color:#FCFCFC; padding:40px 20px 20px; width:50%; margin-top:10px; margin-bottom: 40px;}
 .Lobody dl{ height:auto !important; min-height:40px; height:30px;line-height:20px; margin-bottom: 6px;}
 .Lobody dl dt{ width:20%; float:left; text-align:right; padding-right:10px; font-weight:bold; line-height: 26px;}
 .Lobody dl dd{ width:70%; float:left;}
@@ -236,6 +237,32 @@ a:hover{color: #fe336b;}
 
 .ui-datepicker,.ui-datepicker *{box-sizing: content-box;}
 .ui-datepicker{width: 170px; padding: 10px;}
+
+/*member*/
+.member {line-height: 24px;  background-color: #fff; border: 1px solid #eee;}
+.member span { max-width: 80px; overflow: hidden; height: 24px; overflow: hidden;wrod-break:break-all; text-align: left;}
+.member a {text-decoration: underline; margin-left: 10px; }
+.member em{font-style: normal; color: #999;}
+.member span,.member a,.member em{ margin-top: -2px; vertical-align: middle; display: inline-block;}
+
+/*service*/
+.main_head {BACKGROUND: url(img/img3-5_2.png) no-repeat;}
+*+HTML .main_head {BACKGROUND: url(img/img3-5_2.png) no-repeat;}
+.info {PADDING-BOTTOM: 10px; PADDING-LEFT: 0px; PADDING-RIGHT: 0px; BACKGROUND: url(img/img3-5_3.png) repeat-y; PADDING-TOP: 5px; text-align: center; height: 300px;}
+.info ul li {height: 30px; padding-top: 5px;}
+*+HTML .info {PADDING-BOTTOM: 10px; PADDING-LEFT: 0px; PADDING-RIGHT: 0px; BACKGROUND: url(img/img3-5_3.png) repeat-y; PADDING-TOP: 5px;}
+.down_kefu {WIDTH: 157px; BACKGROUND: url(img/img3-5_4.png) no-repeat; HEIGHT: 8px; overflow: hidden;}
+*+HTML .down_kefu {WIDTH: 157px; BACKGROUND: url(img/img3-5_4.png) no-repeat; HEIGHT: 8px;}
+.Obtn {MARGIN-TOP: 104px; WIDTH: 32px; BACKGROUND: url(img/img3-5_1.png) no-repeat; FLOAT: left; HEIGHT: 139px; MARGIN-LEFT: -5px;}
+* HTML .Obtn { WIDTH: 32px; BACKGROUND: none transparent scroll repeat 0% 0%; FLOAT: left; HEIGHT: 139px;}
+*+HTML .Obtn {MARGIN-TOP: 104px; WIDTH: 32px; BACKGROUND: url(img/img3-5_1.png) no-repeat; FLOAT: left; HEIGHT: 139px; MARGIN-LEFT: -5px;}
+.qqtable SPAN {PADDING-BOTTOM: 5px; LINE-HEIGHT: 20px; PADDING-LEFT: 0px; WIDTH: 100px; PADDING-RIGHT: 0px; COLOR: #ff6600; FONT-SIZE: 13px; FONT-WEIGHT: bold; PADDING-TOP: 5px;}
+.qqtable A {TEXT-DECORATION: none;}
+.qqtable A:hover {TEXT-DECORATION: none;}
+.qun {BORDER-BOTTOM: #ffd2bf 1px solid; BORDER-LEFT: #ffd2bf 1px solid; PADDING-BOTTOM: 5px; LINE-HEIGHT: 20px; BACKGROUND-COLOR: #ffffff; PADDING-LEFT: 0px; WIDTH: 100px; PADDING-RIGHT: 0px; FONT-SIZE: 12px; BORDER-TOP: #ffd2bf 1px solid; BORDER-RIGHT: #ffd2bf 1px solid; PADDING-TOP: 5px;}
+.qun SPAN {COLOR: #ff6600; FONT-SIZE: 13px; FONT-WEIGHT: bold;}
+
+
 
 /* mobile */
 @media screen and (max-width:768px){

@@ -7,10 +7,7 @@ class PicController extends CommonController {
     function lists(){
 
         //获取图片故事
-        $article = M("article");
         $picture_story = M("picture_story");
-        $story = $picture_story->field("thumbnail,title,pk")-> where("is_show = 1") ->order("custom_sort desc")-> limit("1")->select() ;
-        $this -> assign("story",$story);
 
         //分页输出
         $count      = $picture_story-> where("is_show = 1") ->order("custom_sort desc")->count();// 查询满足要求的总记录数
@@ -19,20 +16,6 @@ class PicController extends CommonController {
         $list = $picture_story->where("is_show = 1") ->order("custom_sort desc")->limit($Page->firstRow.','.$Page->listRows)->select();
         $this->assign('list', $list);// 赋值数据集
         $this->assign('page', $show);// 赋值分页输出
-
-
-        //获取研修生园地
-        $researcher  = $article ->join("as a LEFT JOIN article_model AS b ON a.pk = b.article_id LEFT JOIN model AS c ON b.model_id = c.pk ")->field("a.pk,a.title") ->order("a.custom_sort desc,a.update_time desc") ->where("c.pk = 12") -> limit("5") -> select();
-        $this -> assign("researcher",$researcher);
-
-        //获取专业委员会
-        $Committee  = $article ->join("as a LEFT JOIN article_model AS b ON a.pk = b.article_id LEFT JOIN model AS c ON b.model_id = c.pk ")->field("a.pk,a.title") ->order("a.custom_sort desc,a.update_time desc") ->where("c.pk = 14") -> limit("5") -> select();
-        $this -> assign("Committee",$Committee);
-
-        //获取投票
-        $vote = M("vote");
-        $vote_arr = $vote ->field("title,pk")->order("custom_sort desc,update_time desc")->where("is_show = 1")->limit("5")->select();
-        $this -> assign("vote_arr",$vote_arr);
 
         $this->display();
     }

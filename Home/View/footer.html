@@ -23,6 +23,22 @@
     </p>
 </div>
 
+<present name="service">
+    <DIV id="xixi" onmouseover="toBig()" onmouseout="toSmall()">
+        <div style="float:left; width:157px;">
+            <div style="height:39px;" class="main_head"></div>
+            <div class="info">
+                <ul style="padding-left: 0; list-style: none;">
+                    <volist name="service" id="vo">
+                    <li><SCRIPT>document.write("<a target=blank href=tencent://message/?uin={$vo.qq}&Site=在线客服&Menu=yes><img border=0 SRC=http://wpa.qq.com/pa?p=1:{$vo.qq}:6 alt=在线客服></a>");</SCRIPT></li>
+                    </volist>
+                </ul>
+            </div>
+            <div class="down_kefu"></div>
+        </div>
+        <DIV class=Obtn></DIV>
+    </DIV>
+</present>
 
 <!-- core js -->
 <script src="{$Think.const.WEB_URL}/js/jquery.min.js"></script>

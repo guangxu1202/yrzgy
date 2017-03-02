@@ -9,7 +9,7 @@
 
 
 <div class="container i-container">
-    <div class="Statu">您的位置：<a href="#">首页</a> &gt;&gt; <a href="#">用户注册</a></div>
+    <div class="Statu">您的位置：<a href="{$Think.const.SITE_URL}">首页</a> &gt;&gt; 用户注册</div>
 </div>
 
 
@@ -44,7 +44,7 @@
 
                 <dl class="clearfix">
                     <dt><span>*</span>真实姓名:</dt>
-                    <dd><input id="realName" name="realName" type="text" maxlength="50"/><em id="realNameTip"></em></dd>
+                    <dd><input id="realName" name="real_name" type="text" maxlength="50"/><em id="realNameTip"></em></dd>
                 </dl>
                 <dl class="clearfix">
                     <dt>性别:</dt>
@@ -121,7 +121,7 @@
                 </dl>
                 <dl class="clearfix">
                     <dt>&nbsp;</dt>
-                    <dd><input id="force" name="" type="checkbox" value="" checked="checked"/><a href="/system/misc?c=LICENSE" target="_blank">我已阅读并完全同意条款内容</a></label></dd>
+                    <dd><input id="force" name="" type="checkbox" value="" checked="checked"/><a href="__MODULE__/System/show/u/LICENSE" target="_blank">我已阅读并完全同意条款内容</a></label></dd>
                 </dl>
 
                 <!--<div class="clear"></div>-->
