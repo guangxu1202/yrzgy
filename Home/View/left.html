@@ -22,7 +22,11 @@
     <div class="Mbody">
         <ul class="list">
             <volist name="researcher" id="vo">
-                <li><a href="__MODULE__/Article/show/u/{$vo.pk}" target="_blank"><nobr>{$vo.title}</nobr></a></li>
+                <if condition="$vo.is_title_bold eq 1">
+                    <li><a href="__MODULE__/Article/show/u/{$vo.pk}" style="color: {$vo.title_color};font-weight: bold;"><nobr>{$vo.title}</nobr></a></li>
+                    <else />
+                    <li><a href="__MODULE__/Article/show/u/{$vo.pk}" style="color: {$vo.title_color};"><nobr>{$vo.title}</nobr></a></li>
+                </if>
             </volist>
         </ul>
     </div>
@@ -34,8 +38,12 @@
     </div>
     <div class="Mbody">
         <ul class="list">
-            <volist name="Committee" id="vo">
-                <li><a href="__MODULE__/Article/show/u/{$vo.pk}" target="_blank"><nobr>{$vo.title}</nobr></a></li>
+            <volist name="Committee" id="vo" offset="0" length='5'>
+                <if condition="$vo.is_title_bold eq 1">
+                    <li><a href="__MODULE__/Article/show/u/{$vo.pk}" style="color:{$vo.title_color};font-weight: bold;"><nobr>{$vo.title}</nobr></a></li>
+                    <else />
+                    <li><a href="__MODULE__/Article/show/u/{$vo.pk}" style="color:{$vo.title_color};"><nobr>{$vo.title}</nobr></a></li>
+                </if>
             </volist>
         </ul>
     </div>

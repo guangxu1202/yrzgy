@@ -65,16 +65,18 @@
             <div class="col-sm-4">
                 <div class="box">
                     <div class="Mtop">
-                        <span><a href="#">更多&gt;&gt;</a></span>
+                        <span><a href="__MODULE__/Article/article/cate/3">更多&gt;&gt;</a></span>
                         <h2><img src="{$Think.const.WEB_URL}/images/ico_01.gif" class="ico" style="left:10px;"/> 服务指南</h2>
                     </div>
                     <div class="Mbody">
                         <ul class="list">
-                            <li><a href="#"><nobr>护身符真的有用护身符真的有用：积极的心理暗示</nobr></a></li>
-                            <li><a href="#"><nobr>人们对于心理咨询的三大误区</nobr></a></li>
-                            <li><a href="#"><nobr>护身符真的有用护身符真的有用护身符真的有用：积理暗示</nobr></a></li>
-                            <li><a href="#"><nobr>人们对于心理咨询的三大误区</nobr></a></li>
-                            <li><a href="#"><nobr>护身符真的有用：积极的心理暗示</nobr></a></li>
+                            <volist name="fwzn" id="vo">
+                                <if condition="$vo.is_title_bold eq 1">
+                                    <li><a href="__MODULE__/Article/show/u/{$vo.pk}" style="color: {$vo.title_color};font-weight: bold;"><nobr>{$vo.title}</nobr></a></li>
+                                    <else />
+                                    <li><a href="__MODULE__/Article/show/u/{$vo.pk}" style="color: {$vo.title_color};"><nobr>{$vo.title}</nobr></a></li>
+                                </if>
+                            </volist>
                         </ul>
                     </div>
                 </div>
@@ -87,19 +89,19 @@
             <div class="col-sm-3">
                 <div class="box">
                     <div class="Mtop">
-                        <span><a href="#">更多&gt;&gt;</a></span>
-                        <h2><img src="{$Think.const.WEB_URL}/images/ico_01.gif" class="ico" style="left:10px;"/> 技术背景</h2>
+                        <span><a href="__MODULE__/Article/article/cate/4">更多&gt;&gt;</a></span>
+                        <h2><img src="{$Think.const.WEB_URL}/images/ico_01.gif" class="ico" style="left:10px;"/> 研修生园地</h2>
                     </div>
                     <div class="Mbody">
-
                         <ul class="list">
-                            <li><a href="#"><nobr>护身符真的有用护身符真的有用：积极的心理暗示</nobr></a></li>
-                            <li><a href="#"><nobr>人们对于心理咨询的三大误区</nobr></a></li>
-                            <li><a href="#"><nobr>护身符真的有用护身符真的有用护身符真的有用：积理暗示</nobr></a></li>
-                            <li><a href="#"><nobr>人们对于心理咨询的三大误区</nobr></a></li>
-                            <li><a href="#"><nobr>护身符真的有用：积极的心理暗示</nobr></a></li>
+                            <volist name="researcher" id="vo">
+                                <if condition="$vo.is_title_bold eq 1">
+                                    <li><a href="__MODULE__/Article/show/u/{$vo.pk}" style="color: {$vo.title_color};font-weight: bold;"><nobr>{$vo.title}</nobr></a></li>
+                                    <else />
+                                    <li><a href="__MODULE__/Article/show/u/{$vo.pk}" style="color: {$vo.title_color};"><nobr>{$vo.title}</nobr></a></li>
+                                </if>
+                            </volist>
                         </ul>
-
                     </div>
                 </div>
             </div>
@@ -107,7 +109,7 @@
                 <div class="box">
                     <div class="Mtop">
                         <span><a href="#">更多&gt;&gt;</a></span>
-                        <h2><img src="{$Think.const.WEB_URL}/images/ico_01.gif" class="ico" style="left:10px;"/> 技术团队</h2>
+                        <h2><img src="{$Think.const.WEB_URL}/images/ico_05.gif" class="ico" style="left:10px;"/> 技术团队</h2>
                         <p></p>
                     </div>
                     <div class="Mbody">
@@ -115,26 +117,12 @@
                             <div id="indemo">
                                 <div id="demo1">
                                     <ul>
-                                        <li>
-                                            <a href="#"><img src="{$Think.const.WEB_URL}/images/temp/team01.jpg" /></a>
-                                            <a href="#">金洪源-技术研发者</a>
-                                        </li>
-                                        <li>
-                                            <a href="#"><img src="{$Think.const.WEB_URL}/images/temp/team02.jpg" /></a>
-                                            <a href="#">2222-2222222</a>
-                                        </li>
-                                        <li>
-                                            <a href="#"><img src="{$Think.const.WEB_URL}/images/temp/team03.jpg" /></a>
-                                            <a href="#">33333-33333</a>
-                                        </li>
-                                        <li>
-                                            <a href="#"><img src="{$Think.const.WEB_URL}/images/temp/team02.jpg" /></a>
-                                            <a href="#">444-4444444</a>
-                                        </li>
-                                        <li>
-                                            <a href="#"><img src="{$Think.const.WEB_URL}/images/temp/team03.jpg" /></a>
-                                            <a href="#">555-55555555</a>
-                                        </li>
+                                        <volist name="tech_team" id="vo">
+                                            <li>
+                                                <a href="#"><img src="{$Think.const.SITE_URL}/CDN/uploaded/person/{$vo.thumbnail}" width="110" height="90" /></a>
+                                                <a href="#">{$vo.photo_describe}</a>
+                                            </li>
+                                        </volist>
                                     </ul>
                                 </div>
                                 <div id="demo2"></div>
@@ -147,16 +135,18 @@
             <div class="col-sm-4">
                 <div class="box">
                     <div class="Mtop">
-                        <span><a href="#">更多&gt;&gt;</a></span>
-                        <h2><img src="{$Think.const.WEB_URL}/images/ico_01.gif" class="ico" style="left:10px;"/> 技术应用</h2>
+                        <span><a href="__MODULE__/Article/article/cate/23">更多&gt;&gt;</a></span>
+                        <h2><img src="{$Think.const.WEB_URL}/images/ico_01.gif" class="ico" style="left:10px;"/> 技术之窗</h2>
                     </div>
                     <div class="Mbody">
                         <ul class="list">
-                            <li><a href="#"><nobr>护身符真的有用护身符真的有用：积极的心理暗示</nobr></a></li>
-                            <li><a href="#"><nobr>人们对于心理咨询的三大误区</nobr></a></li>
-                            <li><a href="#"><nobr>护身符真的有用护身符真的有用护身符真的有用：积理暗示</nobr></a></li>
-                            <li><a href="#"><nobr>人们对于心理咨询的三大误区</nobr></a></li>
-                            <li><a href="#"><nobr>护身符真的有用：积极的心理暗示</nobr></a></li>
+                            <volist name="jszc" id="vo">
+                                <if condition="$vo.is_title_bold eq 1">
+                                    <li><a href="__MODULE__/Article/show/u/{$vo.pk}" style="color:{$vo.title_color};font-weight: bold;"><nobr>{$vo.title}</nobr></a></li>
+                                    <else />
+                                    <li><a href="__MODULE__/Article/show/u/{$vo.pk}" style="color:{$vo.title_color};"><nobr>{$vo.title}</nobr></a></li>
+                                </if>
+                            </volist>
                         </ul>
                     </div>
                 </div>
@@ -166,7 +156,7 @@
 
     <div class="container i-container">
         <div class="home-ad">
-            <a href="#"><img src="{$Think.const.WEB_URL}/images/temp/Ad.jpg" style=" margin-bottom:8px;" /></a>
+            <a href="{$adbar[link]}" title="{$adbar[ad_name]}" target="_blank"><img src="{$Think.const.SITE_URL}/CDN/uploaded/ads/{$adbar[ad_path]}" alt="{$adbar[ad_name]}" style=" margin-bottom:8px;" /></a>
         </div>
     </div>
 
@@ -175,17 +165,18 @@
             <div class="col-sm-3">
                 <div class="box qzone">
                     <div class="Mtop">
-                        <span><a href="#">更多&gt;&gt;</a></span>
+                        <span><a href="__MODULE__/Article/article/cate/14">更多&gt;&gt;</a></span>
                         <h2><img src="{$Think.const.WEB_URL}/images/ico_01.gif" class="ico" style="left:10px;"/> 专业委员会</h2>
                     </div>
                     <div class="Mbody">
                         <ul class="list">
-                            <li><a href="#"><nobr>护身符真的有用护身符真的有用：积极的心理暗示</nobr></a></li>
-                            <li><a href="#"><nobr>人们对于心理咨询的三大误区</nobr></a></li>
-                            <li><a href="#"><nobr>护身符真的有用护身符真的有用护身符真的有用：积理暗示</nobr></a></li>
-                            <li><a href="#"><nobr>人们对于心理咨询的三大误区</nobr></a></li>
-                            <li><a href="#"><nobr>护身符真的有用：积极的心理暗示</nobr></a></li>
-                            <li><a href="#"><nobr>护身符真的有用：积极的心理暗示</nobr></a></li>
+                            <volist name="Committee" id="vo">
+                                <if condition="$vo.is_title_bold eq 1">
+                                    <li><a href="__MODULE__/Article/show/u/{$vo.pk}" style="color:{$vo.title_color};font-weight: bold;"><nobr>{$vo.title}</nobr></a></li>
+                                    <else />
+                                    <li><a href="__MODULE__/Article/show/u/{$vo.pk}" style="color:{$vo.title_color};"><nobr>{$vo.title}</nobr></a></li>
+                                </if>
+                            </volist>
                         </ul>
                     </div>
                 </div>
@@ -201,19 +192,36 @@
                                     <li>考生心理</li>
                                 </ol>
                             </div>
-                            <ul>
-                                <li><a href="#"><nobr>人们对于心理咨询的三大误区</nobr></a></li>
-                                <li><a href="#"><nobr>人们对于心理咨询的三大误区</nobr></a></li>
-                                <li><a href="#"><nobr>人们对于心理咨询的三大误区</nobr></a></li>
-                                <li><a href="#"><nobr>人们对于心理咨询的三大误区</nobr></a></li>
-                                <li><a href="#"><nobr>人们对于心理咨询的三大误区人们对于心理咨询的三大误区人们对于心理咨询的三大误区</nobr></a></li>
-                                <li><a href="#"><nobr>人们对于心理咨询的三大误区</nobr></a></li>
-                                <li><a href="#"><nobr>人们对于心理咨询的三大误区</nobr></a></li>
-                                <li><a href="#"><nobr>人们对于心理咨询的三大误区</nobr></a></li>
-                                <li><a href="#"><nobr>人们对于心理咨询的三大误区</nobr></a></li>
-                                <li><a href="#"><nobr>人们对于心理咨询的三大误区</nobr></a></li>
+                            <ul class="gitem gitem0">
+                                <volist name="xswt" id="vo">
+                                    <if condition="$vo.is_title_bold eq 1">
+                                        <li><a href="__MODULE__/Article/show/u/{$vo.pk}" style="color: {$vo.title_color};font-weight: bold;"><nobr>{$vo.title}</nobr></a></li>
+                                        <else />
+                                        <li><a href="__MODULE__/Article/show/u/{$vo.pk}" style="color: {$vo.title_color};"><nobr>{$vo.title}</nobr></a></li>
+                                    </if>
+                                </volist>
                             </ul>
-                            <em><a href="#">更多>></a></em>
+                            <em class="gitem gitem0"><a href="__MODULE__/Article/article/cate/11">更多>></a></em>
+                            <ul class="gitem gitem1" style="display: none">
+                                <volist name="xsxx" id="vo">
+                                    <if condition="$vo.is_title_bold eq 1">
+                                        <li><a href="__MODULE__/Article/show/u/{$vo.pk}" style="color: {$vo.title_color};font-weight: bold;"><nobr>{$vo.title}</nobr></a></li>
+                                        <else />
+                                        <li><a href="__MODULE__/Article/show/u/{$vo.pk}" style="color: {$vo.title_color};"><nobr>{$vo.title}</nobr></a></li>
+                                    </if>
+                                </volist>
+                            </ul>
+                            <em class="gitem gitem1" style="display: none"><a href="__MODULE__/Article/article/cate/6">更多>></a></em>
+                            <ul class="gitem gitem2" style="display: none">
+                                <volist name="ksxl" id="vo">
+                                    <if condition="$vo.is_title_bold eq 1">
+                                        <li><a href="__MODULE__/Article/show/u/{$vo.pk}" style="color: {$vo.title_color};font-weight: bold;"><nobr>{$vo.title}</nobr></a></li>
+                                        <else />
+                                        <li><a href="__MODULE__/Article/show/u/{$vo.pk}" style="color: {$vo.title_color};"><nobr>{$vo.title}</nobr></a></li>
+                                    </if>
+                                </volist>
+                            </ul>
+                            <em class="gitem gitem2" style="display: none"><a href="__MODULE__/Article/article/cate/8">更多>></a></em>
                         </div>
                     </div>
                 </div>
@@ -229,42 +237,61 @@
 
                 <div class="col-sm-4">
                     <div class="TreeList">
-                        <h5><em><a href="#">更多>></a></em>心身疾病治疗</h5>
+                        <h5><em><a href="__MODULE__/Article/article/cate/13">更多>></a></em>心身疾病治疗</h5>
                         <dl>
-                            <dt><img src="{$Think.const.WEB_URL}/images/temp/tree.gif" /></dt>
-                            <dd><a href="#"><nobr>摆脱“心理罢工”</nobr></a> </dd>
-                            <dd><a href="#"><nobr>患糖尿病后 四种异常心态四种异常心态四种异常心态四种异常心态</nobr></a></dd>
-                            <dd><a href="#"><nobr>摆脱“心理罢工”</nobr></a> </dd>
-                            <dd><a href="#"><nobr>患糖尿病后 四种异常心态</nobr></a></dd>
-                            <dd><a href="#"><nobr>摆脱“心理罢工”</nobr></a> </dd>
+                            <volist name="modelImgs" id="vo">
+                                <if condition="$vo.code eq IMG1">
+                                    <dt><img src="{$Think.const.SITE_URL}/CDN/uploaded/ads/{$vo.img_path}" width="80" height="97" /></dt>
+                                </if>
+                            </volist>
+                            <volist name="xsjbzl" id="vo">
+                                <if condition="$vo.is_title_bold eq 1">
+                                    <dd><a href="__MODULE__/Article/show/u/{$vo.pk}" style="color:{$vo.title_color};font-weight: bold;"><nobr>{$vo.title}</nobr></a></dd>
+                                    <else />
+                                    <dd><a href="__MODULE__/Article/show/u/{$vo.pk}" style="color:{$vo.title_color};"><nobr>{$vo.title}</nobr></a></dd>
+                                </if>
+                            </volist>
+
                         </dl>
                     </div>
                 </div>
                 <div class="line wp33"></div>
                 <div class="col-sm-4">
                     <div class="TreeList">
-                        <h5><em><a href="#">更多>></a></em>家庭教育</h5>
+                        <h5><em><a href="__MODULE__/Article/article/cate/7">更多>></a></em>家庭教育</h5>
                         <dl>
-                            <dt><img src="{$Think.const.WEB_URL}/images/temp/tree.gif" /></dt>
-                            <dd><a href="#"><nobr>摆脱“心理罢工”</nobr></a> </dd>
-                            <dd><a href="#"><nobr>患糖尿病后 四种异常心态四种异常心态四种异常心态四种异常心态</nobr></a></dd>
-                            <dd><a href="#"><nobr>摆脱“心理罢工”</nobr></a> </dd>
-                            <dd><a href="#"><nobr>患糖尿病后 四种异常心态</nobr></a></dd>
-                            <dd><a href="#"><nobr>摆脱“心理罢工”</nobr></a> </dd>
+                            <volist name="modelImgs" id="vo">
+                                <if condition="$vo.code eq IMG2">
+                                    <dt><img src="{$Think.const.SITE_URL}/CDN/uploaded/ads/{$vo.img_path}" width="80" height="97" /></dt>
+                                </if>
+                            </volist>
+                            <volist name="jtjy" id="vo">
+                                <if condition="$vo.is_title_bold eq 1">
+                                    <dd><a href="__MODULE__/Article/show/u/{$vo.pk}" style="color:{$vo.title_color};font-weight: bold;"><nobr>{$vo.title}</nobr></a></dd>
+                                    <else />
+                                    <dd><a href="__MODULE__/Article/show/u/{$vo.pk}" style="color:{$vo.title_color};"><nobr>{$vo.title}</nobr></a></dd>
+                                </if>
+                            </volist>
                         </dl>
                     </div>
                 </div>
                 <div class="line wp66"></div>
                 <div class="col-sm-4">
                     <div class="TreeList">
-                        <h5><em><a href="#">更多>></a></em>专家答疑</h5>
+                        <h5><em><a href="__MODULE__/Article/article/cate/17">更多>></a></em>专家答疑</h5>
                         <dl>
-                            <dt><img src="{$Think.const.WEB_URL}/images/temp/tree.gif" /></dt>
-                            <dd><a href="#"><nobr>摆脱“心理罢工”</nobr></a> </dd>
-                            <dd><a href="#"><nobr>患糖尿病后 四种异常心态四种异常心态四种异常心态四种异常心态</nobr></a></dd>
-                            <dd><a href="#"><nobr>摆脱“心理罢工”</nobr></a> </dd>
-                            <dd><a href="#"><nobr>患糖尿病后 四种异常心态</nobr></a></dd>
-                            <dd><a href="#"><nobr>摆脱“心理罢工”</nobr></a> </dd>
+                            <volist name="modelImgs" id="vo">
+                                <if condition="$vo.code eq IMG3">
+                                    <dt><img src="{$Think.const.SITE_URL}/CDN/uploaded/ads/{$vo.img_path}" width="80" height="97" /></dt>
+                                </if>
+                            </volist>
+                            <volist name="zjdy" id="vo">
+                                <if condition="$vo.is_title_bold eq 1">
+                                    <dd><a href="__MODULE__/Article/show/u/{$vo.pk}" style="color:{$vo.title_color};font-weight: bold;"><nobr>{$vo.title}</nobr></a></dd>
+                                    <else />
+                                    <dd><a href="__MODULE__/Article/show/u/{$vo.pk}" style="color:{$vo.title_color};"><nobr>{$vo.title}</nobr></a></dd>
+                                </if>
+                            </volist>
                         </dl>
                     </div>
                 </div>
@@ -279,17 +306,18 @@
             <div class="col-sm-3">
                 <div class="box qzone">
                     <div class="Mtop">
-                        <span><a href="#">更多&gt;&gt;</a></span>
+                        <span><a href="__MODULE__/Article/article/cate/1">更多&gt;&gt;</a></span>
                         <h2><img src="{$Think.const.WEB_URL}/images/ico_01.gif" class="ico" style="left:10px;"/> 学校教育</h2>
                     </div>
                     <div class="Mbody">
                         <ul class="list">
-                            <li><a href="#"><nobr>护身符真的有用护身符真的有用：积极的心理暗示</nobr></a></li>
-                            <li><a href="#"><nobr>人们对于心理咨询的三大误区</nobr></a></li>
-                            <li><a href="#"><nobr>护身符真的有用护身符真的有用护身符真的有用：积理暗示</nobr></a></li>
-                            <li><a href="#"><nobr>人们对于心理咨询的三大误区</nobr></a></li>
-                            <li><a href="#"><nobr>护身符真的有用：积极的心理暗示</nobr></a></li>
-                            <li><a href="#"><nobr>护身符真的有用：积极的心理暗示</nobr></a></li>
+                            <volist name="xxjy" id="vo">
+                                <if condition="$vo.is_title_bold eq 1">
+                                    <li><a href="__MODULE__/Article/show/u/{$vo.pk}" style="color:{$vo.title_color};font-weight: bold;"><nobr>{$vo.title}</nobr></a></li>
+                                    <else />
+                                    <li><a href="__MODULE__/Article/show/u/{$vo.pk}" style="color:{$vo.title_color};"><nobr>{$vo.title}</nobr></a></li>
+                                </if>
+                            </volist>
                         </ul>
                     </div>
                 </div>
@@ -305,19 +333,36 @@
                                     <li>技术档案</li>
                                 </ol>
                             </div>
-                            <ul>
-                                <li><a href="#"><nobr>人们对于心理咨询的三大误区</nobr></a></li>
-                                <li><a href="#"><nobr>人们对于心理咨询的三大误区</nobr></a></li>
-                                <li><a href="#"><nobr>人们对于心理咨询的三大误区</nobr></a></li>
-                                <li><a href="#"><nobr>人们对于心理咨询的三大误区</nobr></a></li>
-                                <li><a href="#"><nobr>人们对于心理咨询的三大误区人们对于心理咨询的三大误区人们对于心理咨询的三大误区</nobr></a></li>
-                                <li><a href="#"><nobr>人们对于心理咨询的三大误区</nobr></a></li>
-                                <li><a href="#"><nobr>人们对于心理咨询的三大误区</nobr></a></li>
-                                <li><a href="#"><nobr>人们对于心理咨询的三大误区</nobr></a></li>
-                                <li><a href="#"><nobr>人们对于心理咨询的三大误区</nobr></a></li>
-                                <li><a href="#"><nobr>人们对于心理咨询的三大误区</nobr></a></li>
+                            <ul class="gitem gitem0">
+                                <volist name="jsbj" id="vo">
+                                    <if condition="$vo.is_title_bold eq 1">
+                                        <li><a href="__MODULE__/Article/show/u/{$vo.pk}" style="color: {$vo.title_color};font-weight: bold;"><nobr>{$vo.title}</nobr></a></li>
+                                        <else />
+                                        <li><a href="__MODULE__/Article/show/u/{$vo.pk}" style="color: {$vo.title_color};"><nobr>{$vo.title}</nobr></a></li>
+                                    </if>
+                                </volist>
                             </ul>
-                            <em><a href="#">更多>></a></em>
+                            <em class="gitem gitem0"><a href="__MODULE__/Article/article/cate/4">更多>></a></em>
+                            <ul class="gitem gitem1" style="display: none">
+                                <volist name="kyyd" id="vo">
+                                    <if condition="$vo.is_title_bold eq 1">
+                                        <li><a href="__MODULE__/Article/show/u/{$vo.pk}" style="color: {$vo.title_color};font-weight: bold;"><nobr>{$vo.title}</nobr></a></li>
+                                        <else />
+                                        <li><a href="__MODULE__/Article/show/u/{$vo.pk}" style="color: {$vo.title_color};"><nobr>{$vo.title}</nobr></a></li>
+                                    </if>
+                                </volist>
+                            </ul>
+                            <em class="gitem gitem1" style="display: none"><a href="__MODULE__/Article/article/cate/10">更多>></a></em>
+                            <ul class="gitem gitem2" style="display: none">
+                                <volist name="jsda" id="vo">
+                                    <if condition="$vo.is_title_bold eq 1">
+                                        <li><a href="__MODULE__/Article/show/u/{$vo.pk}" style="color: {$vo.title_color};font-weight: bold;"><nobr>{$vo.title}</nobr></a></li>
+                                        <else />
+                                        <li><a href="__MODULE__/Article/show/u/{$vo.pk}" style="color: {$vo.title_color};"><nobr>{$vo.title}</nobr></a></li>
+                                    </if>
+                                </volist>
+                            </ul>
+                            <em class="gitem gitem2" style="display: none"><a href="__MODULE__/Article/article/cate/16">更多>></a></em>
                         </div>
                     </div>
                 </div>
@@ -357,6 +402,14 @@
 //            globalCaption: true,
                 transitionSpeed:1000
             });
+        });
+        $(".Gmenu li").hover(function(){
+            //alert($(this).index());
+            $(this).parents(".Gbody").find(".gitem").hide();
+            $(this).parents(".Gbody").find(".gitem"+$(this).index()).show();
+            //checked
+            $(this).parent().find("li").removeClass();
+            $(this).addClass("checked");
         });
     </script>
 </block>

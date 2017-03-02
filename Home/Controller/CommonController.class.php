@@ -26,7 +26,6 @@ class CommonController extends Controller {
         $customer_service = M("customer_service");
         if ($customer_service -> find() == null){
         }else{
-            $service = "xixi";
             $slist = $customer_service ->select();
             $this -> assign("service",$slist);
         }
@@ -40,11 +39,11 @@ class CommonController extends Controller {
 
         //获取研修生园地
         $article = M("article");
-        $researcher  = $article ->join("as a LEFT JOIN article_model AS b ON a.pk = b.article_id LEFT JOIN model AS c ON b.model_id = c.pk ")->field("a.pk,a.title") ->order("a.custom_sort desc,a.update_time desc") ->where("c.pk = 12") -> limit("5") -> select();
+        $researcher  = $article ->join("as a LEFT JOIN article_model AS b ON a.pk = b.article_id LEFT JOIN model AS c ON b.model_id = c.pk ")->field("a.pk,a.title,a.is_title_bold,a.title_color") ->order("a.custom_sort desc,a.update_time desc") ->where("c.pk = 12") -> limit("5") -> select();
         $this -> assign("researcher",$researcher);
 
         //获取专业委员会
-        $Committee  = $article ->join("as a LEFT JOIN article_model AS b ON a.pk = b.article_id LEFT JOIN model AS c ON b.model_id = c.pk ")->field("a.pk,a.title") ->order("a.custom_sort desc,a.update_time desc") ->where("c.pk = 14") -> limit("5") -> select();
+        $Committee  = $article ->join("as a LEFT JOIN article_model AS b ON a.pk = b.article_id LEFT JOIN model AS c ON b.model_id = c.pk ")->field("a.pk,a.title,a.is_title_bold,a.title_color") ->order("a.custom_sort desc,a.update_time desc") ->where("c.pk = 14") -> limit("6") -> select();
         $this -> assign("Committee",$Committee);
 
         //获取投票

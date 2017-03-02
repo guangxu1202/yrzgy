@@ -41,6 +41,8 @@ function navBrand(){
 }
 
 
+
+// service qq
 Service = function(id, _top, _left) {
     var me = id.charAt ? document.getElementById(id) : id, d1 = document.body, d2 = document.documentElement;
     d1.style.height = d2.style.height = '100%';
@@ -56,9 +58,11 @@ Service = function(id, _top, _left) {
     return arguments.callee;
 };
 
+
+
 window.onload = function() {
     Service('xixi', 100, -152)
-}
+};
 
 lastScrollY = 0;
 

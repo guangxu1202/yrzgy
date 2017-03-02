@@ -20,11 +20,79 @@ class IndexController extends CommonController {
         $media = $friendship_links->where("position = 1")->field("name,url,title_bold,title_color") ->limit("5") ->order("custom_sort desc") ->select();
         $this -> assign("media",$media);
 
+        //技术团队
+        $person_intro = M("person_intro");
+        $tech_team = $person_intro ->field("thumbnail,photo_describe,pk") -> where("is_show = 1") ->order("custom_sort desc") -> select();
+        $this -> assign("tech_team",$tech_team);
+
+
+        //获取文章类型
+        $article = M("article");
+        //服务指南
+        $fwzn = $article->field("a.title,a.pk,a.is_title_bold,a.title_color") -> join("as a LEFT JOIN article_model as m ON a.pk = m.article_id LEFT JOIN model ON m.model_id = model.pk") ->where("model.pk = 3")->order('a.update_time desc')->limit(5)->select();
+        $this -> assign("fwzn",$fwzn);
+
+
+        //技术之窗
+        $jszc = $article->field("a.title,a.pk,a.is_title_bold,a.title_color") -> join("as a LEFT JOIN article_model as m ON a.pk = m.article_id LEFT JOIN model ON m.model_id = model.pk") ->where("model.pk = 23")->order('a.update_time desc')->limit(5)->select();
+        $this -> assign("jszc",$jszc);
+
+        //学校教育
+        $xxjy = $article->field("a.title,a.pk,a.is_title_bold,a.title_color") -> join("as a LEFT JOIN article_model as m ON a.pk = m.article_id LEFT JOIN model ON m.model_id = model.pk") ->where("model.pk = 1")->order('a.update_time desc')->limit(6)->select();
+        $this -> assign("xxjy",$xxjy);
+
+        //心身疾病治疗
+        $xsjbzl = $article->field("a.title,a.pk,a.is_title_bold,a.title_color") -> join("as a LEFT JOIN article_model as m ON a.pk = m.article_id LEFT JOIN model ON m.model_id = model.pk") ->where("model.pk = 13")->order('a.update_time desc')->limit(5)->select();
+        $this -> assign("xsjbzl",$xsjbzl);
+
+        //家庭教育
+        $jtjy = $article->field("a.title,a.pk,a.is_title_bold,a.title_color") -> join("as a LEFT JOIN article_model as m ON a.pk = m.article_id LEFT JOIN model ON m.model_id = model.pk") ->where("model.pk = 7")->order('a.update_time desc')->limit(5)->select();
+        $this -> assign("jtjy",$jtjy);
+
+        //专家答疑
+        $zjdy = $article->field("a.title,a.pk,a.is_title_bold,a.title_color") -> join("as a LEFT JOIN article_model as m ON a.pk = m.article_id LEFT JOIN model ON m.model_id = model.pk") ->where("model.pk = 17")->order('a.update_time desc')->limit(5)->select();
+        $this -> assign("zjdy",$zjdy);
+
+        //学生问题
+        $xswt = $article->field("a.title,a.pk,a.is_title_bold,a.title_color") -> join("as a LEFT JOIN article_model as m ON a.pk = m.article_id LEFT JOIN model ON m.model_id = model.pk") ->where("model.pk = 11")->order('a.update_time desc')->limit(10)->select();
+        $this -> assign("xswt",$xswt);
+
+        //学生学习
+        $xsxx = $article->field("a.title,a.pk,a.is_title_bold,a.title_color") -> join("as a LEFT JOIN article_model as m ON a.pk = m.article_id LEFT JOIN model ON m.model_id = model.pk") ->where("model.pk = 6")->order('a.update_time desc')->limit(10)->select();
+        $this -> assign("xsxx",$xsxx);
+
+        //考生心理
+        $ksxl = $article->field("a.title,a.pk,a.is_title_bold,a.title_color") -> join("as a LEFT JOIN article_model as m ON a.pk = m.article_id LEFT JOIN model ON m.model_id = model.pk") ->where("model.pk = 8")->order('a.update_time desc')->limit(10)->select();
+        $this -> assign("ksxl",$ksxl);
+
+
+        //技术背景
+        $jsbj = $article->field("a.title,a.pk,a.is_title_bold,a.title_color") -> join("as a LEFT JOIN article_model as m ON a.pk = m.article_id LEFT JOIN model ON m.model_id = model.pk") ->where("model.pk = 4")->order('a.update_time desc')->limit(10)->select();
+        $this -> assign("jsbj",$jsbj);
+
+        //科研园地
+        $kyyd = $article->field("a.title,a.pk,a.is_title_bold,a.title_color") -> join("as a LEFT JOIN article_model as m ON a.pk = m.article_id LEFT JOIN model ON m.model_id = model.pk") ->where("model.pk = 10")->order('a.update_time desc')->limit(10)->select();
+        $this -> assign("kyyd",$kyyd);
+
+        //技术档案
+        $jsda = $article->field("a.title,a.pk,a.is_title_bold,a.title_color") -> join("as a LEFT JOIN article_model as m ON a.pk = m.article_id LEFT JOIN model ON m.model_id = model.pk") ->where("model.pk = 16")->order('a.update_time desc')->limit(10)->select();
+        $this -> assign("jsda",$jsda);
+
+        //首页banner图片
+        $ad = M("ad");
+        $adbar = $ad-> field("ad_path,link,ad_name")->where("position = 0 and expired = 0") ->find();
+        $this -> assign("adbar",$adbar);
+
+        //首页模块图片
+        $model_image = M("model_image");
+        $modelImgs = $model_image->field("code,img_path") -> select();
+        $this -> assign("modelImgs",$modelImgs);
 
 
         $this -> display();
     }
 
+    //注册
     function regsiter(){
         //实例化
         $user = new \Model\MemberModel();
