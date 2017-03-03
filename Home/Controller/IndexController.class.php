@@ -29,53 +29,53 @@ class IndexController extends CommonController {
         //获取文章类型
         $article = M("article");
         //服务指南
-        $fwzn = $article->field("a.title,a.pk,a.is_title_bold,a.title_color") -> join("as a LEFT JOIN article_model as m ON a.pk = m.article_id LEFT JOIN model ON m.model_id = model.pk") ->where("model.pk = 3")->order('a.update_time desc')->limit(5)->select();
+        $fwzn = $article->field("a.title,a.pk,a.is_title_bold,a.title_color") -> join("as a LEFT JOIN article_model as m ON a.pk = m.article_id LEFT JOIN model ON m.model_id = model.pk") ->where("model.pk = 3 and a.is_show = 1")->order('a.update_time desc')->limit(5)->select();
         $this -> assign("fwzn",$fwzn);
 
 
         //技术之窗
-        $jszc = $article->field("a.title,a.pk,a.is_title_bold,a.title_color") -> join("as a LEFT JOIN article_model as m ON a.pk = m.article_id LEFT JOIN model ON m.model_id = model.pk") ->where("model.pk = 23")->order('a.update_time desc')->limit(5)->select();
+        $jszc = $article->field("a.title,a.pk,a.is_title_bold,a.title_color") -> join("as a LEFT JOIN article_model as m ON a.pk = m.article_id LEFT JOIN model ON m.model_id = model.pk") ->where("model.pk = 23 and a.is_show = 1")->order('a.update_time desc')->limit(5)->select();
         $this -> assign("jszc",$jszc);
 
         //学校教育
-        $xxjy = $article->field("a.title,a.pk,a.is_title_bold,a.title_color") -> join("as a LEFT JOIN article_model as m ON a.pk = m.article_id LEFT JOIN model ON m.model_id = model.pk") ->where("model.pk = 1")->order('a.update_time desc')->limit(6)->select();
+        $xxjy = $article->field("a.title,a.pk,a.is_title_bold,a.title_color") -> join("as a LEFT JOIN article_model as m ON a.pk = m.article_id LEFT JOIN model ON m.model_id = model.pk") ->where("model.pk = 1 and a.is_show = 1")->order('a.update_time desc')->limit(6)->select();
         $this -> assign("xxjy",$xxjy);
 
         //心身疾病治疗
-        $xsjbzl = $article->field("a.title,a.pk,a.is_title_bold,a.title_color") -> join("as a LEFT JOIN article_model as m ON a.pk = m.article_id LEFT JOIN model ON m.model_id = model.pk") ->where("model.pk = 13")->order('a.update_time desc')->limit(5)->select();
+        $xsjbzl = $article->field("a.title,a.pk,a.is_title_bold,a.title_color") -> join("as a LEFT JOIN article_model as m ON a.pk = m.article_id LEFT JOIN model ON m.model_id = model.pk") ->where("model.pk = 13 and a.is_show = 1")->order('a.update_time desc')->limit(5)->select();
         $this -> assign("xsjbzl",$xsjbzl);
 
         //家庭教育
-        $jtjy = $article->field("a.title,a.pk,a.is_title_bold,a.title_color") -> join("as a LEFT JOIN article_model as m ON a.pk = m.article_id LEFT JOIN model ON m.model_id = model.pk") ->where("model.pk = 7")->order('a.update_time desc')->limit(5)->select();
+        $jtjy = $article->field("a.title,a.pk,a.is_title_bold,a.title_color") -> join("as a LEFT JOIN article_model as m ON a.pk = m.article_id LEFT JOIN model ON m.model_id = model.pk") ->where("model.pk = 7 and a.is_show = 1")->order('a.update_time desc')->limit(5)->select();
         $this -> assign("jtjy",$jtjy);
 
         //专家答疑
-        $zjdy = $article->field("a.title,a.pk,a.is_title_bold,a.title_color") -> join("as a LEFT JOIN article_model as m ON a.pk = m.article_id LEFT JOIN model ON m.model_id = model.pk") ->where("model.pk = 17")->order('a.update_time desc')->limit(5)->select();
+        $zjdy = $article->field("a.title,a.pk,a.is_title_bold,a.title_color") -> join("as a LEFT JOIN article_model as m ON a.pk = m.article_id LEFT JOIN model ON m.model_id = model.pk") ->where("model.pk = 17 and a.is_show = 1")->order('a.update_time desc')->limit(5)->select();
         $this -> assign("zjdy",$zjdy);
 
         //学生问题
-        $xswt = $article->field("a.title,a.pk,a.is_title_bold,a.title_color") -> join("as a LEFT JOIN article_model as m ON a.pk = m.article_id LEFT JOIN model ON m.model_id = model.pk") ->where("model.pk = 11")->order('a.update_time desc')->limit(10)->select();
+        $xswt = $article->field("a.title,a.pk,a.is_title_bold,a.title_color") -> join("as a LEFT JOIN article_model as m ON a.pk = m.article_id LEFT JOIN model ON m.model_id = model.pk") ->where("model.pk = 11 and a.is_show = 1")->order('a.update_time desc')->limit(10)->select();
         $this -> assign("xswt",$xswt);
 
         //学生学习
-        $xsxx = $article->field("a.title,a.pk,a.is_title_bold,a.title_color") -> join("as a LEFT JOIN article_model as m ON a.pk = m.article_id LEFT JOIN model ON m.model_id = model.pk") ->where("model.pk = 6")->order('a.update_time desc')->limit(10)->select();
+        $xsxx = $article->field("a.title,a.pk,a.is_title_bold,a.title_color") -> join("as a LEFT JOIN article_model as m ON a.pk = m.article_id LEFT JOIN model ON m.model_id = model.pk") ->where("model.pk = 6 and a.is_show = 1")->order('a.update_time desc')->limit(10)->select();
         $this -> assign("xsxx",$xsxx);
 
         //考生心理
-        $ksxl = $article->field("a.title,a.pk,a.is_title_bold,a.title_color") -> join("as a LEFT JOIN article_model as m ON a.pk = m.article_id LEFT JOIN model ON m.model_id = model.pk") ->where("model.pk = 8")->order('a.update_time desc')->limit(10)->select();
+        $ksxl = $article->field("a.title,a.pk,a.is_title_bold,a.title_color") -> join("as a LEFT JOIN article_model as m ON a.pk = m.article_id LEFT JOIN model ON m.model_id = model.pk") ->where("model.pk = 8 and a.is_show = 1")->order('a.update_time desc')->limit(10)->select();
         $this -> assign("ksxl",$ksxl);
 
 
         //技术背景
-        $jsbj = $article->field("a.title,a.pk,a.is_title_bold,a.title_color") -> join("as a LEFT JOIN article_model as m ON a.pk = m.article_id LEFT JOIN model ON m.model_id = model.pk") ->where("model.pk = 4")->order('a.update_time desc')->limit(10)->select();
+        $jsbj = $article->field("a.title,a.pk,a.is_title_bold,a.title_color") -> join("as a LEFT JOIN article_model as m ON a.pk = m.article_id LEFT JOIN model ON m.model_id = model.pk") ->where("model.pk = 4 and a.is_show = 1")->order('a.update_time desc')->limit(10)->select();
         $this -> assign("jsbj",$jsbj);
 
         //科研园地
-        $kyyd = $article->field("a.title,a.pk,a.is_title_bold,a.title_color") -> join("as a LEFT JOIN article_model as m ON a.pk = m.article_id LEFT JOIN model ON m.model_id = model.pk") ->where("model.pk = 10")->order('a.update_time desc')->limit(10)->select();
+        $kyyd = $article->field("a.title,a.pk,a.is_title_bold,a.title_color") -> join("as a LEFT JOIN article_model as m ON a.pk = m.article_id LEFT JOIN model ON m.model_id = model.pk") ->where("model.pk = 10 and a.is_show = 1")->order('a.update_time desc')->limit(10)->select();
         $this -> assign("kyyd",$kyyd);
 
         //技术档案
-        $jsda = $article->field("a.title,a.pk,a.is_title_bold,a.title_color") -> join("as a LEFT JOIN article_model as m ON a.pk = m.article_id LEFT JOIN model ON m.model_id = model.pk") ->where("model.pk = 16")->order('a.update_time desc')->limit(10)->select();
+        $jsda = $article->field("a.title,a.pk,a.is_title_bold,a.title_color") -> join("as a LEFT JOIN article_model as m ON a.pk = m.article_id LEFT JOIN model ON m.model_id = model.pk") ->where("model.pk = 16 and a.is_show = 1")->order('a.update_time desc')->limit(10)->select();
         $this -> assign("jsda",$jsda);
 
         //首页banner图片

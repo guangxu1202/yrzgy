@@ -262,6 +262,13 @@ a:hover{color: #fe336b;}
 .qun {BORDER-BOTTOM: #ffd2bf 1px solid; BORDER-LEFT: #ffd2bf 1px solid; PADDING-BOTTOM: 5px; LINE-HEIGHT: 20px; BACKGROUND-COLOR: #ffffff; PADDING-LEFT: 0px; WIDTH: 100px; PADDING-RIGHT: 0px; FONT-SIZE: 12px; BORDER-TOP: #ffd2bf 1px solid; BORDER-RIGHT: #ffd2bf 1px solid; PADDING-TOP: 5px;}
 .qun SPAN {COLOR: #ff6600; FONT-SIZE: 13px; FONT-WEIGHT: bold;}
 
+/*edit*/
+.Edit {width: 100%; margin-bottom: 8px;}
+.Edit thead td {background-color: #d6dead; line-height: 30px; padding-left: 10px; font-weight: bold; color: #4e5c05; height: 30px; border: 1px solid #b6c569;}
+.Edit tbody th,.Edit tbody td {border: 1px solid #e5e5c6; padding: 5px; vertical-align: top;}
+.Edit tbody th {background-color: #fafaf1; text-align: right;}
+.Edit tfoot td {height: 30px; background-color: #eef4ea; border: 1px solid #e5e5c6; padding-left: 20%;}
+.review {margin: 20px;}
 
 
 /* mobile */

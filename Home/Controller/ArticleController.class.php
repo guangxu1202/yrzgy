@@ -15,10 +15,10 @@ class ArticleController extends CommonController {
             //获取article
             //文章列表获取
             $article = M("article");
-            $count      = $article->join("as a LEFT JOIN article_model as m ON a.pk = m.article_id LEFT JOIN model ON m.model_id = model.pk")->field("a.title,a.pk,a.update_time") ->where("model.pk =".I("get.cate")) ->order("a.update_time desc")->count();// 查询满足要求的总记录数
+            $count      = $article->join("as a LEFT JOIN article_model as m ON a.pk = m.article_id LEFT JOIN model ON m.model_id = model.pk")->field("a.title,a.pk,a.update_time") ->where("a.is_show = 1 and model.pk =".I("get.cate")) ->order("a.update_time desc")->count();// 查询满足要求的总记录数
             $Page       = new \Think\Page($count,C("PAGE_NUM"));// 实例化分页类 传入总记录数和每页显示的记录数(25)
             $show       = $Page->show();// 分页显示输出
-            $list = $article->join("as a LEFT JOIN article_model as m ON a.pk = m.article_id LEFT JOIN model ON m.model_id = model.pk")->field("a.title,a.pk,a.update_time") ->where("model.pk =".I("get.cate"))->order('a.update_time desc')->limit($Page->firstRow.','.$Page->listRows)->select();
+            $list = $article->join("as a LEFT JOIN article_model as m ON a.pk = m.article_id LEFT JOIN model ON m.model_id = model.pk")->field("a.title,a.pk,a.update_time") ->where("a.is_show = 1 and model.pk =".I("get.cate"))->order('a.update_time desc')->limit($Page->firstRow.','.$Page->listRows)->select();
             $this->assign('list', $list);// 赋值数据集
             $this->assign('page', $show);// 赋值分页输出
 
@@ -36,7 +36,6 @@ class ArticleController extends CommonController {
             //获取所属模块
             $info = $article-> field("title,keywords,summary,author,article_from,update_time,content") ->where("pk=".I("get.u")) ->select();
             $this->assign("info", $info);
-
             $this->display();
         }
     }

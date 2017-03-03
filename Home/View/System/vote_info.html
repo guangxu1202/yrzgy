@@ -1,0 +1,107 @@
+<extend name="./base" />
+<block name="title">
+    <foreach name="info" item="vo" >
+        <title>{$vo.title}- 投票 - 元认知心理干预技术网</title>
+        <meta name="keywords" content=""/>
+        <meta name="description" content="{$vo.description}"/>
+    </foreach>
+</block>
+
+<block name="content">
+
+<div class="container i-container">
+    <div class="Statu">您的位置：<a href="{$Think.const.SITE_URL}">首页</a> &gt;&gt; <a href="__MODULE__/System/vote">投票</a>&gt;&gt; 详细 </div>
+</div>
+
+<div class="container i-container">
+    <div class="row">
+        <div class="col-sm-3">
+            <include file="./left" />
+
+        </div>
+        <div class="col-sm-9">
+            <div class="box">
+                <foreach name="info" item="vo" >
+                    <div class="Mtop">
+                        <h2><img src="{$Think.const.WEB_URL}/images/ico_04.gif" class="ico" /> {$vo.title}</h2>
+                    </div>
+                    <div class="Mbody news">
+                        <form method="post" id="voteForm" name="voteForm" action="__SELF__">
+                            <input type="hidden" name="id" value="{$vo.pk}">
+                            <div class="review">
+                                <table class="Edit">
+                                    <colgroup width="40px"></colgroup>
+                                    <colgroup width=""></colgroup>
+                                    <thead>
+                                    <tr>
+                                        <td colspan="4">投票内容 (最多可以选择 {$vo.maximum} 项.)</td>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                        <volist name="item" id="v">
+                                            <tr>
+                                                <th>{$i}. </th>
+                                                <td>{$v.content}</td>
+                                                <td style="width: 20px;">
+                                                    <if condition="$vo.is_radio eq 1">
+                                                        <input type="radio" value="{$v.pk}" class="_vote" name="myradio" onclick="checkRadio();">
+                                                        <else />
+                                                        <input type="checkbox" value="{$v.pk}" class="_vote" name="mycheckbox[{$i}]" onclick="checkCheckbox(this, {$vo.maximum} );">
+                                                    </if>
+
+                                                </td>
+                                            </tr>
+                                        </volist>
+                                    </tbody>
+                                </table>
+                                <div class="BtnSubmit">
+                                    <button class="btn-green" type="button" onclick="elect()">提交</button>
+                                </div>
+                            </div>
+                        </form>
+
+                    </div>
+                </foreach>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+</block>
+
+
+<block name="public">
+
+    <script>
+        var vote = false;
+        var selectCount = 0;
+
+        var checkRadio = function() {
+            selectCount = 1;
+        };
+
+        var checkCheckbox = function(obj, limit) {
+
+            if (obj.checked) {
+                selectCount++;
+                if (limit < selectCount) {
+                    obj.checked = false;
+                    selectCount--;
+                    alert("最多可以选择 " + limit + " 项.");
+                }
+            } else {
+                selectCount--;
+            }
+        };
+        var elect = function(){
+            if (selectCount <= 0) {
+                alert("请选择相应的投票内容, 再投票.");
+                return false;
+            }
+            $("#voteForm").submit();
+        };
+    </script>
+
+</block>

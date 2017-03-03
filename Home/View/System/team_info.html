@@ -1,0 +1,56 @@
+<extend name="./base" />
+<block name="title">
+    <foreach name="info" item="vo" >
+        <title>{$vo.title} - 元认知心理干预技术网</title>
+        <meta name="keywords" content="{$vo.keywords}"/>
+        <meta name="description" content="{$vo.summary}"/>
+    </foreach>
+</block>
+
+<block name="content">
+
+<div class="container i-container">
+    <div class="Statu">您的位置：<a href="{$Think.const.SITE_URL}">首页</a> &gt;&gt; <a href="__MODULE__/System/team">技术团队</a>&gt;&gt; 详细 </div>
+</div>
+
+<div class="container i-container">
+    <div class="row">
+        <div class="col-sm-3">
+            <include file="./left" />
+
+        </div>
+        <div class="col-sm-9">
+            <div class="box">
+                <div class="Mtop">
+                    <h2><img src="{$Think.const.WEB_URL}/images/ico_04.gif" class="ico" /> 技术团队</h2>
+                </div>
+                <div class="Mbody news">
+                    <foreach name="info" item="vo" >
+                        <h1>{$vo.title}</h1>
+                        <div class="newstatu">
+                            <span>作者:&nbsp;{$vo.author}</span>
+                            <span>发布时间:&nbsp;{$vo.update_time|substr=0,10}</span>
+                        </div>
+                        <div class="newsCon">
+                            <div class="pic">
+                                <img src="{$Think.const.SITE_URL}/CDN/uploaded/person/{$vo.photo}" style="max-width: 600px;">
+                                <div>{$vo.photo_describe}</div>
+                            </div>
+                            {$vo.content|htmlspecialchars_decode}
+                        </div>
+                    </foreach>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+</block>
+
+
+<block name="public">
+
+
+</block>
