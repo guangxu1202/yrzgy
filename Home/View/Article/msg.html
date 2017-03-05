@@ -1,0 +1,130 @@
+<extend name="./base" />
+<block name="title">
+    <title>{$info[0].title} - 元认知心理干预技术网</title>
+    <meta name="keywords" content="元认知,元认知干预，元认知心理，元认知心理干预，元认知心理干预技术，金洪源,{$model_name.name}"/>
+    <meta name="description" content="元认知研究所由金洪源教授任所长，面向全国提供心理技术服务，解决学生偏科、厌学、马虎、考试焦虑、拖延等学习障碍问题；改善人际关系，解决亲子、家庭问题；提供失眠、焦虑、强迫、抑郁等辅助性干预；优化性格系统。主要业务：个体咨询、团体辅导、技术培训、进驻学校推进心理健康技术化改革。下设临床服务部、研修生部、驻校服务部、中小学教研部、技术研发与培训部。"/>
+</block>
+
+<block name="content">
+
+<div class="container i-container">
+    <div class="Statu">您的位置：<a href="{$Think.const.SITE_URL}">首页</a> &gt;&gt;<a href="__MODULE__/Article/message">留言咨询</a> &gt;&gt; 详情</div>
+</div>
+
+<div class="container i-container">
+    <div class="row">
+        <div class="col-sm-3">
+            <include file="./left" />
+
+        </div>
+        <div class="col-sm-9">
+            <div class="box">
+                <div class="Mtop">
+                    <h2><img src="{$Think.const.WEB_URL}/images/ico_04.gif" class="ico" /> 咨询详情</h2>
+                </div>
+                <div class="Mbody news">
+                    <foreach name="info" item="vo" >
+                        <h1>{$vo.title}</h1>
+                        <div class="newsCon" style="padding-bottom: 50px; min-height: 200px;">
+                            {$vo.content|htmlspecialchars_decode}
+                        </div>
+                    </foreach>
+
+                    <div class="review">
+                        <div class="features">
+
+                            <span><a href="javascript:void(0)" >评论(<span id="commentNumber">{$count}</span>)</a></span>
+                            <em>点击:{$vo.browse_count}</em>
+                        </div>
+                        <div id="reviewBody">
+                            <volist name="comment" id="co" key="k">
+                                <div class="group <if condition="$k%2=='0'"> gray</if >"  style="display: block;">
+                                    <em>{$i}.</em>
+                                    <div class="photo">
+                                        <img src="{$Think.const.WEB_URL}/images/photoImg.gif" height="32" width="32">
+                                    </div>
+                                    <p class="time"><strong>{$co.nickname}</strong>&nbsp;</p>
+                                    <p class="time">{$co.publish_time} 发表</p>
+                                    <p class="reContent">{$co.content}</p>
+                                </div>
+                            </volist>
+
+
+                            <input type="hidden" id="articleId" value="{$vo.pk}">
+
+                            <h5>留下评论</h5>
+                            <present name="id">
+                                <form id="saveComment" method="post" action="__SELF__">
+                                    <input type="hidden" name="saveid" value="{$vo.pk}">
+                                    <dl class="clearfix">
+                                        <dt>昵称：</dt>
+                                        <dd>{$member['nickname']}</dd>
+                                    </dl>
+                                    <dl class="clearfix">
+                                        <dt>评论：</dt>
+                                        <dd><textarea id="content" name="content" style="width: 420px; height: 120px;"></textarea></dd>
+                                    </dl>
+                                    <dl class="clearfix">
+                                        <dt>验证码：</dt>
+                                        <dd>
+                                            <input type="text" class="linput verify" id="human" style="float:left; width:36%;" name="verify" placeholder="验证码" />
+                                            <img src="__MODULE__/index/verifyImg" onclick="reloadcode(this,'__MODULE__/index/verifyImg?')" alt="点击重新刷新" title="点击重新刷新" style=" width: 145px; margin-left:10px; float:left; cursor: pointer;">
+                                        </dd>
+                                    </dl>
+                                    <dl class="clearfix">
+                                        <dt>&nbsp;</dt>
+                                        <dd>
+                                            <button id="postBtn" class="btn-green" type="button" onclick="postComment();">发布留言</button>
+                                        </dd>
+                                    </dl>
+                                </form>
+                            </present>
+                            <notpresent name="id">
+                                <p>会员登录后才可以评论</p>
+                            </notpresent>
+
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+</block>
+
+
+<block name="public">
+<script>
+
+    postComment = function() {
+        if (null == $("#content").val() || "" == jQuery.trim($("#content").val())) {
+            alert('请输入相应的评论, 再发表.');
+            $("#content").focus();
+            return;
+        }
+        if ($("#content").val().length > 500) {
+            alert("评论最多能发表 500 个字符, 您已经发表 [ " + $("#content").val().length + " ] 个字符,\n请稍做修改再发表.");
+            $("#content").focus();
+            return;
+        }
+        if (null == $("#human").val() || "" == jQuery.trim($("#human").val())) {
+            alert('请输入验证码.');
+            $("#human").focus();
+            return;
+        }
+        $("#saveComment").submit();
+    };
+
+    //刷新验证码
+    function reloadcode(obj,src){
+        $(obj).attr("src",src+Math.random());
+    }
+
+</script>
+
+</block>

@@ -98,14 +98,28 @@ class SystemController extends CommonController {
                 if (I("post.myradio") == '' && I("post.mycheckbox") =='' ){
                     $this->error("没有赋值！");
                 }else{
-                    $vitem = M("vote_item");
-                    if (I("post.myradio") == ''){
-                        //I("post.mycheckbox")
-                        //$vitem->where('vote_id='.I("post.id").' and pk='.I("post.mycheckbox"))->data($data)->save();
+                    //判断重复投票
+                    if (session("?vote.".I("post.id"))){
+                        $this->error("您已经投过票了，请不要重复投票！");
                     }else{
+                        //记录投票
+                        $vitem = M("vote_item");
+                        if (I("post.myradio") == ''){
+                            //多选
+                            foreach (I("post.mycheckbox") as $checkbox){
+                                $vitem->where('vote_id='.I("post.id").' and pk='.$checkbox)->setInc('vote_number',1);
+                            }
+                        }else{
+                            //单选
+                            $vitem->where('vote_id='.I("post.id").' and pk='.I("post.myradio"))->setInc('vote_number',1);
+                        }
+                        //设置重复投票限制
+                        session("vote.".I("post.id"),I("post.id"));
 
-                        $vitem->where('vote_id='.I("post.id").' and pk='.I("post.myradio"))->setInc('vote_number',1);
+                        //录入成功
+                        $this->success("恭喜您，投票成功！",__MODULE__."/System/vote_result/u/".I("post.id"));
                     }
+
                 }
             }
         }else{
@@ -125,6 +139,36 @@ class SystemController extends CommonController {
 
                 $this->display();
             }
+        }
+    }
+
+    //查看投票结果
+    function vote_result(){
+
+        $a = M("vote");
+        if ($a->find(I("get.u")) == null){
+            //错误ID
+            $this->error("页面无法访问！");
+        }else{
+            //界面展示
+            $b = M("vote_item");
+            $info = $a -> where("pk=".I("get.u")) -> select();
+            $info1 = $b -> where("vote_id=".I("get.u")) -> select();
+            $time = $b-> where("vote_id=".I("get.u")) ->sum("vote_number");
+
+            $info2 = array();
+            $c = 0;
+            foreach ($info1 as $v){
+                $info2[$c]["content"] = $v["content"];
+                $info2[$c]["num"] = $v["vote_number"];
+                $info2[$c]["per"] = round($v["vote_number"]/$time*100,2);
+                $c++;
+            }
+
+            $this -> assign("info",$info);
+            $this -> assign("info1",$info2);
+            $this -> assign("times",$time);
+            $this -> display();
         }
     }
 

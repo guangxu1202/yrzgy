@@ -35,6 +35,87 @@
                             {$vo.content|htmlspecialchars_decode}
                         </div>
                     </foreach>
+                    <div class="LinkPage">
+                        <em>下一篇:&nbsp;
+                            <present name="next">
+                                <a href="__MODULE__/Article/show/u/{$next.pk}" target="_blank" title="{$next.title}">{$next.title}</a>
+                            </present>
+                            <notpresent name="next">
+                                没有了
+                            </notpresent>
+                        </em>
+                        <span>上一篇:&nbsp;
+                            <present name="prev">
+                                <a href="__MODULE__/Article/show/u/{$prev.pk}" target="_blank" title="{$prev.title}">{$prev.title}</a>
+                            </present>
+                            <notpresent name="prev">
+                                没有了
+                            </notpresent>
+                        </span>
+                    </div>
+
+                    <div class="review">
+                        <div class="features">
+                            <span class="up"><a href="javascript:void(0)" onclick="like();">顶(<span id="like">{$vo.like_count}</span>)</a></span>
+                            <span class="up"><a href="javascript:void(0)" onclick="unlike();">踩(<span id="unlike">{$vo.unlike_count}</span>)</a></span>
+                            <span><a href="javascript:void(0)" onclick="showComment();" title="点击查看评论">查看评论(<span id="commentNumber">{$count}</span>)</a></span>
+                            <em>点击:{$vo.browse_count}</em>
+                        </div>
+                        <div id="reviewBody">
+                            <volist name="comment" id="co" key="k">
+                                <div class="group <if condition="$k%2=='0'"> gray</if >">
+                                    <em>{$i}.</em>
+                                    <div class="photo">
+                                        <img src="{$Think.const.WEB_URL}/images/photoImg.gif" height="32" width="32">
+                                    </div>
+                                    <p class="time"><strong>{$co.nickname}</strong>&nbsp;</p>
+                                    <p class="time">{$co.publish_time} 发表</p>
+                                    <p class="reContent">{$co.content}</p>
+                                </div>
+                            </volist>
+
+
+                            <input type="hidden" id="articleId" value="{$vo.pk}">
+
+                            <h5>留下评论</h5>
+                            <present name="id">
+                                <form id="saveComment" method="post" action="__SELF__">
+                                    <input type="hidden" name="saveid" value="{$vo.pk}">
+                                    <dl class="clearfix">
+                                        <dt>昵称：</dt>
+                                        <dd>{$member['nickname']}</dd>
+                                    </dl>
+                                    <dl class="clearfix">
+                                        <dt>邮件地址：</dt>
+                                        <dd>{$member['email']}</dd>
+                                    </dl>
+                                    <dl class="clearfix">
+                                        <dt>评论：</dt>
+                                        <dd><textarea id="content" name="content" style="width: 420px; height: 120px;"></textarea></dd>
+                                    </dl>
+                                    <dl class="clearfix">
+                                        <dt>验证码：</dt>
+                                        <dd>
+                                            <input type="text" class="linput verify" id="human" style="float:left; width:36%;" name="verify" placeholder="验证码" />
+                                            <img src="__MODULE__/index/verifyImg" onclick="reloadcode(this,'__MODULE__/index/verifyImg?')" alt="点击重新刷新" title="点击重新刷新" style=" width: 145px; margin-left:10px; float:left; cursor: pointer;">
+                                        </dd>
+                                    </dl>
+                                    <dl class="clearfix">
+                                        <dt>&nbsp;</dt>
+                                        <dd>
+                                            <button id="postBtn" class="btn-green" type="button" onclick="postComment();">发布留言</button>
+                                        </dd>
+                                    </dl>
+                                </form>
+                            </present>
+                            <notpresent name="id">
+                                <p>会员登录后才可以评论</p>
+                            </notpresent>
+
+                        </div>
+                    </div>
+
+
                 </div>
             </div>
         </div>
@@ -47,6 +128,91 @@
 
 
 <block name="public">
+    <script type="text/javascript">
+        var clickedShowComment = false;
+        var clickedLike = false;
+        var clickedUnlike = false;
+
+        //show comment
+        showComment = function(){
+            if (clickedShowComment) {
+                return;
+            }
+            clickedShowComment = true;
+            $("#reviewBody .group").show();
+        };
+
+        //like this
+        like = function () {
+            if (clickedLike) {
+                return;
+            }
+            clickedLike = true;
+            var article_id = $("#articleId").val();
+            $.ajax( {
+                async : false,
+                type : "post",
+                dataType : "json",
+                url : "__MODULE__/Article/like",
+                data:{
+                    id : article_id
+                },
+                success : function(data) {
+                    if (data){
+                        $("#like").text(parseInt($("#like").text()) + 1);
+                    }
+                },
+                error : function() {
+                    clickedLike = false;
+                }
+            });
+        };
+
+        //unlike this
+        unlike = function () {
+            if (clickedUnlike) {
+                return;
+            }
+            clickedUnlike = true;
+            var article_id = $("#articleId").val();
+            $.ajax( {
+                async : false,
+                type : "post",
+                dataType : "json",
+                url : "__MODULE__/Article/unlike",
+                data:{
+                    id : article_id
+                },
+                success : function(data) {
+                    if (data){
+                        $("#unlike").text(parseInt($("#unlike").text()) + 1);
+                    }
+                },
+                error : function() {
+                    clickedLike = false;
+                }
+            });
+        };
 
 
+        postComment = function() {
+            if (null == $("#content").val() || "" == jQuery.trim($("#content").val())) {
+                alert('请输入相应的评论, 再发表.');
+                $("#content").focus();
+                return;
+            }
+            if ($("#content").val().length > 500) {
+                alert("评论最多能发表 500 个字符, 您已经发表 [ " + $("#content").val().length + " ] 个字符,\n请稍做修改再发表.");
+                $("#content").focus();
+                return;
+            }
+
+            $("#saveComment").submit();
+        };
+        //刷新验证码
+        function reloadcode(obj,src){
+            $(obj).attr("src",src+Math.random());
+        }
+
+    </script>
 </block>

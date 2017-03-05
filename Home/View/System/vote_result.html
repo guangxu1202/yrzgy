@@ -1,7 +1,7 @@
 <extend name="./base" />
 <block name="title">
     <foreach name="info" item="vo" >
-        <title>{$vo.title}- 投票 - 元认知心理干预技术网</title>
+        <title>{$vo.title}- 投票结果 - 元认知心理干预技术网</title>
         <meta name="keywords" content=""/>
         <meta name="description" content="{$vo.description}"/>
     </foreach>
@@ -10,7 +10,7 @@
 <block name="content">
 
 <div class="container i-container">
-    <div class="Statu">您的位置：<a href="{$Think.const.SITE_URL}">首页</a> &gt;&gt; <a href="__MODULE__/System/vote">投票</a>&gt;&gt; 详细 </div>
+    <div class="Statu">您的位置：<a href="{$Think.const.SITE_URL}">首页</a> &gt;&gt; <a href="__MODULE__/System/vote">投票</a>&gt;&gt; 结果 </div>
 </div>
 
 <div class="container i-container">
@@ -30,34 +30,34 @@
                             <input type="hidden" name="id" value="{$vo.pk}">
                             <div class="review">
                                 <table class="Edit">
-                                    <colgroup width="40px"></colgroup>
-                                    <colgroup width=""></colgroup>
                                     <thead>
-                                    <tr>
-                                        <td colspan="4">投票内容 (最多可以选择 {$vo.maximum} 项.)</td>
-                                    </tr>
+                                        <tr>
+                                            <td colspan="3">投票结果</td>
+                                        </tr>
                                     </thead>
                                     <tbody>
-                                        <volist name="item" id="v">
-                                            <tr>
-                                                <th>{$i}. </th>
-                                                <td>{$v.content}</td>
-                                                <td style="width: 20px;">
-                                                    <if condition="$vo.is_radio eq 1">
-                                                        <input type="radio" value="{$v.pk}" class="_vote" name="myradio" onclick="checkRadio();">
-                                                        <else />
-                                                        <input type="checkbox" value="{$v.pk}" class="_vote" name="mycheckbox[{$i}]" onclick="checkCheckbox(this, {$vo.maximum} );">
-                                                    </if>
 
+                                        <volist name="info1" id="vo1">
+                                            <tr>
+                                                <th style="min-width: 200px;">
+                                                    {$vo1.content}
+                                                </th>
+                                                <td style="width: 400px">
+                                                    <div class="progress progress-striped active mb0">
+                                                        <div class="progress-bar progress-bar-{$i}" style="width: {$vo1[per]}%"></div>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <span style="display: inline-block; min-width: 50px; text-align: right">{$vo1.num}票</span>
+                                                    ({$vo1[per]}%)
                                                 </td>
                                             </tr>
                                         </volist>
                                     </tbody>
                                 </table>
-                                <div class="BtnSubmit">
-                                    <button class="btn-green" type="button" onclick="elect()">提交</button>
-                                    <a href="__MODULE__/System/vote_result/u/{$vo.pk}" style="margin-left: 20px;">查看投票结果</a>
-                                </div>
+
+                                <a href="__MODULE__/System/vote_info/u/{$vo.pk}">返回投票</a>
+
                             </div>
                         </form>
 

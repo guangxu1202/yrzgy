@@ -59,54 +59,55 @@ Service = function(id, _top, _left) {
 };
 
 
+if ($("#xixi").length>0){
+    
+    window.onload = function() {
+        Service('xixi', 100, -152)
+    };
 
-window.onload = function() {
-    Service('xixi', 100, -152)
-};
+    lastScrollY = 0;
+    var InterTime = 1;
+    var maxWidth = -1;
+    var minWidth = -152;
+    var numInter = 8;
 
-lastScrollY = 0;
+    var BigInter;
+    var SmallInter;
 
-var InterTime = 1;
-var maxWidth = -1;
-var minWidth = -152;
-var numInter = 8;
+    var o = document.getElementById("xixi");
+    var i = parseInt(o.style.left);
 
-var BigInter;
-var SmallInter;
-
-var o = document.getElementById("xixi");
-var i = parseInt(o.style.left);
-
-function Big() {
-    if (parseInt(o.style.left) < maxWidth) {
-        i = parseInt(o.style.left);
-        i += numInter;
-        o.style.left = i + "px";
-        if (i == maxWidth)
-            clearInterval(BigInter);
+    function Big() {
+        if (parseInt(o.style.left) < maxWidth) {
+            i = parseInt(o.style.left);
+            i += numInter;
+            o.style.left = i + "px";
+            if (i == maxWidth)
+                clearInterval(BigInter);
+        }
     }
-}
 
-function toBig() {
-    clearInterval(SmallInter);
-    clearInterval(BigInter);
-    BigInter = setInterval(Big, InterTime);
-}
-
-function Small() {
-    if (parseInt(o.style.left) > minWidth) {
-        i = parseInt(o.style.left);
-        i -= numInter;
-        o.style.left = i + "px";
-
-        if (i == minWidth)
-            clearInterval(SmallInter);
+    function toBig() {
+        clearInterval(SmallInter);
+        clearInterval(BigInter);
+        BigInter = setInterval(Big, InterTime);
     }
-}
 
-function toSmall() {
-    clearInterval(SmallInter);
-    clearInterval(BigInter);
-    SmallInter = setInterval(Small, InterTime);
+    function Small() {
+        if (parseInt(o.style.left) > minWidth) {
+            i = parseInt(o.style.left);
+            i -= numInter;
+            o.style.left = i + "px";
 
+            if (i == minWidth)
+                clearInterval(SmallInter);
+        }
+    }
+
+    function toSmall() {
+        clearInterval(SmallInter);
+        clearInterval(BigInter);
+        SmallInter = setInterval(Small, InterTime);
+
+    }
 }

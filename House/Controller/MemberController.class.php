@@ -45,4 +45,47 @@ class MemberController extends CommonController{
         $this -> display();
     }
 
+//**********文章评论管理************
+    //文章评论列表
+    function articleCommentList(){
+        $user = M("comment");
+        $info = $user->field("b.nickname,a.content,c.title,a.publish_time,a.ip,a.audit,a.pk,c.pk as id")->where("a.article_id<>''")->join("as a left join member as b on a.member_id=b.pk left join article as c on a.article_id = c.pk") ->order("a.audit asc,a.publish_time desc") -> select();
+        $this -> assign("info",$info);
+        $this -> display();
+    }
+
+    //文章评论详情
+    function articleCommentShow(){
+        $user = M("comment");
+        if ($user->find(I("get.pa")) == null){
+            //错误ID
+            $this->error("页面无法访问！");
+        }else {
+            $info = $user->field("b.nickname,a.content,c.title,a.publish_time,a.ip,a.audit,a.pk,c.pk as id")->where("a.article_id<>'' and a.pk=".I("get.pa"))->join("as a left join member as b on a.member_id=b.pk left join article as c on a.article_id = c.pk")->order("a.audit asc,a.publish_time desc")->select();
+            $this->assign("info", $info);
+            $this->display();
+        }
+    }
+
+    //评论状态修改
+    function commentLocked(){
+        if (I('get.sa')=="pass"){
+            $str = "恭喜您，通过审核成功！";
+            $sa = 1;
+        }else if (I('get.sa')=="lock"){
+            $str = "恭喜您，评论屏蔽成功！";
+            $sa = 2;
+        }else{
+            $str = "恭喜您，解除屏蔽成功！";
+            $sa = 1;
+        }
+        $model = M("comment");
+        $data = array('audit'=> $sa);
+
+        $model-> where('pk='.I('get.pa'))->setField($data);
+
+        //操作成功
+        $this->success($str,__MODULE__."/Member/articleCommentList");
+    }
+
 }

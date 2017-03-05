@@ -270,6 +270,69 @@ a:hover{color: #fe336b;}
 .Edit tfoot td {height: 30px; background-color: #eef4ea; border: 1px solid #e5e5c6; padding-left: 20%;}
 .review {margin: 20px;}
 
+/*vote*/
+.mb0{    margin-bottom:0px;}
+.progress-bar-1,.progress-bar-16{ background-color: #00ccff;}
+.progress-bar-2,.progress-bar-17{ background-color: #ffcc00;}
+.progress-bar-3,.progress-bar-18{ background-color: #ff7200;}
+.progress-bar-4,.progress-bar-19{ background-color: #9c00ff;}
+.progress-bar-5,.progress-bar-20{ background-color: #007eff;}
+.progress-bar-6,.progress-bar-21{ background-color: #e400ff;}
+.progress-bar-7,.progress-bar-22{ background-color: #00ff6c;}
+.progress-bar-8,.progress-bar-23{ background-color: #ff3000;}
+.progress-bar-9,.progress-bar-24{ background-color: #66ff00;}
+.progress-bar-10,.progress-bar-25{ background-color: #9a01e9;}
+.progress-bar-11,.progress-bar-26{ background-color: #0179e9;}
+.progress-bar-12,.progress-bar-27{ background-color: #9ae901;}
+.progress-bar-13,.progress-bar-28{ background-color: #5b8a01;}
+.progress-bar-14,.progress-bar-29{ background-color: #009ee0;}
+.progress-bar-15,.progress-bar-30{ background-color: #3000e5;}
+
+/*LinkPage*/
+.LinkPage {padding: 10px 20px; line-height: 18px;}
+.LinkPage em {float: right; font-style: normal; text-align: right}
+.LinkPage em,.LinkPage span{width: 50%; overflow: hidden;}
+
+/*reviewBody*/
+.review {margin: 0px 20px; background: url(img/ui_Page_bg.gif) repeat-x; padding-bottom: 10px;}
+.features {height: 30px; line-height: 30px; text-align: right;}
+.features em {margin-left: 10px; margin-right: 2px; font-style: normal;}
+.group {border: 1px solid #dddddd; margin-bottom: 15px; padding: 5px; margin-left: 23px; position: relative; height: auto !important; min-height: 70px; height: 70px;}
+.gray {background-color: #f8f8f8;}
+.group em {position: absolute; left: -23px; top: 0px; line-height: 24px; font-weight: bold; font-size: 14px; font-family: Arial, Helvetica, sans-serif;}
+.group .photo {float: right; border: 1px solid #eeeeee; padding: 2px;}
+.group .user {font-weight: bold;}
+.group .user .top {color: #34538b; font-size: 14px;}
+.group .time {color: #34538b; line-height: 18px;}
+.group .reContent {padding: 8px 0px; line-height: 20px;}
+.group p{margin-bottom: 0px;}
+#reviewBody {margin-top: 10px;}
+#reviewBody .group{display: none;}
+.review h5 {font-size: 16px; font-weight: bold; line-height: 50px;}
+.review dl {width: 530px; line-height: 24px; margin-bottom: 8px;}
+.review dl dt {width: 80px; float: left; text-align: right; padding-right: 5px;}
+.review dl dd {width: 440px; float: left; height: auto !important; min-height: 22px; height: 22px;}
+.review dl dd input[type=text] {width: 237px;}
+.review dl dd textarea {width: 430px; height: 80px; margin: 3px 0px; _margin-top: 0px; border:1px solid #ccc;}
+.review dl dd input[type=image] {margin: 5px 0px;}
+.review dl dd em {color: #959595; margin-left: 10px;}
+.review dl dd .linput{border:1px solid #ccc; padding: 5px;}
+
+.up {margin-right: 10px; font-weight: bold;}
+.up a:link,.up a:visited {color: #008080;}
+
+/*advice_wrap*/
+.advice_wrap{ margin: 20px;}
+a.advice_btn{display: block; max-width: 300px; text-align: center; padding: 20px; background-color: #6dba2b; border-radius: 10px; color: #fff; font-size: 18px; margin-bottom: 20px; margin-top: 20px;}
+a.advice_btn:hover{background-color: #5ea91c; text-decoration: none;}
+.advice-tips{ color: #666; max-width: 300px; margin-bottom: 20px;}
+.advice-dl{}
+    .advice-dl dt{margin-bottom: 10px;}
+
+    /*review_box*/
+.review_box{margin: 20px;background: none;}
+
+
 
 /* mobile */
 @media screen and (max-width:768px){
