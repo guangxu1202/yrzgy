@@ -41,7 +41,8 @@
                                 序号
                             </th>
                             <th>发布人</th>
-                            <th>评论内容</th>
+                            <th>留言标题</th>
+                            <th>留言内容</th>
                             <th>子评论未审核</th>
                             <th>评论时间</th>
                             <th>IP</th>
@@ -54,19 +55,18 @@
                         <volist name="info" id="vo">
                             <tr>
                                 <td class="center">{$i}</td>
-                                <td>
-                                    {$vo.nickname}
-                                </td>
+                                <td>{$vo.nickname}</td>
+                                <td style="max-width: 160px;">{$vo.title}</td>
                                 <td style="max-width: 260px;"> {$vo.content} </td>
-                                <td>
+                                <td style="width: 100px;text-align: center">
                                     <if condition="$vo.num eq 0 ">
                                         {$vo.num}
                                         <else />
-                                        <span class="circle-red">{$vo.num}</span>
+                                        <a class="circle-red" href="__MODULE__/Member/messageShow/pa/{$vo.pk}">{$vo.num}</a>
                                     </if>
                                 </td>
                                 <td>{$vo.publish_time|substr=0,10}</td>
-                                <td>{$vo.ip}</td>
+                                <td style="width: 100px">{$vo.ip}</td>
                                 <td>
                                     <if condition="$vo.audit eq 0 ">
                                         未审核

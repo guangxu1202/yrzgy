@@ -54,7 +54,8 @@ img{max-width: 100%;}
 .progress-bar-15,.progress-bar-30{ background-color: #3000e5;}
 
 
-.circle-red{display: inline-block; width:20px; height: 20px; border-radius: 50%; background-color: #cc0000; color: #fff; line-height: 20px; text-align: center;}
+a.circle-red{display: inline-block; width:20px; height: 20px; border-radius: 50%; background-color: #cc0000; color: #fff; line-height: 20px; text-align: center;}
+a.circle-red:hover{text-decoration: none; background-color: #ff0000;}
 
 .group {border: 1px solid #dddddd; margin-bottom: 15px; padding: 5px; margin-left: 23px; position: relative; height: auto !important; min-height: 70px; height: 70px;}
 .gray {background-color: #f8f8f8;}

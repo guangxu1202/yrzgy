@@ -93,7 +93,7 @@ class MemberController extends CommonController{
     //列表
     function messageList(){
         $user = M("comment");
-        $info = $user->field("b.nickname,a.content,a.publish_time,a.ip,a.audit,a.pk")->where("a.article_id is null and a.pid is null")->join("as a left join member as b on a.member_id=b.pk") ->order("a.audit asc,a.publish_time desc") -> select();
+        $info = $user->field("b.nickname,a.content,a.publish_time,a.ip,a.audit,a.pk,a.title")->where("a.article_id is null and a.pid is null")->join("as a left join member as b on a.member_id=b.pk") ->order("a.audit asc,a.publish_time desc") -> select();
 
         foreach ($info as $key =>$u){
             $n = $user->where("audit = 0 and pid =".$u["pk"]) -> count();

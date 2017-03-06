@@ -3,7 +3,11 @@ namespace Home\Controller;
 use Think\Controller;
 class MemberController extends CommonController {
     function main(){
-        echo ("用户中心");
-//        $this -> error("失败",SITE_URL);
+        //获取个人信息
+        $member = M("member");
+        $info = $member->where("pk=".session("c_id")) -> find();
+        $this -> assign("info",$info);
+
+        $this -> display();
     }
 }
