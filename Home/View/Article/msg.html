@@ -39,11 +39,18 @@
                         <div id="reviewBody">
                             <volist name="comment" id="co" key="k">
                                 <div class="group <if condition="$k%2=='0'"> gray</if >"  style="display: block;">
-                                    <em>{$i}.</em>
+                                    <em>{$k}.</em>
                                     <div class="photo">
                                         <img src="{$Think.const.WEB_URL}/images/photoImg.gif" height="32" width="32">
                                     </div>
-                                    <p class="time"><strong>{$co.nickname}</strong>&nbsp;</p>
+                                    <p class="time">
+                                        <if condition="$co.is_admin eq 1">
+                                            <strong class="red">管理员</strong>
+                                            <else />
+                                            <strong>{$co.nickname}</strong>
+                                        </if>
+                                        &nbsp;
+                                    </p>
                                     <p class="time">{$co.publish_time} 发表</p>
                                     <p class="reContent">{$co.content}</p>
                                 </div>

@@ -205,7 +205,7 @@ class ArticleController extends CommonController {
 
 
                 //已有评论循环
-                $comment = $model->join("as a left join member as b on a.member_id = b.pk") ->field("a.publish_time,a.content,b.nickname") ->where("a.audit = 1 and a.pid =".I("get.u"))->order("a.publish_time desc") -> select();
+                $comment = $model->join("as a left join member as b on a.member_id = b.pk") ->field("a.publish_time,a.content,b.nickname,a.is_admin") ->where("a.audit = 1 and a.pid =".I("get.u"))->order("a.publish_time desc") -> select();
                 $this->assign("comment", $comment);
                 $count =$model->where("audit = 1 and pid =".I("get.u")) ->count();
                 $this->assign("count", $count);

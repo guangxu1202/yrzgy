@@ -52,3 +52,17 @@ img{max-width: 100%;}
 .progress-bar-13,.progress-bar-28{ background-color: #5b8a01;}
 .progress-bar-14,.progress-bar-29{ background-color: #009ee0;}
 .progress-bar-15,.progress-bar-30{ background-color: #3000e5;}
+
+
+.circle-red{display: inline-block; width:20px; height: 20px; border-radius: 50%; background-color: #cc0000; color: #fff; line-height: 20px; text-align: center;}
+
+.group {border: 1px solid #dddddd; margin-bottom: 15px; padding: 5px; margin-left: 23px; position: relative; height: auto !important; min-height: 70px; height: 70px;}
+.gray {background-color: #f8f8f8;}
+.group em {position: absolute; left: -23px; top: 0px; line-height: 24px; font-weight: bold; font-size: 14px; font-family: Arial, Helvetica, sans-serif;}
+.group .photo {float: right; border: 1px solid #eeeeee; padding: 2px;}
+.group .user {font-weight: bold;}
+.group .user .top {color: #34538b; font-size: 14px;}
+.group .time {color: #34538b; line-height: 18px;}
+.group .reContent {padding: 8px 0px; line-height: 20px;}
+.group p{margin-bottom: 0px;}
+.Edit tbody td .group em{margin-left: 0px;}
