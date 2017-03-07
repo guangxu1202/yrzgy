@@ -10,7 +10,7 @@ class ArticleController extends CommonController {
             //错误ID
             $this->error("页面无法访问！");
         }else {
-            $model_name = $model->field("name")->where("pk=".I("get.cate"))->select();
+            $model_name = $model->field("name,pk")->where("pk=".I("get.cate"))->select();
             $this -> assign("model_name",$model_name[0]);
             //获取article
             //文章列表获取
@@ -21,6 +21,12 @@ class ArticleController extends CommonController {
             $list = $article->join("as a LEFT JOIN article_model as m ON a.pk = m.article_id LEFT JOIN model ON m.model_id = model.pk")->field("a.title,a.pk,a.update_time") ->where("a.is_show = 1 and model.pk =".I("get.cate"))->order('a.update_time desc')->limit($Page->firstRow.','.$Page->listRows)->select();
             $this->assign('list', $list);// 赋值数据集
             $this->assign('page', $show);// 赋值分页输出
+
+            //研修生档案
+            if (I("get.cate") == 12){
+                $archives_cate = M("archives_cate")->where("is_show= 1")->limit(5)->select();
+                $this->assign('archives_cate', $archives_cate);
+            }
 
             $this->display();
         }
@@ -68,7 +74,7 @@ class ArticleController extends CommonController {
             }
             else{
                 //获取新闻内容
-                $info = $article-> field("title,keywords,summary,author,article_from,update_time,content,browse_count,like_count,unlike_count,pk") ->where("pk=".I("get.u")) ->select();
+                $info = $article-> field("title,keywords,summary,author,article_from,update_time,content,browse_count,like_count,unlike_count,pk,allow_copy,is_enable_comment") ->where("pk=".I("get.u")) ->select();
                 $this->assign("info", $info);
                 $model_id = M("article_model")->where("article_id=".I("get.u"))->field("model_id") -> find();
                 //show_bug($model_id["model_id"]);
@@ -265,5 +271,85 @@ class ArticleController extends CommonController {
             $this->display();
         }
     }
+
+
+
+    //研修生档案主列表
+    function archives(){
+
+
+        //列表获取
+        $archives_cate = M("archives_cate");
+        $count      = $archives_cate->where("is_show = 1") ->order("update_time desc")->count();// 查询满足要求的总记录数
+        $Page       = new \Think\Page($count,C("PAGE_NUM"));// 实例化分页类 传入总记录数和每页显示的记录数(25)
+        $show       = $Page->show();// 分页显示输出
+        $list = $archives_cate->where("is_show = 1") ->order("update_time desc") ->limit($Page->firstRow.','.$Page->listRows)->select();
+        $this->assign('list', $list);// 赋值数据集
+        $this->assign('page', $show);// 赋值分页输出
+
+        //研修生档案
+        $archives_cate = M("archives_cate")->where("is_show= 1")->limit(5)->select();
+        $this->assign('archives_cate', $archives_cate);
+
+        $this->display();
+
+    }
+
+    //研修生档案子列表
+    function arch(){
+        $model =M("archives_cate");
+        if ($model->find(I("get.cate")) == null){
+            //错误ID
+            $this->error("页面无法访问！");
+        }else {
+            $model_name = $model->field("name,pk")->where("pk=".I("get.cate"))->select();
+            $this -> assign("model_name",$model_name[0]);
+
+            //列表获取
+            $archives = M("archives");
+            $count      = $archives->join("as a LEFT JOIN archives as b ON b.pk = a.cate_id")->field("a.title,a.pk,a.update_time") ->where("a.is_show = 1 and b.pk =".I("get.cate")) ->order("a.update_time desc")->count();// 查询满足要求的总记录数
+            $Page       = new \Think\Page($count,C("PAGE_NUM"));// 实例化分页类 传入总记录数和每页显示的记录数(25)
+            $show       = $Page->show();// 分页显示输出
+            $list = $archives->join("as a LEFT JOIN archives as b ON b.pk = a.cate_id")->field("a.title,a.pk,a.update_time") ->where("a.is_show = 1 and b.pk =".I("get.cate")) ->order("a.update_time desc")->limit($Page->firstRow.','.$Page->listRows)->select();
+            $this->assign('list', $list);// 赋值数据集
+            $this->assign('page', $show);// 赋值分页输出
+
+            //研修生档案
+
+            $archives_cate = M("archives_cate")->where("is_show= 1")->limit(5)->select();
+            $this->assign('archives_cate', $archives_cate);
+
+
+            $this->display();
+        }
+    }
+
+    //研修生档案详情
+    function arch_show(){
+        $archives = M("archives");
+        if ($archives->find(I("get.u")) == null){
+            //错误ID
+            $this->error("页面无法访问！");
+        }else {
+
+            //获取新闻内容
+            $info = $archives-> field("title,keywords,summary,update_time,content,browse_count,pk,allow_copy,cate_id") ->where("pk=".I("get.u")) ->select();
+            $this->assign("info", $info);
+            //$model_id = M("article_model")->where("article_id=".I("get.u"))->field("model_id") -> find();
+            //show_bug($model_id["model_id"]);
+
+
+            $model_name = M("archives_cate")->field("name,pk")->where("pk=".$info[0]["cate_id"])->select();
+            $this -> assign("model_name",$model_name[0]);
+
+
+            //文章点击数累加
+            $archives->where('pk='.I("get.u"))->setInc('browse_count',1);
+
+            $this->display();
+
+        }
+    }
+
 
 }

@@ -1,3 +1,58 @@
 -- 添加文章分类排序字段
 ALTER TABLE model ADD custom_sort INT(11)
 
+
+-- 新建研修生档案分类
+create table archives_cate
+(
+   pk                   int not null auto_increment,
+   name                 varchar(100),
+   create_time          datetime,
+   creator              varchar(50),
+   regenerator          varchar(50),
+   update_time          datetime,
+   is_show              bit,
+   primary key (pk)
+);
+
+-- 新建研修生档案
+create table archives
+(
+   pk                   int not null auto_increment,
+   create_time          datetime,
+   creator              varchar(50),
+   regenerator          varchar(50),
+   update_time          datetime,
+   is_show              bit,
+   title                varchar(100),
+   content              text,
+   allow_copy           bit,
+   browse_count         int,
+   custom_sort          int,
+   keywords             varchar(200),
+   summary              varchar(200),
+   cate_id              int,
+   primary key (pk)
+);
+
+-- 新建咨询师用户
+create table teacher
+(
+   pk                   int not null auto_increment,
+   create_time          datetime,
+   creator              varchar(50),
+   regenerator          varchar(50),
+   update_time          datetime,
+   is_show              bit,
+   real_name            varchar(50),
+   summary              varchar(300),
+   custom_sort          int,
+   username             varchar(50),
+   password             varchar(50),
+   last_login_time      datetime,
+   ip                   varchar(50),
+   phone                varchar(15),
+   qq                   varchar(15),
+   address              varchar(100),
+   primary key (pk)
+);

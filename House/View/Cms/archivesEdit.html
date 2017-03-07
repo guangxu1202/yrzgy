@@ -1,0 +1,244 @@
+<extend name="./base" />
+<block name="title"><title>修改 - 研修生档案管理 - 内容管理 - 元认知干预网站管理后台系统</title></block>
+<block name="content">
+    <div class="breadcrumbs" id="breadcrumbs">
+        <script type="text/javascript">
+            try{ace.settings.check('breadcrumbs' , 'fixed')}catch(e){}
+        </script>
+
+        <ul class="breadcrumb">
+            <li>
+                <i class="icon-home home-icon"></i>
+                <a href="#">首页</a>
+            </li>
+            <li class="active">内容管理</li>
+        </ul><!-- .breadcrumb -->
+
+    </div>
+
+    <div class="page-content">
+        <div class="page-header">
+            <h1>
+                研修生档案管理
+                <small>
+                    <i class="icon-double-angle-right"></i>
+                    修改
+                </small>
+            </h1>
+        </div><!-- /.page-header -->
+        <div class="row">
+            <div class="col-xs-12">
+                <form class="form-horizontal" id="myForm" method="post" action="__SELF__">
+                    <foreach name="info" item="vo" >
+                        <div class="space-4"></div>
+                        <input type="hidden" name="pk" value="{$vo.pk}">
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label no-padding-right"> <span class="red">*</span>研修生姓名： </label>
+                            <div class="col-sm-5">
+                                <input placeholder="请输入研修生姓名" class="form-control" type="text" name="title" value="{$vo.title}">
+                            </div>
+                        </div>
+
+
+                        <div class="space-4"></div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label no-padding-right"> 摘要： </label>
+                            <div class="col-sm-5">
+                                <textarea class="autosize-transition form-control" style="height: 120px;" name="summary">{$vo.summary}</textarea>
+                            </div>
+                        </div>
+
+                        <div class="space-4"></div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label no-padding-right">档案内容： </label>
+                            <div class="col-sm-9">
+                                <!-- ckeditor -->
+                                <script src="{$Think.const.PUBLIC_URL}/ckeditor/ckeditor.js"></script>
+                                <textarea name="content">{$vo.content}</textarea>
+                                <script type="text/javascript">CKEDITOR.replace('content',{ filebrowserImageUploadUrl  :  '__MODULE__/Files/ck_upload',height : 500});</script>
+                            </div>
+                        </div>
+
+
+                        <div class="space-4"></div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label no-padding-right"> <span class="red">*</span>自定义排序： </label>
+                            <div class="col-sm-5">
+                                <input placeholder="请输入自定义排序, 数字大的在前面." class="form-control" type="text" name="custom_sort" value="{$vo.custom_sort}" >
+                                <span class="grey">请输入自定义排序,数字大的在前面</span>
+                            </div>
+                        </div>
+
+                        <div class="space-4"></div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label no-padding-right"> <span class="red">*</span>选择分类： </label>
+                            <div class="col-sm-5">
+                                <select name="cate_id">
+                                    <volist name="info2" id="v">
+                                        <if condition="$v.check eq 1 ">
+                                            <option value="{$v.pk}" selected="selected">{$v.name}</option>
+                                            <else />
+                                            <option value="{$v.pk}">{$v.name}</option>
+                                        </if>
+
+                                    </volist>
+                                </select>
+                            </div>
+                        </div>
+
+
+
+                        <div class="space-4"></div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label no-padding-right"> 允许复制： </label>
+                            <div class="col-sm-5">
+                                <div class="form-info">
+                                    <if condition="$vo.allow_copy eq 1">
+                                        <label class="lab"><input value="false" name="allow_copy" type="radio">拒绝</label>
+                                        <label class="lab"><input value="true" name="allow_copy" checked="checked" type="radio">允许</label>
+                                        <else />
+                                        <label class="lab"><input value="false" name="allow_copy" checked="checked" type="radio">拒绝</label>
+                                        <label class="lab"><input value="true" name="allow_copy" type="radio">允许</label>
+                                    </if>
+
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="space-4"></div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label no-padding-right">关键字： </label>
+                            <div class="col-sm-5">
+                                <input placeholder="请输入关键字" class="form-control" type="text" name="keywords" value="{$vo.keywords}" >
+                            </div>
+                        </div>
+
+
+                        <div class="space-4"></div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label no-padding-right">状态： </label>
+                            <div class="col-sm-5">
+                                <div class="form-info">
+                                    <if condition="$vo.is_show eq 1">
+                                        <label class="lab"><input value="true" name="is_show" checked="checked" type="radio">正常</label>
+                                        <label class="lab"><input value="false" name="is_show" type="radio">过时</label>
+                                        <else />
+                                        <label class="lab"><input value="true" name="is_show" type="radio">正常</label>
+                                        <label class="lab"><input value="false" name="is_show" checked="checked" type="radio">过时</label>
+                                    </if>
+
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="space-4"></div>
+
+                        <div class="clearfix form-actions">
+                            <div class="col-md-offset-3 col-md-9">
+                                <div class="row">
+                                    <button class="btn btn-info b-submit" type="submit">
+                                        <i class="icon-ok bigger-110"></i>
+                                        提交
+                                    </button>
+                                    <button class="btn" type="button" onclick="javascript:history.back()">返回</button>
+                                </div>
+                            </div>
+                        </div>
+                    </foreach>
+                </form>
+            </div>
+        </div>
+
+    </div>
+</block>
+
+<block name="public">
+
+    <!-- inline scripts related to this page -->
+
+    <script src="{$Think.const.ADMIN_URL}/js/admin.js"></script>
+    <script type="text/javascript">
+        $(function(){
+
+            $('#myForm')
+            .bootstrapValidator({
+                message: 'This value is not valid',
+                feedbackIcons: {
+                    valid: 'glyphicon glyphicon-ok',
+                    invalid: 'glyphicon glyphicon-remove',
+                    validating: 'glyphicon glyphicon-refresh'
+                },
+                fields: {
+                    title: {
+                        validators: {
+                            notEmpty: {
+                                message: '研修生姓名不能为空'
+                            },
+                            stringLength: {
+                                min: 0,
+                                max: 90,
+                                message: '研修生姓名长度必须在0到90之间'
+                            }
+                        }
+                    },
+                    summary: {
+                        validators: {
+                            stringLength: {
+                                min: 0,
+                                max: 200,
+                                message: '文章标题长度必须在0到200之间'
+                            }
+                        }
+                    },
+                    keywords: {
+                        validators: {
+                            stringLength: {
+                                min: 0,
+                                max: 200,
+                                message: '关键词长度必须在0到200之间'
+                            }
+                        }
+                    },
+                    cate_id: {
+                        validators: {
+                            notEmpty: {
+                                message: '请至少选择一个所属分类'
+                            }
+                        }
+                    },
+                    custom_sort: {
+                        validators: {
+                            notEmpty: {
+                                message: '自定义排序不能为空'
+                            },
+                            stringLength: {
+                                min: 1,
+                                max: 10,
+                                message: '自定义排序长度必须在1到10之间'
+                            },
+                            digits :  {
+                                message: '只能输入整数'
+                            }
+                        }
+                    }
+
+                },
+                submitHandler: function(validator, form, submitButton) {
+                    // a)
+                    // Use Ajax to submit form data
+                    //$.post(form.attr('action'), form.serialize(), function(result) {
+                    // ... process the result ...
+                    //}, 'json');
+
+                    //b)
+                    // Do your task
+                    // ...
+                    // Submit the form
+                    validator.defaultSubmit();
+                }
+
+            });
+        })
+    </script>
+</block>

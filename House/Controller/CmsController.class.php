@@ -1001,4 +1001,141 @@ class CmsController extends CommonController
 
     }
 
+
+//**********研修生档案管理************
+    //列表
+    function archivesList(){
+        $user = M("archives");
+        $info = $user -> join("as a left join archives_cate as b on b.pk = a.cate_id") ->field("a.update_time,a.title,b.name,a.custom_sort,a.allow_copy,a.creator,a.create_time,a.regenerator,a.is_show,a.pk") ->order("a.is_show desc,a.custom_sort desc,a.update_time desc") -> select();
+        $this -> assign("info",$info);
+        $this -> display();
+    }
+
+    //新增
+    function archivesAdd(){
+        if (!empty($_POST)){
+            //实例化
+            $model = new \Model\ArchivesModel();
+            //验证数据 ArchivesModel
+            $z = $model -> create();
+            if (!$z){
+//                show_bug($model -> getError());
+                $this->error("您录入的数据格式错误！");
+                exit();
+            }
+
+            //数据录入
+            $log["create_time"] = date("Y-m-d H:i:s");
+            $log["creator"] = session("a_username");
+            $log["update_time"] = date("Y-m-d H:i:s");
+            $log["regenerator"] = session("a_username");
+            $log["allow_copy"] = checkBit(I('post.allow_copy'));
+            $log["content"] = I("post.content");
+            $log["custom_sort"] = I("post.custom_sort");
+            $log["keywords"] = I("post.keywords");
+            $log["is_show"] = checkBit(I('post.is_show'));
+            $log["summary"] = I("post.summary");
+            $log["title"] = I("post.title");
+            $log["cate_id"] = I("post.cate_id");
+            $log["browse_count"] = 0;
+            $model->data($log)->add();
+
+            $this->success("恭喜您，操作成功！",__MODULE__."/Cms/archivesList");
+
+        }else{
+            $m = M("archives_cate");
+            $info = $m-> order("pk asc") ->where("is_show = 1") -> select();
+            $this -> assign("info",$info);
+            $this -> display();
+        }
+    }
+
+    //修改
+    function archivesEdit(){
+        if (!empty($_POST)){
+            $model = new \Model\ArchivesModel();
+            //验证数据 ArchivesModel
+            $z = $model -> create();
+            if (!$z){
+                //show_bug($model -> getError());
+                $this->error("您录入的数据格式错误！");
+                exit();
+            }
+
+            //数据修改
+            $data = array(
+                'allow_copy'=>checkBit(I('post.allow_copy')),
+                'content'=>I('post.content'),
+                'custom_sort'=>I('post.custom_sort'),
+                'keywords'=>I('post.keywords'),
+                'is_show'=>checkBit(I('post.is_show')),
+                'summary'=>I('post.summary'),
+                'cate_id'=>I('post.cate_id'),
+                'title'=>I('post.title'),
+                'regenerator'=>session("a_username"),
+                'update_time'=>date("Y-m-d H:i:s")
+            );
+            $model->  where("pk=".I('post.pk'))  ->setField($data);
+            
+            //录入成功
+            $this->success("恭喜您，操作成功！",__MODULE__."/Cms/archivesList");
+
+        }else{
+
+
+            $m = M("archives_cate");
+            $info2 = $m-> order("pk asc") ->where("is_show = 1") -> field("pk,name") -> select();
+            $model = M("archives");
+            $info = $model-> where("pk=".I('get.pa')) -> select();
+            $cate = $model ->where("pk=".I('get.pa')) -> field("cate_id") ->select();
+
+            //追加类别id显示
+            for($r=0;$r<count($info2);$r++) {
+                if ($info2[$r]['pk'] == $cate[0]['cate_id']){
+                    $info2[$r]['check'] = "1";
+                }else{
+                    $info2[$r]['check'] = "0";
+                }
+            }
+
+            $this -> assign("info",$info);
+            $this -> assign("info2",$info2);
+            $this -> display();
+        }
+    }
+
+    //过时与恢复
+    function archivesLocked(){
+        if (I('get.sa')=="lock"){
+            $str = "恭喜您，档案过时成功！";
+            $sa = false;
+        }else{
+            $str = "恭喜您，档案启用成功！";
+            $sa = true;
+        }
+        $model = M("archives");
+        $data = array('is_show'=> $sa,'regenerator'=>session("a_username"),'update_time'=>date("Y-m-d H:i:s"));
+        $model-> where('pk='.I('get.pa'))->setField($data);
+
+        //操作成功
+        $this->success($str,__MODULE__."/Cms/archivesList");
+    }
+
+    //查看
+    function archivesShow(){
+        $user = M("archives");
+        $info = $user-> where('pk='.I('get.pa'))->select();
+
+        $m = M("archives_cate");
+        $info1 = $m ->where("pk = ".$info[0]["cate_id"]) -> field("name") -> select();
+
+
+        $this->assign("info", $info);
+        $this->assign("category_name",$info1[0]["name"]);
+        $this->display();
+    }
+
+
+
+
 }

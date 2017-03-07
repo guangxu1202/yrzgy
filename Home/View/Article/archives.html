@@ -1,53 +1,50 @@
 <extend name="./base" />
 <block name="title">
-    <title>{$model_name.name} - 元认知心理干预技术网</title>
-    <meta name="keywords" content="元认知,元认知干预，元认知心理，元认知心理干预，元认知心理干预技术，金洪源,{$model_name.name}"/>
+    <title>研修生档案 - 元认知心理干预技术网</title>
+    <meta name="keywords" content="元认知,元认知干预，元认知心理，元认知心理干预，元认知心理干预技术，金洪源"/>
     <meta name="description" content="元认知研究所由金洪源教授任所长，面向全国提供心理技术服务，解决学生偏科、厌学、马虎、考试焦虑、拖延等学习障碍问题；改善人际关系，解决亲子、家庭问题；提供失眠、焦虑、强迫、抑郁等辅助性干预；优化性格系统。主要业务：个体咨询、团体辅导、技术培训、进驻学校推进心理健康技术化改革。下设临床服务部、研修生部、驻校服务部、中小学教研部、技术研发与培训部。"/>
 </block>
 
 <block name="content">
 
 <div class="container i-container">
-    <div class="Statu">您的位置：<a href="{$Think.const.SITE_URL}">首页</a> &gt;&gt; {$model_name.name}</div>
+    <div class="Statu">您的位置：<a href="{$Think.const.SITE_URL}">首页</a> &gt;&gt; 研修生档案</div>
 </div>
 
 <div class="container i-container">
     <div class="row">
         <div class="col-sm-3">
-            <if condition="$model_name.pk eq 12 ">
-                <div class="box">
-                    <div class="Mtop">
-                        <span><a href="__MODULE__/Article/archives">更多&gt;&gt;</a></span>
-                        <h2><img src="{$Think.const.WEB_URL}/images/ico_01.gif" class="ico"/> 研修生档案</h2>
-                    </div>
-                    <div class="Mbody">
-                        <ul class="list">
-                            <volist name="archives_cate" id="vo">
-                                <li><a href="__MODULE__/Article/arch/u/{$vo.pk}"><nobr>{$vo.name}</nobr></a></li>
-                            </volist>
-                        </ul>
-                    </div>
+            <div class="box">
+                <div class="Mtop">
+                    <span><a href="__MODULE__/Article/archives">更多&gt;&gt;</a></span>
+                    <h2><img src="{$Think.const.WEB_URL}/images/ico_01.gif" class="ico"/> 研修生档案</h2>
                 </div>
-            </if>
+                <div class="Mbody">
+                    <ul class="list">
+                        <volist name="archives_cate" id="vo">
+                            <li><a href="__MODULE__/Article/arch/cate/{$vo.pk}"><nobr>{$vo.name}</nobr></a></li>
+                        </volist>
+                    </ul>
+                </div>
+            </div>
             <include file="./left" />
         </div>
         <div class="col-sm-9">
             <div class="box">
                 <div class="Mtop">
-                    <h2><img src="{$Think.const.WEB_URL}/images/ico_04.gif" class="ico" /> {$model_name.name}</h2>
+                    <h2><img src="{$Think.const.WEB_URL}/images/ico_04.gif" class="ico" /> 研修生档案分类列表</h2>
                 </div>
-                <div class="Mbody">
+                <div class="Mbody news">
                     <ul class="list newlist">
                         <!--列表标准:20行/页-->
                         <volist name="list" id="vo">
                             <li>
                                 <span>{$vo.update_time|substr=0,10}</span>
-                                <a href="__MODULE__/Article/show/u/{$vo.pk}" target="_blank">{$vo.title}</a>
+                                <a href="__MODULE__/Article/arch/cate/{$vo.pk}" target="_blank">{$vo.name}</a>
                             </li>
                         </volist>
                     </ul>
                     <div class="pagenation">{$page}</div>
-
                 </div>
             </div>
         </div>

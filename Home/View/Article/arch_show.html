@@ -1,0 +1,149 @@
+<extend name="./base" />
+<block name="title">
+    <foreach name="info" item="vo" >
+    <title>{$vo.title} - {$model_name.name} - 研修生档案 - 元认知心理干预技术网</title>
+    <meta name="keywords" content="{$vo.keywords}"/>
+    <meta name="description" content="{$vo.summary}"/>
+        <if condition="$vo.allow_copy eq 1 ">
+            <else />
+            <script type="text/javascript">
+                document.oncontextmenu = new Function("return false");
+                document.onselectstart = new Function("return false");
+                document.onpaste = new Function("return false");
+                document.oncut = new Function("return false");
+                document.oncopy = new Function("return false");
+            </script>
+        </if>
+    </foreach>
+</block>
+
+<block name="content">
+
+<div class="container i-container">
+    <div class="Statu">您的位置：<a href="{$Think.const.SITE_URL}">首页</a> &gt;&gt; <a href="__MODULE__/Article/archives">研修生档案</a> &gt;&gt; <a href="__MODULE__/Article/arch/cate/{$model_name.pk}">{$model_name.name}</a> &gt;&gt; 详细</div>
+</div>
+
+<div class="container i-container">
+    <div class="row">
+        <div class="col-sm-3">
+            <include file="./left" />
+        </div>
+        <div class="col-sm-9">
+            <div class="box">
+                <div class="Mtop">
+                    <h2><img src="{$Think.const.WEB_URL}/images/ico_04.gif" class="ico" /> 详细</h2>
+                </div>
+                <div class="Mbody news">
+                    <foreach name="info" item="vo" >
+                        <h1>{$vo.title}</h1>
+                        <div class="newsCon" style="min-height: 300px;">
+                            {$vo.content|htmlspecialchars_decode}
+                        </div>
+                    </foreach>
+
+                    <div class="review">
+                        <div class="features">
+                            <em>点击:{$vo.browse_count}</em>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+</block>
+
+
+<block name="public">
+    <script type="text/javascript">
+        var clickedShowComment = false;
+        var clickedLike = false;
+        var clickedUnlike = false;
+
+        //show comment
+        showComment = function(){
+            if (clickedShowComment) {
+                return;
+            }
+            clickedShowComment = true;
+            $("#reviewBody .group").show();
+        };
+
+        //like this
+        like = function () {
+            if (clickedLike) {
+                return;
+            }
+            clickedLike = true;
+            var article_id = $("#articleId").val();
+            $.ajax( {
+                async : false,
+                type : "post",
+                dataType : "json",
+                url : "__MODULE__/Article/like",
+                data:{
+                    id : article_id
+                },
+                success : function(data) {
+                    if (data){
+                        $("#like").text(parseInt($("#like").text()) + 1);
+                    }
+                },
+                error : function() {
+                    clickedLike = false;
+                }
+            });
+        };
+
+        //unlike this
+        unlike = function () {
+            if (clickedUnlike) {
+                return;
+            }
+            clickedUnlike = true;
+            var article_id = $("#articleId").val();
+            $.ajax( {
+                async : false,
+                type : "post",
+                dataType : "json",
+                url : "__MODULE__/Article/unlike",
+                data:{
+                    id : article_id
+                },
+                success : function(data) {
+                    if (data){
+                        $("#unlike").text(parseInt($("#unlike").text()) + 1);
+                    }
+                },
+                error : function() {
+                    clickedLike = false;
+                }
+            });
+        };
+
+
+        postComment = function() {
+            if (null == $("#content").val() || "" == jQuery.trim($("#content").val())) {
+                alert('请输入相应的评论, 再发表.');
+                $("#content").focus();
+                return;
+            }
+            if ($("#content").val().length > 500) {
+                alert("评论最多能发表 500 个字符, 您已经发表 [ " + $("#content").val().length + " ] 个字符,\n请稍做修改再发表.");
+                $("#content").focus();
+                return;
+            }
+
+            $("#saveComment").submit();
+        };
+        //刷新验证码
+        function reloadcode(obj,src){
+            $(obj).attr("src",src+Math.random());
+        }
+
+    </script>
+</block>

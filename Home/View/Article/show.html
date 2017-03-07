@@ -4,6 +4,16 @@
     <title>{$vo.title} - 元认知心理干预技术网</title>
     <meta name="keywords" content="{$vo.keywords}"/>
     <meta name="description" content="{$vo.summary}"/>
+        <if condition="$vo.allow_copy eq 1 ">
+            <else />
+            <script type="text/javascript">
+                document.oncontextmenu = new Function("return false");
+                document.onselectstart = new Function("return false");
+                document.onpaste = new Function("return false");
+                document.oncut = new Function("return false");
+                document.oncopy = new Function("return false");
+            </script>
+        </if>
     </foreach>
 </block>
 
@@ -53,68 +63,73 @@
                             </notpresent>
                         </span>
                     </div>
-
-                    <div class="review">
-                        <div class="features">
-                            <span class="up"><a href="javascript:void(0)" onclick="like();">顶(<span id="like">{$vo.like_count}</span>)</a></span>
-                            <span class="up"><a href="javascript:void(0)" onclick="unlike();">踩(<span id="unlike">{$vo.unlike_count}</span>)</a></span>
-                            <span><a href="javascript:void(0)" onclick="showComment();" title="点击查看评论">查看评论(<span id="commentNumber">{$count}</span>)</a></span>
-                            <em>点击:{$vo.browse_count}</em>
-                        </div>
-                        <div id="reviewBody">
-                            <volist name="comment" id="co" key="k">
-                                <div class="group <if condition="$k%2=='0'"> gray</if >">
-                                    <em>{$i}.</em>
-                                    <div class="photo">
-                                        <img src="{$Think.const.WEB_URL}/images/photoImg.gif" height="32" width="32">
+                    <if condition="$vo.is_enable_comment eq 1 ">
+                        <div class="review">
+                            <div class="features">
+                                <span class="up"><a href="javascript:void(0)" onclick="like();">顶(<span id="like">{$vo.like_count}</span>)</a></span>
+                                <span class="up"><a href="javascript:void(0)" onclick="unlike();">踩(<span id="unlike">{$vo.unlike_count}</span>)</a></span>
+                                <span><a href="javascript:void(0)" onclick="showComment();" title="点击查看评论">查看评论(<span id="commentNumber">{$count}</span>)</a></span>
+                                <em>点击:{$vo.browse_count}</em>
+                            </div>
+                            <div id="reviewBody">
+                                <volist name="comment" id="co" key="k">
+                                    <div class="group <if condition="$k%2=='0'"> gray</if >">
+                                        <em>{$i}.</em>
+                                        <div class="photo">
+                                            <img src="{$Think.const.WEB_URL}/images/photoImg.gif" height="32" width="32">
+                                        </div>
+                                        <p class="time"><strong>{$co.nickname}</strong>&nbsp;</p>
+                                        <p class="time">{$co.publish_time} 发表</p>
+                                        <p class="reContent">{$co.content}</p>
                                     </div>
-                                    <p class="time"><strong>{$co.nickname}</strong>&nbsp;</p>
-                                    <p class="time">{$co.publish_time} 发表</p>
-                                    <p class="reContent">{$co.content}</p>
-                                </div>
-                            </volist>
+                                </volist>
 
+                                <input type="hidden" id="articleId" value="{$vo.pk}">
 
-                            <input type="hidden" id="articleId" value="{$vo.pk}">
+                                <h5>留下评论</h5>
+                                <present name="id">
+                                    <form id="saveComment" method="post" action="__SELF__">
+                                        <input type="hidden" name="saveid" value="{$vo.pk}">
+                                        <dl class="clearfix">
+                                            <dt>昵称：</dt>
+                                            <dd>{$member['nickname']}</dd>
+                                        </dl>
+                                        <dl class="clearfix">
+                                            <dt>邮件地址：</dt>
+                                            <dd>{$member['email']}</dd>
+                                        </dl>
+                                        <dl class="clearfix">
+                                            <dt>评论：</dt>
+                                            <dd><textarea id="content" name="content" style="width: 420px; height: 120px;"></textarea></dd>
+                                        </dl>
+                                        <dl class="clearfix">
+                                            <dt>验证码：</dt>
+                                            <dd>
+                                                <input type="text" class="linput verify" id="human" style="float:left; width:36%;" name="verify" placeholder="验证码" />
+                                                <img src="__MODULE__/index/verifyImg" onclick="reloadcode(this,'__MODULE__/index/verifyImg?')" alt="点击重新刷新" title="点击重新刷新" style=" width: 145px; margin-left:10px; float:left; cursor: pointer;">
+                                            </dd>
+                                        </dl>
+                                        <dl class="clearfix">
+                                            <dt>&nbsp;</dt>
+                                            <dd>
+                                                <button id="postBtn" class="btn-green" type="button" onclick="postComment();">发布留言</button>
+                                            </dd>
+                                        </dl>
+                                    </form>
+                                </present>
+                                <notpresent name="id">
+                                    <p>会员登录后才可以评论</p>
+                                </notpresent>
 
-                            <h5>留下评论</h5>
-                            <present name="id">
-                                <form id="saveComment" method="post" action="__SELF__">
-                                    <input type="hidden" name="saveid" value="{$vo.pk}">
-                                    <dl class="clearfix">
-                                        <dt>昵称：</dt>
-                                        <dd>{$member['nickname']}</dd>
-                                    </dl>
-                                    <dl class="clearfix">
-                                        <dt>邮件地址：</dt>
-                                        <dd>{$member['email']}</dd>
-                                    </dl>
-                                    <dl class="clearfix">
-                                        <dt>评论：</dt>
-                                        <dd><textarea id="content" name="content" style="width: 420px; height: 120px;"></textarea></dd>
-                                    </dl>
-                                    <dl class="clearfix">
-                                        <dt>验证码：</dt>
-                                        <dd>
-                                            <input type="text" class="linput verify" id="human" style="float:left; width:36%;" name="verify" placeholder="验证码" />
-                                            <img src="__MODULE__/index/verifyImg" onclick="reloadcode(this,'__MODULE__/index/verifyImg?')" alt="点击重新刷新" title="点击重新刷新" style=" width: 145px; margin-left:10px; float:left; cursor: pointer;">
-                                        </dd>
-                                    </dl>
-                                    <dl class="clearfix">
-                                        <dt>&nbsp;</dt>
-                                        <dd>
-                                            <button id="postBtn" class="btn-green" type="button" onclick="postComment();">发布留言</button>
-                                        </dd>
-                                    </dl>
-                                </form>
-                            </present>
-                            <notpresent name="id">
-                                <p>会员登录后才可以评论</p>
-                            </notpresent>
-
+                            </div>
                         </div>
-                    </div>
-
+                    <else />
+                        <div class="review">
+                            <div class="features">
+                                <em>点击:{$vo.browse_count}</em>
+                            </div>
+                        </div>
+                    </if>
 
                 </div>
             </div>
