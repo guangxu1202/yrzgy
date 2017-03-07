@@ -1,0 +1,129 @@
+<extend name="./base" />
+<block name="title"><title>查看 - 咨询师管理 - 视频咨询管理 - 元认知干预网站管理后台系统</title></block>
+<block name="content">
+    <div class="breadcrumbs" id="breadcrumbs">
+
+
+        <ul class="breadcrumb">
+            <li>
+                <i class="icon-home home-icon"></i>
+                <a href="#">首页</a>
+            </li>
+            <li class="active">视频咨询管理</li>
+        </ul><!-- .breadcrumb -->
+
+    </div>
+
+    <div class="page-content">
+        <div class="page-header">
+            <h1>
+                咨询师管理
+                <small>
+                    <i class="icon-double-angle-right"></i>
+                    查看
+                </small>
+            </h1>
+        </div><!-- /.page-header -->
+        <div class="row">
+            <div class="col-xs-12">
+                <form class="form-horizontal" id="myForm" method="post" action="__SELF__">
+                    <foreach name="info" item="vo" >
+                        <table class="Edit">
+                            <colgroup width="130px"></colgroup>
+                            <tbody>
+                                <tr>
+                                    <th>登录名： </th>
+                                    <td>{$vo.username}</td>
+                                </tr>
+                                <tr>
+                                    <th>真实姓名： </th>
+                                    <td>{$vo.real_name}</td>
+                                </tr>
+                                <tr>
+                                    <th>手机号码： </th>
+                                    <td>{$vo.phone}</td>
+                                </tr>
+                                <tr>
+                                    <th>QQ： </th>
+                                    <td>{$vo.qq}</td>
+                                </tr>
+                                <tr>
+                                    <th>居住地址： </th>
+                                    <td>{$vo.address}</td>
+                                </tr>
+
+                                <tr>
+                                    <th>简介： </th>
+                                    <td>{$vo.summary}</td>
+                                </tr>
+
+                                <tr>
+                                    <th>自定义排序： </th>
+                                    <td>{$vo.custom_sort}</td>
+                                </tr>
+
+                                <tr>
+                                    <th>创建时间： </th>
+                                    <td>{$vo.create_time}</td>
+                                </tr>
+
+                                <tr>
+                                    <th>创建人： </th>
+                                    <td>{$vo.creator}</td>
+                                </tr>
+
+                                <tr>
+                                    <th>修改时间： </th>
+                                    <td>{$vo.update_time}</td>
+                                </tr>
+
+                                <tr>
+                                    <th>修改人： </th>
+                                    <td>{$vo.regenerator}</td>
+                                </tr>
+
+                                <tr>
+                                    <th>最后登录时间： </th>
+                                    <td>{$vo.last_login_time}</td>
+                                </tr>
+
+                                <tr>
+                                    <th>最后登录IP： </th>
+                                    <td>{$vo.ip}</td>
+                                </tr>
+
+                                <tr>
+                                    <th>状态： </th>
+                                    <td>
+                                        <if condition="$vo.is_show eq 1">
+                                            正常
+                                            <else />
+                                            已锁定
+                                        </if>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <div class="space-4"></div>
+                    </foreach>
+                    <div class="clearfix form-actions">
+                        <div class="col-md-offset-3 col-md-9">
+                            <div class="row">
+                                <button class="btn" type="button" onclick="javascript:history.back()">返回</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+    </div>
+</block>
+
+<block name="public">
+
+    <!-- inline scripts related to this page -->
+    <script src="{$Think.const.ADMIN_URL}/js/admin.js"></script>
+
+</block>

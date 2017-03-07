@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>登录- 咨询师管理后台 - 元认知干预网</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="{$Think.const.ADMIN_URL}/css/login.css" />
+    <link rel="stylesheet" href="{$Think.const.ADMIN_URL}/css/font-awesome.min.css" />
+</head>
+
+<body style="background-color:#1DA1D8; background-image:url({$Think.const.ADMIN_URL}/images/light.png); background-repeat:no-repeat; background-position:center top; overflow:hidden;">
+
+
+
+<div id="mainBody">
+    <div id="cloud1" class="cloud"></div>
+    <div id="cloud2" class="cloud"></div>
+</div>
+
+
+<div class="logintop">
+    <span>欢迎登录咨询师管理后台</span>
+</div>
+
+<div class="loginbody">
+
+    <span class="systemlogo"></span>
+
+    <form action="__SELF__" method="post" id="login">
+
+        <div class="loginbox">
+            <ul>
+                <li>
+                    <span class="icon icon-user"></span>
+                    <input id="username" name="username" type="text" class="linput loginuser" placeholder="请输入您的账号" />
+                </li>
+                <li>
+                    <span class="icon icon-lock"></span>
+                    <input id="password" name="password" type="password" class="linput loginpwd" placeholder="请输入您的密码"  />
+                </li>
+                <li class="clearfix">
+                    <span class="icon icon-screenshot"></span>
+                    <input type="text" class="linput verify" style="float:left;" name="verify" placeholder="验证码" />
+                    <img src="__MODULE__/index/verifyImg" onclick="reloadcode(this,'__MODULE__/index/verifyImg?')" alt="点击重新刷新" style=" width: 145px; margin-left:10px; float:left; cursor: pointer;">
+                </li>
+                <li>
+                    <input id="button" type="submit" class="loginbtn" value="登录"  />
+                </li>
+                <li><p class="red">{$verinfo}</p></li>
+            </ul>
+
+        </div>
+
+    </form>
+
+</div>
+
+
+
+<div class="loginbm">大连元认知心理干预技术研究所</div>
+<!-- basic scripts -->
+
+
+<script src="{$Think.const.ADMIN_URL}/js/jquery-1.10.2.min.js"></script>
+<script src="{$Think.const.ADMIN_URL}/js/cloud.js"></script>
+<script language="javascript">
+    //刷新验证码
+    function reloadcode(obj,src){
+        $(obj).attr("src",src+Math.random());
+    }
+    $(function(){
+        $('.loginbox').css({'position':'absolute','left':($(window).width()-692)/2});
+        $(window).resize(function(){
+            $('.loginbox').css({'position':'absolute','left':($(window).width()-692)/2});
+        })
+    });
+</script>
+</body>
+</html>
+

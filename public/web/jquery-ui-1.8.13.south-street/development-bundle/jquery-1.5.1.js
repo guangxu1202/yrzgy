@@ -231,7 +231,7 @@ jQuery.fn = jQuery.prototype = {
 	// Take an array of elements and push it onto the stack
 	// (returning the new matched element set)
 	pushStack: function( elems, name, selector ) {
-		// Build a new jQuery matched element set
+		// Hbuild a new jQuery matched element set
 		var ret = this.constructor();
 
 		if ( jQuery.isArray( elems ) ) {

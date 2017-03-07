@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta charset="utf-8" />
+    <block name="title">标题</block>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- basic styles -->
+    <link href="{$Think.const.ADMIN_URL}/css/bootstrap.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="{$Think.const.ADMIN_URL}/css/font-awesome.min.css" />
+    <link rel="stylesheet" href="{$Think.const.ADMIN_URL}/css/bootstrapValidator.min.css" />
+    <link rel="stylesheet" href="{$Think.const.ADMIN_URL}/css/bootstrap-multiselect.css" />
+    <!--[if IE 7]>
+    <link rel="stylesheet" href="{$Think.const.ADMIN_URL}/css/font-awesome-ie7.min.css" />
+    <![endif]-->
+    <!-- page specific plugin styles -->
+    <!-- ace styles -->
+    <link rel="stylesheet" href="{$Think.const.ADMIN_URL}/css/ace.min.css" />
+    <link rel="stylesheet" href="{$Think.const.ADMIN_URL}/css/ace-rtl.min.css" />
+    <link rel="stylesheet" href="{$Think.const.ADMIN_URL}/css/ace-skins.min.css" />
+    <link rel="stylesheet" href="{$Think.const.ADMIN_URL}/css/admin.css" />
+    <!--[if lte IE 8]>
+    <link rel="stylesheet" href="{$Think.const.ADMIN_URL}/css/ace-ie.min.css" />
+    <![endif]-->
+    <!-- inline styles related to this page -->
+    <!-- ace settings handler -->
+    <script src="{$Think.const.ADMIN_URL}/js/ace-extra.min.js"></script>
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script src="{$Think.const.ADMIN_URL}/js/html5shiv.js"></script>
+    <script src="{$Think.const.ADMIN_URL}/js/respond.min.js"></script>
+    <![endif]-->
+</head>
+
+<body>
+<block name="header"><include file="./header" /></block>
+
+
+<div class="main-container" id="main-container">
+    <script type="text/javascript">
+        try{ace.settings.check('main-container' , 'fixed')}catch(e){}
+    </script>
+
+    <div class="main-container-inner">
+        <block name="left"><include file="./left" /></block>
+
+        <div class="main-content">
+            <block name="content">主内容区</block>
+        </div><!-- /.main-content -->
+
+
+    </div><!-- /.main-container-inner -->
+
+    <a href="#" id="btn-scroll-up" class="btn-scroll-up btn btn-sm btn-inverse">
+        <i class="icon-double-angle-up icon-only bigger-110"></i>
+    </a>
+</div><!-- /.main-container -->
+
+<block name="footer"><include file="./footer" /></block>
+<block name="public">底部公共加载</block>
+</body>
+</html>
+

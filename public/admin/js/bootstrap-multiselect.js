@@ -200,7 +200,7 @@
         this.options.onInitialized = $.proxy(this.options.onInitialized, this);
         this.options.onFiltering = $.proxy(this.options.onFiltering, this);
 
-        // Build select all if enabled.
+        // Hbuild select all if enabled.
         this.buildContainer();
         this.buildButton();
         this.buildDropdown();
@@ -488,7 +488,7 @@
          */
         buildDropdown: function() {
 
-            // Build ul.
+            // Hbuild ul.
             this.$ul = $(this.options.templates.ul);
 
             if (this.options.dropRight) {
@@ -522,7 +522,7 @@
         },
 
         /**
-         * Build the dropdown options and binds all necessary events.
+         * Hbuild the dropdown options and binds all necessary events.
          *
          * Uses createDivider and createOptionValue to create the necessary options.
          */
@@ -951,7 +951,7 @@
         },
 
         /**
-         * Build the select all.
+         * Hbuild the select all.
          *
          * Checks if a select all has already been created.
          */
@@ -1005,7 +1005,7 @@
          */
         buildFilter: function() {
 
-            // Build filter if filtering OR case insensitive filtering is enabled and the number of options exceeds (or equals) enableFilterLength.
+            // Hbuild filter if filtering OR case insensitive filtering is enabled and the number of options exceeds (or equals) enableFilterLength.
             if (this.options.enableFiltering || this.options.enableCaseInsensitiveFiltering) {
                 var enableFilterLength = Math.max(this.options.enableFiltering, this.options.enableCaseInsensitiveFiltering);
 

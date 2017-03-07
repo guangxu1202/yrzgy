@@ -4,7 +4,7 @@ use Think\Controller;
 class AdminController extends CommonController {
     //系统用户列表
     function userList(){
-        $user = D("user");
+        $user = M("user");
         $info = $user -> select();
         $this -> assign("info",$info);
         $this -> display();

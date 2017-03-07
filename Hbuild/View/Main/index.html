@@ -1,0 +1,119 @@
+<extend name="./base" />
+<block name="title"><title>控制台 - 元认知干预咨询师管理后台系统</title></block>
+<block name="content">
+    <div class="breadcrumbs" id="breadcrumbs">
+        <script type="text/javascript">
+            try{ace.settings.check('breadcrumbs' , 'fixed')}catch(e){}
+        </script>
+
+        <ul class="breadcrumb">
+            <li>
+                <i class="icon-home home-icon"></i>
+                <a href="#">首页</a>
+            </li>
+            <li class="active">控制台</li>
+        </ul><!-- .breadcrumb -->
+
+    </div>
+
+    <div class="page-content">
+        <div class="page-header">
+            <h1>
+                控制台
+                <small>
+                    <i class="icon-double-angle-right"></i>
+                    查看
+                </small>
+            </h1>
+        </div><!-- /.page-header -->
+
+        <div class="row">
+            <div class="col-xs-12">
+                <!-- PAGE CONTENT BEGINS -->
+
+                <div class="alert alert-block alert-success">
+                    <button type="button" class="close" data-dismiss="alert">
+                        <i class="icon-remove"></i>
+                    </button>
+
+                    <i class="icon-ok green"></i>
+
+                    欢迎使用
+                    <strong class="green">
+                        元认知干预网站咨询师管理后台
+                        <small>(v2.0)</small>
+                    </strong>
+                </div>
+
+                <!--快捷入口-->
+                <div class="row">
+                    <div class="infobox-container col-xs-12" style="text-align: left;">
+                        <div class="space-6"></div>
+
+                        <div class="infobox infobox-green infobox-small infobox-dark">
+                            <div class="infobox-icon">
+                                <i class="icon-desktop"></i>
+                            </div>
+                            <div class="infobox-data">
+                                <div class="infobox-content">添加文章</div>
+                            </div>
+                        </div>
+
+                        <div class="infobox infobox-blue infobox-small infobox-dark">
+                            <div class="infobox-icon">
+                                <i class="icon-comments"></i>
+                            </div>
+                            <div class="infobox-data">
+                                <div class="infobox-content">留言咨询</div>
+                            </div>
+                        </div>
+
+                        <div class="infobox infobox-grey infobox-small infobox-dark">
+                            <div class="infobox-icon">
+                                <i class="icon-cogs"></i>
+                            </div>
+                            <div class="infobox-data">
+                                <div class="infobox-content">评论管理</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="hr hr32 hr-dotted"></div>
+                <!--服务器信息-->
+                <div class="row">
+                    <div class="col-xs-12">
+                        <div class="panel panel-archon">
+                            <div class="">
+                                <table class="table table-bordered">
+                                    <thead>
+                                    <tr>
+                                        <th>名称</th>
+                                        <th>参数</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <volist name="info" id="v">
+                                        <tr>
+                                            <td>{$key}</td>
+                                            <td>{$v}</td>
+                                        </tr>
+                                    </volist>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- PAGE CONTENT ENDS -->
+            </div><!-- /.col -->
+
+        </div><!-- /.row -->
+    </div><!-- /.page-content -->
+
+</block>
+
+<block name="public">
+    <!-- inline scripts related to this page -->
+    <script src="{$Think.const.ADMIN_URL}/js/admin.js"></script>
+</block>
