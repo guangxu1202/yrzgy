@@ -42,7 +42,7 @@ a:hover{color: #fe336b;}
 
 
 /*banner*/
-#full-width-slider {  width: 100%; color: #000;}
+#full-width-slider {  width: 100%; color: #000; overflow:hidden;}
 .coloredBlock {   padding: 12px;  background: rgba(255,0,0,0.6);  color: #FFF;  width: 200px;  left: 20%; top: 5%;}
 .infoBlock {  position: absolute; left:0; bottom:0; width: 100%; background: #FFF;  overflow: hidden; }
 .infoBlockLeftBlack {  color: #FFF; background: #000; background: rgba(0,0,0,.3); height:50px;}

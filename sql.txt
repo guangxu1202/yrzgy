@@ -56,3 +56,68 @@ create table teacher
    address              varchar(100),
    primary key (pk)
 );
+
+
+-- 新建咨询师登录记录
+create table teacher_login_info
+(
+   pk                   bigint not null auto_increment,
+   ip                   varchar(40),
+   login_time           datetime,
+   teacher_id           bigint,
+   primary key (pk)
+);
+
+
+--新建咨询表格
+create table consult
+(
+   pk                   int not null auto_increment,
+   lx_name              varchar(50),
+   lx_phone             varchar(20),
+   lx_qq                varchar(20),
+   zx_name              varchar(50),
+   zx_relation          varchar(20),
+   zx_gender            int,
+   zx_age               varchar(20),
+   title                varchar(100),
+   summary              varchar(1000),
+   member_id            int,
+   create_time          datetime comment '预约时间',
+   examine              int comment '审核状态/0待审核;1已通过;2已拒绝',
+   handle_name          varchar(50) comment '审核人',
+   handle_time          datetime comment '审核时间',
+   refuse               varchar(500) comment '拒绝原因',
+   is_pay               bit comment '付款状态/未付款;已付款',
+   is_pay_name          varchar(50) comment '确认付款人',
+   pay_time             datetime comment '付款确认时间',
+   pay_money            float comment '付款金额',
+   release_statu        bit comment '咨询分配状态/未分配;已分配',
+   order_number         varchar(50) comment '咨询编号',
+   release_name         varchar(50) comment '咨询分配人',
+   primary key (pk)
+);
+
+
+-- 新建咨询子表
+create table consult_item
+(
+   pk                   bigint not null auto_increment,
+   order_id             int,
+   teacher_id           int,
+   start_time           datetime,
+   end_time             datetime,
+   teacher_eval         varchar(1000) comment '咨询师评价',
+   member_eval          varchar(1000) comment '用户评价',
+   member_id            int comment '会员ID',
+   teacher_eval_time    datetime comment '咨询师评价时间',
+   member_eval_time     datetime comment '用户评价时间',
+   time_number          varchar(30) comment '咨询编号',
+   times                int comment '批次',
+   count_times          int comment '合计次数',
+   status               bit comment '状态/未完成;已完成',
+   teacher_view         datetime comment '咨询师查看',
+   member_view          datetime comment '用户查看',
+   view_times           int comment '用户查看次数',
+   primary key (pk)
+);
