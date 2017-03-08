@@ -35,4 +35,5 @@ class MainController extends CommonController {
         session('b_real_name',null);
         $this->redirect('Index/login', 0);
     }
+
 }

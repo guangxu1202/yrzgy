@@ -10,7 +10,10 @@ class IndexController extends Controller {
             $verify = new \Think\Verify();
             if (!$verify->check(I("post.verify"))){
                 $verinfo = "验证码错误！";
-                $this->assign('verinfo',$verinfo);
+                $info["username"] = I("post.username");
+                $info["password"] = I("post.password");
+                $info["ver"] = $verinfo;
+                $this->assign('verinfo',$info);
             }else{
                 //通过验证码验证
                 if(I("post.username")!="" && I("post.password")!="")
@@ -26,10 +29,10 @@ class IndexController extends Controller {
                         $user-> where('pk='.$attr["pk"])->setField($data);
 
                         //插入登录数据
-                        $user_login_info = M("user_login_info");
+                        $user_login_info = M("teacher_login_info");
                         $log["ip"] = get_client_ip();
                         $log["login_time"] = date("Y-m-d H:i:s");
-                        $log["user_id"] = $attr["pk"];
+                        $log["teacher_id"] = $attr["pk"];
                         $user_login_info->data($log)->add();
 
                         // 存入session
@@ -44,13 +47,19 @@ class IndexController extends Controller {
                     else
                     {
                         $verinfo = "用户名或密码错误！";
-                        $this->assign('verinfo',$verinfo);
+                        $info["username"] = I("post.username");
+                        $info["password"] = I("post.password");
+                        $info["ver"] = $verinfo;
+                        $this->assign('verinfo',$info);
                     }
                 }
                 else
                 {
                     $verinfo = "用户名或密码不能为空！";
-                    $this->assign('verinfo',$verinfo);
+                    $info["username"] = I("post.username");
+                    $info["password"] = I("post.password");
+                    $info["ver"] = $verinfo;
+                    $this->assign('verinfo',$info);
                 }
             }
         }

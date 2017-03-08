@@ -34,21 +34,21 @@
             <ul>
                 <li>
                     <span class="icon icon-user"></span>
-                    <input id="username" name="username" type="text" class="linput loginuser" placeholder="请输入您的账号" />
+                    <input id="username" name="username" type="text" class="linput loginuser" placeholder="请输入您的账号" value="{$verinfo.username}" onkeydown='if(event.keyCode==13){checklogin();}'  />
                 </li>
                 <li>
                     <span class="icon icon-lock"></span>
-                    <input id="password" name="password" type="password" class="linput loginpwd" placeholder="请输入您的密码"  />
+                    <input id="password" name="password" type="password" class="linput loginpwd" placeholder="请输入您的密码"  value="{$verinfo.password}"  onkeydown='if(event.keyCode==13){checklogin();}' />
                 </li>
                 <li class="clearfix">
                     <span class="icon icon-screenshot"></span>
-                    <input type="text" class="linput verify" style="float:left;" name="verify" placeholder="验证码" />
+                    <input type="text" id="human" class="linput verify" style="float:left;" name="verify" placeholder="验证码"  onkeydown='if(event.keyCode==13){checklogin();}'  />
                     <img src="__MODULE__/index/verifyImg" onclick="reloadcode(this,'__MODULE__/index/verifyImg?')" alt="点击重新刷新" style=" width: 145px; margin-left:10px; float:left; cursor: pointer;">
                 </li>
                 <li>
-                    <input id="button" type="submit" class="loginbtn" value="登录"  />
+                    <input id="button" type="button" onclick="checklogin()" class="loginbtn" value="登录"  />
                 </li>
-                <li><p class="red">{$verinfo}</p></li>
+                <li><p class="red">{$verinfo.ver}</p></li>
             </ul>
 
         </div>
@@ -76,6 +76,25 @@
             $('.loginbox').css({'position':'absolute','left':($(window).width()-692)/2});
         })
     });
+
+    function checklogin(){
+        if (null == $("#username").val() || "" == $("#username").val()) {
+            alert("请输入正确的用户名.");
+            $("#username").focus();
+            return;
+        }
+        if (null == $("#password").val() || "" == $("#password").val()) {
+            alert("请输入密码.");
+            $("#password").focus();
+            return;
+        }
+        if (null == $("#human").val() || "" == $("#human").val()) {
+            alert("请输入验证码.");
+            $("#human").focus();
+            return;
+        }
+        $("#login").submit();
+    }
 </script>
 </body>
 </html>

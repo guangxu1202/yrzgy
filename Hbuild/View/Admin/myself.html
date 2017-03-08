@@ -11,7 +11,7 @@
                 <i class="icon-home home-icon"></i>
                 <a href="#">首页</a>
             </li>
-            <li class="active">系统用户管理</li>
+            <li class="active">密码修改</li>
         </ul><!-- .breadcrumb -->
 
     </div>
@@ -19,8 +19,7 @@
     <div class="page-content">
         <div class="page-header">
             <h1>
-                修改我的信息
-
+                密码修改
             </h1>
         </div><!-- /.page-header -->
         <div class="row">
@@ -70,9 +69,9 @@
 
                         <div class="space-4"></div>
                         <div class="form-group">
-                            <label class="col-sm-3 control-label no-padding-right"><span class="red">*</span>真实姓名： </label>
+                            <label class="col-sm-3 control-label no-padding-right">真实姓名： </label>
                             <div class="col-sm-5">
-                                <input class="form-control"  type="text" name="real_name" value="{$vo.real_name}">
+                                <div class="form-info">{$vo.real_name}</div>
                             </div>
                         </div>
 
@@ -131,11 +130,10 @@
 </block>
 
 <block name="public">
-    <!-- page specific plugin scripts -->
-    <script src="{$Think.const.ADMIN_URL}/js/jquery.dataTables.min.js"></script>
-    <script src="{$Think.const.ADMIN_URL}/js/jquery.dataTables.bootstrap.js"></script>
+
     <!-- inline scripts related to this page -->
-    <script src="{$Think.const.ADMIN_URL}/js/admin.js"></script>
+    <script src="{$Think.const.ADMIN_URL}/js/hbuild.js"></script>
+
     <script type="text/javascript">
         $(function(){
             $('#myForm').bootstrapValidator({
@@ -146,22 +144,6 @@
                     validating: 'glyphicon glyphicon-refresh'
                 },
                 fields: {
-                    real_name :{
-                        validators: {
-                            notEmpty: {
-                                message: '真实姓名不能为空'
-                            },
-                            stringLength: {
-                                min: 1,
-                                max: 40,
-                                message: '真实姓名长度必须在1到40之间'
-                            },
-                            regexp: {
-                                regexp: /^[^`~!@#$%^&*()+=|\\\][\]\{\}:;'\,.<>/?]{1}[^`~!@$%^&()+=|\\\][\]\{\}:;'\,.<>?]{0,19}$/,
-                                message: '真实姓名不要使用特殊符号'
-                            }
-                        }
-                    },
                     opassword: {
                         validators: {
                             notEmpty: {
