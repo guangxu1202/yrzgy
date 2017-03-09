@@ -54,7 +54,6 @@ class MemberController extends CommonController {
 
     }
 
-
     //详细资料
     function detail(){
         //非登录用户判断
@@ -141,7 +140,6 @@ class MemberController extends CommonController {
 
     }
 
-
     //密码修改
     function pwdEdit(){
         //非登录用户判断
@@ -190,7 +188,6 @@ class MemberController extends CommonController {
 
     }
 
-
     //查找email是否重名
     function checkemail(){
         $user = M("member"); // 实例化User对象
@@ -201,6 +198,20 @@ class MemberController extends CommonController {
             $data['valid'] = true;
         }
         $this->ajaxReturn($data);
+    }
+
+    //我的留言咨询
+    function myMessage(){
+        $model =M("comment");
+        $count      = $model->where("pid is null and article_id is null and audit <>2 and member_id =".session("c_id")) ->order("publish_time desc")->count();// 查询满足要求的总记录数
+        $Page       = new \Think\Page($count,C("PAGE_NUM"));// 实例化分页类 传入总记录数和每页显示的记录数(25)
+        $show       = $Page->show();// 分页显示输出
+        $list = $model->where("pid is null and article_id is null and audit <>2 and member_id =".session("c_id")) ->order("publish_time desc")->limit($Page->firstRow.','.$Page->listRows)->select();
+        $this->assign('list', $list);// 赋值数据集
+        $this->assign('page', $show);// 赋值分页输出
+
+        $this->display();
+
     }
 
 }

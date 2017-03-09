@@ -1,0 +1,217 @@
+<extend name="./base" />
+<block name="title">
+    <title>预约视频咨询 - 网络咨询 - 元认知心理干预技术网</title>
+    <meta name="keywords" content="元认知,元认知干预，元认知心理，元认知心理干预，元认知心理干预技术，金洪源"/>
+    <meta name="description" content="元认知研究所由金洪源教授任所长，面向全国提供心理技术服务，解决学生偏科、厌学、马虎、考试焦虑、拖延等学习障碍问题；改善人际关系，解决亲子、家庭问题；提供失眠、焦虑、强迫、抑郁等辅助性干预；优化性格系统。主要业务：个体咨询、团体辅导、技术培训、进驻学校推进心理健康技术化改革。下设临床服务部、研修生部、驻校服务部、中小学教研部、技术研发与培训部。"/>
+</block>
+
+<block name="content">
+
+    <link type="text/css" rel="stylesheet" href="{$Think.const.WEB_URL}/formValidator3.3/style/validator.css"/>
+    <link rel="stylesheet" href="{$Think.const.WEB_URL}/jquery-ui-1.8.13.south-street/development-bundle/themes/south-street/jquery.ui.all.css"/>
+<div class="container i-container">
+    <div class="Statu">您的位置：<a href="{$Think.const.SITE_URL}">首页</a> &gt;&gt; <a href="__MODULE__/Article/advice">网络咨询</a> &gt;&gt; 预约视频咨询</div>
+</div>
+
+<div class="container i-container">
+    <div class="row">
+        <div class="col-sm-3">
+            <include file="./left" />
+        </div>
+
+        <div class=" col-sm-9">
+            <div class="box">
+                <div class="Mtop">
+                    <h2><img src="{$Think.const.WEB_URL}/images/ico_04.gif" class="ico" /> 预约视频咨询</h2>
+                </div>
+                <div class="Mbody">
+                    <div class="register" style="border: none;">
+                        <form id="register-form" name="register-form" action="__SELF__" method="post">
+                            <dl class="clearfix">
+                                <dt><span>*</span>联系人姓名:</dt>
+                                <dd><input id="lx_name" name="lx_name" type="text" maxlength="50" placeholder="请输入联系人姓名" /><em id="lx_nameTip"></em></dd>
+                            </dl>
+
+                            <dl class="clearfix">
+                                <dt><span>*</span>联系人手机:</dt>
+                                <dd><input id="lx_phone" name="lx_phone" type="text" maxlength="50" placeholder="请输入联系人手机" /><em id="lx_phoneTip"></em></dd>
+                            </dl>
+
+                            <dl class="clearfix">
+                                <dt><span>*</span>联系人QQ:</dt>
+                                <dd><input id="lx_qq" name="lx_qq" type="text" maxlength="50" placeholder="请输入联系人QQ号码" /><em id="lx_qqTip"></em></dd>
+                            </dl>
+
+                            <dl class="clearfix">
+                                <dt><span>*</span>咨询人姓名:</dt>
+                                <dd><input id="zx_name" name="zx_name" type="text" maxlength="50" placeholder="请输入咨询人姓名" /><em id="zx_nameTip"></em></dd>
+                            </dl>
+
+                            <dl class="clearfix">
+                                <dt>与咨询人关系:</dt>
+                                <dd><input id="zx_relation" name="zx_relation" type="text" maxlength="50" placeholder="联系人与咨询人的关系" /><em id="zx_relationTip"></em></dd>
+                            </dl>
+
+                            <dl class="clearfix">
+                                <dt><span>*</span>咨询人性别:</dt>
+                                <dd>
+                                    <label><input name="zx_gender" type="radio" value="0" checked="checked"/>男</label>
+                                    <label><input name="zx_gender" type="radio" value="1" />女</label>
+                                </dd>
+                            </dl>
+
+                            <dl class="clearfix">
+                                <dt><span>*</span>咨询人年龄:</dt>
+                                <dd><input id="zx_age" name="zx_age" type="text" maxlength="50" placeholder="请输入咨询人年龄" /><em id="zx_ageTip"></em></dd>
+                            </dl>
+
+                            <dl class="clearfix">
+                                <dt><span>*</span>标题:</dt>
+                                <dd><input id="title" name="title" type="text" maxlength="50" placeholder="请输入标题" /><em id="titleTip"></em></dd>
+                            </dl>
+
+                            <dl class="clearfix">
+                                <dt><span>*</span>问题描述:</dt>
+                                <dd>
+                                    <textarea id="summary" name="summary" style="width: 90%; min-height: 200px;" placeholder="请尽量描述清楚症状"></textarea><em></em></dd>
+                                </dd>
+                            </dl>
+
+                            <dl class="BtnSubmit clearfix">
+                                <dt>&nbsp;</dt>
+                                <dd><button class="btn-green">提交</button></dd>
+                            </dl>
+
+                        </form>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+</block>
+
+
+<block name="public">
+    <script type="text/javascript" charset="UTF-8" src="{$Think.const.WEB_URL}/formValidator3.3/formValidator.js"></script>
+    <script type="text/javascript" charset="UTF-8" src="{$Think.const.WEB_URL}/formValidator3.3/formValidatorRegex.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            $.formValidator.initConfig({
+                formid : "register-form",
+                onerror : function(msg) {
+                    alert(msg)
+                },
+                onsuccess : function() {
+                    return checkForm();
+                }
+            });
+
+            $("#lx_name").formValidator({
+                onshow : "请输入联系人姓名.",
+                onfocus : "联系人姓名最少 2 个字符.",
+                oncorrect : "联系人姓名输入正确."
+            }).inputValidator({
+                min : 2,
+                empty: {
+                    leftempty: false,
+                    rightempty: false,
+                    emptyerror: "联系人姓名左右两侧不可以有空格."
+                },
+                onerror : "你输入的联系人姓名非法,请确认."
+            });
+
+            $("#lx_phone").formValidator( {
+                onshow : "请输入联系人手机号码",
+                onfocus : "格式形如: 13412345678",
+                oncorrect : "谢谢你的合作"
+            }).inputValidator( {
+                min : 11,
+                max : 11,
+                onerror : "手机号码必须是11位的, 请确认"
+            }).regexValidator( {
+                regexp : "mobile",
+                datatype : "enum",
+                onerror : "你输入的手机号码格式不正确"
+            });
+
+            $("#lx_qq").formValidator({
+                onshow : "请输入联系人QQ号码",
+                oncorrect : "谢谢你的合作, 你的QQ号码正确"
+            }).inputValidator( {
+                min : 5,
+                max : 15,
+                onerror : "QQ号码最少 5 位, 请确认"
+            }).regexValidator({
+                regexp : "qq",
+                datatype : "enum",
+                onerror : "QQ号码格式不正确"
+            });
+
+            $("#zx_name").formValidator({
+                onshow : "请输入咨询人姓名.",
+                onfocus : "咨询人姓名最少 2 个字符.",
+                oncorrect : "咨询人姓名输入正确."
+            }).inputValidator({
+                min : 2,
+                empty: {
+                    leftempty: false,
+                    rightempty: false,
+                    emptyerror: "咨询人姓名左右两侧不可以有空格."
+                },
+                onerror : "你输入的咨询人姓名非法,请确认."
+            });
+
+            $("#zx_age").formValidator({ // 验证：模块名称
+                onshow: "咨询人年龄必须填写",
+                onfocus: "咨询人年龄值1到200",
+                oncorrect: "咨询人年龄正确"
+            }).inputValidator({
+                min: 1,
+                max: 200,
+                type: "value",
+                onerrormin: "咨询人年龄不能为空",
+                onerrormax: "咨询人年龄值1到200"
+            });
+
+            $("#title").formValidator({ // 验证：模块名称
+                onshow: "标题必须填写",
+                onfocus: "标题不超过100个字符",
+                oncorrect: "标题填写正确"
+            }).inputValidator({
+                min: 1,
+                max: 100,
+                onerrormin: "标题不能为空",
+                onerrormax: "标题不超过100个字符，汉字算两个字符"
+            });
+
+
+        });
+
+        checkForm = function() {
+            if ($("#summary").val().length > 500) {
+                alert("个人简介最多可输入 500 个字符, 您已经输入 [ " + $("#summary").val().length + " ] 个字符,\n请稍做修改再注册.");
+                return false;
+            }
+            return true;
+        };
+
+
+
+
+        //导航位置
+        var module = "Member";
+        var pnArr = window.location.pathname.split("/");
+        var pnArrNumber = $.inArray(module,pnArr);
+        $(".MCleft li").each(function () {
+            if (!!$(this).attr("data-pn") && $(this).attr("data-pn").indexOf("|"+pnArr[pnArrNumber+1]+"|") >= 0){
+                $(this).addClass("checked");
+            }
+        })
+    </script>
+
+</block>
