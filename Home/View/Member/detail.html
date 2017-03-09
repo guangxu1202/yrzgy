@@ -1,6 +1,6 @@
 <extend name="./base" />
 <block name="title">
-    <title>基本资料 - 个人中心 - 元认知心理干预技术网</title>
+    <title>详细资料 - 个人中心 - 元认知心理干预技术网</title>
     <meta name="keywords" content="元认知,元认知干预，元认知心理，元认知心理干预，元认知心理干预技术，金洪源"/>
     <meta name="description" content="元认知研究所由金洪源教授任所长，面向全国提供心理技术服务，解决学生偏科、厌学、马虎、考试焦虑、拖延等学习障碍问题；改善人际关系，解决亲子、家庭问题；提供失眠、焦虑、强迫、抑郁等辅助性干预；优化性格系统。主要业务：个体咨询、团体辅导、技术培训、进驻学校推进心理健康技术化改革。下设临床服务部、研修生部、驻校服务部、中小学教研部、技术研发与培训部。"/>
 </block>
@@ -9,7 +9,7 @@
 
 
 <div class="container i-container">
-    <div class="Statu">您的位置：<a href="{$Think.const.SITE_URL}">首页</a> &gt;&gt; <a href="__MODULE__/Member/main">个人中心</a>  &gt;&gt; 基本资料</div>
+    <div class="Statu">您的位置：<a href="{$Think.const.SITE_URL}">首页</a> &gt;&gt; <a href="__MODULE__/Member/main">个人中心</a>  &gt;&gt; 详细资料</div>
 </div>
 
 <div class="container i-container">
@@ -27,45 +27,65 @@
                         <colgroup width="100px"></colgroup>
                         <colgroup width=""></colgroup>
                         <tbody><tr>
-                            <th>用户名:</th>
-                            <td>{$info.username}</td>
+                            <th>地址:</th>
+                            <td>{$info.address}</td>
                         </tr>
                         <tr>
-                            <th>昵称:</th>
-                            <td>{$info.nickname}</td>
+                            <th>单位:</th>
+                            <td>{$info.organization}</td>
                         </tr>
                         <tr>
-                            <th>真实姓名:</th>
-                            <td>{$info.real_name}</td>
+                            <th>出生日期:</th>
+                            <td>{$info.birthday}</td>
                         </tr>
                         <tr>
-                            <th>性别:</th>
+                            <th>MSN:</th>
                             <td>
-                                <if condition="$info.gender eq 0">
-                                    男
-                                    <elseif condition="$vo.gender eq 1"/>
-                                    女
-                                    <else/>
-                                    保密
-                                </if>
+                                {$info.msn}
                             </td>
                         </tr>
                         <tr>
-                            <th>手机:</th>
-                            <td>{$info.mobile}</td>
+                            <th>QQ:</th>
+                            <td>{$info.qq}</td>
                         </tr>
                         <tr>
-                            <th>固定电话:</th>
-                            <td>{$info.telephone}</td>
+                            <th>个人简介:</th>
+                            <td>{$info.summary}</td>
                         </tr>
                         <tr>
-                            <th>E-mail:</th>
-                            <td>{$info.email}</td>
+                            <th>照片:</th>
+                            <td>
+                                <div style="max-width: 300px;">
+                                    <if condition="$info.avatar neq null">
+                                        <img src="{$Think.const.UPLOAD_URL}/member/{$info.avatar}">
+                                    </if>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>身份证:</th>
+                            <td>
+                                <div style="max-width: 300px;">
+                                    <if condition="$info.identity_card neq null">
+                                        <img src="{$Think.const.UPLOAD_URL}/member/{$info.identity_card}">
+                                    </if>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>资质证明:</th>
+                            <td>
+                                <div style="max-width: 300px;">
+                                    <if condition="$info.certification neq null">
+                                        <img src="{$Think.const.UPLOAD_URL}/member/{$info.certification}">
+                                    </if>
+                                </div>
+                            </td>
                         </tr>
                         <tr>
                             <th></th>
                             <td class="MCbtn">
-                                <a href="__MODULE__/Member/baseEdit" class="a-btn">修改基本资料</a>
+                                <a href="__MODULE__/Member/detailEdit" class="a-btn">修改详细资料</a>
                             </td>
                         </tr>
                         </tbody>

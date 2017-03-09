@@ -1,0 +1,121 @@
+<extend name="./base" />
+<block name="title">
+    <title>密码修改 - 个人中心 - 元认知心理干预技术网</title>
+    <meta name="keywords" content="元认知,元认知干预，元认知心理，元认知心理干预，元认知心理干预技术，金洪源"/>
+    <meta name="description" content="元认知研究所由金洪源教授任所长，面向全国提供心理技术服务，解决学生偏科、厌学、马虎、考试焦虑、拖延等学习障碍问题；改善人际关系，解决亲子、家庭问题；提供失眠、焦虑、强迫、抑郁等辅助性干预；优化性格系统。主要业务：个体咨询、团体辅导、技术培训、进驻学校推进心理健康技术化改革。下设临床服务部、研修生部、驻校服务部、中小学教研部、技术研发与培训部。"/>
+</block>
+
+<block name="content">
+
+    <link type="text/css" rel="stylesheet" href="{$Think.const.WEB_URL}/formValidator3.3/style/validator.css"/>
+
+    <link rel="stylesheet" href="{$Think.const.WEB_URL}/jquery-ui-1.8.13.south-street/development-bundle/themes/south-street/jquery.ui.all.css"/>
+<div class="container i-container">
+    <div class="Statu">您的位置：<a href="{$Think.const.SITE_URL}">首页</a> &gt;&gt; <a href="__MODULE__/Member/main">个人中心</a>  &gt;&gt; 密码修改</div>
+</div>
+
+<div class="container i-container">
+    <div class="MCenter clearfix">
+        <div class="row">
+            <div class="col-sm-3">
+                <div class="MCleft">
+                    <include file="./member_left" />
+                </div>
+            </div>
+
+            <div class=" col-sm-9">
+                <div class="MCmain">
+                    <div class="register">
+                        <form id="register-form" name="register-form" action="__SELF__" method="post">
+                            <input type="hidden" name="pk" id="pk" value="{$info.pk}">
+                            <div class="clear"></div>
+                            <h5>密码修改</h5>
+                            <dl class="clearfix">
+                                <dt><span>*</span>原始密码:</dt>
+                                <dd><input id="opassword" name="opassword" type="password" /><em id="opasswordTip"></em></dd>
+                            </dl>
+                            <dl class="clearfix">
+                                <dt><span>*</span>密码:</dt>
+                                <dd><input id="password" name="password" type="password" /><em id="passwordTip"></em></dd>
+                            </dl>
+                            <dl class="clearfix">
+                                <dt><span>*</span>重复密码:</dt>
+                                <dd><input id="repassword" name="repassword" type="password" /><em id="repasswordTip"></em></dd>
+                            </dl>
+
+                            <dl class="BtnSubmit clearfix">
+                                <dt>&nbsp;</dt>
+                                <dd><button class="btn-green">修改</button></dd>
+                            </dl>
+
+                            <div class="clear"></div>
+                        </form>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+</block>
+
+
+<block name="public">
+    <script type="text/javascript" charset="UTF-8" src="{$Think.const.WEB_URL}/formValidator3.3/formValidator.js"></script>
+    <script type="text/javascript" charset="UTF-8" src="{$Think.const.WEB_URL}/formValidator3.3/formValidatorRegex.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            $.formValidator.initConfig({
+                formid : "register-form",
+                onerror : function(msg) {
+                    alert(msg)
+                },
+                onsuccess : function() {
+                   // return checkForm();
+                }
+            });
+            $("#opassword").formValidator({
+                onshow : "请输入原始密码",
+                onfocus : "密码不能为空",
+                oncorrect : "格式正确"
+            }).inputValidator({
+                min : 4,
+                onerror : "密码长度最少是 4 个字符, 请确认"
+            });
+            $("#password").formValidator({
+                onshow : "请输入密码",
+                onfocus : "密码不能为空",
+                oncorrect : "格式正确"
+            }).inputValidator({
+                min : 4,
+                onerror : "密码长度最少是 4 个字符, 请确认"
+            });
+            $("#repassword").formValidator({
+                onshow : "请输入重复密码",
+                onfocus : "两次密码必须一致哦",
+                oncorrect : "密码一致"
+            }).compareValidator({
+                desid : "password",
+                operateor : "=",
+                onerror : "2 次密码不一致, 请确认"
+            });
+        });
+
+
+
+        //导航位置
+        var module = "Member";
+        var pnArr = window.location.pathname.split("/");
+        var pnArrNumber = $.inArray(module,pnArr);
+        $(".MCleft li").each(function () {
+            if (!!$(this).attr("data-pn") && $(this).attr("data-pn").indexOf("|"+pnArr[pnArrNumber+1]+"|") >= 0){
+                $(this).addClass("checked");
+            }
+        })
+    </script>
+
+</block>

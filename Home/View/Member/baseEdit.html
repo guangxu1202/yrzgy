@@ -1,0 +1,217 @@
+<extend name="./base" />
+<block name="title">
+    <title>基本资料修改 - 个人中心 - 元认知心理干预技术网</title>
+    <meta name="keywords" content="元认知,元认知干预，元认知心理，元认知心理干预，元认知心理干预技术，金洪源"/>
+    <meta name="description" content="元认知研究所由金洪源教授任所长，面向全国提供心理技术服务，解决学生偏科、厌学、马虎、考试焦虑、拖延等学习障碍问题；改善人际关系，解决亲子、家庭问题；提供失眠、焦虑、强迫、抑郁等辅助性干预；优化性格系统。主要业务：个体咨询、团体辅导、技术培训、进驻学校推进心理健康技术化改革。下设临床服务部、研修生部、驻校服务部、中小学教研部、技术研发与培训部。"/>
+</block>
+
+<block name="content">
+
+    <link type="text/css" rel="stylesheet" href="{$Think.const.WEB_URL}/formValidator3.3/style/validator.css"/>
+
+    <link rel="stylesheet" href="{$Think.const.WEB_URL}/jquery-ui-1.8.13.south-street/development-bundle/themes/south-street/jquery.ui.all.css"/>
+<div class="container i-container">
+    <div class="Statu">您的位置：<a href="{$Think.const.SITE_URL}">首页</a> &gt;&gt; <a href="__MODULE__/Member/main">个人中心</a>  &gt;&gt; 基本资料修改</div>
+</div>
+
+<div class="container i-container">
+    <div class="MCenter clearfix">
+        <div class="row">
+            <div class="col-sm-3">
+                <div class="MCleft">
+                    <include file="./member_left" />
+                </div>
+            </div>
+
+            <div class=" col-sm-9">
+                <div class="MCmain">
+                    <div class="register">
+                        <form id="register-form" name="register-form" action="__SELF__" method="post">
+                            <input type="hidden" name="pk" id="pk" value="{$info.pk}">
+                            <div class="clear"></div>
+                            <h5>基本资料</h5>
+                            <dl class="clearfix">
+                                <dt><span>*</span>用户名:</dt>
+                                <dd><div class="form-info">{$info.username}<input type="hidden" name="username" value="{$info.username}"></div></dd>
+                            </dl>
+                            <dl class="clearfix">
+                                <dt><span>*</span>昵称:</dt>
+                                <dd><input id="nickname" name="nickname" type="text" maxlength="50" value="{$info.nickname}" /><em id="nicknameTip"></em></dd>
+                            </dl>
+                            <dl class="clearfix">
+                                <dt><span>*</span>真实姓名:</dt>
+                                <dd><input id="realName" name="real_name" type="text" maxlength="50" value="{$info.real_name}" /><em id="realNameTip"></em></dd>
+                            </dl>
+                            <dl class="clearfix">
+                                <dt>性别:</dt>
+                                <dd>
+                                    <label><input name="gender" type="radio" value="0" <if condition="$info.gender eq 0">checked="checked" </if>/>男</label>
+                                    <label><input name="gender" type="radio" value="1" <if condition="$info.gender eq 1">checked="checked" </if> />女</label>
+                                    <label><input name="gender" type="radio" value="2" <if condition="$info.gender eq 2">checked="checked" </if> />保密</label>
+                                </dd>
+                            </dl>
+                            <dl class="clearfix">
+                                <dt>手机:</dt>
+                                <dd><input id="mobile" name="mobile" type="text" maxlength="15" value="{$info.mobile}" /><em id="mobileTip"></em></dd>
+                            </dl>
+                            <dl class="clearfix">
+                                <dt>固定电话:</dt>
+                                <dd><input id="telephone" name="telephone" type="text" maxlength="15" value="{$info.telephone}" /><em id="telephoneTip"></em></dd>
+                            </dl>
+                            <dl class="clearfix">
+                                <dt><span>*</span>E-mail:</dt>
+                                <dd><input id="email" name="email" type="text" maxlength="80" value="{$info.email}" /><em id="emailTip"></em></dd>
+                            </dl>
+                            <div class="clear"></div>
+
+                            <dl class="BtnSubmit clearfix">
+                                <dt>&nbsp;</dt>
+                                <dd><button class="btn-green">修改</button></dd>
+                            </dl>
+
+                            <div class="clear"></div>
+                        </form>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+</block>
+
+
+<block name="public">
+    <script type="text/javascript" charset="UTF-8" src="{$Think.const.WEB_URL}/formValidator3.3/formValidator.js"></script>
+    <script type="text/javascript" charset="UTF-8" src="{$Think.const.WEB_URL}/formValidator3.3/formValidatorRegex.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            $.formValidator.initConfig({
+                formid : "register-form",
+                onerror : function(msg) {
+                    alert(msg)
+                },
+                onsuccess : function() {
+                   // return checkForm();
+                }
+            });
+
+            $("#nickname").formValidator({
+                onshow : "请输入您的昵称.",
+                onfocus : "昵称最少 2 个字符.",
+                oncorrect : "昵称输入正确."
+            }).inputValidator({
+                min : 2,
+                empty: {
+                    leftempty: false,
+                    rightempty: false,
+                    emptyerror: "昵称左右两侧不可以有空格."
+                },
+                onerror : "你输入的昵称非法,请确认."
+            });
+            $("#realName").formValidator({
+                onshow : "请输入您的真实姓名.",
+                onfocus : "真实姓名最少 2 个字符.",
+                oncorrect : "真实姓名输入正确."
+            }).inputValidator({
+                min : 2,
+                empty: {
+                    leftempty: false,
+                    rightempty: false,
+                    emptyerror: "真实姓名左右两侧不可以有空格."
+                },
+                onerror : "你输入的真实姓名非法,请确认."
+            });
+
+            $("#email").formValidator({
+                onshow : "请输入E-mail, E-email 唯一, 不能重复.",
+                onfocus : "E-mail 最少 6 个字符.",
+                oncorrect : "E-email 输入正确."
+            }).inputValidator({
+                min : 6,
+                empty: {
+                    leftempty: false,
+                    rightempty: false,
+                    emptyerror: "E-email左右两侧不可以有空格."
+                },
+                onerror : "你输入的 E-email 非法,请确认."
+            }).regexValidator({
+                regexp : "email",
+                datatype : "enum",
+                onerror : "E-email 格式不正确"
+            }).functionValidator( {
+                fun: checkEmail,
+                onerror : "该 E-mail 已经存在,请更换."
+            });
+
+            $("#mobile").formValidator( {
+                empty : true,
+                onshow : "请输入你的手机号码",
+                onfocus : "格式形如: 13412345678",
+                oncorrect : "谢谢你的合作"
+            }).inputValidator( {
+                min : 11,
+                max : 11,
+                onerror : "手机号码必须是11位的, 请确认"
+            }).regexValidator( {
+                regexp : "mobile",
+                datatype : "enum",
+                onerror : "你输入的手机号码格式不正确"
+            });
+            $("#telephone").formValidator( {
+                empty : true,
+                onshow : "请输入你的固定电话号码",
+                onfocus : "格式形如: 0411-12345678, 12345678",
+                oncorrect : "谢谢你的合作"
+            }).inputValidator( {
+                min : 7,
+                onerror : "固定电话号码最少 7 位, 请确认"
+            }).regexValidator( {
+                regexp : "tel",
+                datatype : "enum",
+                onerror : "你输入的固定电话号码格式不正确"
+            });
+
+        });
+
+
+        checkEmail = function(email) {
+            if ("" == email) {
+                return true;
+            }
+            var result = true;
+            $.ajax( {
+                async : false,
+                dataType : "json",
+                type : "POST",
+                data : {
+                    email : email,
+                    id : $("#pk").val()
+                },
+                url : "__MODULE__/Member/checkemail",
+                success : function(data) {
+
+                    result = (data["valid"]);
+                },
+                error : function() {
+                }
+            });
+            return result;
+        };
+
+        //导航位置
+        var module = "Member";
+        var pnArr = window.location.pathname.split("/");
+        var pnArrNumber = $.inArray(module,pnArr);
+        $(".MCleft li").each(function () {
+            if (!!$(this).attr("data-pn") && $(this).attr("data-pn").indexOf("|"+pnArr[pnArrNumber+1]+"|") >= 0){
+                $(this).addClass("checked");
+            }
+        })
+    </script>
+
+</block>

@@ -125,7 +125,7 @@ class IndexController extends CommonController {
             if(!$info2) {// 上传错误提示错误信息
                 //$this->error($upload->getError());
             }else{// 上传成功 获取上传文件信息
-                $log["identity_card"] = $info['savepath'].$info['savename'];
+                $log["identity_card"] = $info2['savepath'].$info2['savename'];
             }
 
             // 上传资质证明
@@ -133,7 +133,7 @@ class IndexController extends CommonController {
             if(!$info3) {// 上传错误提示错误信息
                 //$this->error($upload->getError());
             }else{// 上传成功 获取上传文件信息
-                $log["certification"] = $info['savepath'].$info['savename'];
+                $log["certification"] = $info3['savepath'].$info3['savename'];
             }
 
             //数据录入
@@ -199,7 +199,10 @@ class IndexController extends CommonController {
             $verify = new \Think\Verify();
             if (!$verify->check(I("post.verify"))){
                 $verinfo = "验证码错误！";
-                $this->assign('verinfo',$verinfo);
+                $info["username"] = I("post.username");
+                $info["password"] = I("post.password");
+                $info["ver"] = $verinfo;
+                $this->assign('verinfo',$info);
             }else{
                 //通过验证码验证
                 if(I("post.username")!="" && I("post.password")!="")
@@ -233,12 +236,18 @@ class IndexController extends CommonController {
                     else
                     {
                         $verinfo = "用户名或密码错误！";
-                        $this->assign('verinfo',$verinfo);
+                        $info["username"] = I("post.username");
+                        $info["password"] = I("post.password");
+                        $info["ver"] = $verinfo;
+                        $this->assign('verinfo',$info);
                     }
                 }
                 else{
                     $verinfo = "用户名或密码不能为空！";
-                    $this->assign('verinfo',$verinfo);
+                    $info["username"] = I("post.username");
+                    $info["password"] = I("post.password");
+                    $info["ver"] = $verinfo;
+                    $this->assign('verinfo',$info);
                 }
             }
         }

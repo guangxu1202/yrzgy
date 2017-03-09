@@ -19,16 +19,16 @@
             <form name="loginForm" id="loginForm" action="__SELF__" method="post">
                 <dl class="clearfix">
                     <dt>用户名:</dt>
-                    <dd><input name="username" type="text" id="username" placeholder="请输入用户名" /></dd>
+                    <dd><input name="username" type="text" id="username" placeholder="请输入用户名" value="{$verinfo.username}" /></dd>
                 </dl>
                 <dl class="clearfix">
                     <dt>密码:</dt>
-                    <dd><input name="password" type="password" id="password" style="width: 80%" placeholder="请输入密码" /></dd>
+                    <dd><input name="password" type="password" id="password" style="width: 80%" placeholder="请输入密码"  value="{$verinfo.password}" onkeydown='if(event.keyCode==13){login();}'  /></dd>
                 </dl>
                 <dl class="clearfix">
                     <dt>验证码:</dt>
                     <dd>
-                        <input type="text" class="linput verify" id="human" style="float:left; width:36%;" name="verify" placeholder="验证码" />
+                        <input type="text" class="linput verify" id="human" style="float:left; width:36%;" name="verify" placeholder="验证码"  onkeydown='if(event.keyCode==13){login();}'  />
                         <img src="__MODULE__/index/verifyImg" onclick="reloadcode(this,'__MODULE__/index/verifyImg?')" alt="点击重新刷新" title="点击重新刷新" style=" width: 145px; margin-left:10px; float:left; cursor: pointer;">
                     </dd>
                 </dl>
@@ -42,7 +42,7 @@
                 <dl class=" clearfix" style="min-height: 20px;">
                     <dt>&nbsp;</dt>
                     <dd>
-                        <p class="red" style="margin-bottom: 0;">{$verinfo}</p>
+                        <p class="red" style="margin-bottom: 0;">{$verinfo.ver}</p>
                     </dd>
                 </dl>
 
