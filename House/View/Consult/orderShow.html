@@ -1,0 +1,361 @@
+<extend name="./base" />
+<block name="title"><title>查看 - 预约视频咨询管理 - 视频咨询管理 - 元认知干预网站管理后台系统</title></block>
+<block name="content">
+    <div class="breadcrumbs" id="breadcrumbs">
+        <script type="text/javascript">
+            try{ace.settings.check('breadcrumbs' , 'fixed')}catch(e){}
+        </script>
+
+        <ul class="breadcrumb">
+            <li>
+                <i class="icon-home home-icon"></i>
+                <a href="#">首页</a>
+            </li>
+            <li class="active">视频咨询管理</li>
+        </ul><!-- .breadcrumb -->
+
+    </div>
+
+    <div class="page-content">
+        <div class="page-header">
+            <h1>
+                预约视频咨询管理
+                <small>
+                    <i class="icon-double-angle-right"></i>
+                    查看
+                </small>
+            </h1>
+        </div><!-- /.page-header -->
+        <div class="row">
+            <div class="col-xs-12">
+                <form class="form-horizontal" id="myForm" method="post" action="__SELF__">
+                    <foreach name="info" item="vo" >
+                        <table class="Edit">
+                            <colgroup width="130px"></colgroup>
+                            <thead>
+                            <tr><td colspan="2">视频预约申请信息</td></tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <th>咨询申请编号： </th>
+                                <td>{$vo.order_number}</td>
+                            </tr>
+                            <tr>
+                                <th>标题： </th>
+                                <td>{$vo.title}</td>
+                            </tr>
+                            <tr>
+                                <th>描述： </th>
+                                <td>{$vo.summary}</td>
+                            </tr>
+                            <tr>
+                                <th>联系人姓名： </th>
+                                <td>{$vo.lx_name}</td>
+                            </tr>
+                            <tr>
+                                <th>联系人电话： </th>
+                                <td>{$vo.lx_phone}</td>
+                            </tr>
+                            <tr>
+                                <th>联系人QQ： </th>
+                                <td>{$vo.lx_qq}</td>
+                            </tr>
+
+                            <tr>
+                                <th>咨询人姓名： </th>
+                                <td>{$vo.zx_name}</td>
+                            </tr>
+
+                            <tr>
+                                <th>咨询人关系： </th>
+                                <td>{$vo.zx_relation}</td>
+                            </tr>
+                            <tr>
+                                <th>咨询人性别： </th>
+                                <td>
+                                    <if condition="$vo.zx_gender eq 0">
+                                        男
+                                        <else />
+                                        女
+                                    </if>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <th>咨询人年龄： </th>
+                                <td>{$vo.zx_age}</td>
+                            </tr>
+
+                            <tr>
+                                <th>申请时间： </th>
+                                <td>{$vo.create_time}</td>
+                            </tr>
+
+                            </tbody>
+                        </table>
+
+                        <table class="Edit">
+                            <colgroup width="130px"></colgroup>
+                            <thead>
+                            <tr><td colspan="2">视频预约审核信息</td></tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <th>审核： </th>
+                                <td>
+                                    <if condition="$vo.examine eq 0 ">
+                                        待审核
+                                        <elseif condition="$vo.examine eq 1 " />
+                                        已通过
+                                        <else />
+                                        已拒绝
+                                    </if>
+                                </td>
+                            </tr>
+                            <tr <if condition="$vo.examine neq 2"> style="display: none"</if> id="refusebox">
+                            <th>拒绝原因： </th>
+                            <td>
+                                {$vo.refuse}
+                            </td>
+                            </tr>
+                            <if condition="$vo.examine neq 0">
+                                <tr>
+                                    <th>审核人： </th>
+                                    <td>{$vo.handle_name}</td>
+                                </tr>
+
+                                <tr>
+                                    <th>审核时间： </th>
+                                    <td>{$vo.handle_time}</td>
+                                </tr>
+
+                            </if>
+
+                            </tbody>
+                        </table>
+
+
+                        <if condition="$vo.examine eq 1">
+                            <table class="Edit">
+                                <colgroup width="130px"></colgroup>
+                                <thead>
+                                <tr><td colspan="2">视频预约付款状态</td></tr>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                    <th>付款状态： </th>
+                                    <td>
+
+                                        <if condition="$vo.is_pay eq 0">
+                                            未付款
+                                            <else/>
+                                            已付款
+                                        </if>
+                                    </td>
+                                </tr>
+                                <tr <if condition="$vo.is_pay eq 0"> style="display: none"</if> id="paybox">
+                                <th>付款金额： </th>
+                                <td>
+                                    {$vo.pay_money}
+                                </td>
+                                </tr>
+
+                                <if condition="$vo.is_pay eq 1">
+                                    <tr>
+                                        <th>确认付款人： </th>
+                                        <td>{$vo.is_pay_name}</td>
+                                    </tr>
+
+                                    <tr>
+                                        <th>确认付款时间： </th>
+                                        <td>{$vo.pay_time}</td>
+                                    </tr>
+                                </if>
+
+                                </tbody>
+                            </table>
+                        </if>
+
+                        <if condition="$vo.is_pay eq 1">
+                            <table class="Edit">
+                                <colgroup width="130px"></colgroup>
+                                <thead>
+                                <tr><td colspan="2">视频预约分配状态</td></tr>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                    <th>分配状态： </th>
+                                    <td>
+
+                                        <if condition="$vo.release_statu eq 0">
+                                            未分配
+                                            <else/>
+                                            已分配
+                                        </if>
+                                    </td>
+                                </tr>
+
+                                <if condition="$vo.release_statu eq 1">
+                                    <tr>
+                                        <th>分配人： </th>
+                                        <td>{$vo.release_name}</td>
+                                    </tr>
+                                </if>
+
+                                </tbody>
+                            </table>
+                        </if>
+
+                        <div class="space-4"></div>
+
+                        <div class="clearfix form-actions">
+                            <div class="col-md-offset-3 col-md-9">
+                                <div class="row">
+                                      <button class="btn" type="button" onclick="javascript:location.href='__MODULE__/Consult/orderList'">返回</button>
+                                </div>
+                            </div>
+                        </div>
+                    </foreach>
+                </form>
+            </div>
+        </div>
+
+    </div>
+</block>
+
+<block name="public">
+    <!-- page specific plugin scripts -->
+    <script src="{$Think.const.ADMIN_URL}/js/jquery.dataTables.min.js"></script>
+    <script src="{$Think.const.ADMIN_URL}/js/jquery.dataTables.bootstrap.js"></script>
+    <script src="{$Think.const.ADMIN_URL}/js/bootbox.min.js"></script>
+    <!-- inline scripts related to this page -->
+    <script src="{$Think.const.ADMIN_URL}/js/admin.js"></script>
+    <script type="text/javascript">
+        $(function(){
+            $('#myForm').bootstrapValidator({
+                message: 'This value is not valid',
+                feedbackIcons: {
+                    valid: 'glyphicon glyphicon-ok',
+                    invalid: 'glyphicon glyphicon-remove',
+                    validating: 'glyphicon glyphicon-refresh'
+                },
+                fields: {
+                    username: {
+                        validators: {
+                            notEmpty: {
+                                message: '登录名不能为空'
+                            },
+                            stringLength: {
+                                min: 4,
+                                max: 20,
+                                message: '登录名长度必须在4到20之间'
+                            },
+                            regexp: {
+                                regexp: /^[a-zA-Z0-9_\.]+$/,
+                                message: '用户名由数字字母下划线和.组成'
+                            }
+                        }
+                    },
+                    real_name :{
+                        validators: {
+                            notEmpty: {
+                                message: '真实姓名不能为空'
+                            },
+                            stringLength: {
+                                min: 0,
+                                max: 40,
+                                message: '真实姓名长度必须在0到40之间'
+                            }
+                        }
+                    },
+                    summary: {
+                        validators: {
+                            stringLength: {
+                                min: 0,
+                                max: 300,
+                                message: '简介长度必须在0到300之间'
+                            }
+                        }
+                    },
+                    address: {
+                        validators: {
+                            stringLength: {
+                                min: 0,
+                                max: 100,
+                                message: '地址长度必须在0到100之间'
+                            }
+                        }
+                    },
+
+
+                    qq: {
+                        validators: {
+                            notEmpty: {
+                                message: 'QQ不能为空'
+                            },
+                            stringLength: {
+                                min: 0,
+                                max: 12,
+                                message: 'QQ长度必须在0到12之间'
+                            }
+                        }
+                    },
+                    phone: {
+                        validators: {
+                            notEmpty: {
+                                message: '手机号码不能为空'
+                            },
+                            stringLength: {
+                                min: 0,
+                                max: 12,
+                                message: '手机号码长度必须在0到12之间'
+                            }
+                        }
+                    },
+                    custom_sort: {
+                        validators: {
+                            notEmpty: {
+                                message: '自定义排序不能为空'
+                            },
+                            stringLength: {
+                                min: 1,
+                                max: 10,
+                                message: '自定义排序长度必须在1到10之间'
+                            },
+                            digits :  {
+                                message: '只能输入整数'
+                            }
+                        }
+                    }
+
+
+                },
+                submitHandler: function(validator, form, submitButton) {
+                    // a)
+                    // Use Ajax to submit form data
+                    //$.post(form.attr('action'), form.serialize(), function(result) {
+                    // ... process the result ...
+                    //}, 'json');
+
+                    //b)
+                    // Do your task
+                    // ...
+                    // Submit the form
+                    validator.defaultSubmit();
+                }
+
+            });
+        })
+
+
+        //锁定与解锁
+        $(".reset").click(function(){
+            var that = this;
+            bootbox.confirm("确定要重置这个帐号的密码吗？", function(result) {
+                if(result) {
+                    location.href ="__MODULE__/Consult/resetPwd/pa/"+$(that).attr("data-id");
+                }
+            });
+        });
+    </script>
+</block>

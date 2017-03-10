@@ -352,4 +352,59 @@ class ArticleController extends CommonController {
     }
 
 
+
+    //预约视频咨询
+    function consult_msg(){
+
+        if (!empty($_POST)) {
+
+
+
+            $verify = new \Think\Verify();
+            if (!$verify->check(I("post.verify"))){
+                $this->error("验证码错误！");
+                exit();
+            }
+
+            //实例化
+            $model = new \Model\ConsultModel();
+            //验证数据 ConsultModel
+            $z = $model -> create();
+            if (!$z){
+                //show_bug($model -> getError());
+                $this->error("您录入的数据格式错误！");
+                exit();
+            }
+
+            //数据录入
+            $log["lx_name"] = I("post.lx_name");
+            $log["lx_phone"] = I("post.lx_phone");
+            $log["lx_qq"] = I("post.lx_qq");
+            $log["zx_name"] = I("post.zx_name");
+            $log["zx_relation"] = I("post.zx_relation");
+            $log["zx_gender"] = I("post.zx_gender");
+            $log["zx_age"] = I("post.zx_age");
+            $log["title"] = I("post.title");
+            $log["summary"] = I("post.summary");
+            $log["member_id"] = session("c_id");
+            $log["create_time"] = date("Y-m-d H:i:s");
+            $log["examine"] =0;
+            $log["is_pay"] =false;
+            $log["release_statu"] =false;
+            $random =date("YmdHis").session("c_id").rand(10,100) ;
+            $log["order_number"] =$random;
+
+
+
+            $model->data($log)->add();
+
+            //录入成功
+            $this->success("恭喜您，视频预约成功，请等待我们的审核！",__MODULE__."/Member/myConsult",10);
+
+        }
+        else{
+            $this->display();
+        }
+    }
+
 }

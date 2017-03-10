@@ -1,0 +1,78 @@
+<extend name="./base" />
+<block name="title">
+    <title>我的视频咨询 - 个人中心 - 元认知心理干预技术网</title>
+    <meta name="keywords" content="元认知,元认知干预，元认知心理，元认知心理干预，元认知心理干预技术，金洪源"/>
+    <meta name="description" content="元认知研究所由金洪源教授任所长，面向全国提供心理技术服务，解决学生偏科、厌学、马虎、考试焦虑、拖延等学习障碍问题；改善人际关系，解决亲子、家庭问题；提供失眠、焦虑、强迫、抑郁等辅助性干预；优化性格系统。主要业务：个体咨询、团体辅导、技术培训、进驻学校推进心理健康技术化改革。下设临床服务部、研修生部、驻校服务部、中小学教研部、技术研发与培训部。"/>
+</block>
+
+<block name="content">
+
+
+<div class="container i-container">
+    <div class="Statu">您的位置：<a href="{$Think.const.SITE_URL}">首页</a> &gt;&gt; <a href="__MODULE__/Member/main">个人中心</a>  &gt;&gt; 我的视频咨询</div>
+</div>
+
+<div class="container i-container">
+    <div class="MCenter clearfix">
+        <div class="row">
+            <div class="col-sm-3">
+                <div class="MCleft">
+                    <include file="./member_left" />
+                </div>
+            </div>
+
+            <div class=" col-sm-9">
+                <div class="MCmain">
+                    <div class="person-wrap">
+                        <div class="text-center">
+                            <a href="__MODULE__/Article/consult_msg" style="margin: 20px auto;" class="advice_btn">预约视频咨询</a>
+                        </div>
+                        <ul class="person-list">
+                            <volist name="list" id="vo">
+                                <li>
+                                    <span>{$vo.create_time|substr=0,10}</span>
+
+
+                                    <if condition="$vo.examine eq 0">
+                                        <em class="grey">待审核</em>
+                                        <i>[{$vo.order_number}] {$vo.title}</i>
+                                        <elseif condition="$vo.examine eq 1"/>
+                                        <a href="__MODULE__/Member/consultor/u/{$vo.pk}" target="_blank">
+                                            [{$vo.order_number}] {$vo.title}
+                                        </a>
+                                        <em>已审核</em>
+                                        <else/>
+                                        <a href="__MODULE__/Member/consultor/u/{$vo.pk}" target="_blank">
+                                            [{$vo.order_number}] {$vo.title} [拒绝原因]
+                                        </a>
+                                        <em>已拒绝</em>
+                                    </if>
+                                </li>
+                            </volist>
+                        </ul>
+                        <div class="pagenation">{$page}</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+</block>
+
+
+<block name="public">
+    <script>
+        //导航位置
+        var module = "Member";
+        var pnArr = window.location.pathname.split("/");
+        var pnArrNumber = $.inArray(module,pnArr);
+        $(".MCleft li").each(function () {
+            if (!!$(this).attr("data-pn") && $(this).attr("data-pn").indexOf("|"+pnArr[pnArrNumber+1]+"|") >= 0){
+                $(this).addClass("checked");
+            }
+        })
+    </script>
+
+</block>

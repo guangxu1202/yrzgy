@@ -58,7 +58,6 @@ class ConsultController extends CommonController {
         }
     }
 
-
     //修改
     function teacherEdit(){
         if (!empty($_POST)){
@@ -98,7 +97,6 @@ class ConsultController extends CommonController {
             $this -> display();
         }
     }
-
 
     //查看
     function teacherShow(){
@@ -145,4 +143,96 @@ class ConsultController extends CommonController {
             $this->success("密码重置成功!");
         }
     }
+
+
+
+//*****************视频咨询管理********************
+    //视频咨询申请李彪
+    function orderList(){
+        $user = M("consult");
+        $info = $user->order("release_statu asc,is_pay asc,examine asc,create_time desc") -> select();
+        $this -> assign("info",$info);
+        $this -> display();
+    }
+
+    //审核
+    function orderEdit(){
+        if (!empty($_POST)){
+            //实例化
+            $user = new \Model\ConsultModel();
+            //验证数据 ConsultModel
+            $z = $user -> create();
+            if (!$z){
+                //show_bug($user -> getError());
+                $this->error("您录入的数据格式错误！");
+                exit();
+            }
+
+            //数据修改
+            if (checkBit(I('post.examine'))){
+                $data["examine"] = 1;
+            }else{
+                $data["examine"] = 2;
+                $data["refuse"] = I("post.refuse");
+            }
+            $data["handle_time"] = date("Y-m-d H:i:s");
+            $data["handle_name"] = session("a_username");
+
+            $user->  where("pk=".I('post.pk'))  ->setField($data);
+            //录入成功
+            $this->success("恭喜您，审核成功！");
+
+
+        }else{
+            $user = M("consult");
+            $info = $user-> where("pk=".I("get.pa")) -> select();
+            $this -> assign("info",$info);
+            $this -> display();
+        }
+    }
+
+    //付款
+    function orderPay(){
+        if (!empty($_POST)){
+            //实例化
+            $user = new \Model\ConsultModel();
+            //验证数据 ConsultModel
+            $z = $user -> create();
+            if (!$z){
+                //show_bug($user -> getError());
+                $this->error("您录入的数据格式错误！");
+                exit();
+            }
+            //数据修改
+            if (checkBit(I('post.is_pay'))){
+                $data["pay_money"] = I("post.pay_money");
+            }else{
+                $data["pay_money"] = null;
+            }
+            $data["is_pay"] = checkBit(I("post.is_pay"));
+            $data["pay_time"] = date("Y-m-d H:i:s");
+            $data["is_pay_name"] = session("a_username");
+
+            $user->  where("pk=".I('post.pk'))  ->setField($data);
+            //录入成功
+            $this->success("恭喜您，付款确认成功！");
+
+        }else{
+            $user = M("consult");
+            $info = $user-> where("pk=".I("get.pa")) -> select();
+            $this -> assign("info",$info);
+            $this -> display();
+        }
+    }
+
+    //查看
+    function orderShow(){
+       
+        $user = M("consult");
+        $info = $user-> where("pk=".I("get.pa")) -> select();
+        $this -> assign("info",$info);
+        $this -> display();
+
+    }
+
 }

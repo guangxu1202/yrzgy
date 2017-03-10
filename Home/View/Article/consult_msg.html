@@ -76,7 +76,13 @@
                                     <textarea id="summary" name="summary" style="width: 90%; min-height: 200px;" placeholder="请尽量描述清楚症状"></textarea><em></em></dd>
                                 </dd>
                             </dl>
-
+                            <dl class="clearfix">
+                                <dt>验证码:</dt>
+                                <dd>
+                                    <input type="text" class="linput verify" id="human" style="float:left; width:36%;" name="verify" placeholder="验证码"  onkeydown='if(event.keyCode==13){login();}'  />
+                                    <img src="__MODULE__/index/verifyImg" onclick="reloadcode(this,'__MODULE__/index/verifyImg?')" alt="点击重新刷新" title="点击重新刷新" style=" width: 145px; margin-left:10px; float:left; cursor: pointer;">
+                                </dd>
+                            </dl>
                             <dl class="BtnSubmit clearfix">
                                 <dt>&nbsp;</dt>
                                 <dd><button class="btn-green">提交</button></dd>
@@ -197,6 +203,11 @@
                 alert("个人简介最多可输入 500 个字符, 您已经输入 [ " + $("#summary").val().length + " ] 个字符,\n请稍做修改再注册.");
                 return false;
             }
+            if (null == $("#human").val() || "" == $("#human").val()) {
+                alert("请输入验证码.");
+                $("#human").focus();
+                return false;
+            }
             return true;
         };
 
@@ -211,7 +222,14 @@
             if (!!$(this).attr("data-pn") && $(this).attr("data-pn").indexOf("|"+pnArr[pnArrNumber+1]+"|") >= 0){
                 $(this).addClass("checked");
             }
+
         })
+
+
+        //刷新验证码
+        function reloadcode(obj,src){
+            $(obj).attr("src",src+Math.random());
+        }
     </script>
 
 </block>
