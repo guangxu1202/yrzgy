@@ -1,0 +1,303 @@
+<extend name="./base" />
+<block name="title"><title>修改分配 - 视频咨询分配管理 - 视频咨询管理 - 元认知干预网站管理后台系统</title></block>
+<block name="content">
+    <div class="breadcrumbs" id="breadcrumbs">
+        <script type="text/javascript">
+            try{ace.settings.check('breadcrumbs' , 'fixed')}catch(e){}
+        </script>
+        <link rel="stylesheet" href="{$Think.const.ADMIN_URL}/css/datepicker.css" />
+        <link rel="stylesheet" href="{$Think.const.ADMIN_URL}/css/bootstrap-timepicker.css" />
+        <ul class="breadcrumb">
+            <li>
+                <i class="icon-home home-icon"></i>
+                <a href="#">首页</a>
+            </li>
+            <li class="active">视频咨询管理</li>
+        </ul><!-- .breadcrumb -->
+
+    </div>
+
+    <div class="page-content">
+        <div class="page-header">
+            <h1>
+                视频咨询分配管理
+                <small>
+                    <i class="icon-double-angle-right"></i>
+                    修改分配
+                </small>
+            </h1>
+        </div><!-- /.page-header -->
+        <div class="row">
+            <div class="col-xs-12">
+                <form class="form-horizontal" id="myForm" method="post" action="__SELF__">
+                    <foreach name="info" item="vo" >
+                        <table class="Edit">
+
+                            <colgroup width="130px"></colgroup>
+                            <thead>
+                                <tr><td colspan="2">基本信息</td></tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <th>咨询申请编号： </th>
+                                <td>{$vo.order_number}</td>
+                            </tr>
+                            <tr>
+                                <th>审核状态： </th>
+                                <td>
+                                    <if condition="$vo.examine eq 0 ">
+                                        待审核
+                                        <elseif condition="$vo.examine eq 1 " />
+                                        已通过
+                                        <else />
+                                        已拒绝
+                                    </if>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>付款状态： </th>
+                                <td>
+                                    <if condition="$vo.is_pay eq 0 ">
+                                       未付款
+                                        <else />
+                                        已付款
+                                    </if>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>分配状态： </th>
+                                <td>
+                                    <if condition="$vo.release_statu eq 0 ">
+                                        未分配
+                                        <else />
+                                        已分配
+                                    </if>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+
+                        <table class="Edit">
+
+                            <colgroup width="130px"></colgroup>
+                            <thead>
+                            <tr><td colspan="2">客户信息</td></tr>
+                            </thead>
+                            <tbody>
+
+                            <tr>
+                                <th>标题： </th>
+                                <td>{$vo.title}</td>
+                            </tr>
+                            <tr>
+                                <th>描述： </th>
+                                <td>{$vo.summary}</td>
+                            </tr>
+                            <tr>
+                                <th>联系人姓名： </th>
+                                <td>{$vo.lx_name}</td>
+                            </tr>
+                            <tr>
+                                <th>联系人电话： </th>
+                                <td>{$vo.lx_phone}</td>
+                            </tr>
+                            <tr>
+                                <th>联系人QQ： </th>
+                                <td>{$vo.lx_qq}</td>
+                            </tr>
+
+                            <tr>
+                                <th>咨询人姓名： </th>
+                                <td>{$vo.zx_name}</td>
+                            </tr>
+
+                            <tr>
+                                <th>咨询人关系： </th>
+                                <td>{$vo.zx_relation}</td>
+                            </tr>
+                            <tr>
+                                <th>咨询人性别： </th>
+                                <td>
+                                    <if condition="$vo.zx_gender eq 0">
+                                        男
+                                        <else />
+                                        女
+                                    </if>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>咨询人年龄： </th>
+                                <td>{$vo.zx_age}</td>
+                            </tr>
+
+                            <tr>
+                                <th>申请时间： </th>
+                                <td>{$vo.create_time}</td>
+                            </tr>
+
+                            </tbody>
+                        </table>
+
+
+                        <table class="Edit">
+
+                            <colgroup width="130px"></colgroup>
+                            <thead>
+                            <tr><td colspan="2">分配信息</td></tr>
+                            </thead>
+                            <tbody>
+
+                            <!--<tr>-->
+                                <!--<th>选择咨询师： </th>-->
+                                <!--<td>-->
+                                    <!--<select name="teacher_id">-->
+                                        <!--<volist name="info1" id="v">-->
+                                            <!--<option value="{$v.pk}">{$v.real_name}</option>-->
+                                        <!--</volist>-->
+                                    <!--</select>-->
+                                <!--</td>-->
+                            <!--</tr>-->
+                            <tr>
+                                <th>咨询时间列表： </th>
+                                <td>
+                                    <ul class="consult-ul items ">
+                                        <volist name="info2" id="o" key="k" >
+                                            <li class="clearfix">
+                                                <if condition="$o['status'] eq 0">
+                                                    <select name="teacher_id[{$k}]" style="float:left; margin-right: 10px; height: 34px;">
+                                                        <volist name="info1" id="v">
+                                                            <option value="{$v.pk}" <if condition="$v['pk'] eq $o['teacher_id']"> selected</if>>{$v.real_name}</option>
+                                                        </volist>
+                                                    </select>
+                                                    <div class="input-group date-box">
+                                                        <input class="form-control date-picker" name="datetime[{$k}]" type="text" value="{$o['start_time']|substr=0,10}" data-date-format="yyyy-mm-dd" placeholder="请选择日期" />
+                                                        <span class="input-group-addon">
+                                                            <i class="icon-calendar bigger-110"></i>
+                                                        </span>
+                                                    </div>
+
+                                                    <div class="input-group bootstrap-timepicker date-box">
+                                                        <input type="text" class="form-control timepicker" name="start_time[{$k}]" value="{$o['start_time']|substr=11,8}" placeholder="预计开始时间" />
+                                                        <span class="input-group-addon">
+                                                            <i class="icon-time bigger-110"></i>
+                                                        </span>
+                                                    </div>
+                                                    <span class="date-mid">--</span>
+                                                    <div class="input-group bootstrap-timepicker date-box">
+                                                        <input type="text" class="form-control timepicker" name="end_time[{$k}]" value="{$o['end_time']|substr=11,8}" placeholder="预计结束时间" />
+                                                        <span class="input-group-addon">
+                                                            <i class="icon-time bigger-110"></i>
+                                                        </span>
+                                                    </div>
+                                                    <if condition="$k gt 1">
+                                                        <a href="javascript:void(0);" class="item-a" onclick="itemDel(this)"><i class="icon-trash"></i></a>
+                                                    </if>
+                                                <else/>
+                                                    <volist name="info1" id="v">
+                                                        <if condition="$v['pk'] eq $o['teacher_id']"> {$v.real_name}</if>
+
+                                                    </volist>
+                                                    {$o['start_time']} -- {$o['end_time']}
+                                                    <span class="green">已完成咨询</span>
+                                                </if>
+                                            </li>
+                                        </volist>
+                                    </ul>
+                                    <button class="btn btn-success" type="button" onclick="itemAdd(1)">增加一项</button>
+                                    <button class="btn btn-success" type="button" onclick="itemAdd(3)">增加三项</button>
+                                </td>
+                            </tr>
+
+
+                            </tbody>
+                        </table>
+
+
+
+                        <input type="hidden" name="pk" value="{$vo.pk}">
+                        <input type="hidden" name="member_id" value="{$vo.member_id}">
+                        <input type="hidden" name="time_number" value="{$vo.order_number}">
+
+                        <div class="space-4"></div>
+
+                        <div class="clearfix form-actions">
+                            <div class="col-md-offset-3 col-md-9">
+                                <div class="row">
+                                    <button class="btn btn-info" id="btn" onclick="checkForm()" type="button">
+                                        <i class="icon-ok bigger-110"></i>
+                                        提交
+                                    </button>
+                                    <button class="btn" type="button" onclick="javascript:location.href='__MODULE__/Consult/allotList'">返回</button>
+                                </div>
+                            </div>
+                        </div>
+                    </foreach>
+                </form>
+            </div>
+        </div>
+
+    </div>
+</block>
+
+<block name="public">
+    <!-- page specific plugin scripts -->
+    <script src="{$Think.const.ADMIN_URL}/js/bootbox.min.js"></script>
+    <!-- inline scripts related to this page -->
+    <script src="{$Think.const.ADMIN_URL}/js/admin.js"></script>
+
+    <script src="{$Think.const.ADMIN_URL}/js/date-time/bootstrap-datepicker.min.js"></script>
+    <script src="{$Think.const.ADMIN_URL}/js/date-time/bootstrap-timepicker.min.js"></script>
+    <script src="{$Think.const.ADMIN_URL}/js/date-time/bootstrap-datepicker.zh-CN.js"></script>
+    <script type="text/javascript">
+        $(function(){
+            var k = {$k}+1;
+            itemAdd = function (n) {
+                var n = n || 1;
+                for (var i = 0; i < n; i++){
+                        $(".items").append('<li class="clearfix"><select name="teacher_id['+k+']" style="float:left; margin-right: 10px; height: 34px;"><volist name="info1" id="v"><option value="{$v.pk}" <if condition="$v['pk'] eq $o['teacher_id']"> selected</if>>{$v.real_name}</option></volist></select><div class="input-group date-box"><input class="form-control date-picker" name="datetime['+k+']" type="text" data-date-format="yyyy-mm-dd" placeholder="请选择日期" /><span class="input-group-addon"><i class="icon-calendar bigger-110"></i></span></div><div class="input-group bootstrap-timepicker date-box"><input type="text" class="form-control timepicker" name="start_time['+k+']" placeholder="预计开始时间" /><span class="input-group-addon"><i class="icon-time bigger-110"></i></span></div><span class="date-mid">--</span><div class="input-group bootstrap-timepicker date-box"><input type="text" class="form-control timepicker" name="end_time['+k+']" placeholder="预计结束时间"/><span class="input-group-addon"><i class="icon-time bigger-110"></i></span></div><a href="javascript:void(0);" class="item-a" onclick="itemDel(this)"><i class="icon-trash"></i></a></li>');
+                    k++;
+
+                }
+            };
+            itemDel = function(obj) {
+                $(obj).parent().remove();
+            };
+            $("body").delegate(".date-picker", "focusin", function(){
+                $('.date-picker').datepicker({
+                    language: "zh-CN",
+                    autoclose: true
+                });
+            });
+            $("body").delegate(".timepicker", "focusin", function(){
+                $('.timepicker').timepicker({
+                    minuteStep: 1,
+                    showSeconds: true,
+                    showMeridian: false
+                });
+            });
+
+            checkForm = function(){
+                if ($(".date-picker").val() == ''){
+                    alert("日期不能为空！");
+                    return false;
+                }
+                if ($(".timepicker").val() == ''){
+                    alert("时间不能为空！");
+                    return false;
+                }
+                $("#myForm").submit();
+            }
+
+
+        })
+
+        function checkRefuse(n) {
+            if (n==0){
+                $("#refusebox").hide();
+            }else{
+                $("#refusebox").show();
+            }
+        }
+
+    </script>
+</block>

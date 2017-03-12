@@ -1,5 +1,5 @@
 <extend name="./base" />
-<block name="title"><title>预约视频咨询管理 - 视频咨询管理 - 元认知干预网站管理后台系统</title></block>
+<block name="title"><title>我的咨询 - 元认知干预网站管理后台系统</title></block>
 <block name="content">
     <div class="breadcrumbs" id="breadcrumbs">
         <script type="text/javascript">
@@ -11,15 +11,14 @@
                 <i class="icon-home home-icon"></i>
                 <a href="#">首页</a>
             </li>
-            <li class="active">视频咨询管理</li>
+            <li class="active">我的咨询</li>
         </ul><!-- .breadcrumb -->
-
     </div>
 
     <div class="page-content">
         <div class="page-header">
             <h1>
-                预约视频咨询管理
+                我的咨询
                 <small>
                     <i class="icon-double-angle-right"></i>
                     列表
@@ -43,11 +42,13 @@
                             <th>咨询编号</th>
                             <th>联系人</th>
                             <th>联系电话</th>
+                            <th>联系QQ</th>
                             <th>标题</th>
-                            <th>申请时间</th>
-                            <th>审核状态</th>
-                            <th>付款状态</th>
-                            <th>咨询分配</th>
+                            <th>预计开始时间</th>
+                            <th>预计结束时间</th>
+                            <th>咨询批次</th>
+                            <th>咨询状态</th>
+                            <th>用户评价</th>
                             <th>操作</th>
                         </tr>
                         </thead>
@@ -56,51 +57,36 @@
                         <volist name="info" id="vo">
                             <tr>
                                 <td class="center">{$i}</td>
-                                <td style="width: 150px;">{$vo.order_number}</td>
+                                <td style="width: 150px;"><a href="__MODULE__/Consult/itemHandle/pa/{$vo.pk}">{$vo.time_number}</a></td>
                                 <td>{$vo.lx_name}</td>
                                 <td>{$vo.lx_phone}</td>
+                                <td>{$vo.lx_qq}</td>
                                 <td style="max-width: 300px;">{$vo.title}</td>
-                                <td>{$vo.create_time|substr=0,10}</td>
+                                <td style="width: 150px;">{$vo.start_time}</td>
+                                <td style="width: 150px;">{$vo.end_time}</td>
+                                <td style="width:100px;">{$vo.times}/{$vo.count_times}</td>
                                 <td>
-                                    <if condition="$vo.examine eq 0 ">
-                                        待审核
-                                        <elseif condition="$vo.examine eq 1 " />
-                                        <span class="green">已通过</span>
+                                    <if condition="$vo.status eq 0 ">
+                                        <span class="red">未完成</span>
                                         <else />
-                                        <span class="red">已拒绝</span>
+                                        <span class="green">已完成</span>
                                     </if>
                                 </td>
                                 <td>
-                                    <if condition="$vo.is_pay eq 0 ">
-                                        未付款
+                                    <if condition="$vo.member_eval eq null ">
+                                        未评价
                                         <else />
-                                        <span class="green">已付款</span>
-                                    </if>
-                                </td>
-                                <td>
-                                    <if condition="$vo.release_statu eq 0 ">
-                                        未分配
-                                        <else />
-                                        <span class="green">已分配</span>
+                                        <span class="green">已评价</span>
                                     </if>
                                 </td>
                                 <td>
                                     <div class="visible-md visible-lg hidden-sm hidden-xs action-buttons">
-                                        <a href="__MODULE__/Consult/orderShow/pa/{$vo.pk}" data-id="{$vo.pk}">详细</a>
-
-                                        <!--已分配咨询无法取消付款-->
-                                        <if condition="$vo.release_statu eq 0 ">
-
-                                            <!--已付款无法修改审核状态-->
-                                            <if condition="$vo.is_pay eq 0 ">
-                                                <a href="__MODULE__/Consult/orderEdit/pa/{$vo.pk}" data-id="{$vo.pk}">审核</a>
-                                            </if>
-
-                                            <!--已审核才可以付款-->
-                                            <if condition="$vo.examine eq 1 ">
-                                                <a href="__MODULE__/Consult/orderPay/pa/{$vo.pk}" data-id="{$vo.pk}">付款</a>
-                                            </if>
+                                        <if condition="$vo.status eq 0 ">
+                                            <a href="__MODULE__/Consult/itemEdit/pa/{$vo.pk}" data-id="{$vo.pk}">办理</a>
+                                            <else />
+                                            <a href="__MODULE__/Consult/itemEdit/pa/{$vo.pk}" data-id="{$vo.pk}">修改</a>
                                         </if>
+
                                     </div>
 
                                 </td>
@@ -120,14 +106,15 @@
     <script src="{$Think.const.ADMIN_URL}/js/jquery.dataTables.min.js"></script>
     <script src="{$Think.const.ADMIN_URL}/js/jquery.dataTables.bootstrap.js"></script>
     <script src="{$Think.const.ADMIN_URL}/js/bootbox.min.js"></script>
+
     <!-- inline scripts related to this page -->
-    <script src="{$Think.const.ADMIN_URL}/js/admin.js"></script>
+    <script src="{$Think.const.ADMIN_URL}/js/hbuild.js"></script>
     <script type="text/javascript">
         jQuery(function($) {
             var oTable1 = $('#sample-table-2').dataTable( {
                 "aoColumns": [
                     { "bSortable": false },
-                    null, null,null, null, null,null,null,null,
+                    null, null,null, null, null,null,null,null,null,null,
                     { "bSortable": false }
                 ] ,
                 "oLanguage" : {

@@ -172,4 +172,26 @@ class SystemController extends CommonController {
         }
     }
 
+
+    //搜索结果
+    function search(){
+        $q = trim(I("get.qa"));
+        $this -> assign("q",$q );
+
+        if ($q == null){
+        }else{
+            $article = M("article");
+            //$a_title = $article->field("title,LENGTH(replace(title,'".$q."','')) - LENGTH(title)  as cc,update_time")->where("title like '%".$q."%' or content like '%".$q."%'")->order("cc asc") ->select();
+
+            $count      = $article->where("title like '%".$q."%' or content like '%".$q."%'") ->count();// 查询满足要求的总记录数
+            $Page       = new \Think\Page($count,C("PAGE_NUM"));// 实例化分页类 传入总记录数和每页显示的记录数(25)
+            $show       = $Page->show();// 分页显示输出
+            $list = $article->field("title,pk,LENGTH(replace(title,'".$q."','')) - LENGTH(title)  as cc,update_time,LENGTH(replace(content,'".$q."','')) - LENGTH(content) as dd")->where("title like '%".$q."%' or content like '%".$q."%'") ->order("cc asc,dd asc")->limit($Page->firstRow.','.$Page->listRows)->select();
+            $this->assign('list', $list);// 赋值数据集
+            $this->assign('page', $show);// 赋值分页输出
+        }
+
+        $this -> display();
+    }
+
 }

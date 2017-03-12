@@ -31,8 +31,6 @@
                             <volist name="list" id="vo">
                                 <li>
                                     <span>{$vo.create_time|substr=0,10}</span>
-
-
                                     <if condition="$vo.examine eq 0">
                                         <em class="grey">待审核</em>
                                         <i>[{$vo.order_number}] {$vo.title}</i>
@@ -40,10 +38,15 @@
                                         <a href="__MODULE__/Member/consultor/u/{$vo.pk}" target="_blank">
                                             [{$vo.order_number}] {$vo.title}
                                         </a>
-                                        <em>已审核</em>
+                                            <if condition="$vo.is_pay eq 0">
+                                                <em class="red">待付款</em>
+                                            <else/>
+                                                <em class="green">已付款</em>
+                                                <button class="timelink pull-right" type="button" onclick="javascript:location.href='__MODULE__/Member/consultList/u/{$vo.pk}'">进入时间表</button>
+                                            </if>
                                         <else/>
                                         <a href="__MODULE__/Member/consultor/u/{$vo.pk}" target="_blank">
-                                            [{$vo.order_number}] {$vo.title} [拒绝原因]
+                                            [{$vo.order_number}] {$vo.title}
                                         </a>
                                         <em>已拒绝</em>
                                     </if>

@@ -1,0 +1,99 @@
+<extend name="./base" />
+<block name="title"><title>查看 - 视频咨询评价管理 - 视频咨询管理 - 元认知干预网站管理后台系统</title></block>
+<block name="content">
+    <div class="breadcrumbs" id="breadcrumbs">
+        <script type="text/javascript">
+            try{ace.settings.check('breadcrumbs' , 'fixed')}catch(e){}
+        </script>
+        <link rel="stylesheet" href="{$Think.const.ADMIN_URL}/css/datepicker.css" />
+        <link rel="stylesheet" href="{$Think.const.ADMIN_URL}/css/bootstrap-timepicker.css" />
+        <ul class="breadcrumb">
+            <li>
+                <i class="icon-home home-icon"></i>
+                <a href="#">首页</a>
+            </li>
+            <li class="active">视频咨询管理</li>
+        </ul><!-- .breadcrumb -->
+
+    </div>
+
+    <div class="page-content">
+        <div class="page-header">
+            <h1>
+                视频咨询评价管理
+                <small>
+                    <i class="icon-double-angle-right"></i>
+                    查看
+                </small>
+            </h1>
+        </div><!-- /.page-header -->
+        <div class="row">
+            <div class="col-xs-12">
+                <form class="form-horizontal" id="myForm" method="post" action="__SELF__">
+                    <foreach name="info" item="vo" >
+                        <table class="Edit">
+
+                            <colgroup width="130px"></colgroup>
+                            <thead>
+                                <tr><td colspan="2">基本信息</td></tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <th>咨询申请编号： </th>
+                                <td>{$vo.time_number}</td>
+                            </tr>
+                            <tr>
+                                <th>咨询师评价： </th>
+                                <td>
+                                    {$vo.teacher_eval}
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>咨询师评价时间： </th>
+                                <td>
+                                    {$vo.teacher_eval_time}
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>用户评价： </th>
+                                <td>
+                                    {$vo.member_eval}
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>用户评价时间： </th>
+                                <td>
+                                    {$vo.member_eval_time}
+                                </td>
+                            </tr>
+
+
+                            </tbody>
+                        </table>
+
+
+
+                        <div class="space-4"></div>
+
+                        <div class="clearfix form-actions">
+                            <div class="col-md-offset-3 col-md-9">
+                                <div class="row">
+
+                                    <button class="btn" type="button" onclick="javascript:location.href='__MODULE__/Consult/evalList'">返回</button>
+                                </div>
+                            </div>
+                        </div>
+                    </foreach>
+                </form>
+            </div>
+        </div>
+
+    </div>
+</block>
+
+<block name="public">
+    <!-- page specific plugin scripts -->
+    <!-- inline scripts related to this page -->
+    <script src="{$Think.const.ADMIN_URL}/js/admin.js"></script>
+
+</block>

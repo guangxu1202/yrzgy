@@ -202,29 +202,105 @@ class MemberController extends CommonController {
 
     //我的留言咨询
     function myMessage(){
-        $model =M("comment");
-        $count      = $model->where("pid is null and article_id is null and audit <>2 and member_id =".session("c_id")) ->order("publish_time desc")->count();// 查询满足要求的总记录数
-        $Page       = new \Think\Page($count,C("PAGE_NUM"));// 实例化分页类 传入总记录数和每页显示的记录数(25)
-        $show       = $Page->show();// 分页显示输出
-        $list = $model->where("pid is null and article_id is null and audit <>2 and member_id =".session("c_id")) ->order("publish_time desc")->limit($Page->firstRow.','.$Page->listRows)->select();
-        $this->assign('list', $list);// 赋值数据集
-        $this->assign('page', $show);// 赋值分页输出
+        if (session("?c_id")){
+            $model =M("comment");
+            $count      = $model->where("pid is null and article_id is null and audit <>2 and member_id =".session("c_id")) ->order("publish_time desc")->count();// 查询满足要求的总记录数
+            $Page       = new \Think\Page($count,C("PAGE_NUM"));// 实例化分页类 传入总记录数和每页显示的记录数(25)
+            $show       = $Page->show();// 分页显示输出
+            $list = $model->where("pid is null and article_id is null and audit <>2 and member_id =".session("c_id")) ->order("publish_time desc")->limit($Page->firstRow.','.$Page->listRows)->select();
+            $this->assign('list', $list);// 赋值数据集
+            $this->assign('page', $show);// 赋值分页输出
 
-        $this->display();
-
+            $this->display();
+        }else{
+            $this->error("请登录后在操作！",__MODULE__."/Index/login");
+        }
     }
 
     //我的预约视频咨询
     function myConsult(){
-        $model =M("consult");
-        $count      = $model->where("member_id =".session("c_id")) ->order("create_time desc")->count();// 查询满足要求的总记录数
-        $Page       = new \Think\Page($count,C("PAGE_NUM"));// 实例化分页类 传入总记录数和每页显示的记录数(25)
-        $show       = $Page->show();// 分页显示输出
-        $list = $model->where("member_id =".session("c_id")) ->order("create_time desc")->limit($Page->firstRow.','.$Page->listRows)->select();
-        $this->assign('list', $list);// 赋值数据集
-        $this->assign('page', $show);// 赋值分页输出
+        if (session("?c_id")){
+            $model =M("consult");
+            $count      = $model->where("member_id =".session("c_id")) ->order("create_time desc")->count();// 查询满足要求的总记录数
+            $Page       = new \Think\Page($count,C("PAGE_NUM"));// 实例化分页类 传入总记录数和每页显示的记录数(25)
+            $show       = $Page->show();// 分页显示输出
+            $list = $model->where("member_id =".session("c_id")) ->order("create_time desc")->limit($Page->firstRow.','.$Page->listRows)->select();
+            $this->assign('list', $list);// 赋值数据集
+            $this->assign('page', $show);// 赋值分页输出
 
-        $this->display();
+            $this->display();
+        }else{
+            $this->error("请登录后在操作！",__MODULE__."/Index/login");
+        }
+
+    }
+
+    //我的预约咨询详情
+    function consultor(){
+        if (session("?c_id")){
+            $model =M("consult");
+            $info = $model-> where("pk=".I("get.u")) -> select();
+            $this -> assign("info",$info);
+            $this->display();
+        }else{
+            $this->error("请登录后在操作！",__MODULE__."/Index/login");
+        }
+    }
+
+
+    //我的预约咨询时间表
+    function consultList(){
+        if (session("?c_id")){
+            $model =M("consult");
+            $info = $model-> where("pk=".I("get.u")) -> select();
+            $this -> assign("info",$info);
+            $info2 = M("consult_item")->field("a.pk,a.times,a.count_times,a.status,a.start_time,a.end_time,a.teacher_eval,a.member_eval,a.member_eval_time,b.real_name")->join("as a left join teacher as b on a.teacher_id = b.pk")->order("a.times asc")->where("a.order_id=".I("get.u"))->select();
+            $this -> assign("info2",$info2);
+            $this->display();
+        }else{
+            $this->error("请登录后在操作！",__MODULE__."/Index/login");
+        }
+
+    }
+
+    //我的预约咨询时间表
+    function myEval(){
+        if (session("?c_id")){
+            if (!empty($_POST)) {
+
+                $verify = new \Think\Verify();
+                if (!$verify->check(I("post.verify"))){
+                    $this->error("验证码错误！");
+                }
+                //实例化
+                $model = new \Model\Consult_itemModel();
+                //验证数据 Consult_itemModel
+                $z = $model -> create();
+                if (!$z){
+                    //show_bug($model -> getError());
+                    $this->error("您录入的数据格式错误！");
+                    exit();
+                }
+
+                $log["member_eval"] = I("post.member_eval");
+                $log["member_eval_time"] = date("Y-m-d H:i:s");
+                $model->  where("pk=".I('post.pk'))  ->setField($log);
+
+                $id = $model->field("order_id")->where("pk=".I("post.pk")) ->find();
+
+                //录入成功
+                $this->success("恭喜您，评论成功！",__MODULE__."/Member/consultList/u/".$id['order_id']);
+            }else{
+                $model =M("consult_item");
+                $info = $model->field("a.time_number,a.pk,a.times,a.count_times,a.status,a.start_time,a.end_time,a.teacher_eval,a.member_eval,a.member_eval_time,b.real_name")->join("as a left join teacher as b on a.teacher_id = b.pk")-> where("a.pk=".I("get.u")) -> select();
+                $this -> assign("info",$info);
+
+                $this->display();
+            }
+
+        }else{
+            $this->error("请登录后在操作！",__MODULE__."/Index/login");
+        }
 
     }
 

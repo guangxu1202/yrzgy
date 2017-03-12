@@ -31,9 +31,9 @@ img{max-width: 100%;}
 
 .items{list-style:none; margin: 0; padding: 0;}
 .items li{ padding-bottom: 10px; padding-right: 40px; position: relative;}
-.items li a{ display: inline-block; width: 40px; height: 34px;position: absolute; top: 0; right: 0; text-align: center; line-height: 34px; background-color: #00a4ac; color: #fff;}
-.items li a:hover{text-decoration: none; background-color: #cc0000;}
-.items li a i{vertical-align: middle; font-size: 20px; margin-top: -3px; display: inline-block;}
+.items li a.item-a{ display: inline-block; width: 40px; height: 34px;position: absolute; top: 0; right: 0; text-align: center; line-height: 34px; background-color: #00a4ac; color: #fff;}
+.items li a.item-a:hover{text-decoration: none; background-color: #cc0000;}
+.items li a.item-a i{vertical-align: middle; font-size: 20px; margin-top: -3px; display: inline-block;}
 
 .vote-wrap{ max-width: 500px; padding: 20px 0 0 20px;}
 .mb0{    margin-bottom:0px;}
@@ -67,3 +67,9 @@ a.circle-red:hover{text-decoration: none; background-color: #ff0000;}
 .group .reContent {padding: 8px 0px; line-height: 20px;}
 .group p{margin-bottom: 0px;}
 .Edit tbody td .group em{margin-left: 0px;}
+
+.consult-ul{list-style: none; padding: 0;margin-left: 0; }
+.date-box{width:150px; float: left; margin-right: 10px;}
+.date-mid{float: left; margin-right: 10px;color: #ccc; line-height:34px;}
+
+.consult-ul li a.item-a{ float:left; position: inherit;}

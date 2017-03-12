@@ -1,0 +1,170 @@
+<extend name="./base" />
+<block name="title">
+    <title>{$info[0]['title']}(分配时间表)  - 我的视频咨询 - 个人中心 - 元认知心理干预技术网</title>
+    <meta name="keywords" content="元认知,元认知干预，元认知心理，元认知心理干预，元认知心理干预技术，金洪源"/>
+    <meta name="description" content="元认知研究所由金洪源教授任所长，面向全国提供心理技术服务，解决学生偏科、厌学、马虎、考试焦虑、拖延等学习障碍问题；改善人际关系，解决亲子、家庭问题；提供失眠、焦虑、强迫、抑郁等辅助性干预；优化性格系统。主要业务：个体咨询、团体辅导、技术培训、进驻学校推进心理健康技术化改革。下设临床服务部、研修生部、驻校服务部、中小学教研部、技术研发与培训部。"/>
+</block>
+
+<block name="content">
+
+
+<div class="container i-container">
+    <div class="Statu">您的位置：<a href="{$Think.const.SITE_URL}">首页</a> &gt;&gt; <a href="__MODULE__/Member/main">个人中心</a>  &gt;&gt; <a href="__MODULE__/Member/myConsult">我的视频咨询</a>  &gt;&gt;{$info[0]['title']}(分配时间表) </div>
+</div>
+
+<div class="container i-container">
+    <div class="MCenter clearfix">
+        <div class="row">
+            <div class="col-sm-3">
+                <div class="MCleft">
+                    <include file="./member_left" />
+                </div>
+            </div>
+
+            <div class=" col-sm-9">
+                <div class="MCmain">
+                    <div class="">
+
+                        <foreach name="info" item="vo" >
+                            <table class="Edit">
+                                <colgroup width="130px"></colgroup>
+                                <thead>
+                                <tr><td colspan="2">视频预约申请信息</td></tr>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                    <th>咨询申请编号： </th>
+                                    <td>{$vo.order_number}</td>
+                                </tr>
+                                <tr>
+                                    <th>标题： </th>
+                                    <td>{$vo.title}</td>
+                                </tr>
+                                <tr>
+                                    <th>描述： </th>
+                                    <td>{$vo.summary}</td>
+                                </tr>
+                                <tr>
+                                    <th>联系人姓名： </th>
+                                    <td>{$vo.lx_name}</td>
+                                </tr>
+                                <tr>
+                                    <th>联系人电话： </th>
+                                    <td>{$vo.lx_phone}</td>
+                                </tr>
+                                <tr>
+                                    <th>联系人QQ： </th>
+                                    <td>{$vo.lx_qq}</td>
+                                </tr>
+
+                                <tr>
+                                    <th>咨询人姓名： </th>
+                                    <td>{$vo.zx_name}</td>
+                                </tr>
+
+                                <tr>
+                                    <th>咨询人关系： </th>
+                                    <td>{$vo.zx_relation}</td>
+                                </tr>
+                                <tr>
+                                    <th>咨询人性别： </th>
+                                    <td>
+                                        <if condition="$vo.zx_gender eq 0">
+                                            男
+                                            <else />
+                                            女
+                                        </if>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <th>咨询人年龄： </th>
+                                    <td>{$vo.zx_age}</td>
+                                </tr>
+
+                                <tr>
+                                    <th>申请时间： </th>
+                                    <td>{$vo.create_time}</td>
+                                </tr>
+
+                                </tbody>
+                            </table>
+
+                            <table class="Edit">
+
+                                <colgroup width="130px"></colgroup>
+                                <thead>
+                                <tr><td colspan="2">分配信息</td></tr>
+                                </thead>
+                                <tbody>
+                                <volist name="info2" id="o" key="k" >
+                                    <tr>
+                                        <th> ({$o['times']}/{$o['count_times']})： </th>
+                                        <td>
+
+                                            {$o['start_time']} -- {$o['end_time']}
+
+                                            <strong>(咨询师：{$o['real_name']})</strong>
+                                            <if condition="$o['status'] eq 0">
+                                                <span class="red">未开始咨询</span>
+                                                <else/>
+                                                <span class="green">已完成咨询</span>
+                                                <div class="replybox mt10">
+                                                    <span class="green">咨询师评价：</span>
+                                                    <div>
+                                                        {$o['teacher_eval']}
+                                                    </div>
+                                                </div>
+                                                <if condition="$o['member_eval'] eq null">
+                                                    <a href="__MODULE__/Member/myEval/u/{$o['pk']}" class="a-btn">我要评价</a>
+                                                    <else/>
+
+                                                    <div class="replybox">
+                                                        <span class="green">我的评价：</span>
+                                                        <div>
+                                                            {$o['member_eval']}
+                                                        </div>
+                                                    </div>
+                                                    <a href="__MODULE__/Member/myEval/u/{$o['pk']}" class="a-btn">修改评价</a>
+                                                </if>
+                                            </if>
+
+
+
+
+                                        </td>
+                                    </tr>
+
+                                </volist>
+                                </tbody>
+                            </table>
+
+                            <div class="clearfix form-actions">
+                                <button class="btn" type="button" onclick="javascript:location.href='__MODULE__/Member/myConsult'">返回</button>
+                            </div>
+                        </foreach>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+</block>
+
+
+<block name="public">
+    <script>
+        //导航位置
+        var module = "Member";
+        var pnArr = window.location.pathname.split("/");
+        var pnArrNumber = $.inArray(module,pnArr);
+        $(".MCleft li").each(function () {
+            if (!!$(this).attr("data-pn") && $(this).attr("data-pn").indexOf("|"+pnArr[pnArrNumber+1]+"|") >= 0){
+                $(this).addClass("checked");
+            }
+        })
+    </script>
+
+</block>

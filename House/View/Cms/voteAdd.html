@@ -121,7 +121,7 @@
             itemAdd = function (n) {
                 var n = n || 1;
                 for (var i = 0; i < n; i++){
-                    $(".items").append('<li><input type="text" name="content['+k+']" class="form-control" maxlength="100" value=""><a href="javascript:void(0);" onclick="itemDel(this)"><i class="icon-trash"></i></a></li>');
+                    $(".items").append('<li><input type="text" name="content['+k+']" class="form-control" maxlength="100" value=""><a href="javascript:void(0);" class="item-a" onclick="itemDel(this)"><i class="icon-trash"></i></a></li>');
                     k++;
                 }
                 if (calc) {
