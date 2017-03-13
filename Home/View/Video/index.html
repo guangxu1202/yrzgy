@@ -1,0 +1,222 @@
+<extend name="./base" />
+<block name="title">
+    <title>网络教学 - 元认知心理干预技术网</title>
+    <meta name="keywords" content="元认知,元认知干预，元认知心理，元认知心理干预，元认知心理干预技术，金洪源"/>
+    <meta name="description" content="元认知研究所由金洪源教授任所长，面向全国提供心理技术服务，解决学生偏科、厌学、马虎、考试焦虑、拖延等学习障碍问题；改善人际关系，解决亲子、家庭问题；提供失眠、焦虑、强迫、抑郁等辅助性干预；优化性格系统。主要业务：个体咨询、团体辅导、技术培训、进驻学校推进心理健康技术化改革。下设临床服务部、研修生部、驻校服务部、中小学教研部、技术研发与培训部。"/>
+</block>
+<block name="content">
+    <div class="container  i-container">
+        <div class="row">
+            <div class="col-sm-8">
+                <div class="video_banner mb20">
+                    <a href="#"><img src="{$Think.const.WEB_URL}/images/video_banner.jpg"></a>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="box Vlogin">
+                    <div class="Mtop">
+                        <h2><img src="{$Think.const.WEB_URL}/images/ico_05.gif" class="ico" style="left:10px;">会员登录</h2>
+                    </div>
+                    <div class="Mbody">
+                        <notpresent name="id">
+                        <div class="Vlogin_Body clearfix">
+                            <form name="loginForm" id="loginForm" action="__SELF__" method="post">
+                                <input type="submit" class="Btn_vlogin" value="" onclick="login();">
+                                <ul class="Vsubmit clearfix">
+                                    <li><span>帐号：</span><input name="username" type="text" id="username" placeholder="请输入用户名" value="{$verinfo.username}" /></li>
+                                    <li><span>密码：</span><input name="password" type="password" id="password" placeholder="请输入密码"  value="{$verinfo.password}" onkeydown='if(event.keyCode==13){login();}'  /></li>
+                                    <li>
+                                        <span>验证码：</span>
+                                        <input type="text" class="linput verify" id="human"  name="verify" placeholder="验证码"  onkeydown='if(event.keyCode==13){login();}'  />
+                                        <img src="__MODULE__/index/verifyImg" onclick="reloadcode(this,'__MODULE__/index/verifyImg?')" alt="点击重新刷新" title="点击重新刷新" style=" width: 48%; float:right; cursor: pointer;">
+                                    </li>
+                                </ul>
+                            </form>
+                        </div>
+                        <div class="Reg">
+                            <a href="#" target="_blank">忘记密码</a>
+                            |
+                            <a href="__MODULE__/Index/regsiter">免费注册</a>
+                            <p class="red" style="margin-bottom: 0; text-align: left;">{$verinfo.ver}&nbsp;</p>
+                        </div>
+                        </notpresent>
+                        <present name="id">
+                            <div class="Vlogin_Body Vlogin_loged clearfix">
+                                <img src="{$Think.const.WEB_URL}/images/VHeadImg.jpg" class="Vlogin_img" >
+                                <ul class="Vstatus">
+                                    <li><span>昵称：</span>{$member['nickname']}</li>
+                                    <li><span>账户状态：</span>VIP</li>
+                                    <li><span>最后登录：</span>{$member['last_login_time']|substr=0,10}</li>
+                                </ul>
+                            </div>
+                            <div class="Vlinks">
+                                <ul class="clearfix">
+                                    <li><a href="__MODULE__/Member/main" class="Vyellow" target="_blank">个人中心</a></li>
+                                    <li><a href="__MODULE__/Member/myCourse" class="Vyellow" target="_blank">我的课程</a></li>
+                                    <li><a href="__MODULE__/Index/logout" >安全退出</a></li>
+                                </ul>
+                            </div>
+                        </present>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container i-container">
+        <div class="row">
+            <div class="col-sm-3">
+                <div class="box">
+                    <div class="Mtop">
+                        <span><a href="__MODULE__/Article/article/cate/21">更多&gt;&gt;</a></span>
+                        <h2><img src="{$Think.const.WEB_URL}/images/ico_01.gif" class="ico" style="left:10px;"/> 学习公告</h2>
+                    </div>
+                    <div class="Mbody">
+                        <ul class="list">
+                            <volist name="notice" id="vo">
+                                <if condition="$vo.is_title_bold eq 1">
+                                    <li><a href="__MODULE__/Article/show/u/{$vo.pk}" style="color: {$vo.title_color};font-weight: bold;"><nobr>{$vo.title}</nobr></a></li>
+                                    <else />
+                                    <li><a href="__MODULE__/Article/show/u/{$vo.pk}" style="color: {$vo.title_color};"><nobr>{$vo.title}</nobr></a></li>
+                                </if>
+                            </volist>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-5">
+                <div class="box">
+                    <div class="Mtop">
+                        <span><a href="__MODULE__/System/introduction">更多&gt;&gt;</a></span>
+                        <h2><img src="{$Think.const.WEB_URL}/images/ico_05.gif" class="ico" style="left:10px;"/> {$introduction['summary_title']}</h2>
+                        <p></p>
+                    </div>
+                    <div class="Mbody">
+                        <div class="content introduction">
+                            {$introduction['summary']}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="box">
+                    <div class="Mtop">
+                        <span><a href="__MODULE__/Article/article/cate/23">更多&gt;&gt;</a></span>
+                        <h2><img src="{$Think.const.WEB_URL}/images/ico_01.gif" class="ico" style="left:10px;"/> 最新课程</h2>
+                    </div>
+                    <div class="Mbody">
+                        <ul class="list">
+                            <volist name="jszc" id="vo">
+                                <if condition="$vo.is_title_bold eq 1">
+                                    <li><a href="__MODULE__/Article/show/u/{$vo.pk}" style="color:{$vo.title_color};font-weight: bold;"><nobr>{$vo.title}</nobr></a></li>
+                                    <else />
+                                    <li><a href="__MODULE__/Article/show/u/{$vo.pk}" style="color:{$vo.title_color};"><nobr>{$vo.title}</nobr></a></li>
+                                </if>
+                            </volist>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="container i-container">
+        <div class="row">
+            <div class="col-sm-3">
+                <div class="box">
+                    <div class="Mtop">
+                        <span><a href="__MODULE__/Article/article/cate/4">更多&gt;&gt;</a></span>
+                        <h2><img src="{$Think.const.WEB_URL}/images/ico_01.gif" class="ico" style="left:10px;"/> 视频新闻</h2>
+                    </div>
+                    <div class="Mbody">
+                        <ul class="list">
+                            <volist name="researcher" id="vo">
+                                <if condition="$vo.is_title_bold eq 1">
+                                    <li><a href="__MODULE__/Article/show/u/{$vo.pk}" style="color: {$vo.title_color};font-weight: bold;"><nobr>{$vo.title}</nobr></a></li>
+                                    <else />
+                                    <li><a href="__MODULE__/Article/show/u/{$vo.pk}" style="color: {$vo.title_color};"><nobr>{$vo.title}</nobr></a></li>
+                                </if>
+                            </volist>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-5">
+                <div class="box">
+                    <div class="Mtop">
+                        <span><a href="__MODULE__/System/team">更多&gt;&gt;</a></span>
+                        <h2><img src="{$Think.const.WEB_URL}/images/ico_05.gif" class="ico" style="left:10px;"/> 技术团队</h2>
+                        <p></p>
+                    </div>
+                    <div class="Mbody">
+                        <div class="team" id="demo">
+                            <div id="indemo">
+                                <div id="demo1">
+                                    <ul>
+                                        <volist name="tech_team" id="vo">
+                                            <li>
+                                                <a href="#"><img src="{$Think.const.SITE_URL}/CDN/uploaded/person/{$vo.thumbnail}" width="110" height="90" /></a>
+                                                <a href="#">{$vo.photo_describe}</a>
+                                            </li>
+                                        </volist>
+                                    </ul>
+                                </div>
+                                <div id="demo2"></div>
+                            </div>
+                        </div>
+                        <script type="text/javascript" language="javascript" src="{$Think.const.WEB_URL}/js/scroll.js"></script>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="box">
+                    <div class="Mtop">
+                        <span><a href="__MODULE__/Article/article/cate/23">更多&gt;&gt;</a></span>
+                        <h2><img src="{$Think.const.WEB_URL}/images/ico_01.gif" class="ico" style="left:10px;"/> 详细课程</h2>
+                    </div>
+                    <div class="Mbody">
+                        <ul class="list">
+                            <volist name="jszc" id="vo">
+                                <if condition="$vo.is_title_bold eq 1">
+                                    <li><a href="__MODULE__/Article/show/u/{$vo.pk}" style="color:{$vo.title_color};font-weight: bold;"><nobr>{$vo.title}</nobr></a></li>
+                                    <else />
+                                    <li><a href="__MODULE__/Article/show/u/{$vo.pk}" style="color:{$vo.title_color};"><nobr>{$vo.title}</nobr></a></li>
+                                </if>
+                            </volist>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</block>
+
+<block name="public">
+    <!-- inline scripts related to this page -->
+    <script>
+        login = function() {
+            if (null == $("#username").val() || "" == $("#username").val()) {
+                alert("请输入正确的用户名.");
+                $("#username").focus();
+                return;
+            }
+            if (null == $("#password").val() || "" == $("#password").val()) {
+                alert("请输入密码.");
+                $("#password").focus();
+                return;
+            }
+            if (null == $("#human").val() || "" == $("#human").val()) {
+                alert("请输入验证码.");
+                $("#human").focus();
+                return;
+            }
+            $("#loginForm").submit();
+        };
+        //刷新验证码
+        function reloadcode(obj,src){
+            $(obj).attr("src",src+Math.random());
+        }
+    </script>
+</block>

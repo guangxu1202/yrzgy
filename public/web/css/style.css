@@ -387,6 +387,32 @@ a.a-btn{display: inline-block; min-width: 100px; text-align: center; padding: 6p
 .newlist i{font-style: normal;}
 
 
+/*Vlogin_Body*/
+.Vlogin_Body{ padding-right: 90px;}
+.Vlogin_Body ul{list-style: none; padding-left: 0;}
+.Vsubmit{padding-top: 8px; padding-bottom: 8px; margin-bottom: 0;}
+.Vsubmit li{ padding-left: 70px; padding-top: 3px; padding-bottom: 3px;}
+.Vsubmit li span{float:left;display: block; width: 70px; text-align: right; margin-left: -70px; line-height: 28px;}
+.Vsubmit li input{border:1px solid #ccc; height: 28px; line-height: 28px; padding-left: 4px; width: 100%;}
+.Vsubmit li .linput{width: 49%; float: left;}
+.Btn_vlogin {width: 67px; height: 53px; margin-top: 15px; background: url(img/Btn_Vlogin.gif) no-repeat; border: none; float: right; cursor: pointer; margin-right: -80px;}
+    .Reg{border-top:1px solid #eee; text-align: right; padding: 5px 10px;}
+
+.Vlogin_loged{padding:10px; padding-left: 110px;}
+    .Vlogin_img{float: left; margin-left: -100px; width: 95px; height: 95px; padding: 5px; border:1px solid #ddd;}
+
+.Vstatus{padding-top: 5px; margin-bottom: 0;}
+.Vstatus li{ padding-left: 80px; padding-top: 5px; padding-bottom: 5px;}
+    .Vstatus li span{display: inline-block; float: left; width: 80px; text-align: right; margin-left: -80px;font-weight: 700;}
+
+.Vlinks{margin: 0px 10px; border-top: 1px solid #ddd;}
+.Vlinks ul{list-style: none; margin: 0; padding: 0;}
+    .Vlinks li{width: 33%; text-align: center; float: left; font-weight: 700;}
+    .Vlinks li a{display: block; padding: 15px 0;}
+    .Vlinks li a.Vyellow{color: #cc0000;}
+
+.box .Mbody  .introduction{height: 126px; overflow: hidden;  padding: 15px 20px 0;}
+
 /* mobile */
 @media screen and (max-width:768px){
 .header-list{text-align: center; margin-bottom: 0;}
@@ -403,4 +429,5 @@ a.a-btn{display: inline-block; min-width: 100px; text-align: center; padding: 6p
     .box .Mbody .newlist li span{display: none;}
     .MCenter .MCleft{min-height: 300px;}
     .register dl dd textarea{min-width: 100%;}
+    .box .Mbody  .introduction{height: auto; margin-bottom: 10px;}
 }

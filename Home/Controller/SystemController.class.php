@@ -194,4 +194,21 @@ class SystemController extends CommonController {
         $this -> display();
     }
 
+    //条款显示
+    function introduction(){
+        $introduction = M("introduction");
+        $info = $introduction->find();
+
+        if ($info == null){
+            //错误ID
+            $this->error("页面无法访问！");
+        }else {
+            //获取所属模块
+            $info1[0] = $info;
+            $this->assign("info1", $info1);
+
+            $this->display();
+        }
+    }
+
 }
