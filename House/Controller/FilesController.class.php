@@ -65,4 +65,41 @@ class FilesController extends Controller {
         }
     }
 
+
+
+    function  videoCover(){
+
+        $verifyToken = md5('unique_salt' . $_POST['timestamp']);
+
+        if (!empty($_FILES) && $_POST['token'] == $verifyToken) {
+
+            $upload = new \Think\Upload();// 实例化上传类
+            $upload->maxSize   =     31457280 ;// 设置附件上传大小
+            $upload->exts      =     array('flv');// 设置附件上传类型
+            $upload->rootPath  =     'CDN/uploaded/videos/'; // 设置附件上传根目录
+            $upload->autoSub  =      true;
+
+            // 上传文件
+            $info   =   $upload->upload();
+            if(!$info) {// 上传错误提示错误信息
+                $back = array('status' =>0, 'msg'=> 'upload failed');
+                $this->ajaxReturn($back,'JSON');
+            }else{// 上传成功
+
+                foreach($info as $file) {
+
+                    $thumb = $file['savepath'].'thumb_'.$file['savename'];
+
+                      $data["status"] = 1;
+                    $data["savepath"] = $file['savepath'];
+                    $data["savename"] = $file['savename'];
+                    $data["pic_path"] = $file['savepath'] . $file['savename'];
+                    $data["thumb_path"] = $thumb;
+                }
+                //返回值
+                $this->ajaxReturn(json_encode($data) ,'JSON');
+            }
+        }
+    }
+
 }
