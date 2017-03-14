@@ -42,6 +42,7 @@ class VideoController extends CommonController{
                 $this->error("您录入的数据格式错误！");
                 exit();
             }
+   
 
             //数据录入
             $log["create_time"] = date("Y-m-d H:i:s");
@@ -54,7 +55,7 @@ class VideoController extends CommonController{
             $log["custom_sort"] = I("post.custom_sort");
             $log["is_enable_comment"] = true;
             $log["is_free"] = checkBit(I('post.is_free'));
-            //video_path
+            $log["video_path"] = I("post.video_path");
             $log["keywords"] = I("post.keywords");
             $log["like_count"] = 0;
             $log["unlike_count"] = 0;

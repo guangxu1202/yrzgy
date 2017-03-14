@@ -73,3 +73,6 @@ a.circle-red:hover{text-decoration: none; background-color: #ff0000;}
 .date-mid{float: left; margin-right: 10px;color: #ccc; line-height:34px;}
 
 .consult-ul li a.item-a{ float:left; position: inherit;}
+
+.success-tip{display: inline-block; min-width: 430px; padding: 8px; border:1px solid #a0df84; background-color: #d7f7c9; text-align: left; color: #34a004;}
+.fail-tip{display: inline-block; min-width: 430px; padding: 8px; border:1px solid #e89f9f; background-color: #ffebeb; text-align: left; color: #cc0000;}

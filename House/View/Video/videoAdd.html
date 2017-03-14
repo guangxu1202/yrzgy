@@ -73,10 +73,12 @@
 
                     <div class="space-4"></div>
                     <div class="form-group">
-                        <label class="col-sm-3 control-label no-padding-right"> 视频上传： </label>
+                        <label class="col-sm-3 control-label no-padding-right"> <span class="red">*</span>视频上传： </label>
                         <div class="col-sm-5">
                             <div id="showCover" style="display: none;"><img id="_coverImg" src="" class="coverImg"/></div>
                             <input id="file_upload" name="file_upload" type="file" multiple="false">
+                            <div class="show-tag"></div>
+                            <input type="hidden" value="" id="video_path" class="form-control" name="video_path">
                         </div>
                     </div>
 
@@ -191,23 +193,20 @@
             $('#file_upload').uploadify({
                 'swf'      : '{$Think.const.ADMIN_URL}/uploadify/uploadify.swf',    //指定上传控件的主体文件
                 'uploader' : '__MODULE__/Files/videoCover',   //指定服务器端上传处理文件
-                'buttonText' : '上传图片',
-                'formData'     : {
-                    'timestamp' : '<?php echo $timestamp;?>',
-                    'token'     : '<?php echo md5('unique_salt' . $timestamp);?>'
-                },
+                'buttonText' : '上传视频',
+//                'formData'     : {
+//                    'timestamp' : '<?php echo $timestamp;?>',
+//                    'token'     : '<?php echo md5('unique_salt' . $timestamp);?>'
+//                },
                 'width' : "120",
                 'height' : "30",
                 'auto' : "false",
-                'multi' : "false",
-                'simUploadLimit' :2,
+                'multi' : false,
                 'fileTypeExts' : "*.flv;",
                 'fileSizeLimit':'300MB', //上传文件的大小限制
                 'onSelectError':function(file, errorCode, errorMsg){
                     switch(errorCode) {
-                        case -100:
-                            alert("上传的文件数量已经超出系统限制的"+$('#file_upload').uploadify('settings','uploadLimit')+"个文件！");
-                            break;
+
                         case -110:
                             alert("文件 ["+file.name+"] 大小超出系统限制的"+$('#file_upload').uploadify('settings','fileSizeLimit')+"大小！");
                             break;
@@ -224,7 +223,11 @@
                     eval('var data=' + data);
                     var data = JSON.parse(data); //由JSON字符串转换为JSON对象，json转成object
                     if(data.status){
-                        alert('成功');
+                        //alert(data.status);
+                        $(".show-tag").empty();
+                        var picture = '<span class="success-tip">'+data.name+'上传成功</span>';
+                        $(".show-tag").append(picture);
+                        $("#video_path").val(data.pic_path).change();
                     }else {
                         return false;
                     }
@@ -240,6 +243,7 @@
                     invalid: 'glyphicon glyphicon-remove',
                     validating: 'glyphicon glyphicon-refresh'
                 },
+                excluded:[":disabled"],
                 fields: {
                     title: {
                         validators: {
@@ -250,6 +254,14 @@
                                 min: 2,
                                 max: 90,
                                 message: '标题长度必须在2到90之间'
+                            }
+                        }
+                    },
+                    video_path: {
+                        trigger:"change",
+                        validators: {
+                            notEmpty: {
+                                message: '请上传视频'
                             }
                         }
                     },

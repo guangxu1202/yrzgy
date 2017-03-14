@@ -67,11 +67,10 @@ class FilesController extends Controller {
 
 
 
+
     function  videoCover(){
 
-        $verifyToken = md5('unique_salt' . $_POST['timestamp']);
-
-        if (!empty($_FILES) && $_POST['token'] == $verifyToken) {
+          if (!empty($_FILES)) {
 
             $upload = new \Think\Upload();// 实例化上传类
             $upload->maxSize   =     31457280 ;// 设置附件上传大小
@@ -87,14 +86,11 @@ class FilesController extends Controller {
             }else{// 上传成功
 
                 foreach($info as $file) {
-
-                    $thumb = $file['savepath'].'thumb_'.$file['savename'];
-
-                      $data["status"] = 1;
+                    $data["status"] = 1;
                     $data["savepath"] = $file['savepath'];
                     $data["savename"] = $file['savename'];
                     $data["pic_path"] = $file['savepath'] . $file['savename'];
-                    $data["thumb_path"] = $thumb;
+                    $data["name"] = $file['name'];
                 }
                 //返回值
                 $this->ajaxReturn(json_encode($data) ,'JSON');
