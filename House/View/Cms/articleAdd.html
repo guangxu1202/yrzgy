@@ -5,7 +5,7 @@
         <script type="text/javascript">
             try{ace.settings.check('breadcrumbs' , 'fixed')}catch(e){}
         </script>
-
+        <link rel="stylesheet" type="text/css" href="{$Think.const.ADMIN_URL}/uploadify/uploadify.css" />
         <ul class="breadcrumb">
             <li>
                 <i class="icon-home home-icon"></i>
@@ -127,6 +127,46 @@
                         </div>
                     </div>
 
+                    <div class="space-4"></div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label no-padding-right"> 附件类型： </label>
+                        <div class="col-sm-5">
+                            <div class="form-info">
+                                <label class="lab"><input value="true" name="multimedia_type" checked="" onchange="myChange(0)" type="radio">图片</label>
+                                <label class="lab"><input value="false" name="multimedia_type" onchange="myChange(1)" type="radio">视频</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="space-4"></div>
+
+                    <div class="form-group" id="picbox">
+                        <label class="col-sm-3 control-label no-padding-right">图片上传： </label>
+                        <div class="col-sm-5">
+                            <input id="img_upload" name="img_upload" type="file">
+                            <div class="img-tag"></div>
+                            <input type="hidden" value="" id="img_path" class="form-control" name="img_path">
+                        </div>
+                    </div>
+
+                    <div class="form-group" id="videobox" style="display: none">
+                        <label class="col-sm-3 control-label no-padding-right">视频上传： </label>
+                        <div class="col-sm-5">
+                            <div id="showCover" style="display: none;"><img id="_coverImg" src="" class="coverImg"/></div>
+                            <input id="file_upload" name="file_upload" type="file">
+                            <div class="show-tag"></div>
+                            <input type="hidden" value="" id="video_path" class="form-control" name="multimedia_path">
+                        </div>
+                    </div>
+
+                    <div class="space-4"></div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label no-padding-right">附件描述： </label>
+                        <div class="col-sm-5">
+                            <input placeholder="请输入附件描述" class="form-control" type="text" name="multimedia_describe" >
+                        </div>
+                    </div>
+
 
                     <div class="space-4"></div>
                     <div class="form-group">
@@ -204,9 +244,113 @@
     <!-- inline scripts related to this page -->
 
     <script src="{$Think.const.ADMIN_URL}/js/bootstrap-multiselect.js"></script>
+    <script src="{$Think.const.ADMIN_URL}/uploadify/jquery.uploadify.js"></script>
     <script src="{$Think.const.ADMIN_URL}/js/admin.js"></script>
     <script type="text/javascript">
+        <?php $timestamp = time();?>
         $(function(){
+            $('#file_upload').uploadify({
+                'swf'      : '{$Think.const.ADMIN_URL}/uploadify/uploadify.swf',    //指定上传控件的主体文件
+                'uploader' : '__MODULE__/Files/articleCover',   //指定服务器端上传处理文件
+                'buttonText' : '上传视频',
+                'formData'     : {
+                    'timestamp' : '<?php echo $timestamp;?>',
+                    'token'     : '<?php echo md5('unique_salt' . $timestamp);?>'
+                },
+                'width' : "120",
+                'height' : "30",
+                'auto' : "false",
+                'multi' : false,
+                'fileTypeExts' : "*.flv;*.mp4;*.m4v;",
+                'fileSizeLimit':'300MB', //上传文件的大小限制
+                'onSelectError':function(file, errorCode, errorMsg){
+                    switch(errorCode) {
+                        case -100:
+                            alert("上传的文件数量已经超出系统限制的"+$('#file_upload').uploadify('settings','uploadLimit')+"个文件！");
+                            break;
+                        case -110:
+                            alert("文件 ["+file.name+"] 大小超出系统限制的"+$('#file_upload').uploadify('settings','fileSizeLimit')+"大小！");
+                            break;
+                        case -120:
+                            alert("文件 ["+file.name+"] 大小异常！");
+                            break;
+                        case -130:
+                            alert("文件 ["+file.name+"] 类型不正确！");
+                            break;
+                    }
+                },
+                //上传到服务器，服务器返回相应信息到data里
+                'onUploadSuccess':function(file, data, response){
+
+                    eval('var data=' + data);
+                    var data = JSON.parse(data); //由JSON字符串转换为JSON对象，json转成object
+                    if(data.status){
+                        //alert(data.status);
+                        $(".show-tag").empty();
+                        var picture = '<span class="success-tip">'+data.name+'上传成功</span>';
+                        $(".show-tag").append(picture);
+                        $("#video_path").val(data.pic_path).change();
+                    }else {
+                        $(".show-tag").empty();
+                        var picture = '<span class="fail-tip">'+data.msg+'</span>';
+                        $(".show-tag").append(picture);
+                        $("#video_path").val("").change();
+                        return false;
+                    }
+                }
+
+            });
+
+            $('#img_upload').uploadify({
+                'swf'      : '{$Think.const.ADMIN_URL}/uploadify/uploadify.swf',    //指定上传控件的主体文件
+                'uploader' : '__MODULE__/Files/imgCover',   //指定服务器端上传处理文件
+                'buttonText' : '上传图片',
+                'formData'     : {
+                    'timestamp' : '<?php echo $timestamp;?>',
+                    'token'     : '<?php echo md5('unique_salt' . $timestamp);?>'
+                },
+                'width' : "120",
+                'height' : "30",
+                'auto' : "false",
+                'multi' : false,
+                'fileTypeExts' : "*.jpg;*.jpeg;*.gif;*.png;*.bmp;",
+                "fileDesc" : "Image Files",
+                'fileSizeLimit':'30MB', //上传文件的大小限制
+                'onSelectError':function(file, errorCode, errorMsg){
+                    switch(errorCode) {
+                        case -100:
+                            alert("上传的文件数量已经超出系统限制的"+$('#file_upload').uploadify('settings','uploadLimit')+"个文件！");
+                            break;
+                        case -110:
+                            alert("文件 ["+file.name+"] 大小超出系统限制的"+$('#file_upload').uploadify('settings','fileSizeLimit')+"大小！");
+                            break;
+                        case -120:
+                            alert("文件 ["+file.name+"] 大小异常！");
+                            break;
+                        case -130:
+                            alert("文件 ["+file.name+"] 类型不正确！");
+                            break;
+                    }
+                },
+                //上传到服务器，服务器返回相应信息到data里
+                'onUploadSuccess':function(file, data, response){
+
+                    eval('var data=' + data);
+                    var data = JSON.parse(data); //由JSON字符串转换为JSON对象，json转成object
+                    if(data.status){
+                        //alert(data.status);
+                        $(".img-tag").empty();
+                        var picture = '<div class="DisImg"><img src="{$Think.const.UPLOAD_URL}/article/' + data.pic_path + '" style="max-width:300px;"/></div>';
+                        $(".img-tag").append(picture);
+                        $("#img_path").val(data.pic_path);
+                    }else {
+                        return false;
+                    }
+                }
+
+            });
+
+
             $('#example-getting-started').multiselect({
                 onChange: function(option, checked, select) {
                     var myval = $("#mymodule").val();
@@ -228,6 +372,15 @@
             function sortNumber(a,b){
                 return a - b
             }
+
+            myChange = function(n) {
+                $("#picbox,#videobox").hide();
+                if(n==0){
+                    $("#picbox").show();
+                }else{
+                    $("#videobox").show();
+                }
+            };
 
             $('#myForm')
             .bootstrapValidator({
@@ -265,6 +418,15 @@
                                 min: 0,
                                 max: 200,
                                 message: '关键词长度必须在0到200之间'
+                            }
+                        }
+                    },
+                    multimedia_describe: {
+                        validators: {
+                            stringLength: {
+                                min: 0,
+                                max: 100,
+                                message: '附件描述必须在0到100之间'
                             }
                         }
                     },

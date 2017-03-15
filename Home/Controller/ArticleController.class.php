@@ -74,7 +74,7 @@ class ArticleController extends CommonController {
             }
             else{
                 //获取新闻内容
-                $info = $article-> field("title,keywords,summary,author,article_from,update_time,content,browse_count,like_count,unlike_count,pk,allow_copy,is_enable_comment") ->where("pk=".I("get.u")) ->select();
+                $info = $article-> field("title,keywords,summary,author,article_from,update_time,content,browse_count,like_count,unlike_count,pk,allow_copy,is_enable_comment,multimedia_type,multimedia_path,multimedia_describe") ->where("pk=".I("get.u")) ->select();
                 $this->assign("info", $info);
                 $model_id = M("article_model")->where("article_id=".I("get.u"))->field("model_id") -> find();
                 //show_bug($model_id["model_id"]);

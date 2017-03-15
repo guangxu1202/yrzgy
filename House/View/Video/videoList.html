@@ -45,11 +45,7 @@
                             <th>所属分类</th>
                             <th>作者</th>
                             <th>排序序号</th>
-                            <!--<th>评论</th>-->
-                            <!--<th>复制</th>-->
-                            <!--<th>创建人</th>-->
                             <th>创建时间</th>
-                            <!--<th>修改人</th>-->
                             <th>修改时间</th>
                             <th>操作</th>
                         </tr>
@@ -59,29 +55,13 @@
                         <volist name="info" id="vo">
                             <tr>
                                 <td class="center">{$i}</td>
-                                <td>
-                                    <div style="max-width: 300px; overflow: hidden;"><a href="__MODULE__/Video/videoShow/pa/{$vo.pk}" data-id="{$vo.pk}">{$vo.title}</a></div>
+                                <td style="width: 350px">
+                                    <a href="__MODULE__/Video/videoShow/pa/{$vo.pk}" data-id="{$vo.pk}">{$vo.title}</a>
                                 </td>
-                                <td> {$vo.name} </td>
-                                <td><div style="max-width: 60px; overflow: hidden;">{$vo.author}</div></td>
+                                <td style="width: 350px"> {$vo.name} </td>
+                                <td style="width: 60px">{$vo.author}</td>
                                 <td>{$vo.custom_sort}</td>
-                                <!--<td>-->
-                                    <!--<if condition="$vo.is_enable_comment eq 1 ">-->
-                                        <!--启用-->
-                                        <!--<else />-->
-                                        <!--禁用-->
-                                    <!--</if>-->
-                                <!--</td>-->
-                                <!--<td>-->
-                                    <!--<if condition="$vo.allow_copy eq 1 ">-->
-                                        <!--允许-->
-                                        <!--<else />-->
-                                        <!--拒绝-->
-                                    <!--</if>-->
-                                <!--</td>-->
-                                <!--<td>{$vo.creator}</td>-->
                                 <td>{$vo.create_time|substr=0,10}</td>
-                                <!--<td>{$vo.regenerator}</td>-->
                                 <td>{$vo.update_time|substr=0,10}</td>
                                 <td>
                                     <div class="visible-md visible-lg hidden-sm hidden-xs action-buttons">

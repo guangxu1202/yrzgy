@@ -69,30 +69,70 @@ class FilesController extends Controller {
 
 
     function  videoCover(){
-
-          if (!empty($_FILES)) {
-
+        $verifyToken = md5('unique_salt' . $_POST['timestamp']);
+        if (!empty($_FILES) && $_POST['token'] == $verifyToken) {
             $upload = new \Think\Upload();// 实例化上传类
             $upload->maxSize   =     31457280 ;// 设置附件上传大小
-            $upload->exts      =     array('flv');// 设置附件上传类型
+            $upload->exts      =     array('flv', 'mp4', 'm4v');// 设置附件上传类型
             $upload->rootPath  =     'CDN/uploaded/videos/'; // 设置附件上传根目录
             $upload->autoSub  =      true;
-
-            // 上传文件
-            $info   =   $upload->upload();
+            // 上传单个文件
+            $info   =   $upload->uploadOne($_FILES['Filedata']);
             if(!$info) {// 上传错误提示错误信息
-                $back = array('status' =>0, 'msg'=> 'upload failed');
-                $this->ajaxReturn($back,'JSON');
-            }else{// 上传成功
+              $back = array('status' =>0, 'msg'=> $upload->getError());
+              $this->ajaxReturn($back,'JSON');
+            }else{// 上传成功 获取上传文件信息
 
-                foreach($info as $file) {
-                    $data["status"] = 1;
-                    $data["savepath"] = $file['savepath'];
-                    $data["savename"] = $file['savename'];
-                    $data["pic_path"] = $file['savepath'] . $file['savename'];
-                    $data["name"] = $file['name'];
-                }
-                //返回值
+              $data["status"] = 1;
+              $data["pic_path"] = $info['savepath'].$info['savename'];
+              $data["name"] = $info['name'];
+              $this->ajaxReturn(json_encode($data) ,'JSON');
+            }
+        }
+    }
+
+
+    //文章视频附件
+    function  articleCover(){
+        $verifyToken = md5('unique_salt' . $_POST['timestamp']);
+        if (!empty($_FILES) && $_POST['token'] == $verifyToken) {
+            $upload = new \Think\Upload();// 实例化上传类
+            $upload->maxSize   =     31457280 ;// 设置附件上传大小
+            $upload->exts      =     array('flv', 'mp4', 'm4v');// 设置附件上传类型
+            $upload->rootPath  =     'CDN/uploaded/article-videos/'; // 设置附件上传根目录
+            $upload->autoSub  =      true;
+            // 上传单个文件
+            $info   =   $upload->uploadOne($_FILES['Filedata']);
+            if(!$info) {// 上传错误提示错误信息
+                $back = array('status' =>0, 'msg'=> $upload->getError());
+                $this->ajaxReturn($back,'JSON');
+            }else{// 上传成功 获取上传文件信息
+                $data["status"] = 1;
+                $data["pic_path"] = $info['savepath'].$info['savename'];
+                $data["name"] = $info['name'];
+                $this->ajaxReturn(json_encode($data) ,'JSON');
+            }
+        }
+    }
+
+    //文章图片附件
+    function  imgCover(){
+        $verifyToken = md5('unique_salt' . $_POST['timestamp']);
+        if (!empty($_FILES) && $_POST['token'] == $verifyToken) {
+            $upload = new \Think\Upload();// 实例化上传类
+            $upload->maxSize   =     3145728 ;// 设置附件上传大小
+            $upload->exts      =     array('jpg', 'gif', 'png', 'jpeg','bmp');// 设置附件上传类型
+            $upload->rootPath  =     'CDN/uploaded/article/'; // 设置附件上传根目录
+            $upload->autoSub  =      true;
+            // 上传单个文件
+            $info   =   $upload->uploadOne($_FILES['Filedata']);
+            if(!$info) {// 上传错误提示错误信息
+                $back = array('status' =>0, 'msg'=> $upload->getError());
+                $this->ajaxReturn($back,'JSON');
+            }else{// 上传成功 获取上传文件信息
+                $data["status"] = 1;
+                $data["pic_path"] = $info['savepath'].$info['savename'];
+                $data["name"] = $info['name'];
                 $this->ajaxReturn(json_encode($data) ,'JSON');
             }
         }

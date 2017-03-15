@@ -1,5 +1,5 @@
 <extend name="./base" />
-<block name="title"><title>查看 - 文章管理 - 内容管理 - 元认知干预网站管理后台系统</title></block>
+<block name="title"><title>查看 - 视频管理 - 视频学习管理 - 元认知干预网站管理后台系统</title></block>
 <block name="content">
     <div class="breadcrumbs" id="breadcrumbs">
 
@@ -9,7 +9,7 @@
                 <i class="icon-home home-icon"></i>
                 <a href="#">首页</a>
             </li>
-            <li class="active">内容管理</li>
+            <li class="active">视频学习管理</li>
         </ul><!-- .breadcrumb -->
 
     </div>
@@ -17,7 +17,7 @@
     <div class="page-content">
         <div class="page-header">
             <h1>
-                文章管理
+                视频管理
                 <small>
                     <i class="icon-double-angle-right"></i>
                     查看
@@ -52,11 +52,19 @@
                                     </td>
                                 </tr>
                                 <tr>
-                                    <th>文章摘要： </th>
+                                    <th>视频摘要： </th>
                                     <td>{$vo.summary}</td>
                                 </tr>
                                 <tr>
-                                    <th>文章内容： </th>
+                                    <th>视频上传： </th>
+                                    <td>
+                                        <if condition="$vo.video_path neq null">
+                                            <span class="success-tip">视频已上传</span>
+                                        </if>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>视频介绍： </th>
                                     <td>{$vo.content|htmlspecialchars_decode}</td>
                                 </tr>
                                 <tr>
@@ -71,71 +79,9 @@
                                     <th>选择分类： </th>
                                     <td>{$category_name}</td>
                                 </tr>
-                                <tr>
-                                    <th>所属模块： </th>
-                                    <td>
-                                        <volist name="info2" id="v">
-                                            <span style="display: inline-block;margin-right: 18px;">{$v.name}</span>
-                                        </volist>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th>附件类型： </th>
-                                    <td>
-                                        <if condition="$vo.multimedia_type eq 1">
-                                            视频
-                                            <else />
-                                            图片
-                                        </if>
-                                    </td>
-                                </tr>
-                                <tr <if condition="$vo.multimedia_type eq 1 ">  style="display: none"</if> >
-                                    <th>图片： </th>
-                                    <td>
-                                        <if condition="$vo.multimedia_path neq null">
-                                            <img src="{$Think.const.UPLOAD_URL}/article/{$vo.multimedia_path}" style="max-width:300px;"/>
-                                        </if>
-                                    </td>
-                                </tr>
-                                <tr <if condition="$vo.multimedia_type eq 0 ">  style="display: none"</if> >
-                                <th>视频： </th>
-                                <td>
-                                    <if condition="$vo.multimedia_path neq null">
-                                        <span class="success-tip">视频已上传</span>
-                                    </if>
-                                </td>
-                                </tr>
-                                <tr>
-                                    <th>附件描述： </th>
-                                    <td>{$vo.multimedia_describe}</td>
-                                </tr>
-                                <tr>
-                                    <th>启用评论： </th>
-                                    <td>
-                                        <if condition="$vo.is_enable_comment eq 1">
-                                            启用
-                                            <else />
-                                            禁用
-                                        </if>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th>允许复制： </th>
-                                    <td>
-                                        <if condition="$vo.allow_copy eq 1">
-                                            允许
-                                            <else />
-                                            拒绝
-                                        </if>
-                                    </td>
-                                </tr>
-                                <tr>
+                                                               <tr>
                                     <th>关键字： </th>
                                     <td>{$vo.keywords}</td>
-                                </tr>
-                                <tr>
-                                    <th>文章来源： </th>
-                                    <td>{$vo.article_from}</td>
                                 </tr>
                                 <tr>
                                     <th>状态： </th>
@@ -144,6 +90,16 @@
                                             正常
                                             <else />
                                             过时
+                                        </if>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>观看限制： </th>
+                                    <td>
+                                        <if condition="$vo.is_free eq 1">
+                                            免费
+                                            <else />
+                                            收费
                                         </if>
                                     </td>
                                 </tr>

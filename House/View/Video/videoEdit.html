@@ -1,5 +1,5 @@
 <extend name="./base" />
-<block name="title"><title>修改 - 文章管理 - 内容管理 - 元认知干预网站管理后台系统</title></block>
+<block name="title"><title>修改 - 视频管理 - 视频学习管理 - 元认知干预网站管理后台系统</title></block>
 <block name="content">
     <div class="breadcrumbs" id="breadcrumbs">
         <script type="text/javascript">
@@ -11,7 +11,7 @@
                 <i class="icon-home home-icon"></i>
                 <a href="#">首页</a>
             </li>
-            <li class="active">内容管理</li>
+            <li class="active">视频学习管理</li>
         </ul><!-- .breadcrumb -->
 
     </div>
@@ -19,7 +19,7 @@
     <div class="page-content">
         <div class="page-header">
             <h1>
-                文章管理
+                视频管理
                 <small>
                     <i class="icon-double-angle-right"></i>
                     修改
@@ -97,7 +97,7 @@
 
                         <div class="space-4"></div>
                         <div class="form-group">
-                            <label class="col-sm-3 control-label no-padding-right"> 文章摘要： </label>
+                            <label class="col-sm-3 control-label no-padding-right"> 视频摘要： </label>
                             <div class="col-sm-5">
                                 <textarea class="autosize-transition form-control" style="height: 120px;" name="summary">{$vo.summary}</textarea>
                             </div>
@@ -105,7 +105,24 @@
 
                         <div class="space-4"></div>
                         <div class="form-group">
-                            <label class="col-sm-3 control-label no-padding-right">文章内容： </label>
+                            <label class="col-sm-3 control-label no-padding-right"> <span class="red">*</span>视频上传： </label>
+                            <div class="col-sm-5">
+                                <div id="showCover" style="display: none;"><img id="_coverImg" src="" class="coverImg"/></div>
+                                <input id="file_upload" name="file_upload" type="file">
+                                <div class="show-tag">
+                                    <if condition="$vo.video_path neq null">
+                                        <span class="success-tip">视频已上传</span>
+                                    </if>
+                                </div>
+                                <input type="hidden" value="{$vo.video_path}" id="video_path" class="form-control" name="video_path">
+                            </div>
+                        </div>
+
+
+
+                        <div class="space-4"></div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label no-padding-right">视频介绍： </label>
                             <div class="col-sm-9">
                                 <!-- ckeditor -->
                                 <script src="{$Think.const.PUBLIC_URL}/ckeditor/ckeditor.js"></script>
@@ -135,137 +152,14 @@
                         <div class="form-group">
                             <label class="col-sm-3 control-label no-padding-right"> <span class="red">*</span>选择分类： </label>
                             <div class="col-sm-5">
-                                <select name="category_id">
+                                <select name="video_category_id">
                                     <volist name="info2" id="v">
-                                        <if condition="$v.check eq 1 ">
-                                            <option value="{$v.pk}" selected="selected">{$v.name}</option>
-                                            <else />
-                                            <option value="{$v.pk}">{$v.name}</option>
-                                        </if>
-
+                                        <option value="{$v.pk}" <if condition="$v['pk'] eq  $vo['video_category_id']"> selected="selected"</if> >{$v.name}</option>
                                     </volist>
                                 </select>
                             </div>
                         </div>
 
-                        <div class="space-4"></div>
-                        <div class="form-group">
-                            <label class="col-sm-3 control-label no-padding-right"> <span class="red">*</span>所属模块： </label>
-                            <div class="col-sm-5">
-
-                                <select name="smodule1"  id="example-getting-started" multiple="multiple">
-                                    <volist name="info1" id="vo1">
-                                        <if condition="$vo1.check eq 1 ">
-                                            <option value="{$vo1.pk}" selected="selected">{$vo1.name}</option>
-                                            <else />
-                                            <option value="{$vo1.pk}">{$vo1.name}</option>
-                                        </if>
-                                    </volist>
-                                </select>
-                                <input type="hidden" name="smodule" id="mymodule" value="{$arr}">
-
-                            </div>
-                        </div>
-
-
-
-                        <div class="space-4"></div>
-                        <div class="form-group">
-                            <label class="col-sm-3 control-label no-padding-right"> 附件类型： </label>
-                            <div class="col-sm-5">
-                                <div class="form-info">
-                                    <if condition="$vo.multimedia_type eq 0 ">
-                                        <label class="lab"><input value="true" name="multimedia_type" checked="" onchange="myChange(0)" type="radio">图片</label>
-                                        <label class="lab"><input value="false" name="multimedia_type" onchange="myChange(1)" type="radio">视频</label>
-                                        <else />
-                                        <label class="lab"><input value="true" name="multimedia_type" onchange="myChange(0)" type="radio">图片</label>
-                                        <label class="lab"><input value="false" name="multimedia_type" checked="" onchange="myChange(1)" type="radio">视频</label>
-                                    </if>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="space-4"></div>
-
-                        <div class="form-group" id="picbox" <if condition="$vo.multimedia_type eq 1 ">  style="display: none"</if> >
-                            <label class="col-sm-3 control-label no-padding-right">图片上传： </label>
-                            <div class="col-sm-5">
-                                <input id="img_upload" name="img_upload" type="file">
-                                <div class="img-tag">
-                                    <if condition="($vo.multimedia_type eq 0) AND ($vo.multimedia_path neq null) ">
-                                        <div class="DisImg">
-                                            <img src="{$Think.const.UPLOAD_URL}/article/{$vo.multimedia_path}" style="max-width:300px;"/>
-                                        </div>
-                                    </if>
-                                </div>
-                                <if condition="($vo.multimedia_type eq 0) AND ($vo.multimedia_path neq null) ">
-                                    <input type="hidden" value="{$vo.multimedia_path}" id="img_path" class="form-control" name="img_path">
-                                    <else/>
-                                    <input type="hidden" value="{$vo.multimedia_path}" id="img_path" class="form-control" name="img_path">
-                                </if>
-                            </div>
-                        </div>
-
-                        <div class="form-group" id="videobox" <if condition="$vo.multimedia_type eq 0 ">  style="display: none"</if> >
-                            <label class="col-sm-3 control-label no-padding-right">视频上传： </label>
-                            <div class="col-sm-5">
-                                <input id="file_upload" name="file_upload" type="file">
-                                <div class="show-tag">
-                                    <if condition="($vo.multimedia_type eq 1) AND ($vo.multimedia_path neq null) ">
-                                        <span class="success-tip">视频已上传</span>
-                                    </if>
-                                </div>
-                                <if condition="($vo.multimedia_type eq 1) AND ($vo.multimedia_path neq null) ">
-                                    <input type="hidden" value="{$vo.multimedia_path}" id="video_path" name="multimedia_path">
-                                    <else/>
-                                    <input type="hidden" value="" id="video_path" name="multimedia_path">
-                                </if>
-
-                            </div>
-                        </div>
-
-                        <div class="space-4"></div>
-                        <div class="form-group">
-                            <label class="col-sm-3 control-label no-padding-right">附件描述： </label>
-                            <div class="col-sm-5">
-                                <input placeholder="请输入附件描述" value="{$vo.multimedia_describe}" class="form-control" type="text" name="multimedia_describe" >
-                            </div>
-                        </div>
-
-
-
-                        <div class="space-4"></div>
-                        <div class="form-group">
-                            <label class="col-sm-3 control-label no-padding-right"> 启用评论： </label>
-                            <div class="col-sm-5">
-                                <div class="form-info">
-                                    <if condition="$vo.is_enable_comment eq 1">
-                                        <label class="lab"><input value="true" name="is_enable_comment" checked="checked" type="radio">启用</label>
-                                        <label class="lab"><input value="false" name="is_enable_comment" type="radio">禁用</label>
-                                        <else />
-                                        <label class="lab"><input value="true" name="is_enable_comment" type="radio">启用</label>
-                                        <label class="lab"><input value="false" name="is_enable_comment" checked="checked" type="radio">禁用</label>
-                                    </if>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="space-4"></div>
-                        <div class="form-group">
-                            <label class="col-sm-3 control-label no-padding-right"> 允许复制： </label>
-                            <div class="col-sm-5">
-                                <div class="form-info">
-                                    <if condition="$vo.allow_copy eq 1">
-                                        <label class="lab"><input value="false" name="allow_copy" type="radio">拒绝</label>
-                                        <label class="lab"><input value="true" name="allow_copy" checked="checked" type="radio">允许</label>
-                                        <else />
-                                        <label class="lab"><input value="false" name="allow_copy" checked="checked" type="radio">拒绝</label>
-                                        <label class="lab"><input value="true" name="allow_copy" type="radio">允许</label>
-                                    </if>
-
-                                </div>
-                            </div>
-                        </div>
 
                         <div class="space-4"></div>
                         <div class="form-group">
@@ -275,13 +169,6 @@
                             </div>
                         </div>
 
-                        <div class="space-4"></div>
-                        <div class="form-group">
-                            <label class="col-sm-3 control-label no-padding-right"> 文章来源： </label>
-                            <div class="col-sm-5">
-                                <input placeholder="请输入文章来源" class="form-control" type="text" name="article_from"  value="{$vo.article_from}" >
-                            </div>
-                        </div>
 
                         <div class="space-4"></div>
                         <div class="form-group">
@@ -294,6 +181,25 @@
                                         <else />
                                         <label class="lab"><input value="true" name="is_show" type="radio">正常</label>
                                         <label class="lab"><input value="false" name="is_show" checked="checked" type="radio">过时</label>
+                                    </if>
+
+                                </div>
+                            </div>
+                        </div>
+
+
+
+                        <div class="space-4"></div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label no-padding-right">观看限制： </label>
+                            <div class="col-sm-5">
+                                <div class="form-info">
+                                    <if condition="$vo.is_show eq 1">
+                                        <label class="lab"><input value="false" name="is_free" type="radio">收费</label>
+                                        <label class="lab"><input value="true" name="is_free" checked="" type="radio">免费</label>
+                                        <else />
+                                        <label class="lab"><input value="false" name="is_free" checked="" type="radio">收费</label>
+                                        <label class="lab"><input value="true" name="is_free" type="radio">免费</label>
                                     </if>
 
                                 </div>
@@ -326,7 +232,6 @@
 
     <!-- inline scripts related to this page -->
 
-    <script src="{$Think.const.ADMIN_URL}/js/bootstrap-multiselect.js"></script>
     <script src="{$Think.const.ADMIN_URL}/uploadify/jquery.uploadify.js"></script>
     <script src="{$Think.const.ADMIN_URL}/js/admin.js"></script>
     <script type="text/javascript">
@@ -334,7 +239,7 @@
         $(function(){
             $('#file_upload').uploadify({
                 'swf'      : '{$Think.const.ADMIN_URL}/uploadify/uploadify.swf',    //指定上传控件的主体文件
-                'uploader' : '__MODULE__/Files/articleCover',   //指定服务器端上传处理文件
+                'uploader' : '__MODULE__/Files/videoCover',   //指定服务器端上传处理文件
                 'buttonText' : '上传视频',
                 'formData'     : {
                     'timestamp' : '<?php echo $timestamp;?>',
@@ -384,86 +289,6 @@
 
             });
 
-            $('#img_upload').uploadify({
-                'swf'      : '{$Think.const.ADMIN_URL}/uploadify/uploadify.swf',    //指定上传控件的主体文件
-                'uploader' : '__MODULE__/Files/imgCover',   //指定服务器端上传处理文件
-                'buttonText' : '上传图片',
-                'formData'     : {
-                    'timestamp' : '<?php echo $timestamp;?>',
-                    'token'     : '<?php echo md5('unique_salt' . $timestamp);?>'
-                },
-                'width' : "120",
-                'height' : "30",
-                'auto' : "false",
-                'multi' : false,
-                'fileTypeExts' : "*.jpg;*.jpeg;*.gif;*.png;*.bmp;",
-                "fileDesc" : "Image Files",
-                'fileSizeLimit':'30MB', //上传文件的大小限制
-                'onSelectError':function(file, errorCode, errorMsg){
-                    switch(errorCode) {
-                        case -100:
-                            alert("上传的文件数量已经超出系统限制的"+$('#file_upload').uploadify('settings','uploadLimit')+"个文件！");
-                            break;
-                        case -110:
-                            alert("文件 ["+file.name+"] 大小超出系统限制的"+$('#file_upload').uploadify('settings','fileSizeLimit')+"大小！");
-                            break;
-                        case -120:
-                            alert("文件 ["+file.name+"] 大小异常！");
-                            break;
-                        case -130:
-                            alert("文件 ["+file.name+"] 类型不正确！");
-                            break;
-                    }
-                },
-                //上传到服务器，服务器返回相应信息到data里
-                'onUploadSuccess':function(file, data, response){
-
-                    eval('var data=' + data);
-                    var data = JSON.parse(data); //由JSON字符串转换为JSON对象，json转成object
-                    if(data.status){
-                        //alert(data.status);
-                        $(".img-tag").empty();
-                        var picture = '<div class="DisImg"><img src="{$Think.const.UPLOAD_URL}/article/' + data.pic_path + '" style="max-width:300px;"/></div>';
-                        $(".img-tag").append(picture);
-                        $("#img_path").val(data.pic_path);
-                    }else {
-                        return false;
-                    }
-                }
-
-            });
-
-            myChange = function(n) {
-                $("#picbox,#videobox").hide();
-                if(n==0){
-                    $("#picbox").show();
-                }else{
-                    $("#videobox").show();
-                }
-            };
-
-            $('#example-getting-started').multiselect({
-                onChange: function(option, checked, select) {
-                    var myval = $("#mymodule").val();
-                    var mymodule = myval.split(",");
-                    var v = $(option).val();
-                    var index = mymodule.indexOf(v);
-                    if (mymodule.length>0 && mymodule[0] == ''){
-                        mymodule.splice(0,1);
-                    }
-                    if (index<0 && checked){
-                        mymodule.push(v);
-                    }
-                    if (index>=0 && !checked){
-                        mymodule.splice(index,1);
-                    }
-                    $("#mymodule").val(mymodule.sort(sortNumber));
-                }
-            });
-            function sortNumber(a,b){
-                return a - b
-            }
-
             $('#myForm')
             .bootstrapValidator({
                 message: 'This value is not valid',
@@ -472,16 +297,25 @@
                     invalid: 'glyphicon glyphicon-remove',
                     validating: 'glyphicon glyphicon-refresh'
                 },
+                excluded:[":disabled"],
                 fields: {
                     title: {
                         validators: {
                             notEmpty: {
-                                message: '文章标题不能为空'
+                                message: '标题不能为空'
                             },
                             stringLength: {
                                 min: 2,
                                 max: 90,
-                                message: '文章标题长度必须在2到90之间'
+                                message: '标题长度必须在2到90之间'
+                            }
+                        }
+                    },
+                    video_path: {
+                        trigger:"change",
+                        validators: {
+                            notEmpty: {
+                                message: '请上传视频'
                             }
                         }
                     },
@@ -490,7 +324,7 @@
                             stringLength: {
                                 min: 0,
                                 max: 200,
-                                message: '文章标题长度必须在0到200之间'
+                                message: '视频摘要长度必须在0到200之间'
                             }
                         }
                     },
@@ -503,23 +337,8 @@
                             }
                         }
                     },
-                    article_from: {
-                        validators: {
-                            stringLength: {
-                                min: 0,
-                                max: 50,
-                                message: '文章来源长度必须在0到50之间'
-                            }
-                        }
-                    },
-                    smodule1: {
-                        validators: {
-                            notEmpty: {
-                                message: '请至少选择一个所属模块'
-                            }
-                        }
-                    },
-                    category_id: {
+
+                    video_category_id: {
                         validators: {
                             notEmpty: {
                                 message: '请至少选择一个所属分类'

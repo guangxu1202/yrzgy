@@ -69,6 +69,15 @@ class CmsController extends CommonController
             }
 
             //数据录入
+
+            if (I("post.multimedia_type")){
+                $log["multimedia_type"] =0;
+                $log["multimedia_path"] =I("post.img_path");
+            }else{
+                $log["multimedia_type"] =1;
+                $log["multimedia_path"] =I("post.multimedia_path");
+            }
+            $log["multimedia_describe"] = I("post.multimedia_describe");
             $log["create_time"] = date("Y-m-d H:i:s");
             $log["creator"] = session("a_username");
             $log["update_time"] = date("Y-m-d H:i:s");
@@ -151,6 +160,16 @@ class CmsController extends CommonController
                 'regenerator'=>session("a_username"),
                 'update_time'=>date("Y-m-d H:i:s")
             );
+
+            if (checkBit(I("post.multimedia_type"))){
+                $data["multimedia_type"] =0;
+                $data["multimedia_path"] =I("post.img_path");
+            }else{
+                $data["multimedia_type"] =1;
+                $data["multimedia_path"] =I("post.multimedia_path");
+            }
+            $data["multimedia_describe"] = I("post.multimedia_describe");
+
             $model->  where("pk=".I('post.pk'))  ->setField($data);
 
             //删除原有文章模型关联

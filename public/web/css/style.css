@@ -4,6 +4,8 @@
 @-o-viewport        { width: device-width; }
 @viewport           { width: device-width; }
 html,body{font-size: 12px; font-family: "Microsoft YaHei",arial;}
+/*html5*/
+article,aside,dialog,footer,header,section,footer,nav,figure,menu{display:block}
 /*header*/
 .header{background: url("img/ui_html_bg.gif") repeat-x bottom; padding-bottom: 4px;}
 img{max-width: 100%;}
@@ -219,16 +221,17 @@ a:hover{color: #fe336b;}
 
 /*news*/
 .news h1 {height: 40px; line-height: 40px; color: #6e6e6e; font-size: 14px; font-weight: bold; text-align: center;}
-.news .newstatu {height: 25px; line-height: 25px; background-color: #efefef; color: #6e6e6e; text-align: center; margin: 0px 30px;}
-.news .newstatu span {width: 220px; float: left;}
-.news .newsCon {margin: 20px 30px; color: #6e6e6e; line-height: 24px;}
+.news .newstatu { line-height: 25px; background-color: #efefef; color: #6e6e6e; text-align: center; margin: 0px 30px;}
+.news .newstatu span {min-width: 220px; float: left;}
+.news .newsCon {margin: 10px 30px 20px; color: #6e6e6e; line-height: 24px;}
 .news .newsCon .pic {margin: 15px 0px; text-align: center}
 .news .newsCon p {text-indent: 2em; margin: 12px 0px;}
+.news .pic{text-align: center; padding: 10px 30px 0;}
 
 
 
 
-/*contact us*/
+    /*contact us*/
 .tab {margin: 37px 40px 0px; color: #585858; line-height: 24px;}
 .tab dl {width: 360px; height: 24px; margin-bottom: 5px;}
 .tab dl dt {width: 70px; text-align: right; padding-right: 5px; float: left;}
@@ -413,6 +416,10 @@ a.a-btn{display: inline-block; min-width: 100px; text-align: center; padding: 6p
 
 .box .Mbody  .introduction{height: 126px; overflow: hidden;  padding: 15px 20px 0;}
 
+
+.jp-video{ max-width: 100%; min-width: 300px; margin: 0 auto;}
+
+
 /* mobile */
 @media screen and (max-width:768px){
 .header-list{text-align: center; margin-bottom: 0;}
@@ -430,4 +437,5 @@ a.a-btn{display: inline-block; min-width: 100px; text-align: center; padding: 6p
     .MCenter .MCleft{min-height: 300px;}
     .register dl dd textarea{min-width: 100%;}
     .box .Mbody  .introduction{height: auto; margin-bottom: 10px;}
+    .news .pic{padding:10px 0 0;}
 }
