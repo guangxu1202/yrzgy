@@ -26,10 +26,8 @@
 
 <div class="container i-container">
     <div class="row">
-        <div class="col-sm-3">
-            <include file="./left" />
-        </div>
-        <div class="col-sm-9">
+
+        <div class="col-sm-9 col-sm-push-3">
             <div class="box">
                 <div class="Mtop">
                     <h2><img src="{$Think.const.WEB_URL}/images/ico_04.gif" class="ico" /> 新闻详情</h2>
@@ -157,7 +155,7 @@
                                         </dl>
                                         <dl class="clearfix">
                                             <dt>评论：</dt>
-                                            <dd><textarea id="content" name="content" style="width: 420px; height: 120px;"></textarea></dd>
+                                            <dd><textarea id="content" name="content" style=" height: 120px;"></textarea></dd>
                                         </dl>
                                         <dl class="clearfix">
                                             <dt>验证码：</dt>
@@ -190,6 +188,10 @@
 
                 </div>
             </div>
+
+        </div>
+        <div class="col-sm-3 col-sm-pull-9">
+            <include file="./left" />
         </div>
     </div>
 </div>
@@ -215,7 +217,7 @@
 //                        ogv: "http://www.jplayer.org/video/ogv/Big_Buck_Bunny_Trailer.ogv",
 //                        webmv: "http://www.jplayer.org/video/webm/Big_Buck_Bunny_Trailer.webm"
                         //poster: "http://www.jplayer.org/video/poster/Big_Buck_Bunny_Trailer_480x270.png"
-                        m4v:"{$Think.const.UPLOAD_URL}/article-videos/{$info[0]['multimedia_path']}"
+                        flv:"{$Think.const.UPLOAD_URL}/article-videos/{$info[0]['multimedia_path']}"
                     });
                 },
                 swfPath: "{$Think.const.PUBLIC_URL}/jplayer/dist/jplayer",
