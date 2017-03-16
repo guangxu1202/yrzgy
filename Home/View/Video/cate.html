@@ -1,0 +1,80 @@
+<extend name="./base" />
+<block name="title">
+    <title>{$info['name']} - 网络教学 - 元认知心理干预技术网</title>
+    <meta name="keywords" content="{$Think.config.KEYWORDS}"/>
+    <meta name="description" content="{$Think.config.DESCRIPTION}"/>
+</block>
+
+<block name="content">
+
+<div class="container i-container">
+
+    <div class="Statu">您的位置：<a href="{$Think.const.SITE_URL}">首页</a> &gt;&gt;<a href="__MODULE__/Video/index">网络教学</a> &gt;&gt; {$info['name']}</div>
+
+</div>
+
+<div class="container i-container">
+    <div class="row">
+
+        <div class="col-sm-9 col-sm-push-3">
+            <div class="box">
+
+                <div class="Mtop">
+                    <h2><img src="{$Think.const.WEB_URL}/images/ico_04.gif" class="ico" /> 课程列表</h2>
+                </div>
+                <div class="Mbody news">
+                    <h1>{$info['name']}</h1>
+                    <div class="Vtip clearfix">
+                        <span>更新日期：{$info['update_time']|substr=0,10}</span>
+                        <if condition="$info['price'] gt 0">
+                            <a href="#" target="_blank" style="color:#ff4800; font-weight:bold; margin-left:10px;">购买本课程</a>
+                            <a href="__MODULE__/System/show/u/PURCHASE" target="_blank" style="color:#ff4800;margin-left:10px;">如何购买?</a>
+                            <else/>
+                            <em class="green" style="font-style: normal;">本课程可以免费观看</em>
+                        </if>
+                    </div>
+
+                    <div class="Vlist">
+                        <h5 class="sub-title">
+                            <em>视频版权所有, 元认知干预技术研究所</em>
+                            <strong>课程列表</strong>
+                        </h5>
+                        <ul class="video-list clearfix">
+                            <volist name="video" id="vo">
+                                <li class="col-sm-6">
+                                    <a href="__MODULE__/Video/show/u/{$vo.pk}" target="_blank" title="{$vo.title}">{$vo.title}</a>
+                                    <if condition="$vo.is_free eq 1">
+                                        <span class="video-free">免费</span>
+                                    </if>
+                                </li>
+                            </volist>
+                        </ul>
+                    </div>
+
+
+                    <div class="newsCon">
+                        <h5 class="sub-title">
+                            <strong>课程简介</strong>
+                        </h5>
+                        {$info['description']|htmlspecialchars_decode}
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <div class="col-sm-3 col-sm-pull-9">
+            <include file="./vide_left" />
+        </div>
+    </div>
+</div>
+
+
+
+</block>
+
+
+<block name="public">
+
+
+</block>

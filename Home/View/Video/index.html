@@ -1,8 +1,8 @@
 <extend name="./base" />
 <block name="title">
     <title>网络教学 - 元认知心理干预技术网</title>
-    <meta name="keywords" content="元认知,元认知干预，元认知心理，元认知心理干预，元认知心理干预技术，金洪源"/>
-    <meta name="description" content="元认知研究所由金洪源教授任所长，面向全国提供心理技术服务，解决学生偏科、厌学、马虎、考试焦虑、拖延等学习障碍问题；改善人际关系，解决亲子、家庭问题；提供失眠、焦虑、强迫、抑郁等辅助性干预；优化性格系统。主要业务：个体咨询、团体辅导、技术培训、进驻学校推进心理健康技术化改革。下设临床服务部、研修生部、驻校服务部、中小学教研部、技术研发与培训部。"/>
+    <meta name="keywords" content="{$Think.config.KEYWORDS}"/>
+    <meta name="description" content="{$Think.config.DESCRIPTION}"/>
 </block>
 <block name="content">
     <div class="container  i-container">
@@ -101,17 +101,16 @@
             <div class="col-sm-4">
                 <div class="box">
                     <div class="Mtop">
-                        <span><a href="__MODULE__/Article/article/cate/23">更多&gt;&gt;</a></span>
+                        <span><a href="__MODULE__/Video/cateList">更多&gt;&gt;</a></span>
                         <h2><img src="{$Think.const.WEB_URL}/images/ico_01.gif" class="ico" style="left:10px;"/> 最新课程</h2>
                     </div>
                     <div class="Mbody">
-                        <ul class="list">
-                            <volist name="jszc" id="vo">
-                                <if condition="$vo.is_title_bold eq 1">
-                                    <li><a href="__MODULE__/Article/show/u/{$vo.pk}" style="color:{$vo.title_color};font-weight: bold;"><nobr>{$vo.title}</nobr></a></li>
-                                    <else />
-                                    <li><a href="__MODULE__/Article/show/u/{$vo.pk}" style="color:{$vo.title_color};"><nobr>{$vo.title}</nobr></a></li>
-                                </if>
+                        <ul class="list list-test">
+                            <volist name="video_category" id="vo">
+                                <li>
+                                    <a href="__MODULE__/Video/cate/u/{$vo.pk}/free/1" class="red">我要试听</a>
+                                    <a href="__MODULE__/Video/cate/u/{$vo.pk}"><nobr>{$vo.name}</nobr></a>
+                                </li>
                             </volist>
                         </ul>
                     </div>
@@ -172,16 +171,16 @@
             <div class="col-sm-4">
                 <div class="box">
                     <div class="Mtop">
-                        <span><a href="__MODULE__/Article/article/cate/111">更多&gt;&gt;</a></span>
+                        <span><a href="__MODULE__/Video/showList">更多&gt;&gt;</a></span>
                         <h2><img src="{$Think.const.WEB_URL}/images/ico_01.gif" class="ico" style="left:10px;"/> 详细课程</h2>
                     </div>
                     <div class="Mbody">
                         <ul class="list">
-                            <volist name="jszc" id="vo">
+                            <volist name="videoLimit" id="vo">
                                 <if condition="$vo.is_title_bold eq 1">
-                                    <li><a href="__MODULE__/Article/show/u/{$vo.pk}" style="color:{$vo.title_color};font-weight: bold;"><nobr>{$vo.title}</nobr></a></li>
+                                    <li><a href="__MODULE__/Video/show/u/{$vo.pk}" style="color:{$vo.title_color};font-weight: bold;"><nobr>{$vo.title}</nobr></a></li>
                                     <else />
-                                    <li><a href="__MODULE__/Article/show/u/{$vo.pk}" style="color:{$vo.title_color};"><nobr>{$vo.title}</nobr></a></li>
+                                    <li><a href="__MODULE__/Video/show/u/{$vo.pk}" style="color:{$vo.title_color};"><nobr>{$vo.title}</nobr></a></li>
                                 </if>
                             </volist>
                         </ul>

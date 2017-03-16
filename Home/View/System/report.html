@@ -1,8 +1,8 @@
 <extend name="./base" />
 <block name="title">
     <title>知名媒体专题报道 - 元认知心理干预技术网</title>
-    <meta name="keywords" content="元认知,元认知干预，元认知心理，元认知心理干预，元认知心理干预技术，金洪源，知名媒体专题报道"/>
-    <meta name="description" content="元认知研究所由金洪源教授任所长，面向全国提供心理技术服务，解决学生偏科、厌学、马虎、考试焦虑、拖延等学习障碍问题；改善人际关系，解决亲子、家庭问题；提供失眠、焦虑、强迫、抑郁等辅助性干预；优化性格系统。主要业务：个体咨询、团体辅导、技术培训、进驻学校推进心理健康技术化改革。下设临床服务部、研修生部、驻校服务部、中小学教研部、技术研发与培训部。"/>
+    <meta name="keywords" content="{$Think.config.KEYWORDS},知名媒体专题报道"/>
+    <meta name="description" content="{$Think.config.DESCRIPTION}"/>
 </block>
 
 <block name="content">
@@ -13,11 +13,8 @@
 
 <div class="container i-container">
     <div class="row">
-        <div class="col-sm-3">
-            <include file="./left" />
 
-        </div>
-        <div class="col-sm-9">
+        <div class="col-sm-9 col-sm-push-3">
             <div class="box">
                 <div class="Mtop">
                     <h2><img src="{$Think.const.WEB_URL}/images/ico_04.gif" class="ico" /> 知名媒体专题报道</h2>
@@ -34,6 +31,10 @@
 
                 </div>
             </div>
+        </div>
+        <div class="col-sm-3 col-sm-pull-9">
+            <include file="./left" />
+
         </div>
     </div>
 </div>

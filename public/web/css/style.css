@@ -82,10 +82,12 @@ a:hover{color: #fe336b;}
 .box .Mbody .newlist{ margin:12px 15px 0px 15px; *margin-top:15px; min-height:613px;}
 .box .Mbody .newlist li{ background:none;}
 .box .Mbody .newlist li.gray{ background-color:#efefef;}
-.box .Mbody .newlist li a{background:url(img/ui_list_ico.gif) left center no-repeat; padding-left:12px; display: block;}
+.box .Mbody .newlist li a{background:url(img/ui_list_ico.gif) left center no-repeat; padding-left:12px; display: block;line-height: 18px;}
 .box .Mbody .content{ padding:15px 5px; line-height:18px; text-indent:2em;}
 .qzone .Mbody {height: auto !important; height: 173px; min-height: 173px;}
 
+.box .Mbody .list-test li{padding-right: 60px;}
+.box .Mbody .list-test li a.red{background:none; padding-left:0px; float: right; color: #cc0000; margin-right: -60px; position: relative;}
 
 
 
@@ -153,7 +155,7 @@ a:hover{color: #fe336b;}
 .footer p{margin-bottom: 0;}
 
 /*statu*/
-.Statu{ color:#3b3b3b; height:35px; line-height:35px;padding-left:10px; border:1px solid #e6e6e6; background-color:#f9f9f9; margin-bottom:10px;}
+.Statu{ color:#3b3b3b; padding: 8px 10px; border:1px solid #e6e6e6; background-color:#f9f9f9; margin-bottom:10px;}
 
 
 /*Login*/
@@ -183,7 +185,7 @@ a:hover{color: #fe336b;}
 /*list*/
 .box .Mbody .newlist li a.newlist-download{ padding-left: 0; background: url("img/download.gif") no-repeat right center; padding-right: 15px; margin-right: 10px;}
 .box .Mbody .newlist li:nth-child(even){background-color: #f6f6f6;}
-.box .Mbody .newlist li{padding: 5px 15px;}
+.box .Mbody .newlist li{padding: 8px 15px;}
 .box .news{  min-height:658px;}
 
 /*page*/
@@ -220,7 +222,7 @@ a:hover{color: #fe336b;}
 
 
 /*news*/
-.news h1 {height: 40px; line-height: 40px; color: #6e6e6e; font-size: 14px; font-weight: bold; text-align: center;}
+.news h1 {color: #6e6e6e; font-size: 14px; font-weight: bold; text-align: center; padding: 10px;}
 .news .newstatu { line-height: 25px; background-color: #efefef; color: #6e6e6e; text-align: center; margin: 0px 30px;}
 .news .newstatu span {min-width: 220px; float: left;}
 .news .newsCon {margin: 10px 30px 20px; color: #6e6e6e; line-height: 24px;}
@@ -418,6 +420,24 @@ a.a-btn{display: inline-block; min-width: 100px; text-align: center; padding: 6p
 
 .jp-video{ max-width: 100%; min-width: 300px; margin: 0 auto;}
 
+.Vtip {border: 1px solid #e6e6e6;  padding: 10px 10px; margin: 0 30px 10px;}
+.Vtip span {float: right;}
+.Vtip em {font-style: normal; margin-left: 10px;}
+
+.Vlist { margin: 0 30px 10px;}
+    .sub-title{ color: #509415; border-bottom: 3px solid #eee; padding-right: 200px;}
+    .sub-title em{float: right; font-size: 12px; color:#999; font-style: normal;margin-right: -200px; margin-top: 5px;}
+    .sub-title strong{display: inline-block; padding: 5px 10px; border-bottom: 3px solid #6dba2b; margin-bottom: -3px;}
+
+    .video-list{list-style: none; padding-left: 0;}
+    .i-container .video-list li{padding: 8px 10px 8px 15px; background: url(img/ui_list_ico.gif) left 14px no-repeat;}
+    .video-list li a{color: #509415; font-size: 12px; font-weight: 700;}
+    .video-free{display: inline-block;background-color: #cc0000; color:#fff; font-size: 12px; text-align: center; min-width: 40px; padding: 0px 0px; border-radius: 3px;}
+.FriendTip {border: 1px solid #FCDC89; margin: 10px 30px; padding-left: 15px; line-height: 18px; color: #e92201; background-color: #FDF5DB;}
+.ErrorTip {padding: 30px 20px; color: #000; text-align: center;}
+.ErrorTip a {color: #cc0000;}
+
+
 
 /* mobile */
 @media screen and (max-width:768px){
@@ -437,7 +457,8 @@ a.a-btn{display: inline-block; min-width: 100px; text-align: center; padding: 6p
     .register dl dd textarea{min-width: 100%;}
     .box .Mbody  .introduction{height: auto; margin-bottom: 10px;}
     .news .pic{padding:10px 0 0;}
-    .news .newstatu span{min-width: auto;}
+    .news .newstatu span{min-width:auto;}
     .news .newsCon{margin: 10px 10px;}
     .news .newstatu{margin:0 10px;}
+    .Vtip,.Vlist,.FriendTip{margin: 0 10px 10px;}
 }

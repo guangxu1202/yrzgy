@@ -30,6 +30,14 @@ class VideopubController extends Controller {
             $this -> assign("service",$slist);
         }
 
+        //最新课程
+        $video_category = M("video_category")->field("pk,update_time,name")->order("custom_sort desc,update_time desc")->where("is_show=1")->limit(5)->select();
+        $this -> assign("video_category",$video_category);
+
+
+        //详细课程
+        $videos = M("video")->field("pk,update_time,title,is_title_bold,title_color")->order("custom_sort desc,update_time desc")->where("is_show=1")->limit(5)->select();
+        $this -> assign("videoLimit",$videos);
 
 
     }

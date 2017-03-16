@@ -15,11 +15,8 @@
 
 <div class="container i-container">
     <div class="row">
-        <div class="col-sm-3">
-            <include file="./left" />
 
-        </div>
-        <div class="col-sm-9">
+        <div class="col-sm-9 col-sm-push-3">
             <div class="box">
                 <foreach name="info" item="vo" >
                     <div class="Mtop">
@@ -64,6 +61,10 @@
                     </div>
                 </foreach>
             </div>
+        </div>
+        <div class="col-sm-3 col-sm-pull-9">
+            <include file="./left" />
+
         </div>
     </div>
 </div>
