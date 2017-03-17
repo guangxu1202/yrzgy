@@ -1,0 +1,122 @@
+<extend name="./base" />
+<block name="title">
+    <title>课程购买 - 网络教学 - 元认知心理干预技术网</title>
+    <meta name="keywords" content="{$Think.config.KEYWORDS}"/>
+    <meta name="description" content="{$Think.config.DESCRIPTION}"/>
+</block>
+
+<block name="content">
+
+<div class="container i-container">
+
+    <div class="Statu">您的位置：<a href="{$Think.const.SITE_URL}">首页</a> &gt;&gt;<a href="__MODULE__/Video/index">网络教学</a> &gt;&gt; 课程购买</div>
+
+</div>
+
+<div class="container i-container">
+    <div class="row">
+
+        <div class="col-sm-9 col-sm-push-3">
+            <div class="box">
+
+                <div class="Mtop">
+                    <h2><img src="{$Think.const.WEB_URL}/images/ico_04.gif" class="ico" /> 课程购买</h2>
+                </div>
+                <div class="Mbody news">
+                    <form id="video-order" name="video-order" action="__SELF__" method="post">
+                        <input type="hidden" name="cate" value="{$info['pk']}">
+                        <input type="hidden" name="price" value="{$info['price']}">
+                        <p class="FriendTip ">
+                        * <b>提示: </b>确保您的注册的Email信息是正确的, 我们会将订单信息发送到你的邮件中. 点击<a href="__MODULE__/Member/baseEdit" target="_blank">这里</a>修改个人信息.
+                        </p>
+                        <div class="video-wrap">
+                            <table class="Edit">
+                            <colgroup width="120px;"></colgroup>
+                            <colgroup width=""></colgroup>
+                            <thead>
+                            <tr>
+                                <td colspan="4">购买课程</td>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <th>课程名称: </th>
+                                <td>[ {$info['name']} ]</td>
+                            </tr>
+                            <tr>
+                                <th>价格: </th>
+                                <td style="color: #cc0000;">[ {$info['price']}元 ]</td>
+                            </tr>
+                            <tr>
+                                <th>购买留言: <br>(最多200字符)</th>
+                                <td><textarea id="comment" name="comment" class="t" placeholder="建议您留下联系方式，方便我们联系您!" ></textarea></td>
+                            </tr>
+                            <tr>
+                                <th>&nbsp;</th>
+                                <td>
+                                    <button class="btn-green" type="button" onclick="check();">立即购买</button>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                        </div>
+                    </form>
+
+                    <div class="Vlist">
+                        <h5 class="sub-title">
+                            <em>视频版权所有, 元认知干预技术研究所</em>
+                            <strong>课程列表</strong>
+                        </h5>
+                        <ul class="video-list clearfix">
+                            <volist name="video" id="vo">
+                                <li class="col-sm-6">
+                                    <a href="__MODULE__/Video/show/u/{$vo.pk}" target="_blank" title="{$vo.title}">{$vo.title}</a>
+                                    <if condition="$vo.is_free eq 1">
+                                        <span class="video-free">免费</span>
+                                    </if>
+                                </li>
+                            </volist>
+                        </ul>
+                    </div>
+
+
+                    <div class="newsCon">
+                        <h5 class="sub-title">
+                            <strong>课程简介</strong>
+                        </h5>
+                        {$info['description']|htmlspecialchars_decode}
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <div class="col-sm-3 col-sm-pull-9">
+            <include file="./vide_left" />
+        </div>
+    </div>
+</div>
+
+
+
+</block>
+
+
+<block name="public">
+    <script type="text/javascript">
+
+        var check = function() {
+            if ($("#comment").val().length > 200) {
+                alert("购买留言最多能输入 200 个字符, 您已经输入 [ " + $("#comment").val().length + " ] 个字符,\n请稍做修改在提交.");
+                return false;
+            }
+            $("body").append('<div class="filter"></div><div class="pop-tips">订单生成中，请耐心等待...</div>');
+            $(".filter").css("height",$(document).height());
+            $(".pop-tips").css("top",$(document).scrollTop()-$(".pop-tips").height()/2+($(window).height()/2));
+           $("#video-order").submit();
+        };
+    </script>
+
+
+
+</block>

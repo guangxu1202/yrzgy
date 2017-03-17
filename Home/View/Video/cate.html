@@ -27,7 +27,7 @@
                     <div class="Vtip clearfix">
                         <span>更新日期：{$info['update_time']|substr=0,10}</span>
                         <if condition="$info['price'] gt 0">
-                            <a href="#" target="_blank" style="color:#ff4800; font-weight:bold; margin-left:10px;">购买本课程</a>
+                            <a href="__MODULE__/Video/purchase/u/{$info['pk']}" target="_blank" style="color:#ff4800; font-weight:bold; margin-left:10px;">购买本课程</a>
                             <a href="__MODULE__/System/show/u/PURCHASE" target="_blank" style="color:#ff4800;margin-left:10px;">如何购买?</a>
                             <else/>
                             <em class="green" style="font-style: normal;">本课程可以免费观看</em>

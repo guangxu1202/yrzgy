@@ -85,7 +85,7 @@
                         </div>
                         <elseif condition="$limit['tips'] eq 3"/>
                         <p class="FriendTip ErrorTip">
-                            对不起, 视频 [ {$info['title']} ] 您没有权限观看, <a href="#">购买本课程</a> 后可以观看。<a href="__MODULE__/System/show/u/PURCHASE">如何购买?</a>
+                            对不起, 视频 [ {$info['title']} ] 您没有权限观看, <a href="__MODULE__/Video/purchase/u/{$cate['pk']}">购买本课程</a> 后可以观看。<a href="__MODULE__/System/show/u/PURCHASE">如何购买?</a>
                         </p>
                         <elseif condition="$limit['tips'] eq 4"/>
 

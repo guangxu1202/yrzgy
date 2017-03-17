@@ -161,6 +161,24 @@
                                                     <span class="red">未开始咨询</span>
                                                     <else/>
                                                     <span class="green">已完成咨询</span>
+
+                                                    <div class="replybox mt10">
+                                                        <span class="green">我的评价：</span>
+                                                        <div>
+                                                            {$o['teacher_eval']}
+                                                        </div>
+                                                    </div>
+                                                    <if condition="$o['member_eval'] eq null">
+                                                        用户评价未评价
+                                                        <else/>
+                                                        <div class="replybox">
+                                                            <span class="green">用户评价：</span>
+                                                            <div>
+                                                                {$o['member_eval']}
+                                                            </div>
+                                                        </div>
+                                                    </if>
+
                                                 </if>
                                             </li>
                                         </volist>

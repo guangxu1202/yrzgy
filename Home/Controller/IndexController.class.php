@@ -1,7 +1,29 @@
 <?php
 namespace Home\Controller;
 use Think\Controller;
+
+
 class IndexController extends CommonController {
+
+    //测试邮件发送
+    function mail_send() {
+
+        $mail = '95149313@qq.com';  //收件人邮箱
+        $title = '新的测试循环邮件'; //邮件标题
+        $content = '循环邮件正文！';
+        
+        //邮件发送代码
+        $smtp = M("smtp")->field("email,host_name,password,sender")->where("is_used = 1")->order("custom_sort desc")->select();
+        foreach ($smtp as $m =>$k){
+            if (sendMail($mail,$title,$content,$k['host_name'],$k['email'],$k['password'],$k['email'],$k['sender'])){
+                echo "发送成功".$k['email'];
+                break;
+            }else{
+                echo "发送失败".$k['email'];
+            }
+        }
+
+    }
     //首页
     function index(){
 

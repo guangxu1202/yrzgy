@@ -1,0 +1,91 @@
+<extend name="./base" />
+<block name="title">
+    <title>课程购买成功 - 网络教学 - 元认知心理干预技术网</title>
+    <meta name="keywords" content="{$Think.config.KEYWORDS}"/>
+    <meta name="description" content="{$Think.config.DESCRIPTION}"/>
+</block>
+
+<block name="content">
+
+<div class="container i-container">
+
+    <div class="Statu">您的位置：<a href="{$Think.const.SITE_URL}">首页</a> &gt;&gt;<a href="__MODULE__/Video/index">网络教学</a> &gt;&gt; 课程购买</div>
+
+</div>
+
+<div class="container i-container">
+    <div class="row">
+
+        <div class="col-sm-9 col-sm-push-3">
+            <div class="box">
+
+                <div class="Mtop">
+                    <h2><img src="{$Think.const.WEB_URL}/images/ico_04.gif" class="ico" /> 课程购买成功</h2>
+                </div>
+                <div class="Mbody news">
+
+                    <p class="FriendTip ">
+                        感谢您在 元认知心理干预技术网 订购课程.
+                    </p>
+
+                    <div class="Order">
+                        <h6>您的订单信息如下</h6>
+                        <table>
+                            <colgroup width="150px"></colgroup>
+                            <tbody><tr><th>订单编号: </th><td>{$info['order_number']}</td></tr>
+                            <tr><th>订购时间: </th><td>{$info['request_time']}</td></tr>
+                            <tr><th>订购内容: </th><td>{$info['name']}</td></tr>
+                            <tr class="Impro"><th>订单总计: </th><td>{$info['price']} 元</td></tr>
+                            <tr><th>订单备注: </th><td>{$info['comment']}</td></tr>
+                            </tbody></table>
+                        <h6>汇款方式(请将费用转存到我们的帐号)</h6>
+                        <table>
+                            <colgroup width="150px"></colgroup>
+                            <tbody><tr><th>开户行: </th><td>中国建设银行大连师大前储蓄所</td></tr>
+                            <tr><th>帐号: </th><td>0782 0699 8013 0552 072</td></tr>
+                            <tr><th>户名: </th><td>魏晓旭</td></tr>
+                            </tbody></table>
+                        <h6>联络及咨询方式</h6>
+                        <table>
+                            <colgroup width="150px"></colgroup>
+                            <tbody><tr><th>联系人: </th><td>魏晓旭</td></tr>
+                            <tr><th>联系电话: </th><td>15998660373</td></tr>
+                            </tbody></table>
+                    </div>
+
+                    <p class="FriendTip OrderTip">
+                        * 将您的汇款单号、所汇款项(课程名称)、真实姓名、联系电话、网站用户名等信息发至 yrzgy001@gmail.com<br>
+                        * 或直接电话联系我们, 我们确认收到费用后, 将在三个工作日内为您开通课程并及时电话通知您。<br>
+                        * 我们将通过电子邮件发送给您一封订单确认信。已经发送到您的注册邮箱 [ {$info.email} ] 中, 方便及时查阅。<br>
+                        * 您可以在<a href="__MODULE__/Member/myOrder" style="color: #00be67">个人中心-我的订单</a>中查看订单状态。
+                    </p>
+
+                </div>
+
+            </div>
+        </div>
+        <div class="col-sm-3 col-sm-pull-9">
+            <include file="./vide_left" />
+        </div>
+    </div>
+</div>
+
+
+
+</block>
+
+
+<block name="public">
+    <script type="text/javascript">
+        var check = function() {
+            if ($("#comment").val().length > 200) {
+                alert("购买留言最多能输入 200 个字符, 您已经输入 [ " + $("#comment").val().length + " ] 个字符,\n请稍做修改在提交.");
+                return false;
+            }
+           $("#video-order").submit();
+        };
+    </script>
+
+
+
+</block>

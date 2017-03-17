@@ -1,0 +1,70 @@
+<extend name="./base" />
+<block name="title">
+    <title>我的订单 - 个人中心 - 元认知心理干预技术网</title>
+    <meta name="keywords" content="{$Think.config.KEYWORDS}"/>
+    <meta name="description" content="{$Think.config.DESCRIPTION}"/>
+</block>
+
+<block name="content">
+
+
+<div class="container i-container">
+    <div class="Statu">您的位置：<a href="{$Think.const.SITE_URL}">首页</a> &gt;&gt; <a href="__MODULE__/Member/main">个人中心</a>  &gt;&gt; 我的订单</div>
+</div>
+
+<div class="container i-container">
+    <div class="MCenter clearfix">
+        <div class="row">
+            <div class="col-sm-3">
+                <div class="MCleft">
+                    <include file="./member_left" />
+                </div>
+            </div>
+
+            <div class=" col-sm-9">
+                <div class="MCmain">
+                    <div class="person-wrap">
+                        <h5>我的订单</h5>
+                        <ul class="person-list">
+                            <volist name="list" id="vo">
+                                <li>
+                                    <span>{$vo.request_time|substr=0,10}</span>
+                                    <a href="__MODULE__/Member/orderDetail/u/{$vo.pk}" target="_blank">
+                                        [{$vo.order_number}] {$vo.name}
+                                    </a>
+                                    <if condition="$vo.status eq 0">
+                                        <em class="grey">待付款</em>
+                                        <elseif condition="$vo.status eq 1"/>
+                                        <em class="green">已付款</em>
+                                        <else/>
+                                        <em>已作废</em>
+                                    </if>
+                                </li>
+                            </volist>
+                        </ul>
+                        <div class="pagenation">{$page}</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+</block>
+
+
+<block name="public">
+    <script>
+        //导航位置
+        var module = "Member";
+        var pnArr = window.location.pathname.split("/");
+        var pnArrNumber = $.inArray(module,pnArr);
+        $(".MCleft li").each(function () {
+            if (!!$(this).attr("data-pn") && $(this).attr("data-pn").indexOf("|"+pnArr[pnArrNumber+1]+"|") >= 0){
+                $(this).addClass("checked");
+            }
+        })
+    </script>
+
+</block>

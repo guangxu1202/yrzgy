@@ -433,9 +433,27 @@ a.a-btn{display: inline-block; min-width: 100px; text-align: center; padding: 6p
     .i-container .video-list li{padding: 8px 10px 8px 15px; background: url(img/ui_list_ico.gif) left 14px no-repeat;}
     .video-list li a{color: #509415; font-size: 12px; font-weight: 700;}
     .video-free{display: inline-block;background-color: #cc0000; color:#fff; font-size: 12px; text-align: center; min-width: 40px; padding: 0px 0px; border-radius: 3px;}
-.FriendTip {border: 1px solid #FCDC89; margin: 10px 30px; padding-left: 15px; line-height: 18px; color: #e92201; background-color: #FDF5DB;}
+.FriendTip {border: 1px solid #FCDC89; margin: 10px 30px; padding:8px 15px; line-height: 18px; color: #e92201; background-color: #FDF5DB;}
 .ErrorTip {padding: 30px 20px; color: #000; text-align: center;}
 .ErrorTip a {color: #cc0000;}
+.video-wrap{margin: 0 30px 10px;}
+.t{border: 1px solid #ccc; width: 100%; min-height: 100px;}
+.OrderTip{ font-size: 14px;}
+.Order {padding: 10px; background-color: #e2ffc6; border: 1px solid #b1ff65; margin:0px 30px 10px;}
+.Order h6 {font-size: 14px; font-weight: bold; border-bottom: 1px solid #b1ff65; height: 24px; line-height: 24px; padding-left: 15px; margin-bottom: 10px;}
+.Order table {margin-bottom: 10px; width: 100%;}
+.Order table th {text-align: right;}
+.Order table th,.Order table td {padding: 5px;}
+.Order table tr.Impro th,.Order table tr.Impro td {font-weight: bold; color: #cc0000;}
+.OrderTip {padding: 20px; line-height: 20px;}
+.Order table th,.Edit tbody th {font-weight: bold;}
+
+/*popup*/
+.filter{ position: absolute; width: 100%; top:0;left: 0; background-color: #000;-moz-opacity:0.5;opacity:0.5;filter:alpha(opacity=50); z-index: 99998; }
+.pop-tips{ position: absolute; z-index: 99999; left: 50%; top: 50%; width: 300px; padding: 20px 0; text-align: center; margin-left: -150px; background-color: #fff;}
+
+.person-wrap h5{font-size: 14px; font-weight: bold; text-align: left; padding-left: 20px; background-color: #F5F5F5; border-bottom: 1px solid #ddd;  margin: 20px 10px; line-height: 30px;}
+
 
 
 
@@ -460,5 +478,5 @@ a.a-btn{display: inline-block; min-width: 100px; text-align: center; padding: 6p
     .news .newstatu span{min-width:auto;}
     .news .newsCon{margin: 10px 10px;}
     .news .newstatu{margin:0 10px;}
-    .Vtip,.Vlist,.FriendTip{margin: 0 10px 10px;}
+    .Vtip,.Vlist,.FriendTip,.video-wrap,.Order{margin: 0 10px 10px;}
 }

@@ -189,4 +189,96 @@ class VideoController extends VideopubController {
         }
     }
 
+
+    //课程购买
+    function purchase(){
+        //登录状态判断
+        if(!session('?c_id')){
+            //未登录
+            $this->error("您还没有登录，必须会员用户登录后才可以购买。",__MODULE__."/Index/login",6);
+            exit();
+        }
+        //课程ID判断
+        $video_category = M("video_category");
+        if ($video_category->where("is_show = 1 and pk=".I("get.u"))->find() == null) {
+            //错误ID
+            $this->error("页面无法访问！");
+        } else {
+            if (!empty($_POST)) {
+                //购买课程
+                $user = new \Model\Video_orderModel();
+                //验证数据 Video_orderModel
+                $z = $user->create();
+                if (!$z) {
+                    show_bug($user->getError());
+                    //$this->error("您录入的数据格式错误！");
+                    exit();
+                }
+                //验证重复提交订单
+                $repeat = $user->where("status=0 and video_category_id=".I("post.cate")." and member_id = ".session('c_id')) ->find();
+                if ($repeat !=null){
+                    $this->error("您已经提交了课程订单，请不要重复提交，您的订单可以在个人中心查看！",__MODULE__."/Member/myOrder",6);
+                    exit();
+                }
+
+                //数据录入
+                $log["comment"] = I("post.comment");
+                $log["price"] = I("post.price");
+                $log["order_number"] = "PSY".date("YmdHis").session("c_id").rand(10,100);
+                $log["request_time"] = date("Y-m-d H:i:s");
+                $log["status"] = 0;
+                $log["member_id"] = session('c_id');
+                $log["video_category_id"] = I("post.cate");
+                $result = $user->data($log)->add();
+
+                if ($user){
+                    $id = $result; // 获取数据库写入数据的主键
+
+                    $order = $user->field("c.email,c.nickname,b.name,a.order_number,a.request_time,a.price")->join("as a left join video_category as b on a.video_category_id = b.pk left join member as c on a.member_id = c.pk")->where("a.member_id = ".session("c_id")." and a.pk=".$id)->find();
+                    $mail_title = $order['nickname']."[".$order['name']."]订购成功";
+                    $mail_content = "<p>尊敬的".$order['nickname']."您好：</p><br/><p>您于".$order['request_time']."在<a href='http://www.yrzgy.com' style='color:#cc0000'>元认知心理网</a>上成功订购课程[ ".$order['name']." ]</p><p>您的订单编号：".$order['order_number']."</p><p>您的订单价格：<span style='color:#cc0000'>".$order['price']."</span>元 (请尽快付款完成订单)</p><p><a href='http://www.yrzgy.com' style='color:#cc0000'>点击这里</a>登录后查看详细订单状态。</p><br/><p style='padding-left:100px'>from:<a href='http://www.yrzgy.com' >元认知心理网</a></p>";
+
+                    //邮件发送代码
+                    $smtp = M("smtp")->field("email,host_name,password,sender")->where("is_used = 1")->order("custom_sort desc")->select();
+                    foreach ($smtp as $m =>$k){
+                        if (sendMail($order['email'],$mail_title,$mail_content,$k['host_name'],$k['email'],$k['password'],$k['email'],$k['sender'])){
+                            break;
+                        }
+                    }
+
+
+                    //录入成功
+                    $this->success("恭喜您，订单提交成功！",__MODULE__."/Video/orderSuccess/u/".$id);
+                }else{
+                    $this->error("数据录入失败！");
+                    exit();
+                }
+
+
+            }else{
+                //读取页面
+                $info = $video_category->where("pk=".I("get.u"))->find();
+                $this->assign('info', $info);
+                $video = M("video")->order("custom_sort desc,update_time asc")->field("title,pk,is_free")->where("is_show=1 and video_category_id=".I("get.u"))->select();
+                $this->assign('video', $video);
+                $this->display();
+            }
+
+        }
+    }
+
+    //购买成功提示
+    function orderSuccess(){
+        $video_order = M("video_order");
+        if ($video_order->where("member_id = ".session("c_id")." and pk=".I("get.u"))->find() == null) {
+            $this->error("您访问的页面错误");
+            exit();
+        }else{
+            $order = $video_order->field("c.email,b.name,a.order_number,a.request_time,a.price,a.comment")->join("as a left join video_category as b on a.video_category_id = b.pk left join member as c on a.member_id = c.pk")->where("a.member_id = ".session("c_id")." and a.pk=".I("get.u"))->find();
+            $this->assign('info', $order);// 赋值分页输出
+            $this -> display();
+        }
+
+    }
+
 }
