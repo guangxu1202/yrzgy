@@ -76,6 +76,7 @@ class IndexController extends Controller {
             'length'      =>    4,     // 验证码位数
             'imageH'      =>    34,
             'imageW'      =>    140,
+            'useCurve'    =>    false, // 是否使用混淆曲线 默认为true
         );
         $Verify =     new \Think\Verify($config);
         $Verify->entry();

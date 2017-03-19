@@ -170,6 +170,9 @@
                 return false;
             }
             saveFileName();
+            $("body").append('<div class="filter"></div><div class="pop-tips">帐号注册中，请耐心等待...</div>');
+            $(".filter").css("height",$(document).height());
+            $(".pop-tips").css("top",$(document).scrollTop()-$(".pop-tips").height()/2+($(window).height()/2));
             return true;
         };
 

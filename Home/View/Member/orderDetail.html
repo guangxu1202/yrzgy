@@ -1,0 +1,118 @@
+<extend name="./base" />
+<block name="title">
+    <title>订单详情 - 个人中心 - 元认知心理干预技术网</title>
+    <meta name="keywords" content="{$Think.config.KEYWORDS}"/>
+    <meta name="description" content="{$Think.config.DESCRIPTION}"/>
+</block>
+
+<block name="content">
+
+
+<div class="container i-container">
+    <div class="Statu">您的位置：<a href="{$Think.const.SITE_URL}">首页</a> &gt;&gt; <a href="__MODULE__/Member/main">个人中心</a>  &gt;&gt; 订单详情</div>
+</div>
+
+<div class="container i-container">
+    <div class="MCenter clearfix">
+        <div class="row">
+            <div class="col-sm-3">
+                <div class="MCleft">
+                    <include file="./member_left" />
+                </div>
+            </div>
+
+            <div class=" col-sm-9">
+                <div class="MCmain">
+                    <div class="person-wrap">
+                        <h5>我的订单 - {$info['order_number']}</h5>
+                        <div class="order-pay">
+                            <h6>您的订单信息如下</h6>
+                            <table>
+                                <colgroup width="150px"></colgroup>
+                                <tbody><tr><th>订单编号: </th><td>{$info['order_number']}</td></tr>
+                                <tr><th>订购时间: </th><td>{$info['request_time']}</td></tr>
+                                <tr><th>订购内容: </th><td>{$info['name']}</td></tr>
+                                <tr class="Impro"><th>订单总计: </th><td><span style="color:#cc0000;">{$info['price']} </span>元</td></tr>
+                                <tr><th>支付状态: </th><td>
+                                    <if condition="$info['status'] eq 1">
+                                        <span class="green">已付款</span>
+                                        <else/>
+                                        <em  style="color:#cc0000;">待付款</em>
+                                    </if>
+                                </td></tr>
+                                <tr><th>订单状态: </th><td>
+                                    <if condition="$info['status'] eq 0">
+                                        <em  style="color:#cc0000;">未审核</em>
+                                        <elseif condition="$info['status'] eq 1"/>
+                                        <span class="green">已审核</span>
+                                        <else/>
+                                        <em>已作废</em>
+                                    </if>
+                                </td></tr>
+                                <tr>
+                                    <th>订单备注: </th>
+                                    <td>
+
+                                        <if condition="$info['status'] eq 0">
+                                            <form id="video-order" name="video-order" action="__SELF__" method="post">
+                                                <input type="hidden" name="pk" value="{$info['pk']}">
+                                                <textarea id="comment" name="comment" class="t" placeholder="建议您留下联系方式，方便我们联系您!" >{$info['comment']}</textarea>
+                                                <button class="btn-green" type="button" onclick="check();">修改备注</button>
+                                            </form>
+                                            <else/>
+                                            <p>{$info['comment']}</p>
+                                        </if>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="order-pay">
+                            <h6>汇款方式(请将费用转存到我们的帐号)</h6>
+                            <table>
+                                <colgroup width="150px"></colgroup>
+                                <tbody><tr><th>开户行: </th><td>中国建设银行大连师大前储蓄所</td></tr>
+                                <tr><th>帐号: </th><td>0782 0699 8013 0552 072</td></tr>
+                                <tr><th>户名: </th><td>魏晓旭</td></tr>
+                                </tbody></table>
+                            <h6>联络及咨询方式</h6>
+                            <table>
+                                <colgroup width="150px"></colgroup>
+                                <tbody><tr><th>联系人: </th><td>魏晓旭</td></tr>
+                                <tr><th>联系电话: </th><td>15998660373</td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+</block>
+
+
+<block name="public">
+    <script>
+        //导航位置
+        var module = "Member";
+        var pnArr = window.location.pathname.split("/");
+        var pnArrNumber = $.inArray(module,pnArr);
+        $(".MCleft li").each(function () {
+            if (!!$(this).attr("data-pn") && $(this).attr("data-pn").indexOf("|"+pnArr[pnArrNumber+1]+"|") >= 0){
+                $(this).addClass("checked");
+            }
+        });
+
+        var check = function() {
+            if ($("#comment").val().length > 200) {
+                alert("购买留言最多能输入 200 个字符, 您已经输入 [ " + $("#comment").val().length + " ] 个字符,\n请稍做修改在提交.");
+                return false;
+            }
+            $("#video-order").submit();
+        };
+    </script>
+</block>

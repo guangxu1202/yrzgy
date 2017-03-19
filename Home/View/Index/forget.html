@@ -1,6 +1,6 @@
 <extend name="./base" />
 <block name="title">
-    <title>登录 - 元认知心理干预技术网</title>
+    <title>忘记密码 - 元认知心理干预技术网</title>
     <meta name="keywords" content="{$Think.config.KEYWORDS}"/>
     <meta name="description" content="{$Think.config.DESCRIPTION}"/>
 </block>
@@ -9,37 +9,32 @@
 
 
 <div class="container i-container">
-    <div class="Statu">您的位置：<a href="{$Think.const.SITE_URL}">首页</a> &gt;&gt; 用户登录</div>
+    <div class="Statu">您的位置：<a href="{$Think.const.SITE_URL}">首页</a> &gt;&gt; 忘记密码</div>
 </div>
 
 <div class="container i-container">
-    <div class="Login">
-        <h5>元认知干预用户登录</h5>
-        <div class="Lobody">
+    <div class="Login" style="background: none;">
+
+        <div class="Lobody" style=" width: auto;">
             <form name="loginForm" id="loginForm" action="__SELF__" method="post">
-                <dl class="clearfix">
-                    <dt>用户名:</dt>
-                    <dd><input name="username" type="text" id="username" placeholder="请输入用户名" value="{$verinfo.username}" /></dd>
+                <dl class="clearfix" style="max-width: 500px;">
+                    <dt>用户名或邮箱:</dt>
+                    <dd><input name="username" type="text" id="username" placeholder="请输入用户名或注册邮箱" value="{$verinfo.username}" /></dd>
                 </dl>
-                <dl class="clearfix">
-                    <dt>密码:</dt>
-                    <dd><input name="password" type="password" id="password" style="width: 80%" placeholder="请输入密码"  value="{$verinfo.password}" onkeydown='if(event.keyCode==13){login();}'  /></dd>
-                </dl>
-                <dl class="clearfix">
+                <dl class="clearfix" style="max-width: 500px;">
                     <dt>验证码:</dt>
                     <dd>
                         <input type="text" class="linput verify" id="human" style="float:left; width:36%;" name="verify" placeholder="验证码"  onkeydown='if(event.keyCode==13){login();}'  />
                         <img src="__MODULE__/index/verifyImg" onclick="reloadcode(this,'__MODULE__/index/verifyImg?')" alt="点击重新刷新" title="点击重新刷新" style=" width: 145px; margin-left:10px; float:left; cursor: pointer;">
                     </dd>
                 </dl>
-                <dl class="BtnSubmit clearfix">
+                <dl class="BtnSubmit clearfix" style="max-width: 500px;">
                     <dt>&nbsp;</dt>
                     <dd>
-                        <button class="btn-green" type="button" onclick="login();">登录</button>
-                        <div class="btn-links"><a href="__MODULE__/Index/forget">忘记密码?</a>  <span>|</span>  <a href="__MODULE__/Index/regsiter">注册新用户</a></div>
+                        <button class="btn-green" type="button" onclick="login();">提交</button>
                     </dd>
                 </dl>
-                <dl class=" clearfix" style="min-height: 20px;">
+                <dl class=" clearfix"  style="max-width: 500px;min-height: 20px;">
                     <dt>&nbsp;</dt>
                     <dd>
                         <p class="red" style="margin-bottom: 0;">{$verinfo.ver}</p>
@@ -63,13 +58,8 @@
 <script>
     login = function() {
         if (null == $("#username").val() || "" == $("#username").val()) {
-            alert("请输入正确的用户名.");
+            alert("请输入正确的用户名或邮箱.");
             $("#username").focus();
-            return;
-        }
-        if (null == $("#password").val() || "" == $("#password").val()) {
-            alert("请输入密码.");
-            $("#password").focus();
             return;
         }
         if (null == $("#human").val() || "" == $("#human").val()) {
@@ -77,6 +67,9 @@
             $("#human").focus();
             return;
         }
+        $("body").append('<div class="filter"></div><div class="pop-tips">正在帮您找回密码，请耐心等待...</div>');
+        $(".filter").css("height",$(document).height());
+        $(".pop-tips").css("top",$(document).scrollTop()-$(".pop-tips").height()/2+($(window).height()/2));
         $("#loginForm").submit();
     };
     //刷新验证码

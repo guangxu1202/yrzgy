@@ -119,8 +119,8 @@
                                     <ul>
                                         <volist name="tech_team" id="vo">
                                             <li>
-                                                <a href="#"><img src="{$Think.const.SITE_URL}/CDN/uploaded/person/{$vo.thumbnail}" width="110" height="90" /></a>
-                                                <a href="#">{$vo.photo_describe}</a>
+                                                <a href="__MODULE__/System/team_info/u/{$vo.pk}"><img src="{$Think.const.SITE_URL}/CDN/uploaded/person/{$vo.thumbnail}" width="110" height="90" /></a>
+                                                <a href="__MODULE__/System/team_info/u/{$vo.pk}">{$vo.photo_describe}</a>
                                             </li>
                                         </volist>
                                     </ul>

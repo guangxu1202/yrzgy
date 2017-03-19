@@ -1,0 +1,84 @@
+<extend name="./base" />
+<block name="title">
+    <title>重置密码 - 元认知心理干预技术网</title>
+    <meta name="keywords" content="{$Think.config.KEYWORDS}"/>
+    <meta name="description" content="{$Think.config.DESCRIPTION}"/>
+</block>
+
+<block name="content">
+
+
+<div class="container i-container">
+    <div class="Statu">您的位置：<a href="{$Think.const.SITE_URL}">首页</a> &gt;&gt; 重置密码</div>
+</div>
+
+<div class="container i-container">
+    <div class="Login" style="background: none;">
+
+        <div class="Lobody" style=" width: auto;">
+            <form name="loginForm" id="loginForm" action="__SELF__" method="post">
+                <dl class="clearfix" style="max-width: 500px;">
+                    <dt>用户名:</dt>
+                    <dd>
+                        <div style="padding-top: 5px;">{$info['username']}</div>
+                    </dd>
+                </dl>
+                <dl class="clearfix" style="max-width: 500px;">
+                    <dt>新密码:</dt>
+                    <dd><input name="password" type="password" id="password" placeholder="请输入您的新密码" /></dd>
+                </dl>
+                <dl class="clearfix" style="max-width: 500px;">
+                    <dt>重复密码:</dt>
+                    <dd><input name="repassword" type="password" id="repassword" placeholder="请再次输入您的新密码" /></dd>
+                </dl>
+                <dl class="BtnSubmit clearfix" style="max-width: 500px;">
+                    <dt>&nbsp;</dt>
+                    <dd>
+                        <button class="btn-green" type="button" onclick="login();">提交</button>
+                    </dd>
+                </dl>
+
+
+            </form>
+        </div>
+
+
+
+
+    </div>
+</div>
+
+
+</block>
+
+
+<block name="public">
+<script>
+    login = function() {
+        if (null == $("#password").val() || "" == $("#password").val()) {
+            alert("请输入正确的密码.");
+            $("#password").focus();
+            return;
+        }
+        if (null == $("#repassword").val() || "" == $("#repassword").val()) {
+            alert("请输入正确地重复密码.");
+            $("#repassword").focus();
+            return;
+        }
+        if ($("#password").val() != $("#repassword").val()){
+            alert("两次密码不一致，请重新输入.");
+            $("#repassword").focus();
+            return;
+        }
+        $("body").append('<div class="filter"></div><div class="pop-tips">正在生成新密码，请耐心等待...</div>');
+        $(".filter").css("height",$(document).height());
+        $(".pop-tips").css("top",$(document).scrollTop()-$(".pop-tips").height()/2+($(window).height()/2));
+        $("#loginForm").submit();
+    };
+    //刷新验证码
+    function reloadcode(obj,src){
+        $(obj).attr("src",src+Math.random());
+    }
+</script>
+
+</block>

@@ -34,7 +34,7 @@
                             </form>
                         </div>
                         <div class="Reg">
-                            <a href="#" target="_blank">忘记密码</a>
+                            <a href="__MODULE__/Index/forget" target="_blank">忘记密码</a>
                             |
                             <a href="__MODULE__/Index/regsiter">免费注册</a>
                             <p class="red" style="margin-bottom: 0; text-align: left;">{$verinfo.ver}&nbsp;</p>
@@ -44,9 +44,9 @@
                             <div class="Vlogin_Body Vlogin_loged clearfix">
                                 <img src="{$Think.const.WEB_URL}/images/VHeadImg.jpg" class="Vlogin_img" >
                                 <ul class="Vstatus">
-                                    <li><span>昵称：</span>{$member['nickname']}</li>
-                                    <li><span>账户状态：</span>VIP</li>
-                                    <li><span>最后登录：</span>{$member['last_login_time']|substr=0,10}</li>
+                                    <li><span>用户名：</span>{$member['username']}&nbsp;</li>
+                                    <li><span>昵称：</span>{$member['nickname']}&nbsp;</li>
+                                    <li><span>最后登录：</span>{$member['last_login_time']|substr=0,10}&nbsp;</li>
                                 </ul>
                             </div>
                             <div class="Vlinks">
@@ -129,15 +129,7 @@
                         <h2><img src="{$Think.const.WEB_URL}/images/ico_01.gif" class="ico" style="left:10px;"/> 视频新闻</h2>
                     </div>
                     <div class="Mbody">
-                        <ul class="list">
-                            <volist name="researcher" id="vo">
-                                <if condition="$vo.is_title_bold eq 1">
-                                    <li><a href="__MODULE__/Article/show/u/{$vo.pk}" style="color: {$vo.title_color};font-weight: bold;"><nobr>{$vo.title}</nobr></a></li>
-                                    <else />
-                                    <li><a href="__MODULE__/Article/show/u/{$vo.pk}" style="color: {$vo.title_color};"><nobr>{$vo.title}</nobr></a></li>
-                                </if>
-                            </volist>
-                        </ul>
+                        <a href="__MODULE__/Article/show/u/{$vnews['pk']}" class="video-news"><i></i></a>
                     </div>
                 </div>
             </div>
@@ -155,8 +147,8 @@
                                     <ul>
                                         <volist name="tech_team" id="vo">
                                             <li>
-                                                <a href="#"><img src="{$Think.const.SITE_URL}/CDN/uploaded/person/{$vo.thumbnail}" width="110" height="90" /></a>
-                                                <a href="#">{$vo.photo_describe}</a>
+                                                <a href="__MODULE__/System/team_info/u/{$vo.pk}"><img src="{$Think.const.SITE_URL}/CDN/uploaded/person/{$vo.thumbnail}" width="110" height="90" /></a>
+                                                <a href="__MODULE__/System/team_info/u/{$vo.pk}">{$vo.photo_describe}</a>
                                             </li>
                                         </volist>
                                     </ul>

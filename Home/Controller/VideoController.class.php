@@ -2,6 +2,7 @@
 namespace Home\Controller;
 use Think\Controller;
 class VideoController extends VideopubController {
+
     //首页
     function index(){
         if (!empty($_POST)){
@@ -63,7 +64,7 @@ class VideoController extends VideopubController {
             }
         }
         if (session("?c_id")){
-            $member = M("member")->field("nickname,last_login_time")->where("pk=".session("c_id"))->find();
+            $member = M("member")->field("nickname,last_login_time,username")->where("pk=".session("c_id"))->find();
             $this->assign('member',$member);
         }
 
@@ -174,6 +175,7 @@ class VideoController extends VideopubController {
                             //正常观看
                             $limit['tips'] = 1;
                             $limit['count'] = $video_limit['limit_count'] - $video_limit['current_count'];
+                            $limit['current_count'] = $video_limit['current_count'];
                         }else{
                             //次数已经用完
                             $limit['tips'] = 4;
@@ -187,6 +189,22 @@ class VideoController extends VideopubController {
 
             $this->display();
         }
+    }
+    
+    //视频限制
+    function limit(){
+        $video_limit = M("video_limit");
+        $position = $video_limit->where("limit_count > ".I("post.ca")." and member_id = ".session("c_id")." and video_id=".I("post.va"))->find();
+
+        if ($position == null){
+            $data["status"] = false;
+        }else{
+            //设置点击次数
+            $video_limit->where("limit_count > ".I("post.ca")." and member_id = ".session("c_id")." and video_id=".I("post.va"))->setInc('current_count',1);
+            $data["status"] = true;
+        }
+
+        $this->ajaxReturn($data);
     }
 
 
@@ -234,14 +252,23 @@ class VideoController extends VideopubController {
                 if ($user){
                     $id = $result; // 获取数据库写入数据的主键
 
-                    $order = $user->field("c.email,c.nickname,b.name,a.order_number,a.request_time,a.price")->join("as a left join video_category as b on a.video_category_id = b.pk left join member as c on a.member_id = c.pk")->where("a.member_id = ".session("c_id")." and a.pk=".$id)->find();
+                    $order = $user->field("c.email,c.nickname,b.name,a.order_number,a.request_time,a.price,a.comment")->join("as a left join video_category as b on a.video_category_id = b.pk left join member as c on a.member_id = c.pk")->where("a.member_id = ".session("c_id")." and a.pk=".$id)->find();
                     $mail_title = $order['nickname']."[".$order['name']."]订购成功";
-                    $mail_content = "<p>尊敬的".$order['nickname']."您好：</p><br/><p>您于".$order['request_time']."在<a href='http://www.yrzgy.com' style='color:#cc0000'>元认知心理网</a>上成功订购课程[ ".$order['name']." ]</p><p>您的订单编号：".$order['order_number']."</p><p>您的订单价格：<span style='color:#cc0000'>".$order['price']."</span>元 (请尽快付款完成订单)</p><p><a href='http://www.yrzgy.com' style='color:#cc0000'>点击这里</a>登录后查看详细订单状态。</p><br/><p style='padding-left:100px'>from:<a href='http://www.yrzgy.com' >元认知心理网</a></p>";
+                    $mail_content = '<html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>元认知心理干预课程订购成功</title></head><body><style>.FriendTip {border: 1px solid #FCDC89; margin-bottom: 10px; padding-left: 15px; line-height: 30px; color: #e92201; background-color: #FDF5DB; font-size: 12px;} .Order {padding: 10px; background-color: #e2ffc6; border: 1px solid #a1ff45; margin-bottom: 10px;} .Order h6 {font-size: 14px; font-weight: bold; border-bottom: 1px solid #ccc; height: 24px; line-height: 24px; padding-left: 15px; margin-bottom: 10px;} .Order table {margin-bottom: 10px; width: 100%; font-size: 12px;} .Order table th {text-align: right;} .Order table th,.Order table td {padding: 5px;} .Order table tr.Impro th,.Order table tr.Impro td {font-weight: bold; color: #cc0000;} .OrderTip {padding: 20px; line-height: 20px;}</style>	<h2 style="font-size: 14px; font-weight: bold; margin: 10px; margin-top: 60px;">亲爱的'.$order['nickname'].', 您好: </h2>	<div class="main" style="margin: 10px;">		<p class="FriendTip">			您在<a href="'.SITE_URL.'" target="_blank">元认知心理干预技术网</a>订购的课程购买成功		</p>		<div class="Order">			<h6>您的订单信息如下</h6>			<table>				<colgroup width="150px"></colgroup>				<tr><th>订单编号: </th><td>'.$order['order_number'].'</td></tr>				<tr><th>订购时间: </th><td>'.$order['request_time'].'</td></tr>				<tr><th>订购课程: </th><td>'.$order['name'].'</td></tr>				<tr class="Impro"><th>订单总计: </th><td>'.$order['price'].' 元</td></tr>				<tr><th>订单备注: </th><td>'.$order['comment'].'</td></tr>			</table>			<h6>汇款方式(请将费用转存到我们的帐号)</h6>			<table>				<colgroup width="150px"></colgroup>				<tr><th>开户行: </th><td>中国建设银行大连师大前储蓄所</td></tr>				<tr><th>帐号: </th><td>0782 0699 8013 0552 072</td></tr>				<tr><th>户名: </th><td>魏晓旭</td></tr>			</table>			<h6>联络及咨询方式</h6>			<table>				<colgroup width="150px"></colgroup>				<tr><th>联系人: </th><td>魏晓旭</td></tr>				<tr><th>联系电话: </th><td>15998660373</td></tr>			</table>		</div>		<p class="FriendTip OrderTip">			* 将您的汇款单号、所汇款项(课程名称)、真实姓名、联系电话、网站用户名等信息发至 yrzgy001@gmail.com<br /> 			* 或直接电话联系我们, 我们确认收到费用后, 将在三个工作日内为您开通课程并及时电话通知您。<br /> 		</p>	</div></body></html>';
 
                     //邮件发送代码
-                    $smtp = M("smtp")->field("email,host_name,password,sender")->where("is_used = 1")->order("custom_sort desc")->select();
+                    $smtp = M("smtp")->field("email,host_name,password,sender,pk")->where("is_used = 1")->order("custom_sort desc")->select();
                     foreach ($smtp as $m =>$k){
                         if (sendMail($order['email'],$mail_title,$mail_content,$k['host_name'],$k['email'],$k['password'],$k['email'],$k['sender'])){
+                            //记录邮件发送
+                            $sent_mail = M("sent_mail");
+                            $save['content'] = $mail_content;
+                            $save['sent_time'] = date("Y-m-d H:i:s");
+                            $save['title'] = $mail_title;
+                            $save['member_id'] = session("c_id");
+                            $save['smtp_id'] = $k['pk'];
+
+                            $sent_mail->add($save);
                             break;
                         }
                     }

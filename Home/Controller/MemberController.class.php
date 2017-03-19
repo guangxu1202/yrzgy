@@ -12,7 +12,8 @@ class MemberController extends CommonController {
                 $this -> assign("info",$info);
                 $this -> display();
         }else{
-            $this->error("请登录后在操作！",__MODULE__."/Index/login");
+            redirect(__MODULE__."/Index/login");
+            //$this->error("请登录后在操作！",__MODULE__."/Index/login");
         }
     }
 
@@ -49,7 +50,8 @@ class MemberController extends CommonController {
                 $this -> display();
             }
         }else{
-            $this->error("请登录后在操作！",__MODULE__."/Index/login");
+            redirect(__MODULE__."/Index/login");
+            //$this->error("请登录后在操作！",__MODULE__."/Index/login");
         }
 
     }
@@ -64,7 +66,8 @@ class MemberController extends CommonController {
             $this -> assign("info",$info);
             $this -> display();
         }else{
-            $this->error("请登录后在操作！",__MODULE__."/Index/login");
+            redirect(__MODULE__."/Index/login");
+            //$this->error("请登录后在操作！",__MODULE__."/Index/login");
         }
     }
 
@@ -135,7 +138,8 @@ class MemberController extends CommonController {
                 $this -> display();
             }
         }else{
-            $this->error("请登录后在操作！",__MODULE__."/Index/login");
+            redirect(__MODULE__."/Index/login");
+            //$this->error("请登录后在操作！",__MODULE__."/Index/login");
         }
 
     }
@@ -183,7 +187,8 @@ class MemberController extends CommonController {
                 $this -> display();
             }
         }else{
-            $this->error("请登录后在操作！",__MODULE__."/Index/login");
+            redirect(__MODULE__."/Index/login");
+            //$this->error("请登录后在操作！",__MODULE__."/Index/login");
         }
 
     }
@@ -213,7 +218,8 @@ class MemberController extends CommonController {
 
             $this->display();
         }else{
-            $this->error("请登录后在操作！",__MODULE__."/Index/login");
+            redirect(__MODULE__."/Index/login");
+            //$this->error("请登录后在操作！",__MODULE__."/Index/login");
         }
     }
 
@@ -230,7 +236,8 @@ class MemberController extends CommonController {
 
             $this->display();
         }else{
-            $this->error("请登录后在操作！",__MODULE__."/Index/login");
+            redirect(__MODULE__."/Index/login");
+            //$this->error("请登录后在操作！",__MODULE__."/Index/login");
         }
 
     }
@@ -243,7 +250,8 @@ class MemberController extends CommonController {
             $this -> assign("info",$info);
             $this->display();
         }else{
-            $this->error("请登录后在操作！",__MODULE__."/Index/login");
+            redirect(__MODULE__."/Index/login");
+            //$this->error("请登录后在操作！",__MODULE__."/Index/login");
         }
     }
 
@@ -258,7 +266,8 @@ class MemberController extends CommonController {
             $this -> assign("info2",$info2);
             $this->display();
         }else{
-            $this->error("请登录后在操作！",__MODULE__."/Index/login");
+            redirect(__MODULE__."/Index/login");
+            //$this->error("请登录后在操作！",__MODULE__."/Index/login");
         }
 
     }
@@ -299,7 +308,8 @@ class MemberController extends CommonController {
             }
 
         }else{
-            $this->error("请登录后在操作！",__MODULE__."/Index/login");
+            redirect(__MODULE__."/Index/login");
+            //$this->error("请登录后在操作！",__MODULE__."/Index/login");
         }
 
     }
@@ -319,9 +329,67 @@ class MemberController extends CommonController {
 
             $this->display();
         }else{
-            $this->error("请登录后在操作！",__MODULE__."/Index/login");
+            redirect(__MODULE__."/Index/login");
+            //$this->error("请登录后在操作！",__MODULE__."/Index/login");
         }
-
     }
+
+    //订单详情
+    function orderDetail(){
+        if (session("?c_id")){
+            $model =M("video_order");
+            if ($model->where("pk=".I("get.u")) ->find() == null){
+                $this->error("页面无法访问！");
+            }else{
+                if (!empty($_POST)) {
+
+                    //实例化
+                    $model = new \Model\Video_orderModel();
+                    //验证数据 Video_orderModel
+                    $z = $model -> create();
+                    if (!$z){
+                        //show_bug($model -> getError());
+                        $this->error("您录入的数据格式错误！");
+                        exit();
+                    }
+                    $log["comment"] = I("post.comment");
+                    $model->  where("pk=".I('post.pk'))  ->setField($log);
+
+                    //录入成功
+                    $this->success("恭喜您，备注修改成功！");
+
+                }else{
+                    $info = $model->field("a.*,b.name")->join("as a left join video_category as b on a.video_category_id = b.pk")->where("a.pk=".I("get.u")) ->find();
+                    $this->assign('info', $info);
+                    $this->display();
+                }
+
+            }
+        }else{
+            redirect(__MODULE__."/Index/login");
+            //$this->error("请登录后在操作！",__MODULE__."/Index/login");
+        }
+    }
+
+    //我的课程
+    function myCourse(){
+        if (session("?c_id")){
+            $model =M("video_limit");
+            $member = session("c_id");
+//            $member = 2;
+            $course = $model->distinct(true)->join("as a LEFT JOIN video_category as b on a.video_category_id = b.pk ")->field("a.video_category_id,b.name")->where("member_id=".$member) -> select();
+            foreach ($course as $k =>$m){
+                $info[$k]['name'] = $m["name"];
+                $info[$k]['sub'] = $model->join("as a left join video as b on a.video_id = b.pk")->field("a.limit_count,a.current_count,b.title,b.pk")->where("a.member_id = ".$member." and a.video_category_id=".$m["video_category_id"])->select();
+            }
+
+            $this->assign('info', $info);// 赋值分页输出
+            $this->display();
+        }else{
+            redirect(__MODULE__."/Index/login");
+            //$this->error("请登录后在操作！",__MODULE__."/Index/login");
+        }
+    }
+
 
 }

@@ -1,0 +1,79 @@
+<extend name="./base" />
+<block name="title">
+    <title>我的课程 - 个人中心 - 元认知心理干预技术网</title>
+    <meta name="keywords" content="{$Think.config.KEYWORDS}"/>
+    <meta name="description" content="{$Think.config.DESCRIPTION}"/>
+</block>
+
+<block name="content">
+
+
+<div class="container i-container">
+    <div class="Statu">您的位置：<a href="{$Think.const.SITE_URL}">首页</a> &gt;&gt; <a href="__MODULE__/Member/main">个人中心</a>  &gt;&gt; 我的课程</div>
+</div>
+
+<div class="container i-container">
+    <div class="MCenter clearfix">
+        <div class="row">
+            <div class="col-sm-3">
+                <div class="MCleft">
+                    <include file="./member_left" />
+                </div>
+            </div>
+
+            <div class=" col-sm-9">
+                <div class="MCmain">
+                    <div class="person-wrap">
+
+                        <h5>我的课程</h5>
+                        <volist name="info" id="vo" key="k">
+                            <div class="course-wrap">
+                                <div class="course-title">{$vo.name}</div>
+                                <table class="">
+                                    <colgroup width="400px"></colgroup>
+                                    <colgroup width="50px"></colgroup>
+                                    <colgroup width="50px"></colgroup>
+                                    <thead>
+                                        <tr>
+                                            <td>课程名称</td>
+                                            <td>限制次数</td>
+                                            <td>剩余次数</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <volist name="info[$k-1]['sub']" id="v">
+                                            <tr>
+                                                <th><a href="__MODULE__/Video/show/u/{$v.pk}">{$v.title}</a> </th>
+                                                <td>{$v.limit_count}</td>
+                                                <td>{$v['limit_count']-$v['current_count']}</td>
+                                            </tr>
+                                        </volist>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </volist>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+</block>
+
+
+<block name="public">
+    <script>
+        //导航位置
+        var module = "Member";
+        var pnArr = window.location.pathname.split("/");
+        var pnArrNumber = $.inArray(module,pnArr);
+        $(".MCleft li").each(function () {
+            if (!!$(this).attr("data-pn") && $(this).attr("data-pn").indexOf("|"+pnArr[pnArrNumber+1]+"|") >= 0){
+                $(this).addClass("checked");
+            }
+        })
+    </script>
+
+</block>

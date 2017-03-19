@@ -29,14 +29,15 @@
                         <span>更新日期：{$info['update_time']|substr=0,10}</span>
                         发布人：{$info['author']}
                         <present name="limit['count']">
-                            <em>剩余次数：{$limit['count']}</em>
+                            <em style="color: #cc0000;">剩余观看次数：{$limit['count']} 次</em>
+                            (请不要做无意义点击)
                         </present>
                     </div>
 
                     <if condition="$limit['tips'] eq 1">
-                        <div id="jp_container_1" class="jp-video" role="application" aria-label="media player">
+                        <div id="jp_wrap" class="jp-video" role="application" aria-label="media player">
                             <div class="jp-type-single">
-                                <div id="jquery_jplayer_1" class="jp-jplayer"></div>
+                                <div id="main-player" class="jp-jplayer"></div>
                                 <div class="jp-gui">
                                     <div class="jp-video-play">
                                         <button class="jp-video-play-icon" role="button" tabindex="0">play</button>
@@ -108,6 +109,9 @@
                                         <else/>
                                         <a href="__MODULE__/Video/show/u/{$vo.pk}" target="_blank">{$vo.title}</a>
                                     </if>
+                                    <if condition="$vo['is_free'] eq 1">
+                                        <span class="video-free">免费</span>
+                                    </if>
                                 </li>
                             </volist>
                         </ul>
@@ -142,33 +146,60 @@
     <script type="text/javascript">
         //<![CDATA[
         $(document).ready(function(){
-
-            $("#jquery_jplayer_1").jPlayer({
+            $("#main-player").jPlayer({
                 ready: function () {
                     $(this).jPlayer("setMedia", {
                         //title: "Big Buck Bunny",
-//                        m4v: "http://www.jplayer.org/video/m4v/Big_Buck_Bunny_Trailer.m4v",
-//                        ogv: "http://www.jplayer.org/video/ogv/Big_Buck_Bunny_Trailer.ogv",
-//                        webmv: "http://www.jplayer.org/video/webm/Big_Buck_Bunny_Trailer.webm"
-                        //poster: "http://www.jplayer.org/video/poster/Big_Buck_Bunny_Trailer_480x270.png"
-                        flv:"{$Think.const.UPLOAD_URL}/videos/{$info['video_path']}"
+                        m4v:"{$Think.const.UPLOAD_URL}/videos/{$info['video_path']}",
+                        poster: "{$Think.const.PUBLIC_URL}/web/images/videoImg.jpg"
                     });
                 },
                 swfPath: "{$Think.const.PUBLIC_URL}/jplayer/dist/jplayer",
-                supplied: "webmv, ogv, m4v, mp4",
-                size: {
-//                    cssClass: "jp-video"
-                },
+                supplied: "webmv, ogv, m4v ",
+                cssSelectorAncestor: "#jp_wrap",
                 useStateClassSkin: true,
                 autoBlur: false,
                 smoothPlayBar: true,
                 keyEnabled: true,
                 remainingDuration: true,
                 toggleDuration: true
+            }).on($.jPlayer.event.play, function(e){
+                sendmsg();
             });
-
         });
         //]]>
     </script>
+
+    <present name="limit['count']">
+        <script>
+            var coll = false;
+            function sendmsg(){
+                if (!coll){
+                    $.ajax({
+                        async : false,
+                        dataType : "json",
+                        type : "POST",
+                        data : {
+                            va : {$info["pk"]},
+                            ca : {$limit["current_count"]}
+                        },
+                        url : "__MODULE__/Video/limit",
+                        success : function(data) {
+                            if (data['status']){
+                                coll = true;
+                            }else{
+                                $.jPlayer.pause();
+                            }
+                        },
+                        error : function() {
+                        }
+                    });
+                }
+            }
+        </script>
+    </present>
+    <notpresent name="limit['count']">
+        <script>function sendmsg(){}</script>
+    </notpresent>
 </if>
 </block>

@@ -1,0 +1,150 @@
+<extend name="./base" />
+<block name="title"><title>修改 - 视频分配信息 - 视频学习管理 - 元认知干预网站管理后台系统</title></block>
+<block name="content">
+    <div class="breadcrumbs" id="breadcrumbs">
+        <script type="text/javascript">
+            try{ace.settings.check('breadcrumbs' , 'fixed')}catch(e){}
+        </script>
+        <ul class="breadcrumb">
+            <li>
+                <i class="icon-home home-icon"></i>
+                <a href="#">首页</a>
+            </li>
+            <li class="active">视频学习管理</li>
+        </ul><!-- .breadcrumb -->
+
+    </div>
+
+    <div class="page-content">
+        <div class="page-header">
+            <h1>
+                视频分配信息
+                <small>
+                    <i class="icon-double-angle-right"></i>
+                    修改
+                </small>
+            </h1>
+        </div><!-- /.page-header -->
+        <div class="row">
+            <div class="col-xs-12">
+                <form class="form-horizontal" id="myForm" method="post" action="__SELF__">
+                    <input type="hidden" name="member_id" value="{$info['member_id']}">
+                    <input type="hidden" name="video_id" value="{$info['video_id']}">
+                    <input type="hidden" name="video_category_id" value="{$info['video_category_id']}">
+                    <table class="Edit">
+                        <colgroup width="130px"></colgroup>
+                        <tbody>
+                        <tr>
+                            <th>会员名： </th>
+                            <td>{$info['username']}</td>
+                        </tr>
+                        <tr>
+                            <th>会员昵称： </th>
+                            <td>{$info['nickname']}</td>
+                        </tr>
+                        <tr>
+                            <th>会员电话： </th>
+                            <td>{$info['mobile']}</td>
+                        </tr>
+                        <tr>
+                            <th>课程名： </th>
+                            <td>{$info['name']}</td>
+                        </tr>
+                        <tr>
+                            <th>视频名称： </th>
+                            <td>{$info['title']}</td>
+                        </tr>
+                        <tr>
+                            <th>已使用次数： </th>
+                            <td>{$info['current_count']} 次</td>
+                        </tr>
+                        <tr>
+                            <th>剩余次数： </th>
+                            <td>{$info['limit_count']-$info['current_count']} 次</td>
+                        </tr>
+                        <tr>
+                            <th>设置分配次数： </th>
+                            <td>
+                                <div class="col-lg-12">
+                                    <div class="form-group">
+                                        <div class="form-info">
+                                            <input type="text" value="{$info['limit_count']}" name="count"> 次
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+
+
+                    <div class="space-4"></div>
+                    <div class="clearfix form-actions">
+                        <div class="col-md-offset-3 col-md-9">
+                            <div class="row">
+                                <button class="btn btn-info b-submit" type="submit">
+                                    <i class="icon-ok bigger-110"></i>
+                                    修改
+                                </button>
+                                <button class="btn" type="button" onclick="javascript:location.href='__MODULE__/Video/infoList'">返回</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+
+
+            </div>
+        </div>
+
+    </div>
+</block>
+
+<block name="public">
+
+    <!-- inline scripts related to this page -->
+
+
+    <script src="{$Think.const.ADMIN_URL}/js/admin.js"></script>
+    <script type="text/javascript">
+
+        $(function(){
+
+            $('#myForm')
+            .bootstrapValidator({
+                message: 'This value is not valid',
+                feedbackIcons: {
+                    valid: 'glyphicon glyphicon-ok',
+                    invalid: 'glyphicon glyphicon-remove',
+                    validating: 'glyphicon glyphicon-refresh'
+                },
+                excluded:[":disabled"],
+                fields: {
+                    count: {
+                        validators: {
+                            notEmpty: {
+                                message: '分配次数不能为空'
+                            },
+                            digits :  {
+                                message: '分配次数只能输入整数'
+                            }
+                        }
+                    }
+                },
+                submitHandler: function(validator, form, submitButton) {
+                    // a)
+                    // Use Ajax to submit form data
+                    //$.post(form.attr('action'), form.serialize(), function(result) {
+                    // ... process the result ...
+                    //}, 'json');
+
+                    //b)
+                    // Do your task
+                    // ...
+                    // Submit the form
+                    validator.defaultSubmit();
+                }
+
+            });
+        })
+    </script>
+</block>

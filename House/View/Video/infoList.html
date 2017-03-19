@@ -1,9 +1,9 @@
 <extend name="./base" />
-<block name="title"><title>已发邮件列表 - 邮件管理 - 元认知干预网站管理后台系统</title></block>
+<block name="title"><title>视频分配信息 - 视频学习管理 - 元认知干预网站管理后台系统</title></block>
 <block name="content">
     <div class="breadcrumbs" id="breadcrumbs">
         <script type="text/javascript">
-            try{ace.Mails.check('breadcrumbs' , 'fixed')}catch(e){}
+            try{ace.settings.check('breadcrumbs' , 'fixed')}catch(e){}
         </script>
 
         <ul class="breadcrumb">
@@ -11,7 +11,7 @@
                 <i class="icon-home home-icon"></i>
                 <a href="#">首页</a>
             </li>
-            <li class="active">邮件管理</li>
+            <li class="active">视频学习管理</li>
         </ul><!-- .breadcrumb -->
 
     </div>
@@ -19,10 +19,10 @@
     <div class="page-content">
         <div class="page-header">
             <h1>
-                已发邮件列表
+                视频分配信息
                 <small>
                     <i class="icon-double-angle-right"></i>
-                    列表(前500条)
+                    列表
                 </small>
             </h1>
         </div><!-- /.page-header -->
@@ -40,13 +40,11 @@
                             <th class="center">
                                 序号
                             </th>
-                            <th>收件人昵称</th>
-                            <th>收件人邮箱</th>
-                            <th>发送邮箱</th>
-                            <th>邮件标题</th>
-                            <th>发送人</th>
-                            <th>操作人</th>
-                            <th>发送时间</th>
+                            <th>会员名</th>
+                            <th>会员昵称</th>
+                            <th>视频名称</th>
+                            <th>分配次数</th>
+                            <th>剩余次数</th>
                             <th>操作</th>
                         </tr>
                         </thead>
@@ -54,23 +52,22 @@
                         <tbody>
                         <volist name="info" id="vo">
                             <tr>
-                                <td class="center">{$i}</td>
-                                <td style="max-width: 150px;">{$vo.nickname}</td>
-                                <td>{$vo.email}</td>
-                                <td>{$vo.send_mail}</td>
-                                <td style="max-width: 230px;">{$vo.title}</td>
-                                <td>{$vo.sender}</td>
+                                <td class="center" >{$i}</td>
+                                <td>{$vo.username}</td>
+                                <td>{$vo.nickname}</td>
+                                <td>{$vo.title}</td>
+                                <td>{$vo.limit_count}</td>
                                 <td>
-                                    <if condition="$vo.real_name eq '' ">
-                                        系统发送
-                                        <else />
-                                        {$vo.real_name}
+                                    <if condition="$vo['limit_count']-$vo['current_count'] lt 0 ">
+                                        0
+                                        <else/>
+                                        {$vo['limit_count']-$vo['current_count']}
                                     </if>
+
                                 </td>
-                                <td>{$vo.sent_time|substr=0,10}</td>
                                 <td>
                                     <div class="visible-md visible-lg hidden-sm hidden-xs action-buttons">
-                                        <a href="__MODULE__/Mail/historyShow/pa/{$vo.pk}" data-id="{$vo.pk}">详细</a>
+                                        <a href="__MODULE__/Video/infoEdit/m/{$vo.member_id}/v/{$vo.video_id}" data-id="{$vo.pk}">修改分配次数</a>
                                     </div>
                                 </td>
                             </tr>
@@ -96,7 +93,7 @@
             var oTable1 = $('#sample-table-2').dataTable( {
                 "aoColumns": [
                     { "bSortable": false },
-                    null, null,null, null, null, null, null,
+                    null, null,null, null, null,
                     { "bSortable": false }
                 ] ,
                 "oLanguage" : {
@@ -132,6 +129,19 @@
             }
 
         })
-
+        //锁定与解锁
+        $(".lock-btn").click(function(){
+            var that = this;
+            if ($(that).attr("data-statu")=="lock"){
+                var str = "确定要作废这个订单吗？作废后订单将失效！";
+            }else{
+                var str = "确定要恢复这个订单吗？回复后该订单将变成未审核状态！";
+            }
+            bootbox.confirm(str, function(result) {
+                if(result) {
+                    location.href ="__MODULE__/Video/orderLocked/pa/"+$(that).attr("data-id")+"/sa/"+$(that).attr("data-statu");
+                }
+            });
+        });
     </script>
 </block>

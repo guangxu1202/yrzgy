@@ -33,11 +33,11 @@
                                         [{$vo.order_number}] {$vo.name}
                                     </a>
                                     <if condition="$vo.status eq 0">
-                                        <em class="grey">待付款</em>
+                                        <em class="red">待付款</em>
                                         <elseif condition="$vo.status eq 1"/>
                                         <em class="green">已付款</em>
                                         <else/>
-                                        <em>已作废</em>
+                                        <em class="grey">已作废</em>
                                     </if>
                                 </li>
                             </volist>

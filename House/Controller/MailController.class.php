@@ -118,7 +118,7 @@ class MailController extends CommonController{
     //列表
     function historyList(){
         $user = M("sent_mail");
-        $info = $user ->field("m.nickname,m.email,p.email as send_mail,sent_mail.title,p.sender,u.real_name,sent_mail.sent_time,sent_mail.pk") ->join("LEFT JOIN member AS m ON sent_mail.member_id = m.pk LEFT JOIN smtp as p ON sent_mail.smtp_id = p.pk LEFT JOIN `user` AS u ON sent_mail.user_id = u.pk") ->order("sent_mail.sent_time desc") -> select();
+        $info = $user ->field("m.nickname,m.email,p.email as send_mail,sent_mail.title,p.sender,u.real_name,sent_mail.sent_time,sent_mail.pk") ->join("LEFT JOIN member AS m ON sent_mail.member_id = m.pk LEFT JOIN smtp as p ON sent_mail.smtp_id = p.pk LEFT JOIN `user` AS u ON sent_mail.user_id = u.pk") ->order("sent_mail.sent_time desc")->limit(500) -> select();
         //show_bug($info);
         $this -> assign("info",$info);
         $this -> display();
