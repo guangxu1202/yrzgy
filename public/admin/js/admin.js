@@ -1,7 +1,8 @@
 $(function(){
     //获取左侧菜单定位
     var pnArr = window.location.pathname.split("/");
-    var pnArrNumber = $.inArray("House", pnArr);
+
+    var pnArrNumber = $.inArray("house", pnArr) > -1 ? $.inArray("house", pnArr) :  $.inArray("House", pnArr);
     $('.dropdown-toggle').each(function () {
         if ($(this).attr("data-pn") == pnArr[pnArrNumber+1]){
             $(this).click();

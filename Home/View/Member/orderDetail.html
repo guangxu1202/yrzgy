@@ -57,7 +57,15 @@
                                             <form id="video-order" name="video-order" action="__SELF__" method="post">
                                                 <input type="hidden" name="pk" value="{$info['pk']}">
                                                 <textarea id="comment" name="comment" class="t" placeholder="建议您留下联系方式，方便我们联系您!" >{$info['comment']}</textarea>
+                                                <br>
+                                                <dl class="clearfix" style="max-width: 500px; margin-bottom: 10px;margin-top: 5px; ">
+                                                    <dd>
+                                                        <input type="text" class="linput verify" id="human" style="float:left; width:36%; border:1px solid #ccc; padding:8px 5px;" name="verify" placeholder="验证码"  />
+                                                        <img src="__MODULE__/index/verifyImg" onclick="reloadcode(this,'__MODULE__/index/verifyImg?')" alt="点击重新刷新" title="点击重新刷新" style=" width: 145px; margin-left:10px; float:left; cursor: pointer;">
+                                                    </dd>
+                                                </dl>
                                                 <button class="btn-green" type="button" onclick="check();">修改备注</button>
+                                                <p class="red" style="margin-bottom: 0;">{$verinfo.ver}</p>
                                             </form>
                                             <else/>
                                             <p>{$info['comment']}</p>
@@ -111,6 +119,11 @@
             if ($("#comment").val().length > 200) {
                 alert("购买留言最多能输入 200 个字符, 您已经输入 [ " + $("#comment").val().length + " ] 个字符,\n请稍做修改在提交.");
                 return false;
+            }
+            if (null == $("#human").val() || "" == $("#human").val()) {
+                alert("请输入验证码.");
+                $("#human").focus();
+                return;
             }
             $("#video-order").submit();
         };

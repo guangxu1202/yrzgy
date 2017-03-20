@@ -204,7 +204,7 @@ class IndexController extends CommonController {
 
                 //邮件内容配置
                 $mail_title = I("post.nickname")."欢迎来到元认知心理干预技术网";
-                $mail_content = '<html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>元认知心理干预技术注册成功</title></head><body><style>.FriendTip {border: 1px solid #FCDC89; margin-bottom: 10px; padding-left: 15px; line-height: 30px; color: #e92201; background-color: #FDF5DB; font-size: 12px;}.Order {padding: 10px; background-color: #e2ffc6; border: 1px solid #a1ff45; margin-bottom: 10px;}.Order h6 {font-size: 14px; font-weight: bold; border-bottom: 1px solid #ccc; height: 24px; line-height: 24px; padding-left: 15px; margin-bottom: 10px;}.Order table {margin-bottom: 10px; width: 100%; font-size: 12px;}.Order table th {text-align: right;}.Order table th,.Order table td {padding: 5px;}</style>	<h2 style="font-size: 14px; font-weight: bold; margin: 10px; margin-top: 60px;">亲爱的'.I("post.nickname").', 您好:</h2>	<div class="main" style="margin: 10px;">		<p class="FriendTip">			欢迎来到<a href="'.SITE_URL.'" target="_blank">元认知心理干预技术网</a>.		</p>		<div class="Order">			<h6>我们很高兴通知您, 您已经是<a href="'.SITE_URL.'" target="_blank">元认知心理干预技术网</a>的会员了.</h6>			<h6>您的帐号信息如下</h6>			<table>				<colgroup width="150px"></colgroup>				<tr><th>帐号：</th><td>'.I("post.username").'</td></tr>				<tr><th>密码：</th><td>'.I("post.password").'</td></tr>			</table>			<h6>欢迎<a href="'.SITE_URL.'/Home/Index/login" target="_blank">登录</a><a href="'.SITE_URL.'" target="_blank">元认知心理干预技术网</a>, 您可以在<a href="'.SITE_URL.'/Home/Member/baseEdit" target="_blank">个人中心</a>里修改个人信息.</h6>		</div>		<p class="FriendTip">			中国元认知心理干预技术研究所是在辽宁师范大学金洪源教授创立的元认知心理干预技术及其理论的专业基础上创立的科研、技术推广与社会服务为主要任务与功能的心理学专业机构。			目前, 本研究所从管理干部到每一位专业技术人员, 都是金洪源教授亲自培养并毕业获得硕士学位的研究生。他们共同怀着深入研发、完善元认知心理干预技术的决心, 以越来越高效和越来越多功...			<a href="'.SITE_URL.'/Home/System/introduction">[详细]</a>		</p>	</div></body></html>';
+                $mail_content = '<html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>元认知心理干预技术注册成功</title></head><body><style>.FriendTip {border: 1px solid #FCDC89; margin-bottom: 10px; padding-left: 15px; line-height: 30px; color: #e92201; background-color: #FDF5DB; font-size: 12px;}.Order {padding: 10px; background-color: #e2ffc6; border: 1px solid #a1ff45; margin-bottom: 10px;}.Order h6 {font-size: 14px; font-weight: bold; border-bottom: 1px solid #ccc; height: 24px; line-height: 24px; padding-left: 15px; margin-bottom: 10px;}.Order table {margin-bottom: 10px; width: 100%; font-size: 12px;}.Order table th {text-align: right;}.Order table th,.Order table td {padding: 5px;}</style>	<h2 style="font-size: 14px; font-weight: bold; margin: 10px; margin-top: 60px;">亲爱的'.I("post.nickname").', 您好:</h2>	<div class="main" style="margin: 10px;">		<p class="FriendTip">			欢迎来到<a href="'.SITE_URL.'" target="_blank">元认知心理干预技术网</a>.		</p>		<div class="Order">			<h6>我们很高兴通知您, 您已经是<a href="'.SITE_URL.'" target="_blank">元认知心理干预技术网</a>的会员了.</h6>			<h6>您的帐号信息如下</h6>			<table>				<colgroup width="150px"></colgroup>				<tr><th>帐号：</th><td>'.I("post.username").'</td></tr>			</table>			<h6>欢迎<a href="'.SITE_URL.'/Home/Index/login" target="_blank">登录</a><a href="'.SITE_URL.'" target="_blank">元认知心理干预技术网</a>, 您可以在<a href="'.SITE_URL.'/Home/Member/baseEdit" target="_blank">个人中心</a>里修改个人信息.</h6>		</div>		<p class="FriendTip">			中国元认知心理干预技术研究所是在辽宁师范大学金洪源教授创立的元认知心理干预技术及其理论的专业基础上创立的科研、技术推广与社会服务为主要任务与功能的心理学专业机构。			目前, 本研究所从管理干部到每一位专业技术人员, 都是金洪源教授亲自培养并毕业获得硕士学位的研究生。他们共同怀着深入研发、完善元认知心理干预技术的决心, 以越来越高效和越来越多功...			<a href="'.SITE_URL.'/Home/System/introduction">[详细]</a>		</p>	</div></body></html>';
 
                 //邮件发送代码
                 $smtp = M("smtp")->field("email,host_name,password,sender,pk")->where("is_used = 1")->order("custom_sort desc")->select();
@@ -378,43 +378,56 @@ class IndexController extends CommonController {
         }else{
             //正确的重置密码链接
             if (!empty($_POST)){
+
+
                 //验证码校验
-                if (I("password")!=''){
-
-                    $log["activation_code"] = sha1(date("Y-m-d H:i:s").rand(1,999));
-                    $log["password"] = sha1(I("post.password"));
-                    $member->where('pk = '.$check['pk'])->save($log); // 根据条件更新记录
-
-
-                    //邮件内容配置
-                    $mail_title = "元认知心理干预技术网新密码";
-                    $mail_content = '<html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>密码重置成功</title></head><body><style>.FriendTip {border: 1px solid #FCDC89; margin-bottom: 10px; padding-left: 15px; line-height: 30px; color: #e92201; background-color: #FDF5DB; font-size: 12px;}.Order {padding: 10px; background-color: #e2ffc6; border: 1px solid #a1ff45; margin-bottom: 10px;}.Order h6 {font-size: 14px; font-weight: bold; border-bottom: 1px solid #ccc; height: 24px; line-height: 24px; padding-left: 15px; margin-bottom: 10px;}.Order table {margin-bottom: 10px; width: 100%; font-size: 12px;}.Order table th {text-align: right;}.Order table th,.Order table td {padding: 5px;}</style>	<h2 style="font-size: 14px; font-weight: bold; margin: 10px; margin-top: 60px;">亲爱的蛔蛔, 您好:</h2>	<div class="main" style="margin: 10px;">		<p class="FriendTip">			您在<a href="'.SITE_URL.'" target="_blank">元认知心理干预技术网</a>的密码已经重置, 再次登录请使用新密码.		</p>		<div class="Order">			<h6>您的帐号信息如下</h6>			<table>				<colgroup width="150px"></colgroup>				<tr><th>帐号：</th><td>'.$check['username'].'</td></tr>				<tr><th>密码：</th><td>'.I("post.password").'</td></tr>			</table>			<h6>欢迎<a href="'.SITE_URL.'/Home/Index/login" target="_blank">登录</a><a href="'.SITE_URL.'" target="_blank">元认知心理干预技术网</a>, 您可以在<a href="'.SITE_URL.'/Home/Member/baseEdit" target="_blank">个人中心</a>里修改密码.</h6>		</div>		<p class="FriendTip">			中国元认知心理干预技术研究所是在辽宁师范大学金洪源教授创立的元认知心理干预技术及其理论的专业基础上创立的科研、技术推广与社会服务为主要任务与功能的心理学专业机构。			目前, 本研究所从管理干部到每一位专业技术人员, 都是金洪源教授亲自培养并毕业获得硕士学位的研究生。他们共同怀着深入研发、完善元认知心理干预技术的决心, 以越来越高效和越来越多功...			<a href="'.SITE_URL.'/Home/System/introduction">[详细]</a>		</p>	</div></body></html>';
-
-                    //邮件发送代码
-                    $smtp = M("smtp")->field("email,host_name,password,sender,pk")->where("is_used = 1")->order("custom_sort desc")->select();
-                    foreach ($smtp as $m =>$k){
-                        if (sendMail($check['email'],$mail_title,$mail_content,$k['host_name'],$k['email'],$k['password'],$k['email'],$k['sender'])){
-                            //记录邮件发送
-                            $sent_mail = M("sent_mail");
-                            $save['content'] = $mail_content;
-                            $save['sent_time'] = date("Y-m-d H:i:s");
-                            $save['title'] = $mail_title;
-                            $save['member_id'] = $check['pk'];
-                            $save['smtp_id'] = $k['pk'];
-                            $sent_mail->add($save);
-                            break;
-                        }
-                    }
-
-                    $this -> success("密码重置成功！",__MODULE__."/Index/resetTip");
-
+                $verify = new \Think\Verify();
+                if (!$verify->check(I("post.verify"))){
+                    $verinfo = "验证码错误！";
+                    $info["password"] = I("post.password");
+                    $info["ver"] = $verinfo;
+                    $this->assign('verinfo',$info);
                 }else{
-                    $this -> error("您的操作有误，请重新检查！");
+                    if (I("password")!=''){
+
+                        $log["activation_code"] = sha1(date("Y-m-d H:i:s").rand(1,999));
+                        $log["password"] = sha1(I("post.password"));
+                        $member->where('pk = '.$check['pk'])->save($log); // 根据条件更新记录
+
+
+                        //邮件内容配置
+                        $mail_title = "元认知心理干预技术网新密码";
+                        $mail_content = '<html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>密码重置成功</title></head><body><style>.FriendTip {border: 1px solid #FCDC89; margin-bottom: 10px; padding-left: 15px; line-height: 30px; color: #e92201; background-color: #FDF5DB; font-size: 12px;}.Order {padding: 10px; background-color: #e2ffc6; border: 1px solid #a1ff45; margin-bottom: 10px;}.Order h6 {font-size: 14px; font-weight: bold; border-bottom: 1px solid #ccc; height: 24px; line-height: 24px; padding-left: 15px; margin-bottom: 10px;}.Order table {margin-bottom: 10px; width: 100%; font-size: 12px;}.Order table th {text-align: right;}.Order table th,.Order table td {padding: 5px;}</style>	<h2 style="font-size: 14px; font-weight: bold; margin: 10px; margin-top: 60px;">亲爱的蛔蛔, 您好:</h2>	<div class="main" style="margin: 10px;">		<p class="FriendTip">			您在<a href="'.SITE_URL.'" target="_blank">元认知心理干预技术网</a>的密码已经重置, 再次登录请使用新密码.		</p>		<div class="Order">			<h6>您的帐号信息如下</h6>			<table>				<colgroup width="150px"></colgroup>				<tr><th>帐号：</th><td>'.$check['username'].'</td></tr>			</table>			<h6>欢迎<a href="'.SITE_URL.'/Home/Index/login" target="_blank">登录</a><a href="'.SITE_URL.'" target="_blank">元认知心理干预技术网</a>, 您可以在<a href="'.SITE_URL.'/Home/Member/baseEdit" target="_blank">个人中心</a>里修改密码.</h6>		</div>		<p class="FriendTip">			中国元认知心理干预技术研究所是在辽宁师范大学金洪源教授创立的元认知心理干预技术及其理论的专业基础上创立的科研、技术推广与社会服务为主要任务与功能的心理学专业机构。			目前, 本研究所从管理干部到每一位专业技术人员, 都是金洪源教授亲自培养并毕业获得硕士学位的研究生。他们共同怀着深入研发、完善元认知心理干预技术的决心, 以越来越高效和越来越多功...			<a href="'.SITE_URL.'/Home/System/introduction">[详细]</a>		</p>	</div></body></html>';
+
+                        //邮件发送代码
+                        $smtp = M("smtp")->field("email,host_name,password,sender,pk")->where("is_used = 1")->order("custom_sort desc")->select();
+                        foreach ($smtp as $m =>$k){
+                            if (sendMail($check['email'],$mail_title,$mail_content,$k['host_name'],$k['email'],$k['password'],$k['email'],$k['sender'])){
+                                //记录邮件发送
+                                $sent_mail = M("sent_mail");
+                                $save['content'] = $mail_content;
+                                $save['sent_time'] = date("Y-m-d H:i:s");
+                                $save['title'] = $mail_title;
+                                $save['member_id'] = $check['pk'];
+                                $save['smtp_id'] = $k['pk'];
+                                $sent_mail->add($save);
+                                break;
+                            }
+                        }
+
+                        $this -> success("密码重置成功！",__MODULE__."/Index/resetTip");
+                        exit();
+
+                    }else{
+                        $this -> error("您的操作有误，请重新检查！");
+                        exit();
+                    }
                 }
-            }else{
-                $this -> assign("info",$check);
-                $this->display();
+
+
             }
+            $this -> assign("info",$check);
+            $this->display();
         }
 
 

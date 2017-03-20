@@ -343,26 +343,37 @@ class MemberController extends CommonController {
             }else{
                 if (!empty($_POST)) {
 
-                    //实例化
-                    $model = new \Model\Video_orderModel();
-                    //验证数据 Video_orderModel
-                    $z = $model -> create();
-                    if (!$z){
-                        //show_bug($model -> getError());
-                        $this->error("您录入的数据格式错误！");
+
+                    //验证码校验
+                    $verify = new \Think\Verify();
+                    if (!$verify->check(I("post.verify"))){
+                        $verinfo = "验证码错误！";
+                        $info["password"] = I("post.password");
+                        $info["ver"] = $verinfo;
+                        $this->assign('verinfo',$info);
+                    }else{
+
+                        //实例化
+                        $model = new \Model\Video_orderModel();
+                        //验证数据 Video_orderModel
+                        $z = $model -> create();
+                        if (!$z){
+                            //show_bug($model -> getError());
+                            $this->error("您录入的数据格式错误！");
+                            exit();
+                        }
+                        $log["comment"] = I("post.comment");
+                        $model->  where("pk=".I('post.pk'))  ->setField($log);
+
+                        //录入成功
+                        $this->success("恭喜您，备注修改成功！");
                         exit();
                     }
-                    $log["comment"] = I("post.comment");
-                    $model->  where("pk=".I('post.pk'))  ->setField($log);
-
-                    //录入成功
-                    $this->success("恭喜您，备注修改成功！");
-
-                }else{
-                    $info = $model->field("a.*,b.name")->join("as a left join video_category as b on a.video_category_id = b.pk")->where("a.pk=".I("get.u")) ->find();
-                    $this->assign('info', $info);
-                    $this->display();
                 }
+
+                $info = $model->field("a.*,b.name")->join("as a left join video_category as b on a.video_category_id = b.pk")->where("a.pk=".I("get.u")) ->find();
+                $this->assign('info', $info);
+                $this->display();
 
             }
         }else{

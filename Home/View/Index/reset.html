@@ -25,11 +25,18 @@
                 </dl>
                 <dl class="clearfix" style="max-width: 500px;">
                     <dt>新密码:</dt>
-                    <dd><input name="password" type="password" id="password" placeholder="请输入您的新密码" /></dd>
+                    <dd><input name="password" type="password" id="password" style="width:80%;" placeholder="请输入您的新密码" /></dd>
                 </dl>
                 <dl class="clearfix" style="max-width: 500px;">
                     <dt>重复密码:</dt>
-                    <dd><input name="repassword" type="password" id="repassword" placeholder="请再次输入您的新密码" /></dd>
+                    <dd><input name="repassword" type="password" id="repassword" style="width:80%;" placeholder="请再次输入您的新密码" /></dd>
+                </dl>
+                <dl class="clearfix" style="max-width: 500px;">
+                    <dt>验证码:</dt>
+                    <dd>
+                        <input type="text" class="linput verify" id="human" style="float:left; width:36%;" name="verify" placeholder="验证码"  onkeydown='if(event.keyCode==13){login();}'  />
+                        <img src="__MODULE__/index/verifyImg" onclick="reloadcode(this,'__MODULE__/index/verifyImg?')" alt="点击重新刷新" title="点击重新刷新" style=" width: 145px; margin-left:10px; float:left; cursor: pointer;">
+                    </dd>
                 </dl>
                 <dl class="BtnSubmit clearfix" style="max-width: 500px;">
                     <dt>&nbsp;</dt>
@@ -37,7 +44,12 @@
                         <button class="btn-green" type="button" onclick="login();">提交</button>
                     </dd>
                 </dl>
-
+                <dl class=" clearfix"  style="max-width: 500px;min-height: 20px;">
+                    <dt>&nbsp;</dt>
+                    <dd>
+                        <p class="red" style="margin-bottom: 0;">{$verinfo.ver}</p>
+                    </dd>
+                </dl>
 
             </form>
         </div>
@@ -68,6 +80,11 @@
         if ($("#password").val() != $("#repassword").val()){
             alert("两次密码不一致，请重新输入.");
             $("#repassword").focus();
+            return;
+        }
+        if (null == $("#human").val() || "" == $("#human").val()) {
+            alert("请输入验证码.");
+            $("#human").focus();
             return;
         }
         $("body").append('<div class="filter"></div><div class="pop-tips">正在生成新密码，请耐心等待...</div>');
